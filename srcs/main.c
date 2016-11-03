@@ -18,29 +18,40 @@ void				set_segment(t_segment *segment)
 	segment->x1 = 500;
 	segment->y1 = 500;
 	segment->x2 = 750;
-	segment->y2 = 750;
+	segment->y2 = 500;
+	if (segment->y2 != segment->y1)
 	segment->pente = (segment->x2 - segment->x1) / (segment->y2 - segment->y1);
+	else
+	segment->pente = 0;
 }
 
 void				trace(t_mlx *ptr, t_segment segment)
 {
-	int		i;
-	int		j;
+	double	xs;
+	double	ys;
+	double	xe;
+	double	ye;
 	char	*img;
 
-	img = ptr->img_addr;
-	j = segment.y1;
-	while (j && j <= WIDTH && j <= segment.y2)
+	xs = segment.x1;
+	ys = segment.y1;
+	xe = segment.x1;
+	ye = segment.y1;
+	img = ptr->img_addr + ((int)ys * ptr->size_line);
+	while (ye <= WIDTH && ye <= ys)
 	{
-		i = segment.x1;
-		while (i && i <= WIDTH && i <= segment.x2)
+		xe = segment.x1;
+		while (xe <= WIDTH && xe <= xs)
 		{
-			if (j != segment.y1 && ((i - segment.x1) /(j - segment.y1)) == segment.pente)
-				img[(ptr->bpp * i) + 1] = 255;
-			i++;
+			if (ye != ys && ((xe - xs) /(ye - ys)) == segment.pente)
+				img[( (int)xe) + 1] = 255;
+			else //if (ye == ys && segment.pente == 0)
+				img[( (int)xe) + 0] = 255;
+			xe++;
+		write(1, "ok\n",3);
 		}
 		img += ptr->size_line;
-		j++;
+		ye++;
 	}
 }
 
