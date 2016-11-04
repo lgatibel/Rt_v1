@@ -13,11 +13,12 @@
 #ifndef RTV1_H
 # define RTV1_H
 #include <mlx.h>
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 1200
+# define HEIGHT 800
 # define BLUE 0
 # define GREEN 1
 # define RED 2
+# define ANGLE 90
 
 typedef struct		s_mlx
 {
@@ -32,10 +33,25 @@ typedef struct		s_mlx
 
 typedef struct		s_segment
 {
-	int		x1;
-	int		y1;
-	int		x2;
-	int		y2;
+	int		posx;
+	int		posy;
+	int		x;
+	int		y;
 	int		pente;
 }					t_segment;
+
+typedef struct		s_square
+{
+	int		posx;
+	int		posy;
+	int		width;
+}					t_square;
+
+typedef struct		s_rectangle
+{
+	int		posx;
+	int		posy;
+	int		length;
+	int		width;
+}					t_rectangle;
 #endif
