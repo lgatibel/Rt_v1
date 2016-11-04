@@ -15,9 +15,11 @@
 #include <mlx.h>
 # define WIDTH 1200
 # define HEIGHT 800
-# define BLUE 0
-# define GREEN 1
-# define RED 2
+# define BLUE 0XFF0000
+# define GREEN 0X00FF00
+# define RED 0X0000FF
+# define WHITE 0XFFFFFF
+# define CUSTOM 0X66FF33
 # define ANGLE 90
 
 typedef struct		s_mlx

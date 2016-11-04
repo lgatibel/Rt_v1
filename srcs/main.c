@@ -21,9 +21,9 @@ void				set_segment(t_segment *segment)
 {
 	segment->posx = 100;
 	segment->posy = 80;
+	segment->posz = 0;
 	segment->y = 80;
 	segment->x = 350;
-	segment->z = 0;
 	if (segment->y != segment->posy)
 	segment->pente = (segment->x - segment->posx) / (segment->y - segment->posy);
 	else
@@ -36,25 +36,25 @@ static void				trace_segment(t_mlx *ptr, t_segment segment)
 	double	ys;
 	double	xe;
 	double	ye;
-	char	*img;
+	int		*img;
 
 	xs = segment.posx;
 	ys = segment.posy;
 	xe = segment.x;
 	ye = segment.y;
-	img = ptr->img_addr + ((int)ys * ptr->size_line);
+	img = (int *)ptr->img_addr + ((int)ys * (ptr->size_line / 4));
 	while (ys <= WIDTH && ys <= ye)
 	{
 		xs = segment.posx;
 		while (xs <= WIDTH && xs <= xe)
 		{
 			if (ye != ys && ((xs - segment.posx) / (ys - segment.posy)) == segment.pente)
-				img[((int)xs) * 4 + GREEN] = 255;
+				*(img + (int)xs) = GREEN;
 			else if (ye == ys && segment.pente == 0)
-				img[((int)xs) * 4 + RED] = 255;
+				*(img + (int)xs) = RED;
 			xs++;
 		}
-		img += ptr->size_line;
+		img += (ptr->size_line / 4);
 		ys++;
 	}
 }
@@ -74,22 +74,22 @@ static void				trace_rectangle(t_mlx *ptr, t_rectangle rectangle)
 	double	ys;
 	double	xe;
 	double	ye;
-	char	*img;
+	int		*img;
 
 	xs = rectangle.posx;
 	ys = rectangle.posy;
 	xe = xs + rectangle.width;
 	ye = ys + rectangle.length;
-	img = ptr->img_addr + ((int)ys * ptr->size_line);
+	img = (int *)ptr->img_addr + ((int)ys * (ptr->size_line / 4));
 	while (ys <= WIDTH && ys <= ye)
 	{
 		xs = rectangle.posx;
 		while (xs <= WIDTH && xs <= xe)
 		{
-			img[((int)xs) * 4 + BLUE] = 255;
+			*(img + (int)xs) = BLUE;
 			xs++;
 		}
-		img += ptr->size_line;
+		img += (ptr->size_line / 4);
 		ys++;
 	}
 }
@@ -107,22 +107,22 @@ static void				trace_square(t_mlx *ptr, t_square square)
 	double	ys;
 	double	xe;
 	double	ye;
-	char	*img;
+	int		*img;
 
 	xs = square.posx;
 	ys = square.posy;
 	xe = xs + square.width;
 	ye = ys + square.width;
-	img = ptr->img_addr + ((int)ys * ptr->size_line);
+	img = (int*)ptr->img_addr + ((int)ys * (ptr->size_line/ 4));
 	while (ys <= WIDTH && ys <= ye)
 	{
 		xs = square.posx;
 		while (xs <= WIDTH && xs <= xe)
 		{
-			img[((int)xs) * 4 + BLUE] = 255;
+			*(img + ((int)xs)) = WHITE;
 			xs++;
 		}
-		img += ptr->size_line;
+		img += (ptr->size_line / 4);
 		ys++;
 	}
 }
