@@ -13,8 +13,11 @@
 #ifndef RTV1_H
 # define RTV1_H
 #include <mlx.h>
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 500
+# define HEIGHT 500
+# define BLUE 0
+# define GREEN 1
+# define RED 2
 
 typedef struct		s_mlx
 {

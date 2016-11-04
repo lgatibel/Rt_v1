@@ -12,13 +12,14 @@
 
 #include <Rtv1.h>
 #include <unistd.h>
+#include <libft.h>
 
 void				set_segment(t_segment *segment)
 {
-	segment->x1 = 500;
-	segment->y1 = 500;
-	segment->x2 = 750;
-	segment->y2 = 500;
+	segment->x1 = 250;
+	segment->y1 = 250;
+	segment->y2 = 400;
+	segment->x2 = 250;
 	if (segment->y2 != segment->y1)
 	segment->pente = (segment->x2 - segment->x1) / (segment->y2 - segment->y1);
 	else
@@ -35,20 +36,21 @@ void				trace(t_mlx *ptr, t_segment segment)
 
 	xs = segment.x1;
 	ys = segment.y1;
-	xe = segment.x1;
-	ye = segment.y1;
+	xe = xs;
+	ye = ys;
 	img = ptr->img_addr + ((int)ys * ptr->size_line);
-	while (ye <= WIDTH && ye <= ys)
+	while (ye <= WIDTH && ye <= segment.y2)
 	{
-		xe = segment.x1;
-		while (xe <= WIDTH && xe <= xs)
+		xe = xs;
+		while (xe <= WIDTH && xe <= segment.x2)
 		{
-			if (ye != ys && ((xe - xs) /(ye - ys)) == segment.pente)
-				img[( (int)xe) + 1] = 255;
-			else //if (ye == ys && segment.pente == 0)
-				img[( (int)xe) + 0] = 255;
+			if (ye != ys && ((xe - xs) / (ye - ys)) == segment.pente)
+				img[((int)xe) * 4 + GREEN] = 255;
+			else if (ye == ys && segment.pente == 0)
+				img[((int)xe) * 4 + RED] = 255;
 			xe++;
-		write(1, "ok\n",3);
+	ft_putchar('\n');
+	ft_putnbr(xe);
 		}
 		img += ptr->size_line;
 		ye++;
