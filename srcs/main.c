@@ -23,6 +23,7 @@ void				set_segment(t_segment *segment)
 	segment->posy = 80;
 	segment->y = 80;
 	segment->x = 350;
+	segment->z = 0;
 	if (segment->y != segment->posy)
 	segment->pente = (segment->x - segment->posx) / (segment->y - segment->posy);
 	else
@@ -62,6 +63,7 @@ void				set_rectangle(t_rectangle *rectangle)
 {
 	rectangle->posx = 100;
 	rectangle->posy = 100;
+	rectangle->posz = 0;
 	rectangle->length = 50;
 	rectangle->width = 100;
 }
@@ -93,9 +95,10 @@ static void				trace_rectangle(t_mlx *ptr, t_rectangle rectangle)
 }
 void				set_square(t_square *square)
 {
-	square->width = 50;
 	square->posx = 300;
 	square->posy = 100;
+	square->posz = 0;
+	square->width = 50;
 }
 
 static void				trace_square(t_mlx *ptr, t_square square)

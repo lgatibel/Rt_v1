@@ -35,6 +35,7 @@ typedef struct		s_segment
 {
 	int		posx;
 	int		posy;
+	int		posz;
 	int		x;
 	int		y;
 	int		pente;
@@ -44,6 +45,7 @@ typedef struct		s_square
 {
 	int		posx;
 	int		posy;
+	int		posz;
 	int		width;
 }					t_square;
 
@@ -51,6 +53,7 @@ typedef struct		s_rectangle
 {
 	int		posx;
 	int		posy;
+	int		posz;
 	int		length;
 	int		width;
 }					t_rectangle;
