@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/07 17:52:16 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/07 18:19:29 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ typedef struct	s_cylinder
 
 typedef struct	s_ray
 {
-	double		sensx;
-	double		sensy;
-	double		posz;
+	double		x;
+	double		y;
+	double		z;
 	double		dirx;
 	double		diry;
 	double		dirz;
@@ -115,5 +115,6 @@ typedef struct		s_env
 	int				size_line;
 	int				endian;
 	t_object		object;
+	t_ray			ray;
 }					t_env;
 #endif
