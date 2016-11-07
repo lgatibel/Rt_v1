@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/07 18:45:31 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/07 19:41:20 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,24 +127,26 @@ static void				trace_square(t_mlx *ptr, t_square square)
 	}
 }
 */
-void				set_ray(t_ray ray)
+void				set_ray(t_ray *ray)
 {
-	ray.x = 0;
-	ray.y = 0;
-	ray.z = 0;
-	ray.dirx = 0;
-	ray.diry = 0;
-	ray.dirz = 10;
+	ray->x = 0;
+	ray->y = 0;
+	ray->z = 1;
+	ray->dirx = 0;
+	ray->diry = 0;
+	ray->dirz = -1000;
 }
 
 void				set_sphere(t_object *object)
 {
-	object->ptr = (t_sphere *)malloc(sizeof(t_sphere));
-	object.pos.x = 0;
-	object.pos.y = 0;
-	object.pos.z = 0;
-	object->radius = 10;
+	t_sphere sphere;
+
+	sphere.pos.x = 0;
+	sphere.pos.y = 0;
+	sphere.pos.z = 0;
+	sphere.radius = 10;
 	object->type = SPHERE;
+	object->ptr = &sphere;
 }
 
 void				trace_sphere(t_object *object, t_env env)
@@ -155,10 +157,13 @@ void				trace_sphere(t_object *object, t_env env)
 	t_point		sphere;
 	t_ray		ray;
 	float		delta;
+	int			i;
+	int			j;
 
-	sphere = object.pos;
-	ray = ray.ray;
-	a = (ray.dirx * ray.dirx) +  (ray.diry * ray.diry) + (ray.dirz * ray.dirz);
+	i = 0;
+	j = 0;
+	ray = env.ray;
+/*	a = (ray.dirx * ray.dirx) +  (ray.diry * ray.diry) + (ray.dirz * ray.dirz);
 	b = 2 * (ray.dirx * (ray.x - sphere.x) + ray.diry * (ray.y - sphere.y) +
 			ray.dirz * (ray.z - sphere.z));
 	c = ((ray.x - sphere.x) * (ray.x - sphere.x) + (ray.y - sphere.y)) * (ray.y - sphere.y) + (ray.z - sphere.z) * (ray.z - sphere.z))  sphere.radius * sphere.radius;
@@ -169,10 +174,16 @@ void				trace_sphere(t_object *object, t_env env)
 		
 	}
 	else if (delta > 0)
-
-void				trace_sphere(t_mlx *ptr, t_sphere sphere)
-{
-
+*/
+	while (j < HEIGHT)
+	{
+		i = 0;
+		while (i < WIDTH)
+		{
+			i++;
+		}
+		j++;
+	}
 }
 
 int					main(void)
@@ -198,9 +209,9 @@ int					main(void)
 	trace_square(&ptr, square);
 	trace_rectangle(&ptr, rectangle);
 */
-	set_ray(env.ray);
-	set_sphere(env.object);
-	trace_sphere(env.object, env);
+	set_ray(&env.ray);
+	set_sphere(&env.object);
+	trace_sphere(&env.object, env);
 	mlx_put_image_to_window(env.mlx, env.win, env.img, 0, 0);
 	write(1, "finish", 6);
 	mlx_loop(env.mlx);
