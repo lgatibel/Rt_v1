@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/08 16:49:23 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/08 16:50:19 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ void				trace_sphere(t_object *object, t_env env)
 			if (t0 > 0.0f || t1 > 0.0f)
 			
 */			if (j < HEIGHT &&  i < WIDTH)
-				*(img + i + env.size_line * ( 100)) = GREEN;
+				*(img + i + (env.size_line * j) / 4) = GREEN;
 			i++;
 			ray.pos.x = i;
 		}
