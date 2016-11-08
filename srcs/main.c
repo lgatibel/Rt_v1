@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/08 17:13:27 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/08 17:30:20 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,10 +178,10 @@ void				set_sphere(t_object **object)
 	t_sphere *sphere;
 
 	*object = (t_object *)malloc(sizeof(t_object));
-	sphere->pos.x = 200;
-	sphere->pos.y = 200;
+	sphere->pos.x = 320;
+	sphere->pos.y = 240;
 	sphere->pos.z = 0;
-	sphere->radius = 100;
+	sphere->radius = 150;
 	(*object)->type = SPHERE;
 	(*object)->ptr = sphere;
 }
@@ -216,8 +216,10 @@ void				trace_sphere(t_object *object, t_env env)
 			delta = ((b * b) - matrice_mult_1x1(dist, dist) + (sphere->radius * sphere->radius));
 			t0 = b - sqrt(delta);
 			t1 = b + sqrt(delta);
-			if (t0 < 0.1f)
+			if (t0 > 0.1f)
 				*(img + i + (env.size_line * j) / 4) = WHITE;
+			if (t1 > 0.1f)
+				*(img + i + (env.size_line * j) / 4) = RED;
 			i++;
 			ray.pos.x = i;
 		}
