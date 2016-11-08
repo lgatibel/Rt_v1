@@ -223,7 +223,7 @@ void				trace_sphere(t_object *object, t_env env)
 			if (t0 < 0.1f && t0 < t)
 			{
 				//t = t0;
-				*(img + i + (env.size_line * j) / 4) = BLUE - BLUE/ ((t0 > 0) ? t0 : -t0);
+				*(img + i + (env.size_line * j) / 4) = GREEN - GREEN/ ((t0 > 0) ? t0 : -t0);
 			printf("t0 = %f, t1 = %f\n", t0, t1);
 			}
 			if (t1 > 0.1f && t1 < t)
