@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/08 16:51:47 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/08 17:13:27 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ t_point			matrice_sum_1x1(t_point matrice1, t_point matrice2)
 {
 	t_point		result;
 	result.x = matrice1.x + matrice2.x;
-	result.y = matrice1.y + matrice2.z;
+	result.y = matrice1.y + matrice2.y;
 	result.z = matrice1.z + matrice2.z;
 	return (result);
 }
@@ -141,7 +141,7 @@ t_point			matrice_sub_1x1(t_point matrice1, t_point matrice2)
 {
 	t_point		result;
 	result.x = matrice1.x - matrice2.x;
-	result.y = matrice1.y - matrice2.z;
+	result.y = matrice1.y - matrice2.y;
 	result.z = matrice1.z - matrice2.z;
 	return (result);
 }
@@ -150,7 +150,7 @@ double			matrice_mult_1x1(t_point matrice1, t_point matrice2)
 {
 	double		result;
 	result = matrice1.x * matrice2.x;
-	result += matrice1.y * matrice2.z;
+	result += matrice1.y * matrice2.y;
 	result += matrice1.z * matrice2.z;
 	return (result);
 }
@@ -178,10 +178,10 @@ void				set_sphere(t_object **object)
 	t_sphere *sphere;
 
 	*object = (t_object *)malloc(sizeof(t_object));
-	sphere->pos.x = 0;
-	sphere->pos.y = 0;
+	sphere->pos.x = 200;
+	sphere->pos.y = 200;
 	sphere->pos.z = 0;
-	sphere->radius = 10;
+	sphere->radius = 100;
 	(*object)->type = SPHERE;
 	(*object)->ptr = sphere;
 }
@@ -216,29 +216,13 @@ void				trace_sphere(t_object *object, t_env env)
 			delta = ((b * b) - matrice_mult_1x1(dist, dist) + (sphere->radius * sphere->radius));
 			t0 = b - sqrt(delta);
 			t1 = b + sqrt(delta);
-			printf("delta = %f, b = %f\n", delta, b);
-			printf("t0 = %f, t1 = %f\n", t0, t1);
-			if (t0 > 0.0f || t1 > 0.0f)
-			
-			if (j < HEIGHT &&  i < WIDTH)
-				*(img + i + (env.size_line * j) / 4) = GREEN;
+			if (t0 < 0.1f)
+				*(img + i + (env.size_line * j) / 4) = WHITE;
 			i++;
 			ray.pos.x = i;
 		}
 		j++;
 	}
-	/*	a = (ray.dirx * ray.dirx) +  (ray.diry * ray.diry) + (ray.dirz * ray.dirz);
-		b = 2 * (ray.dirx * (ray.x - sphere.x) + ray.diry * (ray.y - sphere.y) +
-		ray.dirz * (ray.z - sphere.z));
-		c = ((ray.x - sphere.x) * (ray.x - sphere.x) + (ray.y - sphere.y)) * (ray.y - sphere.y) + (ray.z - sphere.z) * (ray.z - sphere.z))  sphere.radius * sphere.radius;
-
-		delta = b * b - (4 * a * c);
-		if (delta == 0)
-		{
-
-		}
-		else if (delta > 0)
-		*/
 }
 
 int					main(void)
