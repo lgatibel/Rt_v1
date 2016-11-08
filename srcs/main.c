@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/08 16:50:19 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/08 16:51:47 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ void				trace_sphere(t_object *object, t_env env)
 		ray.pos.x = 0;
 		while (i < WIDTH)
 		{
-/*			dist = matrice_sub_1x1(sphere->pos, ray.pos);
+			dist = matrice_sub_1x1(sphere->pos, ray.pos);
 			b = matrice_mult_1x1(ray.dir, dist);
 			delta = ((b * b) - matrice_mult_1x1(dist, dist) + (sphere->radius * sphere->radius));
 			t0 = b - sqrt(delta);
@@ -220,7 +220,7 @@ void				trace_sphere(t_object *object, t_env env)
 			printf("t0 = %f, t1 = %f\n", t0, t1);
 			if (t0 > 0.0f || t1 > 0.0f)
 			
-*/			if (j < HEIGHT &&  i < WIDTH)
+			if (j < HEIGHT &&  i < WIDTH)
 				*(img + i + (env.size_line * j) / 4) = GREEN;
 			i++;
 			ray.pos.x = i;
