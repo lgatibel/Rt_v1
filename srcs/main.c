@@ -179,6 +179,7 @@ void				set_sphere(t_object **object)
 	t_sphere *sphere;
 
 	*object = (t_object *)malloc(sizeof(t_object));
+	sphere = (t_sphere *)malloc(sizeof(t_sphere));
 	sphere->pos.x = 240;
 	sphere->pos.y = 240;
 	sphere->pos.z = 0;
@@ -193,6 +194,7 @@ void				trace_sphere(t_object *object, t_env env)
 	double		delta;
 	double		t0;
 	double		t1;
+	double		t;
 	t_point		dist;
 	t_ray		ray;
 	t_sphere	*sphere;
@@ -202,6 +204,7 @@ void				trace_sphere(t_object *object, t_env env)
 
 	i = 0;
 	j = 0;
+	t = 1;
 	ray = env.ray;
 	sphere = (t_sphere *)object->ptr;
 	img = (int *)env.img_addr;
@@ -209,7 +212,7 @@ void				trace_sphere(t_object *object, t_env env)
 	{
 		i = 0;
 		ray.pos.y = j;
-		ray.pos.x = 0;
+		ray.pos.x = i;
 		while (i < WIDTH)
 		{
 			dist = matrice_sub_1x1(sphere->pos, ray.pos);
@@ -217,11 +220,17 @@ void				trace_sphere(t_object *object, t_env env)
 			delta = ((b * b) - matrice_mult_1x1(dist, dist) + (sphere->radius * sphere->radius));
 			t0 = b - sqrt(delta);
 			t1 = b + sqrt(delta);
-			printf("t0 = %f, t1 = %f\n",t0, t1);
-			if (t0 > 0.1f)
-				*(img + i + (env.size_line * j) / 4) = WHITE ;
-			if (t1 > 0.1f)
-				*(img + i + (env.size_line * j) / 4) = BLUE + t1;
+			if (t0 < 0.1f && t0 < t)
+			{
+				//t = t0;
+				*(img + i + (env.size_line * j) / 4) = BLUE - BLUE/ ((t0 > 0) ? t0 : -t0);
+			printf("t0 = %f, t1 = %f\n", t0, t1);
+			}
+			if (t1 > 0.1f && t1 < t)
+			{
+				//t = t1;
+				*(img + i + (env.size_line * j) / 4) = BLUE ;//+ t1;
+			}
 			i++;
 			ray.pos.x = i;
 		}
