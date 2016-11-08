@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/07 18:19:29 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/08 13:05:09 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include <mlx.h>
 # define WIDTH 640
 # define HEIGHT 480
-# define BLUE 0XFF0000
+# define RED 0XFF0000
 # define GREEN 0X00FF00
-# define RED 0X0000FF
+# define BLUE 0X0000FF
 # define WHITE 0XFFFFFF
 # define CUSTOM 0X66FF33
 # define ANGLE 90
@@ -88,12 +88,8 @@ typedef struct	s_cylinder
 
 typedef struct	s_ray
 {
-	double		x;
-	double		y;
-	double		z;
-	double		dirx;
-	double		diry;
-	double		dirz;
+	t_point		pos;
+	t_point		dir;
 }				t_ray;
 
 
@@ -114,7 +110,7 @@ typedef struct		s_env
 	int				bpp;
 	int				size_line;
 	int				endian;
-	t_object		object;
+	t_object		*object;
 	t_ray			ray;
 }					t_env;
 #endif
