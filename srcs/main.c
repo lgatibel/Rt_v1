@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/08 17:30:20 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/08 17:56:00 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ void				set_ray(t_ray *ray)
 	ray->dir.x = 0;
 	ray->dir.y = 0;
 	ray->dir.z = -1000;
+
 	//ray direction normalized
 }
 
@@ -178,10 +179,10 @@ void				set_sphere(t_object **object)
 	t_sphere *sphere;
 
 	*object = (t_object *)malloc(sizeof(t_object));
-	sphere->pos.x = 320;
+	sphere->pos.x = 240;
 	sphere->pos.y = 240;
 	sphere->pos.z = 0;
-	sphere->radius = 150;
+	sphere->radius = 240;
 	(*object)->type = SPHERE;
 	(*object)->ptr = sphere;
 }
@@ -216,10 +217,11 @@ void				trace_sphere(t_object *object, t_env env)
 			delta = ((b * b) - matrice_mult_1x1(dist, dist) + (sphere->radius * sphere->radius));
 			t0 = b - sqrt(delta);
 			t1 = b + sqrt(delta);
+			printf("t0 = %f, t1 = %f\n",t0, t1);
 			if (t0 > 0.1f)
-				*(img + i + (env.size_line * j) / 4) = WHITE;
+				*(img + i + (env.size_line * j) / 4) = WHITE ;
 			if (t1 > 0.1f)
-				*(img + i + (env.size_line * j) / 4) = RED;
+				*(img + i + (env.size_line * j) / 4) = BLUE + t1;
 			i++;
 			ray.pos.x = i;
 		}

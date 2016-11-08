@@ -6,14 +6,14 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/08 13:05:09 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/08 17:31:56 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RTV1_H
 # define RTV1_H
 #include <mlx.h>
-# define WIDTH 640
+# define WIDTH 480
 # define HEIGHT 480
 # define RED 0XFF0000
 # define GREEN 0X00FF00
