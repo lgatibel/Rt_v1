@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/08 17:56:00 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/09 11:24:56 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,10 +166,10 @@ void				set_ray(t_ray *ray)
 {
 	ray->pos.x = 0;
 	ray->pos.y = 0;
-	ray->pos.z = 1;
+	ray->pos.z = -1000;
 	ray->dir.x = 0;
 	ray->dir.y = 0;
-	ray->dir.z = -1000;
+	ray->dir.z = 1;
 
 	//ray direction normalized
 }
@@ -188,6 +188,16 @@ void				set_sphere(t_object **object)
 	(*object)->ptr = sphere;
 }
 
+void				normalized(t_point *point)
+{
+	if (point->x < 0)
+		point->x = -point->x;
+	if (point->y < 0)
+		point->y = -point->y;
+	if (point->z < 0)
+		point->z = -point->z;
+}
+
 void				trace_sphere(t_object *object, t_env env)
 {
 	double		b;
@@ -204,8 +214,9 @@ void				trace_sphere(t_object *object, t_env env)
 
 	i = 0;
 	j = 0;
-	t = 1;
+	t = 2000;
 	ray = env.ray;
+	normalized(&ray.dir);
 	sphere = (t_sphere *)object->ptr;
 	img = (int *)env.img_addr;
 	while (j < HEIGHT)
@@ -220,16 +231,16 @@ void				trace_sphere(t_object *object, t_env env)
 			delta = ((b * b) - matrice_mult_1x1(dist, dist) + (sphere->radius * sphere->radius));
 			t0 = b - sqrt(delta);
 			t1 = b + sqrt(delta);
-			if (t0 < 0.1f && t0 < t)
+			if (t0 > 0.1f && t0 < t)
 			{
 				//t = t0;
-				*(img + i + (env.size_line * j) / 4) = BLUE - BLUE/ ((t0 > 0) ? t0 : -t0);
-			printf("t0 = %f, t1 = %f\n", t0, t1);
+				*(img + i + (env.size_line * j) / 4) = BLUE;// - BLUE/ ((t0 > 0) ? t0 : -t0);
 			}
 			if (t1 > 0.1f && t1 < t)
 			{
 				//t = t1;
-				*(img + i + (env.size_line * j) / 4) = BLUE ;//+ t1;
+				*(img + i + (env.size_line * j) / 4) = WHITE;// BLUE/ t1;
+				printf("t0 = %f, t1 = %f, delta = %f, b = %f\n", t0, t1, delta, b);
 			}
 			i++;
 			ray.pos.x = i;
