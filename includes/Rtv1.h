@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/09 15:06:52 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/09 15:09:26 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,4 +132,7 @@ int					ft_exit(int keycode);
 
 void				set_sphere(t_object **object);
 t_bool				calc_sphere(t_object *object, t_ray ray, double *t);
+t_point				matrice_sum_1x1(t_point matrice1, t_point matrice2);
+t_point				matrice_sub_1x1(t_point matrice1, t_point matrice2);
+t_point				matrice_mult_1x1(t_point matrice1, t_point matrice2);
 #endif
