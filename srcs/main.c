@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/09 11:24:56 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/09 12:55:51 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,118 +15,6 @@
 #include <libft.h>
 #include <math.h>
 #include <stdio.h>
-
-/*
-   void				set_segment(t_segment *segment)
-   {
-   segment->posx = 100;
-   segment->posy = 80;
-   segment->posz = 0;
-   segment->y = 80;
-   segment->x = 350;
-   if (segment->y != segment->posy)
-   segment->pente = (segment->x - segment->posx) / (segment->y - segment->posy);
-   else
-   segment->pente = 0;
-   }
-
-   static void				trace_segment(t_mlx *ptr, t_segment segment)
-   {
-   double	xs;
-   double	ys;
-   double	xe;
-   double	ye;
-   int		*img;
-
-   xs = segment.posx;
-   ys = segment.posy;
-   xe = segment.x;
-   ye = segment.y;
-   img = (int *)ptr->img_addr + ((int)ys * (ptr->size_line / 4));
-   while (ys <= WIDTH && ys <= ye)
-   {
-   xs = segment.posx;
-   while (xs <= WIDTH && xs <= xe)
-   {
-   if (ye != ys && ((xs - segment.posx) / (ys - segment.posy)) == segment.pente)
- *(img + (int)xs) = GREEN;
- else if (ye == ys && segment.pente == 0)
- *(img + (int)xs) = RED;
- xs++;
- }
- img += (ptr->size_line / 4);
- ys++;
- }
- }
-
- void				set_rectangle(t_rectangle *rectangle)
- {
- rectangle->posx = 100;
- rectangle->posy = 100;
- rectangle->posz = 0;
- rectangle->length = 50;
- rectangle->width = 100;
- }
-
- static void				trace_rectangle(t_mlx *ptr, t_rectangle rectangle)
- {
- double	xs;
- double	ys;
- double	xe;
- double	ye;
- int		*img;
-
- xs = rectangle.posx;
- ys = rectangle.posy;
- xe = xs + rectangle.width;
- ye = ys + rectangle.length;
- img = (int *)ptr->img_addr + ((int)ys * (ptr->size_line / 4));
- while (ys <= WIDTH && ys <= ye)
- {
- xs = rectangle.posx;
- while (xs <= WIDTH && xs <= xe)
- {
- *(img + (int)xs) = BLUE;
-xs++;
-}
-img += (ptr->size_line / 4);
-ys++;
-}
-}
-void				set_square(t_square *square)
-{
-	square->posx = 300;
-	square->posy = 100;
-	square->posz = 0;
-	square->width = 50;
-}
-
-static void				trace_square(t_mlx *ptr, t_square square)
-{
-	double	xs;
-	double	ys;
-	double	xe;
-	double	ye;
-	int		*img;
-
-	xs = square.posx;
-	ys = square.posy;
-	xe = xs + square.width;
-	ye = ys + square.width;
-	img = (int*)ptr->img_addr + ((int)ys * (ptr->size_line/ 4));
-	while (ys <= WIDTH && ys <= ye)
-	{
-		xs = square.posx;
-		while (xs <= WIDTH && xs <= xe)
-		{
-			*(img + ((int)xs)) = WHITE;
-			xs++;
-		}
-		img += (ptr->size_line / 4);
-		ys++;
-	}
-}
-*/
 
 t_point			matrice_sum_1x1(t_point matrice1, t_point matrice2)
 {
@@ -198,26 +86,45 @@ void				normalized(t_point *point)
 		point->z = -point->z;
 }
 
-void				trace_sphere(t_object *object, t_env env)
+t_bool				touch_sphere(t_object *object,t_ray ray, t_sphere *sphere,
+		double *t)
 {
 	double		b;
 	double		delta;
 	double		t0;
 	double		t1;
-	double		t;
 	t_point		dist;
+
+	sphere = (t_sphere *)object->ptr;
+	dist = matrice_sub_1x1(sphere->pos, ray.pos);
+	b = matrice_mult_1x1(ray.dir, dist);
+	delta = ((b * b) - matrice_mult_1x1(dist, dist) + (sphere->radius * sphere->radius));
+	t0 = b - sqrt(delta);
+	t1 = b + sqrt(delta);
+	if (t0 > 0.1f && t0 < *t)
+		*t = t0;
+	else if (t1 > 0.1f && t1 < *t)
+		*t = t1;
+	else
+		return (FALSE);
+	printf("t0 = %f, t1 = %f, delta = %f, b = %f, t = %f\n", t0, t1, delta, b, *t);
+	return (TRUE);
+}
+
+void				trace_sphere(t_object *object, t_env env)
+{
 	t_ray		ray;
 	t_sphere	*sphere;
 	int			*img;
 	int			i;
 	int			j;
+	double		t;
 
 	i = 0;
 	j = 0;
-	t = 2000;
+	t = 1200;
 	ray = env.ray;
 	normalized(&ray.dir);
-	sphere = (t_sphere *)object->ptr;
 	img = (int *)env.img_addr;
 	while (j < HEIGHT)
 	{
@@ -226,22 +133,8 @@ void				trace_sphere(t_object *object, t_env env)
 		ray.pos.x = i;
 		while (i < WIDTH)
 		{
-			dist = matrice_sub_1x1(sphere->pos, ray.pos);
-			b = matrice_mult_1x1(ray.dir, dist);
-			delta = ((b * b) - matrice_mult_1x1(dist, dist) + (sphere->radius * sphere->radius));
-			t0 = b - sqrt(delta);
-			t1 = b + sqrt(delta);
-			if (t0 > 0.1f && t0 < t)
-			{
-				//t = t0;
-				*(img + i + (env.size_line * j) / 4) = BLUE;// - BLUE/ ((t0 > 0) ? t0 : -t0);
-			}
-			if (t1 > 0.1f && t1 < t)
-			{
-				//t = t1;
-				*(img + i + (env.size_line * j) / 4) = WHITE;// BLUE/ t1;
-				printf("t0 = %f, t1 = %f, delta = %f, b = %f\n", t0, t1, delta, b);
-			}
+			if (touch_sphere(object, ray, sphere,  &t))
+				*(img + i + (env.size_line * j) / 4) = GREEN;// - BLUE/ ((t0 > 0) ? t0 : -t0);
 			i++;
 			ray.pos.x = i;
 		}

@@ -6,13 +6,20 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/08 17:31:56 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/09 12:45:04 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RTV1_H
 # define RTV1_H
 #include <mlx.h>
+#include <libft.h>
+#include <math.h>
+
+// a virer
+#include <stdio.h>
+
+// 
 # define WIDTH 480
 # define HEIGHT 480
 # define RED 0XFF0000
@@ -28,6 +35,13 @@
 #define		SPHERE 4
 #define		CONE 5
 #define		CYLINDER 6
+
+typedef enum		e_bool
+{
+	undefined = -1,
+	FALSE,
+	TRUE
+}					t_bool;
 
 typedef struct		s_point
 {
