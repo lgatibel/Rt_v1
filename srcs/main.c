@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/09 12:55:51 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/09 14:35:18 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ void				normalized(t_point *point)
 		point->z = -point->z;
 }
 
-t_bool				touch_sphere(t_object *object,t_ray ray, t_sphere *sphere,
-		double *t)
+t_bool				touch_sphere(t_object *object,t_ray ray, double *t)
 {
 	double		b;
 	double		delta;
 	double		t0;
 	double		t1;
+	t_sphere	*sphere;
 	t_point		dist;
 
 	sphere = (t_sphere *)object->ptr;
@@ -114,7 +114,6 @@ t_bool				touch_sphere(t_object *object,t_ray ray, t_sphere *sphere,
 void				trace_sphere(t_object *object, t_env env)
 {
 	t_ray		ray;
-	t_sphere	*sphere;
 	int			*img;
 	int			i;
 	int			j;
@@ -133,7 +132,7 @@ void				trace_sphere(t_object *object, t_env env)
 		ray.pos.x = i;
 		while (i < WIDTH)
 		{
-			if (touch_sphere(object, ray, sphere,  &t))
+			if (touch_sphere(object, ray, &t))
 				*(img + i + (env.size_line * j) / 4) = GREEN;// - BLUE/ ((t0 > 0) ? t0 : -t0);
 			i++;
 			ray.pos.x = i;
