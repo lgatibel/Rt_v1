@@ -30,7 +30,7 @@ OPENGL = -framework Opengl
 ############
 
 #Flags
-CFLAGS = -Wall -Wextra -Werror -Weverything
+CFLAGS = -Wall -Wextra -Werror 
 CC = gcc
 
 DEBUGFLAG1 = -g3

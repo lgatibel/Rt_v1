@@ -6,15 +6,11 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/09 15:08:01 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/09 16:53:58 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <Rtv1.h>
-#include <unistd.h>
-#include <libft.h>
-#include <math.h>
-#include <stdio.h>
+#include <rtv1.h>
 
 t_point			matrice_sum_1x1(t_point matrice1, t_point matrice2)
 {
@@ -67,7 +63,7 @@ void				normalized(t_point *point)
 }
 
 
-void				trace(t_object *object, t_env env)
+static void				trace(t_object *object, t_env env)
 {
 	t_ray		ray;
 	int			*img;

@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Rtv1.h                                             :+:      :+:    :+:   */
+/*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/09 15:09:26 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/09 16:52:36 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RTV1_H
 # define RTV1_H
-#include <mlx.h>
-#include <libft.h>
-#include <math.h>
+
+# include <mlx.h>
+# include <libft.h>
+# include <math.h>
 
 // a virer
-#include <stdio.h>
+# include <stdio.h>
 
-// 
+//
 # define WIDTH 480
 # define HEIGHT 480
 # define RED 0XFF0000
@@ -28,13 +29,12 @@
 # define WHITE 0XFFFFFF
 # define CUSTOM 0X66FF33
 # define ANGLE 90
-
-#define		SQUARE 1
-#define		RECTANGLE 2
-#define		TRIANGLE 3
-#define		SPHERE 4
-#define		CONE 5
-#define		CYLINDER 6
+# define SQUARE 1
+# define RECTANGLE 2
+# define TRIANGLE 3
+# define SPHERE 4
+# define CONE 5
+# define CYLINDER 6
 
 typedef enum		e_bool
 {
@@ -73,59 +73,52 @@ typedef struct		s_triangle
 	int			base;
 }					t_triangle;
 
-typedef struct	s_sphere
+typedef struct		s_sphere
 {
 	t_point		pos;
 	int			radius;
-}				t_sphere;
+}					t_sphere;
 
-typedef struct	s_cone
-{
-	t_point		pos;
-	int			height;
-	int			base;
-	int			radius;
-}				t_cone;
-
-typedef struct	s_cylinder
+typedef struct		s_cone
 {
 	t_point		pos;
 	int			height;
 	int			base;
 	int			radius;
-}				t_cylinder;
+}					t_cone;
 
+typedef struct		s_cylinder
+{
+	t_point		pos;
+	int			height;
+	int			base;
+	int			radius;
+}					t_cylinder;
 
-
-
-
-
-typedef struct	s_ray
+typedef struct		s_ray
 {
 	t_point		pos;
 	t_point		dir;
-}				t_ray;
+}					t_ray;
 
-
-
-typedef struct			s_object
+typedef struct		s_object
 {
-	char				type;
-	void				*ptr;
-	struct s_object		*next;
-}						t_object;
+	char			type;
+	void			*ptr;
+	struct s_object	*next;
+}					t_object;
 
 typedef struct		s_env
 {
-	void			*mlx;
-	void			*win;
-	void			*img;
-	char			*img_addr;
-	int				bpp;
-	int				size_line;
-	int				endian;
-	t_object		*object;
-	t_ray			ray;
+	t_ray		ray;
+	t_object	*object;
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*img_addr;
+	int			bpp;
+	int			size_line;
+	int			endian;
 }					t_env;
 
 int					ft_exit(int keycode);
@@ -134,5 +127,7 @@ void				set_sphere(t_object **object);
 t_bool				calc_sphere(t_object *object, t_ray ray, double *t);
 t_point				matrice_sum_1x1(t_point matrice1, t_point matrice2);
 t_point				matrice_sub_1x1(t_point matrice1, t_point matrice2);
-t_point				matrice_mult_1x1(t_point matrice1, t_point matrice2);
+double				matrice_mult_1x1(t_point matrice1, t_point matrice2);
+void				set_ray(t_ray *ray);
+void				normalized(t_point *point);
 #endif
