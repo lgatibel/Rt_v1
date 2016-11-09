@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/09 14:35:18 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/09 15:08:01 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,6 @@ double			matrice_mult_1x1(t_point matrice1, t_point matrice2)
 	return (result);
 }
 
-int					ft_exit(int keycode)
-{
-	ft_putnbr(keycode);
-	if (keycode == 53)
-		exit(2);
-	return (1);
-}
 void				set_ray(t_ray *ray)
 {
 	ray->pos.x = 0;
@@ -62,19 +55,6 @@ void				set_ray(t_ray *ray)
 	//ray direction normalized
 }
 
-void				set_sphere(t_object **object)
-{
-	t_sphere *sphere;
-
-	*object = (t_object *)malloc(sizeof(t_object));
-	sphere = (t_sphere *)malloc(sizeof(t_sphere));
-	sphere->pos.x = 240;
-	sphere->pos.y = 240;
-	sphere->pos.z = 0;
-	sphere->radius = 240;
-	(*object)->type = SPHERE;
-	(*object)->ptr = sphere;
-}
 
 void				normalized(t_point *point)
 {
@@ -86,32 +66,8 @@ void				normalized(t_point *point)
 		point->z = -point->z;
 }
 
-t_bool				touch_sphere(t_object *object,t_ray ray, double *t)
-{
-	double		b;
-	double		delta;
-	double		t0;
-	double		t1;
-	t_sphere	*sphere;
-	t_point		dist;
 
-	sphere = (t_sphere *)object->ptr;
-	dist = matrice_sub_1x1(sphere->pos, ray.pos);
-	b = matrice_mult_1x1(ray.dir, dist);
-	delta = ((b * b) - matrice_mult_1x1(dist, dist) + (sphere->radius * sphere->radius));
-	t0 = b - sqrt(delta);
-	t1 = b + sqrt(delta);
-	if (t0 > 0.1f && t0 < *t)
-		*t = t0;
-	else if (t1 > 0.1f && t1 < *t)
-		*t = t1;
-	else
-		return (FALSE);
-	printf("t0 = %f, t1 = %f, delta = %f, b = %f, t = %f\n", t0, t1, delta, b, *t);
-	return (TRUE);
-}
-
-void				trace_sphere(t_object *object, t_env env)
+void				trace(t_object *object, t_env env)
 {
 	t_ray		ray;
 	int			*img;
@@ -132,7 +88,7 @@ void				trace_sphere(t_object *object, t_env env)
 		ray.pos.x = i;
 		while (i < WIDTH)
 		{
-			if (touch_sphere(object, ray, &t))
+			if (calc_sphere(object, ray, &t))
 				*(img + i + (env.size_line * j) / 4) = GREEN;// - BLUE/ ((t0 > 0) ? t0 : -t0);
 			i++;
 			ray.pos.x = i;
@@ -156,7 +112,7 @@ int					main(void)
 
 	set_ray(&env.ray);
 	set_sphere(&env.object);
-	trace_sphere(env.object, env);
+	trace(env.object, env);
 	mlx_put_image_to_window(env.mlx, env.win, env.img, 0, 0);
 	write(1, "finish", 6);
 	mlx_hook(env.win, 2, (1L<<0), ft_exit, &env);

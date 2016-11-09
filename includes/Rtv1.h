@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/09 14:05:25 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/09 15:06:52 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,4 +127,9 @@ typedef struct		s_env
 	t_object		*object;
 	t_ray			ray;
 }					t_env;
+
+int					ft_exit(int keycode);
+
+void				set_sphere(t_object **object);
+t_bool				calc_sphere(t_object *object, t_ray ray, double *t);
 #endif

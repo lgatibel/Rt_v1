@@ -1,7 +1,7 @@
 TARGET = rt_v1
 
 #Sources
-SRC_NAME = main.c
+SRC_NAME = main.c set_object.c sphere.c exit.c
 SRC_PATH = ./srcs/
 SRCS = $(addprefix $(SRC_PATH),$(SRC_NAME))
 ###############
@@ -30,7 +30,7 @@ OPENGL = -framework Opengl
 ############
 
 #Flags
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Weverything
 CC = gcc
 
 DEBUGFLAG1 = -g3
