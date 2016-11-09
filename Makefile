@@ -1,7 +1,7 @@
 TARGET = rt_v1
 
 #Sources
-SRC_NAME = main.c set_object.c sphere.c exit.c
+SRC_NAME = main.c set_object.c sphere.c exit.c matrice.c
 SRC_PATH = ./srcs/
 SRCS = $(addprefix $(SRC_PATH),$(SRC_NAME))
 ###############
@@ -38,9 +38,8 @@ DEBUGFLAG2 = -fsanitize=address
 #############
 
 
-all: libft libmlx $(TARGET)
+all: $(TARGET)
 
-.PHONY: libmlx libft clean fclean re obj
 
 libft:
 	@echo "######## 1/3 Libft ########"
@@ -52,14 +51,16 @@ libmlx:
 	@make -C $(LIBMLX_PATH)
 	@echo "\n########################"
 
-$(TARGET): $(OBJ)
+.PHONY: libmlx libft clean fclean re
+#probleme de depeandance
+$(TARGET): $(OBJ)# libft libmlx
 	@echo "\n######## 3/3 Rt_v1 ########"
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LIBMLX) $(APPKIT) $(OPENGL) -o $(TARGET)
 	@echo "\n########################"
 
 $(addprefix $(OBJ_PATH),%.o) : $(addprefix $(SRC_PATH),%.c)
 	@mkdir -p $(OBJ_PATH) 2> /dev/null
-	@$(CC) $(CFLAGS) -c $< $(INC_RT) $(INC_LIBFT) $(INC_LIBMLX) -o $@
+	$(CC) $(CFLAGS) -c $< $(INC_RT) $(INC_LIBFT) $(INC_LIBMLX) -o $@
 
 
 clean:

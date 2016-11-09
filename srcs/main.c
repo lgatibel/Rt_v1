@@ -6,50 +6,12 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/09 16:53:58 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/09 17:23:09 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-t_point			matrice_sum_1x1(t_point matrice1, t_point matrice2)
-{
-	t_point		result;
-	result.x = matrice1.x + matrice2.x;
-	result.y = matrice1.y + matrice2.y;
-	result.z = matrice1.z + matrice2.z;
-	return (result);
-}
-
-t_point			matrice_sub_1x1(t_point matrice1, t_point matrice2)
-{
-	t_point		result;
-	result.x = matrice1.x - matrice2.x;
-	result.y = matrice1.y - matrice2.y;
-	result.z = matrice1.z - matrice2.z;
-	return (result);
-}
-
-double			matrice_mult_1x1(t_point matrice1, t_point matrice2)
-{
-	double		result;
-	result = matrice1.x * matrice2.x;
-	result += matrice1.y * matrice2.y;
-	result += matrice1.z * matrice2.z;
-	return (result);
-}
-
-void				set_ray(t_ray *ray)
-{
-	ray->pos.x = 0;
-	ray->pos.y = 0;
-	ray->pos.z = -1000;
-	ray->dir.x = 0;
-	ray->dir.y = 0;
-	ray->dir.z = 1;
-
-	//ray direction normalized
-}
 
 
 void				normalized(t_point *point)
@@ -73,7 +35,7 @@ static void				trace(t_object *object, t_env env)
 
 	i = 0;
 	j = 0;
-	t = 1200;
+	t = 1000;
 	ray = env.ray;
 	normalized(&ray.dir);
 	img = (int *)env.img_addr;
@@ -85,7 +47,11 @@ static void				trace(t_object *object, t_env env)
 		while (i < WIDTH)
 		{
 			if (calc_sphere(object, ray, &t))
-				*(img + i + (env.size_line * j) / 4) = GREEN;// - BLUE/ ((t0 > 0) ? t0 : -t0);
+			{
+				*(img + i + (env.size_line * j) / 4) = BLUE  - BLUE / t;
+			printf("t = %f\n",t);
+			t = 1000;
+			}
 			i++;
 			ray.pos.x = i;
 		}
