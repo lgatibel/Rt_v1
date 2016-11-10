@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/10 12:53:11 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/10 15:14:22 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define GREEN 0X00FF00
 # define BLUE 0X0000FF
 # define WHITE 0XFFFFFF
-# define CUSTOM 0X66FF33
+# define CUSTOM 0x0ECB25
 # define ANGLE 90
 # define SQUARE 1
 # define RECTANGLE 2
@@ -132,4 +132,5 @@ double				matrice_mult_1x1(t_point matrice1, t_point matrice2);
 void				set_ray(t_ray *ray);
 void				normalized(t_point *point);
 void				trace(t_object *object, t_env env);
+int					color(int color, double t);
 #endif
