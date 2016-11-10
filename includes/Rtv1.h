@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/09 17:03:57 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/10 11:38:12 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ typedef struct		s_env
 	void		*mlx;
 	void		*win;
 	void		*img;
-	char		*img_addr;
+	int			*img_addr;
 	int			bpp;
 	int			size_line;
 	int			endian;
@@ -130,4 +130,5 @@ t_point				matrice_sub_1x1(t_point matrice1, t_point matrice2);
 double				matrice_mult_1x1(t_point matrice1, t_point matrice2);
 void				set_ray(t_ray *ray);
 void				normalized(t_point *point);
+void				trace(t_object *object, t_env env);
 #endif
