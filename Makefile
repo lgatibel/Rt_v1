@@ -10,18 +10,18 @@ SRCS = $(addprefix $(SRC_PATH),$(SRC_NAME))
 OBJ_PATH = ./objs/
 OBJ = $(addprefix $(OBJ_PATH),$(SRC_NAME:.c=.o))
 LIBFT_PATH = ./Libft/
-LIBMLX_PATH = ./minilibx/minilibx_macos/
+LIBMLX_PATH = ./minilibx/
 ##############
 
 #Includes
 INC_RT = -I./includes/
 INC_LIBFT = -I./Libft/includes/
-INC_LIBMLX = -I./minilibx/minilibx_macos/
+INC_LIBMLX = -I./minilibx/
 ##############
 
 #Librarys
 LIBFT = -L./Libft/ -lft
-LIBMLX = -L./minilibx/minilibx_macos/ -lmlx
+LIBMLX = -L./minilibx/ -lmlx
 #############
 
 #Frameworks
@@ -36,24 +36,20 @@ CC = gcc
 DEBUGFLAG1 = -g3
 DEBUGFLAG2 = -fsanitize=address
 #############
-
+cyan = /bin/echo -e "\x1b[36m\#\# $1\x1b[0m"
 
 all: $(TARGET)
+	@$(call cyan,"Hello world !")
 
+.PHONY: libmlx libft obj clean fclean re
 
-libft:
-	@echo "######## 1/3 Libft ########"
+$(TARGET): $(OBJ)
+	@echo "\n######## 1/3 libft ########"
 	@make -C $(LIBFT_PATH)
 	@echo "\n########################"
-
-libmlx:
-	@echo "\n##### 2/3 libmlx #########"
+	@echo "\n######## 2/3 libmlx ########"
 	@make -C $(LIBMLX_PATH)
 	@echo "\n########################"
-
-.PHONY: libmlx libft clean fclean re
-#probleme de depeandance
-$(TARGET): $(OBJ)# libft libmlx
 	@echo "\n######## 3/3 Rt_v1 ########"
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LIBMLX) $(APPKIT) $(OPENGL) -o $(TARGET)
 	@echo "\n########################"
