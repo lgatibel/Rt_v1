@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 13:56:34 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/10 17:47:08 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/10 18:39:07 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <rtv1.h>
@@ -24,7 +24,7 @@ int				color(int color, double t)
 	red = (color & 0xFF0000);
 	green = (color & 0x00FF00) * (1.0f - ((RAYON_SIZE - t) / (RAYON_SIZE - 240)));
 	blue = (color & 0x0000FF);
-	printf("red %d,green %d,blue %d\n",red, green, blue);
+//	printf("red %d,green %d,blue %d\n",red, green, blue);
 	result = red + green + blue;
 	t = red;
 	return (result);

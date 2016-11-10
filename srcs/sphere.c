@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:36:45 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/09 16:57:50 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/10 18:38:04 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_bool				calc_sphere(t_object *object,t_ray ray, double *t)
 	else if (t1 > 0.1f && t1 < *t)
 		*t = t1;
 	else
-		return (FALSE);
+		return (false);
 //	printf("t0 = %f, t1 = %f, delta = %f, b = %f, t = %f\n", t0, t1, delta, b, *t);
-	return (TRUE);
+	return (true);
 }

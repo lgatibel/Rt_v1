@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/10 18:04:07 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/10 18:37:08 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <mlx.h>
 # include <libft.h>
 # include <math.h>
-# include <liberror.h>
+# include <error.h>
 
 // a virer
 # include <stdio.h>

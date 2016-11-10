@@ -44,7 +44,7 @@ all: $(TARGET)
 
 $(TARGET): $(OBJ)
 	@echo "\x1b[32m\n######## 1/3 libft ########\x1b[0m"
-	@cd ./Libft && make -t
+	@make -C $(LIBFT_PATH)
 	@echo "\x1b[32m\n########################\x1b[0m"
 	@echo "\x1b[32m\n######## 2/3 libmlx ########\x1b[0m"
 	@make -C $(LIBMLX_PATH)
