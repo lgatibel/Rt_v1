@@ -11,15 +11,16 @@
 /* ************************************************************************** */
 
 #include <rtv1.h>
+#include <error.h>
 
 void				set_sphere(t_object **object)
 {
 	t_sphere *sphere;
 
 	if (!(*object = (t_object *)malloc(sizeof(t_object))))
-		error(MALLOC, __LINE__, __FILE__);
+		error(MALLOC, __LINE__ - 1, __FILE__);
 	if(!(sphere = (t_sphere *)malloc(sizeof(t_sphere))))
-		error(MALLOC, __LINE__, __FILE__);
+		error(MALLOC, __LINE__ - 1, __FILE__);
 	sphere->pos.x = 400;
 	sphere->pos.y = 300;
 	sphere->pos.z = 0;
