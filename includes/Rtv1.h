@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/10 15:14:22 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/10 18:04:07 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <mlx.h>
 # include <libft.h>
 # include <math.h>
+# include <liberror.h>
 
 // a virer
 # include <stdio.h>
@@ -23,6 +24,7 @@
 //
 # define WIDTH 800
 # define HEIGHT 600
+# define RAYON_SIZE 1000
 # define RED 0XFF0000
 # define GREEN 0X00FF00
 # define BLUE 0X0000FF
@@ -39,8 +41,8 @@
 typedef enum		e_bool
 {
 	undefined = -1,
-	FALSE,
-	TRUE
+	false,
+	true
 }					t_bool;
 
 typedef struct		s_point

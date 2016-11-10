@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 11:36:51 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/10 15:12:18 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/10 17:34:31 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void				trace(t_object *object, t_env env)
 			if (calc_sphere(object, ray, &env.t))
 			{
 				*(env.img_addr + (int)ray.pos.x +(env.size_line *
-						(int)ray.pos.y) / 4) = color(CUSTOM, env.t) ;
+						(int)ray.pos.y) / 4) = color(GREEN, env.t) ;
 //				printf("t = %f\n",env.t);
 				env.t = 1000;
 			}

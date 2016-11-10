@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_object.c                                       :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/10 18:02:26 by lgatibel         ###   ########.fr       */
+/*   Created: 2016/11/10 17:31:06 by lgatibel          #+#    #+#             */
+/*   Updated: 2016/11/10 18:04:22 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <rtv1.h>
+#include <liberror.h>
 
-void				set_sphere(t_object **object)
+void			error(int error, int line)
 {
-	t_sphere *sphere;
+	if (error != 0)
+	{
+		if (error = MALLOC)
+			ft_putstr_fd("malloc erro at line", 2);
 
-	if (!(*object = (t_object *)malloc(sizeof(t_object))))
-		error(MALLOC, __LINE__);
-		error(MALLOC, __LINE__);
-	if(!(sphere = (t_sphere *)malloc(sizeof(t_sphere))))
-		error(MALLOC, __LINE__);
-	sphere->pos.x = 400;
-	sphere->pos.y = 300;
-	sphere->pos.z = 0;
-	sphere->radius = 240;
-	(*object)->type = SPHERE;
-	(*object)->ptr = sphere;
+		ft_putnbr_fd(line, 2);
+	}
 }
