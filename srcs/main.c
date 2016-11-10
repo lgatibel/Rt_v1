@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/10 11:38:44 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/10 12:34:08 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int					main(void)
 	env.size_line = 0;
 	env.endian = 0;
 
+	env.t = 1200;
 	env.mlx = mlx_init();
 	env.win = mlx_new_window(env.mlx, WIDTH, HEIGHT, "hello");
 	env.img = mlx_new_image(env.mlx, WIDTH, HEIGHT);

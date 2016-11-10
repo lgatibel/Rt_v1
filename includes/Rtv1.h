@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/10 11:38:12 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/10 12:53:11 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <stdio.h>
 
 //
-# define WIDTH 480
-# define HEIGHT 480
+# define WIDTH 800
+# define HEIGHT 600
 # define RED 0XFF0000
 # define GREEN 0X00FF00
 # define BLUE 0X0000FF
@@ -119,6 +119,7 @@ typedef struct		s_env
 	int			bpp;
 	int			size_line;
 	int			endian;
+	double		t;
 }					t_env;
 
 int					ft_exit(int keycode);

@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_object.c                                       :+:      :+:    :+:   */
+/*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/10 12:54:35 by lgatibel         ###   ########.fr       */
+/*   Created: 2016/11/10 12:38:33 by lgatibel          #+#    #+#             */
+/*   Updated: 2016/11/10 12:39:06 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-void				set_sphere(t_object **object)
+void				set_ray(t_ray *ray)
 {
-	t_sphere *sphere;
-
-	*object = (t_object *)malloc(sizeof(t_object));
-	sphere = (t_sphere *)malloc(sizeof(t_sphere));
-	sphere->pos.x = WIDTH / 2;
-	sphere->pos.y = HEIGHT / 2;
-	sphere->pos.z = 0;
-	sphere->radius = 240;
-	(*object)->type = SPHERE;
-	(*object)->ptr = sphere;
+	ray->pos.x = 0;
+	ray->pos.y = 0;
+	ray->pos.z = -1000;
+	ray->dir.x = 0;
+	ray->dir.y = 0;
+	ray->dir.z = 1;
+	//ray direction normalized
 }

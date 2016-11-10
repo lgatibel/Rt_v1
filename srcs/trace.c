@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 11:36:51 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/10 11:42:06 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/10 12:52:43 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,22 @@
 void				trace(t_object *object, t_env env)
 {
 	t_ray		ray;
-	int			i;
-	int			j;
-	double		t;
 
-	i = -1;
-	j = -1;
-	t = 1000;
 	ray = env.ray;
 	normalized(&ray.dir);
-	while (++j < HEIGHT)
+	while (ray.pos.y < HEIGHT)
 	{
-		i = -1;
-		ray.pos.y = j;
-		ray.pos.x = i;
-		while (++i < WIDTH)
+		ray.pos.x = 0;
+		while (ray.pos.x < WIDTH)
 		{
-			if (calc_sphere(object, ray, &t))
+			if (calc_sphere(object, ray, &env.t))
 			{
-				*(env.img_addr + i + (env.size_line * j) / 4) = BLUE  - BLUE / t;
-			printf("t = %f\n",t);
-			t = 1000;
+				*(env.img_addr + (int)ray.pos.x + (env.size_line * (int)ray.pos.y) / 4) = WHITE  / env.t;
+				printf("t = %f\n",env.t);
+				env.t = 1000;
 			}
-			ray.pos.x = i;
+			ray.pos.x++;
 		}
+		ray.pos.y++;
 	}
 }
