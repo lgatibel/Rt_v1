@@ -117,7 +117,7 @@ typedef struct		s_viewplane
 	double		dist;
 	t_point		vecdir;
 	t_point		upvec;
-	t_point		rightvec;
+	t_point		rvec;
 	t_point		upleft;
 	
 }					t_viewplane;
@@ -138,16 +138,19 @@ typedef struct		s_env
 	double		t;
 }					t_env;
 
-int					ft_exit(int keycode);
-
+t_env				*set_env(t_env *env);
+void				set_ray(t_ray *ray);
 void				set_sphere(t_object **object);
+
 t_bool				calc_sphere(t_object *object, t_ray ray, double *t);
+
 t_point				matrice_sum_1x1(t_point matrice1, t_point matrice2);
+t_point				matrice_mult_1x1_nb(t_point matrice, double nb);
 t_point				matrice_sub_1x1(t_point matrice1, t_point matrice2);
 double				matrice_mult_1x1(t_point matrice1, t_point matrice2);
-void				set_ray(t_ray *ray);
+
 void				normalized(t_point *point);
 void				trace(t_object *object, t_env env);
 int					color(int color, double t);
-t_env				*set_env(t_env *env);
+int					ft_exit(int keycode);
 #endif

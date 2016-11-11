@@ -12,12 +12,14 @@
 
 #include <rtv1.h>
 
-void			matrice_copy_1x1(t_point matrice_dest,
-t_point matrice_src)
+t_point			matrice_mult_1x1_nb(t_point matrice,
+double nb)
 {
-	matrice_dest.x = matrice_src.x;
-	matrice_dest.y = matrice_src.y;
-	matrice_dest.z = matrice_src.z;
+	t_point		result;
+	result.x = matrice.x * nb;
+	result.y = matrice.y * nb;
+	result.z = matrice.z * nb;
+	return (result);
 }
 
 t_point			matrice_sum_1x1(t_point matrice1, t_point matrice2)
