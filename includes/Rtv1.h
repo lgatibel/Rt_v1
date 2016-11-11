@@ -115,10 +115,17 @@ typedef struct		s_viewplane
 	double		width;
 	double		height;
 	double		dist;
+	t_point		vecdir;
+	t_point		upvec;
+	t_point		rightvec;
+	t_point		upleft;
+	
 }					t_viewplane;
 
 typedef struct		s_env
 {
+	t_point		cam;
+	t_viewplane viewplane;
 	t_ray		ray;
 	t_object	*object;
 	void		*mlx;

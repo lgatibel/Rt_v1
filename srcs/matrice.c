@@ -12,6 +12,14 @@
 
 #include <rtv1.h>
 
+void			matrice_copy_1x1(t_point matrice_dest,
+t_point matrice_src)
+{
+	matrice_dest.x = matrice_src.x;
+	matrice_dest.y = matrice_src.y;
+	matrice_dest.z = matrice_src.z;
+}
+
 t_point			matrice_sum_1x1(t_point matrice1, t_point matrice2)
 {
 	t_point		result;

@@ -24,6 +24,19 @@ void				normalized(t_point *point)
 		point->z = -point->z;
 }
 
+static void		trace_test(t_env *env)
+{
+	double	xindent;
+	double	yindent;
+	int		x;
+	int		y;
+
+	xindent = env->viewplane.width / WIDTH;
+	yindent = env->viewplane.height / HEIGHT;
+	x = 0;
+	y = 0;
+}
+
 int					main(void)
 {
 	t_env		*env;
@@ -32,7 +45,8 @@ int					main(void)
 	env = set_env(env);
 	set_ray(&env->ray);
 	set_sphere(&env->object);
-	trace(env->object, *env);
+	trace_test(env);
+	//trace(env->object, *env);
 	mlx_put_image_to_window(env->mlx, env->win,
 	env->img, 0, 0);
 	write(1, "finish", 6);
