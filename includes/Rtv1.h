@@ -110,6 +110,13 @@ typedef struct		s_object
 	struct s_object	*next;
 }					t_object;
 
+typedef struct		s_viewplane
+{
+	double		width;
+	double		height;
+	double		dist;
+}					t_viewplane;
+
 typedef struct		s_env
 {
 	t_ray		ray;
@@ -135,4 +142,5 @@ void				set_ray(t_ray *ray);
 void				normalized(t_point *point);
 void				trace(t_object *object, t_env env);
 int					color(int color, double t);
+t_env				*set_env(t_env *env);
 #endif
