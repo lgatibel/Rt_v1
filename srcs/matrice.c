@@ -12,13 +12,15 @@
 
 #include <rtv1.h>
 
-t_point			matrice_mult_1x1_nb(t_point matrice,
+t_point			*matrice_mult_1x1_nb(t_point matrice,
 double nb)
 {
-	t_point		result;
-	result.x = matrice.x * nb;
-	result.y = matrice.y * nb;
-	result.z = matrice.z * nb;
+	t_point		*result;
+
+	result = (t_point*)malloc(sizeof(t_point));
+	result->x = matrice.x * nb;
+	result->y = matrice.y * nb;
+	result->z = matrice.z * nb;
 	return (result);
 }
 
