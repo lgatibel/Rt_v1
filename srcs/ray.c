@@ -19,6 +19,6 @@ void				set_ray(t_ray *ray)
 	ray->pos.z = -1000;
 	ray->dir.x = 0;
 	ray->dir.y = 0;
-	ray->dir.z = 1;
+	ray->dir.z = 1000;
 	//ray direction normalized
 }

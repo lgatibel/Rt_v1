@@ -48,30 +48,32 @@ static void		trace_test(t_env *env)
 	dir = &env->ray.dir;
 	o = &env->ray.pos;
 	s = (t_sphere *)env->object->ptr;
-	a = dir->x * dir->x + dir->y * dir->y +
-		dir->z * dir->z;
 
 	while (dir->y < HEIGHT)
 	{
 		dir->x = 0;
 		while (dir->x < WIDTH)
 		{
+			a = dir->x * dir->x + dir->y * dir->y +
+				dir->z * dir->z;
 			b = 2 * (dir->x * (o->x - s->x) +
 					dir->y * (o->y - s->y) + dir->z *
 					(o->z - s->z));
 			c = ((o->x - s->x) * (o->x - s->x) +
-					(o->y - s->y) * (o->y - s->y) +
-					(o->z - s->z) *
-					(o->z - s->z)) - s->radius * s->radius;
-			delta = b * b - 4 * a * c;
-			t0 = (-b + sqrt(delta)) / (2 * a) ;
-			t1 = (-b - sqrt(delta)) / (2 * a) ;
-			printf("delta = %f",delta);
+				(o->y - s->y) * (o->y - s->y) +
+				(o->z - s->z) * (o->z - s->z))
+				- s->radius * s->radius;
+			delta = (b * b) - (4 * a * c);
+			t0 = (-b + sqrt(delta)) / (2 * a);
+			t1 = (-b - sqrt(delta)) / (2 * a);
 			if (delta >= 0)
+			{
 			*(env->img_addr + (int)dir->x + ((int)dir->y * env->size_line) / 4) = GREEN;
-			dir->x++;
+			printf("delta = %f, dirx = %f\n",delta, dir->x);
+			}
+			dir->x += 1;
 		}
-		dir->y++;
+		dir->y += 1;
 	}
 
 	printf("a = %f, b = %f, c = %f, delta = %f\n t0 = %f, t1 = %f\n",a, b, c, delta, t0, t1);
