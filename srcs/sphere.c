@@ -22,7 +22,7 @@ t_bool				calc_sphere(t_object *object,t_ray ray, double *t)
 	t_point		dist;
 
 	sphere = (t_sphere *)object->ptr;
-	dist = matrice_sub_1x1(sphere->pos, ray.pos);
+//	dist = matrice_sub_1x1(sphere->pos, ray.pos);
 	b = matrice_mult_1x1(ray.dir, dist);
 	delta = ((b * b) - matrice_mult_1x1(dist, dist) + (sphere->radius * sphere->radius));
 	t0 = b - sqrt(delta);
