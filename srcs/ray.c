@@ -16,7 +16,7 @@ void				set_ray(t_ray *ray)
 {
 	ray->pos.x = 0;
 	ray->pos.y = 0;
-	ray->pos.z = -1000;
+	ray->pos.z = -100;
 	ray->dir.x = 0;
 	ray->dir.y = 0;
 	ray->dir.z = 1;

@@ -41,16 +41,26 @@ static void		trace_test(t_env *env)
 	double		a;
 	double		b;
 	double		c;
+	double		delta;
+	double		t0;
+	double		t1;
 
 	dir = &env->ray.dir;
 	o = &env->ray.pos;
 	s = (t_sphere *)env->object->ptr;
 	a = dir->x * dir->x + dir->y * dir->y +
 	dir->z * dir->z;
-	b = 2 * (dir->x * (o->x - s->x)) +
-	dir->y * (o->y - s->y) + dir->z * (o->z - s->z);
+	b = 2 * (dir->x * (o->x - s->x) +
+	dir->y * (o->y - s->y) + dir->z * (o->z - s->z));
 	c = ((o->x - s->x) * (o->x - s->x) +
-	(o->y - s->y) + (o->z - s->z)) - s->radius * s->radius;
+	(o->y - s->y) * (o->y - s->y) + (o->z - s->z) *
+	(o->z - s->z)) - s->radius * s->radius;
+	delta = b * b - 4 * a * c;
+	t0 = (-b + sqrt(delta)) / (2 * a) ;
+	t1 = (-b - sqrt(delta)) / (2 * a) ;
+
+	printf("a = %f, b = %f, c = %f, delta = %f\n t0 = %f, t1 = %f\n",a, b, c, delta, t0, t1);
+
 //	b = 2 * (DIR.x * (O.x - Xc) + DIR.y * (O.y - Yc) + DIR.z * (O.z - Zc))
 
 //	c = ((O.x - Xc)^2 + (O.y - Yc)^2 + (O.z - Zc)^2) - r^2
