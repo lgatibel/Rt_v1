@@ -11,16 +11,22 @@
 /* ************************************************************************** */
 
 #include <rtv1.h>
+void			matrice_cpy(t_point *dest,
+t_point src)
+{
+	dest->x = src.x;
+	dest->y = src.y;
+	dest->z = src.z;
+}
 
-t_point			*matrice_mult_1x1_nb(t_point matrice,
+t_point			matrice_mult_1x1_nb(t_point matrice,
 double nb)
 {
-	t_point		*result;
+	t_point		result;
 
-	result = (t_point*)malloc(sizeof(t_point));
-	result->x = matrice.x * nb;
-	result->y = matrice.y * nb;
-	result->z = matrice.z * nb;
+	result.x = matrice.x * nb;
+	result.y = matrice.y * nb;
+	result.z = matrice.z * nb;
 	return (result);
 }
 

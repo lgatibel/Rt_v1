@@ -145,9 +145,10 @@ void				set_sphere(t_object **object);
 t_bool				calc_sphere(t_object *object, t_ray ray, double *t);
 
 t_point				matrice_sum_1x1(t_point matrice1, t_point matrice2);
-t_point				*matrice_mult_1x1_nb(t_point matrice, double nb);
+t_point				matrice_mult_1x1_nb(t_point matrice, double nb);
 t_point				matrice_sub_1x1(t_point matrice1, t_point matrice2);
 double				matrice_mult_1x1(t_point matrice1, t_point matrice2);
+void				matrice_cpy(t_point *dest, t_point src);
 
 void				normalized(t_point *point);
 void				trace(t_object *object, t_env env);
