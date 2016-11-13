@@ -26,7 +26,7 @@ void				normalized(t_point *point)
 
 static void		trace_test(t_env *env)
 {
-	double	xindent;
+/*	double	xindent;
 	double	yindent;
 	int		x;
 	int		y;
@@ -34,7 +34,26 @@ static void		trace_test(t_env *env)
 	xindent = env->viewplane.width / WIDTH;
 	yindent = env->viewplane.height / HEIGHT;
 	x = 0;
-	y = 0;
+	y = 0;*/
+	t_point		*dir;
+	t_point		*o;
+	t_sphere	*s;
+	double		a;
+	double		b;
+	double		c;
+
+	dir = &env->ray.dir;
+	o = &env->ray.pos;
+	s = (t_sphere *)env->object->ptr;
+	a = dir->x * dir->x + dir->y * dir->y +
+	dir->z * dir->z;
+	b = 2 * (dir->x * (o->x - s->x)) +
+	dir->y * (o->y - s->y) + dir->z * (o->z - s->z);
+	c = ((o->x - s->x) * (o->x - s->x) +
+	(o->y - s->y) + (o->z - s->z)) - s->radius * s->radius;
+//	b = 2 * (DIR.x * (O.x - Xc) + DIR.y * (O.y - Yc) + DIR.z * (O.z - Zc))
+
+//	c = ((O.x - Xc)^2 + (O.y - Yc)^2 + (O.z - Zc)^2) - r^2
 }
 
 int					main(void)

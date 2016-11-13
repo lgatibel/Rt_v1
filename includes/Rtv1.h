@@ -77,7 +77,9 @@ typedef struct		s_triangle
 
 typedef struct		s_sphere
 {
-	t_point		pos;
+	double		x;
+	double		y;
+	double		z;
 	int			radius;
 }					t_sphere;
 

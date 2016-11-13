@@ -35,7 +35,7 @@ t_env				*set_env(t_env *env)
 	printf("-lol\n");
 //	matrice_cpy(&view->rvec, env->viewplane.upvec);
 	printf("lol-\n");
-	view->upleft = matrice_sub_1x1(	matrice_sum_1x1(matrice_sum_1x1(env->cam, matrice_mult_1x1_nb(view->vecdir, view->dist)), matrice_mult_1x1_nb(view->upvec, view->height / 2.0f)), matrice_mult_1x1_nb(view->rvec, view->width / 2.0f));
+	view->upleft = matrice_sub_1x1(matrice_sum_1x1(matrice_sum_1x1(env->cam, matrice_mult_1x1_nb(view->vecdir, view->dist)), matrice_mult_1x1_nb(view->upvec, view->height / 2.0f)), matrice_mult_1x1_nb(view->rvec, view->width / 2.0f));
 	env->mlx = mlx_init();
 	env->win = mlx_new_window(env->mlx, WIDTH, HEIGHT,
 	"hello");
