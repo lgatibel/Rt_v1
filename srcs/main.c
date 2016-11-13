@@ -53,6 +53,7 @@ static void		trace_test(t_env *env)
 
 	while (dir->y < HEIGHT)
 	{
+		dir->x = 0;
 		while (dir->x < WIDTH)
 		{
 			b = 2 * (dir->x * (o->x - s->x) +
@@ -65,9 +66,10 @@ static void		trace_test(t_env *env)
 			delta = b * b - 4 * a * c;
 			t0 = (-b + sqrt(delta)) / (2 * a) ;
 			t1 = (-b - sqrt(delta)) / (2 * a) ;
-			dir->x++;
+			printf("delta = %f",delta);
 			if (delta >= 0)
-			(*env->img_addr + dir->x + (dir->y * env->size_line) / 4) = GREEN;
+			*(env->img_addr + (int)dir->x + ((int)dir->y * env->size_line) / 4) = GREEN;
+			dir->x++;
 		}
 		dir->y++;
 	}
