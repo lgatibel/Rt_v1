@@ -26,15 +26,15 @@ void				normalized(t_point *point)
 
 static void		trace_test(t_env *env)
 {
-/*	double	xindent;
-	double	yindent;
-	int		x;
-	int		y;
+	/*	double	xindent;
+		double	yindent;
+		int		x;
+		int		y;
 
-	xindent = env->viewplane.width / WIDTH;
-	yindent = env->viewplane.height / HEIGHT;
-	x = 0;
-	y = 0;*/
+		xindent = env->viewplane.width / WIDTH;
+		yindent = env->viewplane.height / HEIGHT;
+		x = 0;
+		y = 0;*/
 	t_point		*dir;
 	t_point		*o;
 	t_sphere	*s;
@@ -49,21 +49,34 @@ static void		trace_test(t_env *env)
 	o = &env->ray.pos;
 	s = (t_sphere *)env->object->ptr;
 	a = dir->x * dir->x + dir->y * dir->y +
-	dir->z * dir->z;
-	b = 2 * (dir->x * (o->x - s->x) +
-	dir->y * (o->y - s->y) + dir->z * (o->z - s->z));
-	c = ((o->x - s->x) * (o->x - s->x) +
-	(o->y - s->y) * (o->y - s->y) + (o->z - s->z) *
-	(o->z - s->z)) - s->radius * s->radius;
-	delta = b * b - 4 * a * c;
-	t0 = (-b + sqrt(delta)) / (2 * a) ;
-	t1 = (-b - sqrt(delta)) / (2 * a) ;
+		dir->z * dir->z;
+
+	while (dir->y < HEIGHT)
+	{
+		while (dir->x < WIDTH)
+		{
+			b = 2 * (dir->x * (o->x - s->x) +
+					dir->y * (o->y - s->y) + dir->z *
+					(o->z - s->z));
+			c = ((o->x - s->x) * (o->x - s->x) +
+					(o->y - s->y) * (o->y - s->y) +
+					(o->z - s->z) *
+					(o->z - s->z)) - s->radius * s->radius;
+			delta = b * b - 4 * a * c;
+			t0 = (-b + sqrt(delta)) / (2 * a) ;
+			t1 = (-b - sqrt(delta)) / (2 * a) ;
+			dir->x++;
+			if (delta >= 0)
+			(*env->img_addr + dir->x + (dir->y * env->size_line) / 4) = GREEN;
+		}
+		dir->y++;
+	}
 
 	printf("a = %f, b = %f, c = %f, delta = %f\n t0 = %f, t1 = %f\n",a, b, c, delta, t0, t1);
 
-//	b = 2 * (DIR.x * (O.x - Xc) + DIR.y * (O.y - Yc) + DIR.z * (O.z - Zc))
+	//	b = 2 * (DIR.x * (O.x - Xc) + DIR.y * (O.y - Yc) + DIR.z * (O.z - Zc))
 
-//	c = ((O.x - Xc)^2 + (O.y - Yc)^2 + (O.z - Zc)^2) - r^2
+	//	c = ((O.x - Xc)^2 + (O.y - Yc)^2 + (O.z - Zc)^2) - r^2
 }
 
 int					main(void)
@@ -77,7 +90,7 @@ int					main(void)
 	trace_test(env);
 	//trace(env->object, *env);
 	mlx_put_image_to_window(env->mlx, env->win,
-	env->img, 0, 0);
+			env->img, 0, 0);
 	write(1, "finish", 6);
 	mlx_hook(env->win, 2, (1L<<0), ft_exit, &env);
 	mlx_hook(env->win, 17, (1L<<17), ft_exit, &env);
