@@ -26,17 +26,15 @@ void				normalized(t_point *point)
 
 static void		trace_test(t_env *env)
 {
-	/*	double	xindent;
+		double	xindent;
 		double	yindent;
 		int		x;
 		int		y;
 
-		xindent = env->viewplane.width / WIDTH;
-		yindent = env->viewplane.height / HEIGHT;
-		x = 0;
-		y = 0;*/
 	t_point		*dir;
 	t_point		*o;
+	t_point		*upvec;
+	t_point		*rvec;
 	t_sphere	*s;
 	double		a;
 	double		b;
@@ -47,13 +45,22 @@ static void		trace_test(t_env *env)
 
 	dir = &env->ray.dir;
 	o = &env->ray.pos;
+	upvec = &env->viewplane.upvec;
+	rvec = &env->viewplane.rvec;
 	s = (t_sphere *)env->object->ptr;
-
-	while (dir->y < HEIGHT)
+	xindent = env->viewplane.width / WIDTH;
+	yindent = env->viewplane.height / HEIGHT;
+	y = 0;
+	x = 0;
+	while (y < HEIGHT)
 	{
-		dir->x = 0;
-		while (dir->x < WIDTH)
+		x = 0;
+		//dir->x = 0;
+		while (x < WIDTH)
 		{
+			matrice_cpy(dir, matrice_sum_1x1(env->viewplane.upleft, matrice_sub_1x1(matrice_mult_1x1_nb(*upvec,x * xindent), matrice_mult_1x1_nb(*rvec, y * yindent))));
+			normalized(dir);
+//			printf("x = %f,y = %f,z = %f\n",dir->x,dir->y,dir->z);
 			a = dir->x * dir->x + dir->y * dir->y +
 				dir->z * dir->z;
 			b = 2 * (dir->x * (o->x - s->x) +
@@ -69,14 +76,16 @@ static void		trace_test(t_env *env)
 			if (delta >= 0)
 			{
 			*(env->img_addr + (int)dir->x + ((int)dir->y * env->size_line) / 4) = color(GREEN, 1);
-//			printf("delta = %f, dirx = %f\n",delta, dir->x);
+			printf("delta = %f, dirx = %f\n",delta, dir->x);
 			}
-			dir->x += 1;
+			x++;
+		//	dir->x += 1;
 		}
-		dir->y += 1;
+		y++;
+		//dir->y += 1;
 	}
 
-	printf("a = %f, b = %f, c = %f, delta = %f\n t0 = %f, t1 = %f\n",a, b, c, delta, t0, t1);
+//	printf("a = %f, b = %f, c = %f, delta = %f\n t0 = %f, t1 = %f\n",a, b, c, delta, t0, t1);
 
 	//	b = 2 * (DIR.x * (O.x - Xc) + DIR.y * (O.y - Yc) + DIR.z * (O.z - Zc))
 

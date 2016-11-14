@@ -21,8 +21,8 @@ void				set_sphere(t_object **object)
 		error(MALLOC, __LINE__ - 1, __FILE__);
 	if(!(sphere = (t_sphere *)malloc(sizeof(t_sphere))))
 		error(MALLOC, __LINE__ - 1, __FILE__);
-	sphere->x = WIDTH / 2;
-	sphere->y = HEIGHT / 2;
+	sphere->x = 0.25;
+	sphere->y = .15;
 	sphere->z = 0;
 	sphere->radius = 100;
 	(*object)->type = SPHERE;
