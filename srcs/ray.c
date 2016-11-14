@@ -16,9 +16,10 @@ void				set_ray(t_ray *ray)
 {
 	ray->pos.x = 0;
 	ray->pos.y = 0;
-	ray->pos.z = -1000;
+	ray->pos.z = -3;
 	ray->dir.x = 0;
 	ray->dir.y = 0;
-	ray->dir.z = 1;
+	// 13 == lookatpoint - cam pos ou  1
+	ray->dir.z = 13;
 	//ray direction normalized
 }

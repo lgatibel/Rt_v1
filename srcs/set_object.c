@@ -23,8 +23,8 @@ void				set_sphere(t_object **object)
 		error(MALLOC, __LINE__ - 1, __FILE__);
 	sphere->x = 0;
 	sphere->y = 0;
-	sphere->z = 0;
-	sphere->radius = 100;
+	sphere->z = 10;
+	sphere->radius = 2;
 	(*object)->type = SPHERE;
 	(*object)->ptr = sphere;
 }
