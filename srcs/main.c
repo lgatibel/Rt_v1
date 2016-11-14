@@ -48,8 +48,8 @@ static void		trace_test(t_env *env)
 	upvec = &env->viewplane.upvec;
 	rvec = &env->viewplane.rvec;
 	s = (t_sphere *)env->object->ptr;
-	xindent = env->viewplane.width / WIDTH;
-	yindent = env->viewplane.height / HEIGHT;
+	xindent = (float)env->viewplane.width / (float)WIDTH;
+	yindent = (float)env->viewplane.height / (float)HEIGHT;
 	y = 0;
 	x = 0;
 	while (y < HEIGHT)
@@ -73,10 +73,12 @@ static void		trace_test(t_env *env)
 			delta = (b * b) - (4 * a * c);
 			t0 = (-b + sqrt(delta)) / (2 * a);
 			t1 = (-b - sqrt(delta)) / (2 * a);
-			if (delta >= 0)
+			if (delta >= 0 && ((t0 > 0 && t0 < T) ||
+			(t1 > 0 && t1 < T)))
 			{
 			*(env->img_addr + (LARG + (int)x) + ((HAUT + (int)y) * env->size_line) / 4) = color(GREEN, 1);
 			printf("delta = %f, dirx = %f\n",delta, dir->x);
+			//printf("t0 = %f, t1 = %f\n",t0,t1);
 			}
 			x++;
 		//	dir->x += 1;

@@ -22,7 +22,7 @@
 # include <stdio.h>
 
 //
-# define WIDTH 800
+# define WIDTH 600
 # define HEIGHT 600
 # define RAYON_SIZE 1000
 # define RED 0XFF0000
@@ -37,6 +37,7 @@
 # define SPHERE 4
 # define CONE 5
 # define CYLINDER 6
+# define T 600
 
 typedef enum		e_bool
 {

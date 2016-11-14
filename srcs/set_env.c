@@ -19,7 +19,7 @@ t_env				*set_env(t_env *env)
 	env->size_line = 0;
 	env->endian = 0;
 	env->t = 1000;
-	env->viewplane.width = 0.35;
+	env->viewplane.width = 0.5;
 	env->viewplane.height = 0.5;
 	env->viewplane.dist = 1;
 	set_vec(&env->cam, 0, 0, 1);
