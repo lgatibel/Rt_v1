@@ -123,6 +123,8 @@ typedef struct		s_viewplane
 	t_point		upleft;
 	
 }					t_viewplane;
+# define HAUT 0
+# define LARG 0
 
 typedef struct		s_env
 {

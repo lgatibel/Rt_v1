@@ -75,7 +75,7 @@ static void		trace_test(t_env *env)
 			t1 = (-b - sqrt(delta)) / (2 * a);
 			if (delta >= 0)
 			{
-			*(env->img_addr + (int)dir->x + ((int)dir->y * env->size_line) / 4) = color(GREEN, 1);
+			*(env->img_addr + (LARG + (int)x) + ((HAUT + (int)y) * env->size_line) / 4) = color(GREEN, 1);
 			printf("delta = %f, dirx = %f\n",delta, dir->x);
 			}
 			x++;
