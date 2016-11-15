@@ -30,7 +30,7 @@ t_env				*set_env(t_env *env)
 	//right here
 	env->cam.x = 0;
 	env->cam.y = 0;
-	env->cam.z = -8;
+	env->cam.z = -8.35;
 	//probleme
 	printf("-lol\n");
 //	matrice_cpy(&view->rvec, env->viewplane.upvec);

@@ -24,7 +24,7 @@ void				set_sphere(t_object **object)
 	sphere->x = 0;
 	sphere->y = 0;
 	sphere->z = 10;
-	sphere->radius = 3;
+	sphere->radius = 150;
 	(*object)->type = SPHERE;
 	(*object)->ptr = sphere;
 }
