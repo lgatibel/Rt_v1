@@ -26,10 +26,10 @@ void				normalized(t_point *point)
 
 static void		trace_test(t_env *env)
 {
-		double	xindent;
-		double	yindent;
-		int		x;
-		int		y;
+	double	xindent;
+	double	yindent;
+	int		x;
+	int		y;
 
 	t_point		*dir;
 	t_point		*o;
@@ -58,57 +58,93 @@ static void		trace_test(t_env *env)
 		//dir->x = 0;
 		while (x < WIDTH)
 		{
-			matrice_cpy(dir, matrice_sum_1x1(env->viewplane.upleft, matrice_sub_1x1(matrice_mult_1x1_nb(*upvec,x * xindent), matrice_mult_1x1_nb(*rvec, y * yindent))));
+			matrice_cpy(dir,
+			matrice_sum_1x1(env->viewplane.upleft,
+			matrice_sub_1x1(
+			matrice_mult_1x1_nb(*rvec,x * xindent),
+			matrice_mult_1x1_nb(*upvec, y * yindent))));
 			normalized(dir);
-//			printf("x = %f,y = %f,z = %f\n",dir->x,dir->y,dir->z);
+			//			printf("x = %f,y = %f,z = %f\n",dir->x,dir->y,dir->z);
 			a = dir->x * dir->x + dir->y * dir->y +
 				dir->z * dir->z;
 			b = 2 * (dir->x * (o->x - s->x) +
 					dir->y * (o->y - s->y) + dir->z *
 					(o->z - s->z));
 			c = ((o->x - s->x) * (o->x - s->x) +
-				(o->y - s->y) * (o->y - s->y) +
-				(o->z - s->z) * (o->z - s->z))
+					(o->y - s->y) * (o->y - s->y) +
+					(o->z - s->z) * (o->z - s->z))
 				- s->radius * s->radius;
 			delta = (b * b) - (4 * a * c);
 			t0 = (-b + sqrt(delta)) / (2 * a);
 			t1 = (-b - sqrt(delta)) / (2 * a);
+			if (y == 0 && x >= 100 && x <= 120)
+				*(env->img_addr + (LARG + (int)x) + ((HAUT + (int)y) * env->size_line) / 4) = color(WHITE, 1);
 			if (delta >= 0 && ((t0 > 0 && t0 < T) ||
-			(t1 > 0 && t1 < T)))
+						(t1 > 0 && t1 < T)))
 			{
-			*(env->img_addr + (LARG + (int)x) + ((HAUT + (int)y) * env->size_line) / 4) = color(GREEN, 1);
-			printf("delta = %f, dirx = %f\n",delta, dir->x);
-			//printf("t0 = %f, t1 = %f\n",t0,t1);
+				*(env->img_addr + (LARG + (int)x) + ((HAUT + (int)y) * env->size_line) / 4) = color(GREEN, 1);
+				printf("t0 = %f, t1 = %f\n",t0, t1);
+				//printf("t0 = %f, t1 = %f\n",t0,t1);
 			}
+			//	printf("delta = %f\n",delta);
 			x++;
-		//	dir->x += 1;
+			//	dir->x += 1;
 		}
 		y++;
 		//dir->y += 1;
 	}
 
-//	printf("a = %f, b = %f, c = %f, delta = %f\n t0 = %f, t1 = %f\n",a, b, c, delta, t0, t1);
+	//	printf("a = %f, b = %f, c = %f, delta = %f\n t0 = %f, t1 = %f\n",a, b, c, delta, t0, t1);
 
 	//	b = 2 * (DIR.x * (O.x - Xc) + DIR.y * (O.y - Yc) + DIR.z * (O.z - Zc))
 
 	//	c = ((O.x - Xc)^2 + (O.y - Yc)^2 + (O.z - Zc)^2) - r^2
 }
 
-int					main(void)
+int					main(int ac, char **av)
 {
 	t_env		*env;
 
+	t_point		*test1;
+	t_point		*test2;
+	double		test;
+
+	test = 0;
 	env = NULL;
-	env = set_env(env);
-	set_ray(&env->ray);
-	set_sphere(&env->object);
-	trace_test(env);
-	//trace(env->object, *env);
-	mlx_put_image_to_window(env->mlx, env->win,
-			env->img, 0, 0);
-	write(1, "finish", 6);
-	mlx_hook(env->win, 2, (1L<<0), ft_exit, &env);
-	mlx_hook(env->win, 17, (1L<<17), ft_exit, &env);
-	mlx_loop(env->mlx);
+	test1 = (t_point *)malloc(sizeof(t_point));
+	test2 = (t_point *)malloc(sizeof(t_point));
+	if (ac == 1 && !av[1])
+	{
+		env = set_env(env);
+		set_ray(&env->ray);
+		set_sphere(&env->object);
+		trace_test(env);
+		//trace(env->object, *env);
+		mlx_put_image_to_window(env->mlx, env->win,
+				env->img, 0, 0);
+		write(1, "finish", 6);
+		mlx_hook(env->win, 2, (1L<<0), ft_exit, &env);
+		mlx_hook(env->win, 17, (1L<<17), ft_exit, &env);
+		mlx_loop(env->mlx);
+	}
+	else
+	{
+		test1->x = 1;
+		test1->y = 1;
+		test1->z = 1;
+
+		test2->x = 2;
+		test2->y = 2;
+		test2->z = 2;
+		test  = matrice_mult_1x1(*test1, *test2);
+		*test1  = matrice_sub_1x1(*test1, *test2);
+		printf("sub test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
+		*test1  = matrice_sum_1x1(*test1, *test2);
+		printf("sum test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
+		matrice_cpy(test1, *test2);
+		printf("cpy test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
+		*test1  = matrice_mult_1x1_nb(*test1, 10);
+		printf("nb test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
+	}
 	return (0);
 }

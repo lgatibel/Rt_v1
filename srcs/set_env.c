@@ -24,13 +24,13 @@ t_env				*set_env(t_env *env)
 	env->viewplane.dist = 1;
 	set_vec(&env->cam, 0, 0, 1);
 	// a mettre a combien
-	set_vec(&env->viewplane.vecdir, 0, 0, 1);
+	set_vec(&env->viewplane.vecdir, 0, 0, 10);
 	set_vec(&env->viewplane.upvec, 0, 1, 0);
 	set_vec(&env->viewplane.rvec, 1, 0, 0);
 	//right here
+	env->cam.x = 0;
 	env->cam.y = 0;
-	env->cam.y = 0;
-	env->cam.z = 3;
+	env->cam.z = -8;
 	//probleme
 	printf("-lol\n");
 //	matrice_cpy(&view->rvec, env->viewplane.upvec);

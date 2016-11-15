@@ -20,7 +20,9 @@
 
 // a virer
 # include <stdio.h>
-
+# define XO 0
+# define YO 0
+# define ZO -10
 //
 # define WIDTH 600
 # define HEIGHT 600
