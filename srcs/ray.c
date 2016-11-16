@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 12:38:33 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/16 17:17:28 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/16 17:25:40 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void				calc_ray(t_env *env, double x, double y)
 			matrice_sub_1x1(
 			matrice_mult_1x1_nb(env->viewplane.rvec,x * env->xindent),
 			matrice_mult_1x1_nb(env->viewplane.upvec, y * env->yindent))));
+			//facultatif ou necessaire
+			if (env->ray.dir.z < 0)
+				env->ray.dir.z = -env->ray.dir.z;
 		//	normalized(&env->ray.dir);
 }
 
@@ -30,5 +33,6 @@ void				set_ray(t_ray *ray)
 
 	ray->dir.x = 0;
 	ray->dir.y = 0;
-	ray->dir.z = 100;
+	// a quoi cela sert
+	ray->dir.z = 1;
 }
