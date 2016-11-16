@@ -30,12 +30,13 @@ static void		trace_test(t_env *env)
 		while (++x < WIDTH)
 		{
 			calc_ray(env, x, y);
-			printf("x = %f,y = %f,z = %f\n",env->ray.dir.x,env->ray.dir.y,env->ray.dir.z);
+		//	printf("x = %f,y = %f,z = %f\n",env->ray.dir.x,env->ray.dir.y,env->ray.dir.z);
 
 			delta = calc_delta(env, &t0, &t1);
 			if (delta >= 0)
 			{
-				*(env->img_addr + (int)x + ((int)y * env->size_line) / 4) = color(GREEN, 1);
+			printf("t = %f\n",env->t);
+				*(env->img_addr + (int)x + ((int)y * env->size_line) / 4) = color(GREEN, env->t);
 			}
 		//	if (x >= 100 && x <= 120)
 		//		*(env->img_addr + (LARG + (int)x) + ((HAUT + (int)y) * env->size_line) / 4) = color(WHITE, 1);
