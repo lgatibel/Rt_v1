@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 12:38:33 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/16 16:41:06 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/16 17:17:28 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void				calc_ray(t_env *env, double x, double y)
 			matrice_sub_1x1(
 			matrice_mult_1x1_nb(env->viewplane.rvec,x * env->xindent),
 			matrice_mult_1x1_nb(env->viewplane.upvec, y * env->yindent))));
-			normalized(&env->ray.dir);
+		//	normalized(&env->ray.dir);
 }
 
 void				set_ray(t_ray *ray)
 {
 	ray->pos.x = 0;
 	ray->pos.y = 0;
-	ray->pos.z = -100;
+	ray->pos.z = -1000;
+
 	ray->dir.x = 0;
 	ray->dir.y = 0;
-	// 13 == lookatpoint - cam pos ou  1
-	ray->dir.z = 900;
+	ray->dir.z = 100;
 }

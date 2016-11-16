@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/16 16:23:19 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/16 17:00:00 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ static void		trace_test(t_env *env)
 		while (++x < WIDTH)
 		{
 			calc_ray(env, x, y);
+			printf("x = %f,y = %f,z = %f\n",env->ray.dir.x,env->ray.dir.y,env->ray.dir.z);
 
 			delta = calc_delta(env, &t0, &t1);
 			if (delta >= 0)
 			{
 				*(env->img_addr + (int)x + ((int)y * env->size_line) / 4) = color(GREEN, 1);
 			}
-			//			printf("x = %f,y = %f,z = %f\n",dir->x,dir->y,dir->z);
 		//	if (x >= 100 && x <= 120)
 		//		*(env->img_addr + (LARG + (int)x) + ((HAUT + (int)y) * env->size_line) / 4) = color(WHITE, 1);
 /*

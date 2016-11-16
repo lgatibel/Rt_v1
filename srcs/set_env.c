@@ -22,10 +22,10 @@ t_env				*set_env(t_env *env)
 	env->viewplane.height = 0.5;
 	env->viewplane.dist = 1;
 	// a mettre a combien
-	set_vec(&env->cam, 0, 0, 1);
-	set_vec(&env->viewplane.vecdir, 0, 0, 0);
+	set_vec(&env->viewplane.vecdir, 0, 0, 1);
 	set_vec(&env->viewplane.upvec, 0, 1, 0);
 	set_vec(&env->viewplane.rvec, 1, 0, 0);
+	set_vec(&env->cam, 0, 0, 1);
 	//right here
 	//probleme
 	printf("-lol\n");
