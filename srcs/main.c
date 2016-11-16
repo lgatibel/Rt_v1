@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/16 11:24:06 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/16 16:23:19 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ static void		trace_test(t_env *env)
 			delta = calc_delta(env, &t0, &t1);
 			if (delta >= 0)
 			{
-				*(env->img_addr + (LARG + (int)x) + ((HAUT + (int)y) * env->size_line) / 4) = color(GREEN, 1);
+				*(env->img_addr + (int)x + ((int)y * env->size_line) / 4) = color(GREEN, 1);
 			}
 			//			printf("x = %f,y = %f,z = %f\n",dir->x,dir->y,dir->z);
-			if (x >= 100 && x <= 120)
-				*(env->img_addr + (LARG + (int)x) + ((HAUT + (int)y) * env->size_line) / 4) = color(WHITE, 1);
+		//	if (x >= 100 && x <= 120)
+		//		*(env->img_addr + (LARG + (int)x) + ((HAUT + (int)y) * env->size_line) / 4) = color(WHITE, 1);
 /*
 			if (delta >= 0 && ((t0 > 0 && t0 < T) ||
 						(t1 > 0 && t1 < T)))

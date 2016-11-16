@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/16 10:44:57 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/16 16:22:07 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct		s_ray
 {
 	t_point		pos;
 	t_point		dir;
+	t_point		org;
 }					t_ray;
 
 typedef struct		s_object
@@ -126,8 +127,6 @@ typedef struct		s_viewplane
 	t_point		upleft;
 	
 }					t_viewplane;
-# define HAUT 0
-# define LARG 0
 
 typedef struct		s_env
 {

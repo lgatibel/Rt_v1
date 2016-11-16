@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 12:38:33 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/16 10:39:55 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/16 16:41:06 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ void				set_ray(t_ray *ray)
 {
 	ray->pos.x = 0;
 	ray->pos.y = 0;
-	ray->pos.z = -1000;
+	ray->pos.z = -100;
 	ray->dir.x = 0;
 	ray->dir.y = 0;
 	// 13 == lookatpoint - cam pos ou  1
-	ray->dir.z = 1100;
-	//ray direction normalized
+	ray->dir.z = 900;
 }

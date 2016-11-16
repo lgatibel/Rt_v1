@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/16 10:52:30 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/16 15:56:20 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@ double				calc_delta(t_env *env, double *t0, double *t1)
 	ray = (t_ray *)&env->ray;
 	a = ray->dir.x * ray->dir.x + ray->dir.y * ray->dir.y + ray->dir.z *
 		ray->dir.z;
-	b = 2 * (ray->dir.x * (ray->pos.x - s->x) + ray->dir.y * (ray->pos.y - s->y) +
-			ray->dir.z * (ray->pos.z - s->z));
+	b = 2 * (ray->dir.x * (ray->pos.x - s->x) + ray->dir.y * (ray->pos.y - s->y)		+ ray->dir.z * (ray->pos.z - s->z));
 	c = ((ray->pos.x - s->x) * (ray->pos.x - s->x) + (ray->pos.y - s->y) *
 		(ray->pos.y - s->y) + (ray->pos.z - s->z) * (ray->pos.z - s->z)) -
 		s->radius * s->radius;
-	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
-	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
+	*t0 = (-b + sqrt((b * b) - c));//(4 * a * c))) / (2 * a);
+	*t1 = (-b - sqrt((b * b) - c));//(4 * a * c))) / (2 * a);
 	return ((b * b) - (4 * a * c));
 }
 
