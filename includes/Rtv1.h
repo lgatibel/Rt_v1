@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/10 18:37:08 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/16 10:44:57 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@ typedef struct		s_env
 	void		*mlx;
 	void		*win;
 	void		*img;
+	double		xindent;
+	double		yindent;
 	int			*img_addr;
 	int			bpp;
 	int			size_line;
@@ -146,10 +148,15 @@ typedef struct		s_env
 }					t_env;
 
 t_env				*set_env(t_env *env);
+
 void				set_ray(t_ray *ray);
+
 void				set_sphere(t_object **object);
 
+double				calc_delta(t_env *env, double *t0, double *t1);
+void				calc_ray(t_env *env, double x, double y);
 t_bool				calc_sphere(t_object *object, t_ray ray, double *t);
+
 
 t_point				matrice_sum_1x1(t_point matrice1, t_point matrice2);
 t_point				matrice_mult_1x1_nb(t_point matrice, double nb);
@@ -158,7 +165,7 @@ double				matrice_mult_1x1(t_point matrice1, t_point matrice2);
 void				matrice_cpy(t_point *dest, t_point src);
 
 void				normalized(t_point *point);
-void				trace(t_object *object, t_env env);
+//void				trace(t_object *object, t_env env);
 int					color(int color, double t);
 int					ft_exit(int keycode);
 #endif

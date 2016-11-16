@@ -1,7 +1,9 @@
 TARGET = rt_v1
 
 #Sources
-SRC_NAME = main.c set_object.c sphere.c exit.c matrice.c trace.c ray.c color.c set_env.c
+SRC_NAME = main.c set_object.c exit.c matrice.c ray.c color.c \
+set_env.c tools.c
+#trace.c sphere.c
 SRC_PATH = ./srcs/
 SRCS = $(addprefix $(SRC_PATH),$(SRC_NAME))
 ###############
