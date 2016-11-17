@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 14:38:39 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 14:51:43 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,20 +133,24 @@ typedef struct		s_viewplane
 typedef struct		s_env
 {
 	t_p3d		cam;
+	t_object	*object;
 	t_viewplane viewplane;
 	t_ray		ray;
-	t_object	*object;
+	double		xindent;
+	double		yindent;
+
 	void		*mlx;
 	void		*win;
 	void		*img;
-	double		xindent;
-	double		yindent;
 	int			*img_addr;
 	int			bpp;
 	int			size_line;
 	int			endian;
+
 	double		t;
 }					t_env;
+
+void				parse_file(char *file, t_env **env, t_object **object);
 
 void				set_env(t_env **env);
 void				set_ray(t_ray *ray);

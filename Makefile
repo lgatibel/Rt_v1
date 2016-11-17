@@ -1,7 +1,7 @@
 TARGET = rt_v1
 
 #Sources
-SRC_NAME = main.c set_object.c exit.c matrice.c ray.c color.c \
+SRC_NAME = main.c set_object.c exit.c tp3d_calc.c ray.c color.c parse.c \
 set_env.c tools.c
 #trace.c sphere.c
 SRC_PATH = ./srcs/
@@ -36,8 +36,8 @@ OPENGL = -framework Opengl
 CFLAGS = -Wall -Wextra -Werror 
 CC = gcc
 
-DEBUGFLAG1 = -g3
-DEBUGFLAG2 = -fsanitize=address
+DFLAG1 = -g3
+DFLAG2 = -fsanitize=address
 #############
 
 all: $(TARGET)

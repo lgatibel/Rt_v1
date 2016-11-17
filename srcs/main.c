@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 14:39:31 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 14:54:36 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static void		trace_test(t_env *env)
 	double		t1;
 	double		delta;
 
-	env->xindent = (float)env->viewplane.width / (float)WIDTH;
-	env->yindent = (float)env->viewplane.height / (float)HEIGHT;
 	y = -1;
 	x = -1;
 	while (++y < HEIGHT)
@@ -56,27 +54,6 @@ static void		trace_test(t_env *env)
 	//	c = ((O.x - Xc)^2 + (O.y - Yc)^2 + (O.z - Zc)^2) - r^2
 }
 
-
-void				parse_file(char *file,t_env **env, t_object **object)
-{
-	int		fd;
-	char	*line;
-
-	fd = -8;
-	line = NULL;
-	*object = NULL;
-	file = "lol"; // a supprimer
-/*
-	if ((fd = open(file, O_RDONLY)) > 0)
-		error(OPEN, __LINE__, __FILE__);
-	while((get_next(fd, &line)) > 0)
-	{
-	}
-	if (close(fd) == -1)
-		error(CLOSE, __LINE__, __FILE__);
-*/
-	set_env(env);
-}
 
 
 int					main(int ac, char **av)
