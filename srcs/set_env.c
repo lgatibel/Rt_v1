@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 12:25:38 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 13:40:16 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 14:39:32 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void				set_env(t_env **env)
 	//right here
 	//probleme
 	printf("-lol\n");
-//	matrice_cpy(&view->rvec, tmp->viewplane.upvec);
+//	tp3d_cpy(&view->rvec, tmp->viewplane.upvec);
 	printf("lol-\n");
-	view->upleft = matrice_sub_1x1(matrice_sum_1x1(matrice_sum_1x1(tmp->cam, matrice_mult_1x1_nb(view->vecdir, view->dist)), matrice_mult_1x1_nb(view->upvec, view->height / 2.0f)), matrice_mult_1x1_nb(view->rvec, view->width / 2.0f));
+	view->upleft = tp3d_sub(tp3d_sum(tp3d_sum(tmp->cam, tp3d_mult_nb(view->vecdir, view->dist)), tp3d_mult_nb(view->upvec, view->height / 2.0f)), tp3d_mult_nb(view->rvec, view->width / 2.0f));
 	tmp->mlx = mlx_init();
 	tmp->win = mlx_new_window(tmp->mlx, WIDTH, HEIGHT,
 	"hello");

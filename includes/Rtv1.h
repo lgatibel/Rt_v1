@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 13:39:53 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 14:38:39 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@
 
 // a virer
 # include <stdio.h>
-# define XO 0
-# define YO 0
-# define ZO -10
 //
 # define WIDTH 600
 # define HEIGHT 600
@@ -48,13 +45,6 @@ typedef enum		e_bool
 	false,
 	true
 }					t_bool;
-
-typedef struct		s_point
-{
-	double		x;
-	double		y;
-	double		z;
-}					t_point;
 
 typedef struct		s_p3d
 {
@@ -167,11 +157,11 @@ void				calc_ray(t_env *env, double x, double y);
 t_bool				calc_sphere(t_object *object, t_ray ray, double *t);
 
 
-t_p3d				matrice_sum_1x1(t_p3d matrice1, t_p3d matrice2);
-t_p3d				matrice_mult_1x1_nb(t_p3d matrice, double nb);
-t_p3d				matrice_sub_1x1(t_p3d matrice1, t_p3d matrice2);
-double				matrice_mult_1x1(t_p3d matrice1, t_p3d matrice2);
-void				matrice_cpy(t_p3d *dest, t_p3d src);
+t_p3d				tp3d_sum(t_p3d matrice1, t_p3d matrice2);
+t_p3d				tp3d_mult_nb(t_p3d matrice, double nb);
+t_p3d				tp3d_sub(t_p3d matrice1, t_p3d matrice2);
+double				tp3d_mult(t_p3d matrice1, t_p3d matrice2);
+void				tp3d_cpy(t_p3d *dest, t_p3d src);
 
 void				normalized(t_p3d *point);
 //void				trace(t_object *object, t_env env);

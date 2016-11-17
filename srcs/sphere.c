@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:36:45 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 12:26:00 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 14:39:32 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_bool				calc_sphere(t_object *object,t_ray ray, double *t)
 	t_p3d		dist;
 
 	sphere = (t_sphere *)object->ptr;
-//	dist = matrice_sub_1x1(sphere->pos, ray.pos);
-	b = matrice_mult_1x1(ray.dir, dist);
-	delta = ((b * b) - matrice_mult_1x1(dist, dist) + (sphere->radius * sphere->radius));
+//	dist = tp3d_sub(sphere->pos, ray.pos);
+	b = tp3d_mult(ray.dir, dist);
+	delta = ((b * b) - tp3d_mult(dist, dist) + (sphere->radius * sphere->radius));
 	t0 = b - sqrt(delta);
 	t1 = b + sqrt(delta);
 	if (t0 > 0.1f && t0 < *t)

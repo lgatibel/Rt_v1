@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 13:40:36 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 14:39:31 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,14 @@ int					main(int ac, char **av)
 		test2->x = 2;
 		test2->y = 2;
 		test2->z = 2;
-		test  = matrice_mult_1x1(*test1, *test2);
-		*test1  = matrice_sub_1x1(*test1, *test2);
+		test  = tp3d_mult(*test1, *test2);
+		*test1  = tp3d_sub(*test1, *test2);
 		printf("sub test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
-		*test1  = matrice_sum_1x1(*test1, *test2);
+		*test1  = tp3d_sum(*test1, *test2);
 		printf("sum test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
-		matrice_cpy(test1, *test2);
+		tp3d_cpy(test1, *test2);
 		printf("cpy test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
-		*test1  = matrice_mult_1x1_nb(*test1, 10);
+		*test1  = tp3d_mult_nb(*test1, 10);
 		printf("nb test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
 
 	}
