@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 14:51:43 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 15:18:35 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct		s_env
 	t_object	*object;
 	t_viewplane viewplane;
 	t_ray		ray;
+
 	double		xindent;
 	double		yindent;
 

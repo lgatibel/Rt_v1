@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 14:54:36 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 15:19:28 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void		trace_test(t_env *env)
 	double		t1;
 	double		delta;
 
+
 	y = -1;
 	x = -1;
 	while (++y < HEIGHT)
@@ -28,30 +29,15 @@ static void		trace_test(t_env *env)
 		while (++x < WIDTH)
 		{
 			calc_ray(env, x, y);
-		//	printf("x = %f,y = %f,z = %f\n",env->ray.dir.x,env->ray.dir.y,env->ray.dir.z);
-
 			delta = calc_delta(env, &t0, &t1);
 			if (delta >= 0)
 			{
-			printf("t = %f\n",env->t);
-				*(env->img_addr + (int)x + ((int)y * env->size_line) / 4) = color(GREEN, 1);
+				*(env->img_addr + (int)x + ((int)y * env->size_line) / 4) =
+					color(GREEN, 1);
 			}
-		//	if (x >= 100 && x <= 120)
-		//		*(env->img_addr + (LARG + (int)x) + ((HAUT + (int)y) * env->size_line) / 4) = color(WHITE, 1);
-/*
-			if (delta >= 0 && ((t0 > 0 && t0 < T) ||
-						(t1 > 0 && t1 < T)))
-*/
-	//			printf("t0 = %f, t1 = %f\n",t0, t1);
-				//printf("t0 = %f, t1 = %f\n",t0,t1);
-			//	printf("delta = %f\n",delta);
 		}
+		printf("y = %d\n", y);
 	}
-	//	printf("a = %f, b = %f, c = %f, delta = %f\n t0 = %f, t1 = %f\n",a, b, c, delta, t0, t1);
-
-	//	b = 2 * (DIR.x * (O.x - Xc) + DIR.y * (O.y - Yc) + DIR.z * (O.z - Zc))
-
-	//	c = ((O.x - Xc)^2 + (O.y - Yc)^2 + (O.z - Zc)^2) - r^2
 }
 
 
