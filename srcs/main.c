@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 11:06:13 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 13:40:36 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,26 +56,47 @@ static void		trace_test(t_env *env)
 	//	c = ((O.x - Xc)^2 + (O.y - Yc)^2 + (O.z - Zc)^2) - r^2
 }
 
+
+void				parse_file(char *file,t_env **env, t_object **object)
+{
+	int		fd;
+	char	*line;
+
+	fd = -8;
+	line = NULL;
+	*object = NULL;
+	file = "lol"; // a supprimer
+/*
+	if ((fd = open(file, O_RDONLY)) > 0)
+		error(OPEN, __LINE__, __FILE__);
+	while((get_next(fd, &line)) > 0)
+	{
+	}
+	if (close(fd) == -1)
+		error(CLOSE, __LINE__, __FILE__);
+*/
+	set_env(env);
+}
+
+
 int					main(int ac, char **av)
 {
 	t_env		*env;
+	t_object	*object;
 
-	t_point		*test1;
-	t_point		*test2;
-	t_vecteur	*test3;
+	t_p3d		*test1;
+	t_p3d		*test2;
 	double		test;
-	double		*test6;
 	int			i;
 
 	i = 0;
 	test = 0;
 	env = NULL;
-	test1 = (t_point *)malloc(sizeof(t_point));
-	test2 = (t_point *)malloc(sizeof(t_point));
-	test3 = (t_vecteur *)malloc(sizeof(t_vecteur));
-	if (ac == 1 && !av[1])
+	test1 = (t_p3d *)malloc(sizeof(t_p3d));
+	test2 = (t_p3d *)malloc(sizeof(t_p3d));
+	if (ac == 2)
 	{
-		env = set_env(env);
+		parse_file(av[1], &env, &object);
 		set_ray(&env->ray);
 		set_sphere(&env->object);
 		trace_test(env);
@@ -105,11 +126,6 @@ int					main(int ac, char **av)
 		printf("cpy test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
 		*test1  = matrice_mult_1x1_nb(*test1, 10);
 		printf("nb test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
-		test3->x = 8;
-		test3->y = 7;
-		test3->z = 6;
-		test6 = (double*)(test3) + 2;
-		printf("x = %f",*test6);
 
 	}
 	return (0);

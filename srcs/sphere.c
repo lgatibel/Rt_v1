@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:36:45 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/16 09:39:19 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 12:26:00 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_bool				calc_sphere(t_object *object,t_ray ray, double *t)
 	double		t0;
 	double		t1;
 	t_sphere	*sphere;
-	t_point		dist;
+	t_p3d		dist;
 
 	sphere = (t_sphere *)object->ptr;
 //	dist = matrice_sub_1x1(sphere->pos, ray.pos);

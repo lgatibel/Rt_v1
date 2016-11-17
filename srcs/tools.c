@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 10:52:18 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 12:26:01 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ double				calc_delta(t_env *env, double *t0, double *t1)
 	return ((b * b) - (4 * a * c));
 }
 
-void				normalized(t_point *point)
+void				normalized(t_p3d *point)
 {
 	if (point->x < 0)
 		point->x = -point->x;
@@ -47,4 +47,3 @@ void				normalized(t_point *point)
 	if (point->z < 0)
 		point->z = -point->z;
 }
-

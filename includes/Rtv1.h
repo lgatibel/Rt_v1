@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 11:15:33 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 13:39:53 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <libft.h>
 # include <math.h>
 # include <error.h>
+# include <fcntl.h>
 
 // a virer
 # include <stdio.h>
@@ -64,30 +65,30 @@ typedef struct		s_p3d
 
 typedef struct		s_square
 {
-	t_point		pos;
-	t_point		rot;
+	t_p3d		pos;
+	t_p3d		rot;
 	int			width;
 }					t_square;
 
 typedef struct		s_rectangle
 {
-	t_point		pos;
-	t_point		rot;
+	t_p3d		pos;
+	t_p3d		rot;
 	int			length;
 	int			width;
 }					t_rectangle;
 
 typedef struct		s_triangle
 {
-	t_point		pos;
-	t_point		rot;
+	t_p3d		pos;
+	t_p3d		rot;
 	int			height;
 	int			base;
 }					t_triangle;
 
 typedef struct		s_sphere
 {
-	t_point		pos;
+	t_p3d		pos;
 	t_p3d		rot;
 	double		x;
 	double		y;
@@ -97,7 +98,7 @@ typedef struct		s_sphere
 
 typedef struct		s_cone
 {
-	t_point		pos;
+	t_p3d		pos;
 	t_p3d		rot;
 	int			height;
 	int			base;
@@ -132,16 +133,16 @@ typedef struct		s_viewplane
 	double		width;
 	double		height;
 	double		dist;
-	t_point		vecdir;
-	t_point		upvec;
-	t_point		rvec;
-	t_point		upleft;
-	
+	t_p3d		vecdir;
+	t_p3d		upvec;
+	t_p3d		rvec;
+	t_p3d		upleft;
+
 }					t_viewplane;
 
 typedef struct		s_env
 {
-	t_point		cam;
+	t_p3d		cam;
 	t_viewplane viewplane;
 	t_ray		ray;
 	t_object	*object;
@@ -157,10 +158,8 @@ typedef struct		s_env
 	double		t;
 }					t_env;
 
-t_env				*set_env(t_env *env);
-
+void				set_env(t_env **env);
 void				set_ray(t_ray *ray);
-
 void				set_sphere(t_object **object);
 
 double				calc_delta(t_env *env, double *t0, double *t1);
@@ -168,13 +167,13 @@ void				calc_ray(t_env *env, double x, double y);
 t_bool				calc_sphere(t_object *object, t_ray ray, double *t);
 
 
-t_point				matrice_sum_1x1(t_point matrice1, t_point matrice2);
-t_point				matrice_mult_1x1_nb(t_point matrice, double nb);
-t_point				matrice_sub_1x1(t_point matrice1, t_point matrice2);
-double				matrice_mult_1x1(t_point matrice1, t_point matrice2);
-void				matrice_cpy(t_point *dest, t_point src);
+t_p3d				matrice_sum_1x1(t_p3d matrice1, t_p3d matrice2);
+t_p3d				matrice_mult_1x1_nb(t_p3d matrice, double nb);
+t_p3d				matrice_sub_1x1(t_p3d matrice1, t_p3d matrice2);
+double				matrice_mult_1x1(t_p3d matrice1, t_p3d matrice2);
+void				matrice_cpy(t_p3d *dest, t_p3d src);
 
-void				normalized(t_point *point);
+void				normalized(t_p3d *point);
 //void				trace(t_object *object, t_env env);
 int					color(int color, double t);
 int					ft_exit(int keycode);

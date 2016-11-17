@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 13:56:34 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 10:22:54 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 12:24:58 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <rtv1.h>
+
 
 int				color(int color, double t)
 {

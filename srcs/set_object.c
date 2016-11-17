@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_object.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/16 17:15:05 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 13:32:56 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,9 @@ void				set_sphere(t_object **object)
 	(*object)->type = SPHERE;
 	(*object)->ptr = sphere;
 }
+/*
+void				set_object(t_object object)
+{
+	
+}
+*/
