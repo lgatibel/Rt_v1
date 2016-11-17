@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 13:32:56 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 16:18:54 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void				set_sphere(t_object **object)
 	t_sphere *sphere;
 
 	if (!(*object = (t_object *)malloc(sizeof(t_object))))
-		error(MALLOC, __LINE__ - 1, __FILE__);
+		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if(!(sphere = (t_sphere *)malloc(sizeof(t_sphere))))
-		error(MALLOC, __LINE__ - 1, __FILE__);
+		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	sphere->x = 10;
 	sphere->y = -10;
 	sphere->z = 1000;

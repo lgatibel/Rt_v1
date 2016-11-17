@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 15:19:28 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 16:17:26 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,12 @@ static void		trace_test(t_env *env)
 
 int					main(int ac, char **av)
 {
+	t_grtv1		global;
 	t_env		*env;
 	t_object	*object;
 
-	t_p3d		*test1;
-	t_p3d		*test2;
-	double		test;
-	int			i;
-
-	i = 0;
-	test = 0;
-	env = NULL;
-	test1 = (t_p3d *)malloc(sizeof(t_p3d));
-	test2 = (t_p3d *)malloc(sizeof(t_p3d));
+	env = global.env;
+	object = global.object;
 	if (ac == 2)
 	{
 		parse_file(av[1], &env, &object);
@@ -72,24 +65,6 @@ int					main(int ac, char **av)
 		mlx_loop(env->mlx);
 	}
 	else
-	{
-		test1->x = 1;
-		test1->y = 1;
-		test1->z = 1;
-
-		test2->x = 2;
-		test2->y = 2;
-		test2->z = 2;
-		test  = tp3d_mult(*test1, *test2);
-		*test1  = tp3d_sub(*test1, *test2);
-		printf("sub test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
-		*test1  = tp3d_sum(*test1, *test2);
-		printf("sum test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
-		tp3d_cpy(test1, *test2);
-		printf("cpy test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
-		*test1  = tp3d_mult_nb(*test1, 10);
-		printf("nb test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
-
-	}
+		error_arg(1, ac - 1, EXIT);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 15:18:35 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 15:40:22 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,13 @@ typedef struct		s_env
 
 	double		t;
 }					t_env;
+
+typedef struct		s_grtv1
+{
+	t_env		*env;
+	t_object	*object;
+	t_ray		*ray;
+}					t_grtv1;
 
 void				parse_file(char *file, t_env **env, t_object **object);
 
