@@ -6,12 +6,16 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/16 17:19:54 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 10:52:18 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-
+/*
+void				calc_t(double a, double b, double c)
+{
+}
+*/
 double				calc_delta(t_env *env, double *t0, double *t1)
 {
 	double		a;

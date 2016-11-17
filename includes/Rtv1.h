@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/16 16:22:07 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 11:15:33 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ typedef struct		s_point
 	double		z;
 }					t_point;
 
+typedef struct		s_p3d
+{
+	double		x;
+	double		y;
+	double		z;
+}					t_p3d;
+
 typedef struct		s_square
 {
 	t_point		pos;
@@ -80,6 +87,8 @@ typedef struct		s_triangle
 
 typedef struct		s_sphere
 {
+	t_point		pos;
+	t_p3d		rot;
 	double		x;
 	double		y;
 	double		z;
@@ -89,6 +98,7 @@ typedef struct		s_sphere
 typedef struct		s_cone
 {
 	t_point		pos;
+	t_p3d		rot;
 	int			height;
 	int			base;
 	int			radius;
@@ -96,7 +106,8 @@ typedef struct		s_cone
 
 typedef struct		s_cylinder
 {
-	t_point		pos;
+	t_p3d		pos;
+	t_p3d		rot;
 	int			height;
 	int			base;
 	int			radius;
@@ -104,16 +115,16 @@ typedef struct		s_cylinder
 
 typedef struct		s_ray
 {
-	t_point		pos;
-	t_point		dir;
-	t_point		org;
+	t_p3d		pos;
+	t_p3d		dir;
 }					t_ray;
 
 typedef struct		s_object
 {
-	char			type;
-	void			*ptr;
-	struct s_object	*next;
+	char				type;
+	void				*ptr;
+	struct s_object		*next;
+	int					color;
 }					t_object;
 
 typedef struct		s_viewplane

@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/16 17:00:00 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/17 11:06:13 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		trace_test(t_env *env)
 			if (delta >= 0)
 			{
 			printf("t = %f\n",env->t);
-				*(env->img_addr + (int)x + ((int)y * env->size_line) / 4) = color(GREEN, env->t);
+				*(env->img_addr + (int)x + ((int)y * env->size_line) / 4) = color(GREEN, 1);
 			}
 		//	if (x >= 100 && x <= 120)
 		//		*(env->img_addr + (LARG + (int)x) + ((HAUT + (int)y) * env->size_line) / 4) = color(WHITE, 1);
@@ -62,12 +62,17 @@ int					main(int ac, char **av)
 
 	t_point		*test1;
 	t_point		*test2;
+	t_vecteur	*test3;
 	double		test;
+	double		*test6;
+	int			i;
 
+	i = 0;
 	test = 0;
 	env = NULL;
 	test1 = (t_point *)malloc(sizeof(t_point));
 	test2 = (t_point *)malloc(sizeof(t_point));
+	test3 = (t_vecteur *)malloc(sizeof(t_vecteur));
 	if (ac == 1 && !av[1])
 	{
 		env = set_env(env);
@@ -100,6 +105,12 @@ int					main(int ac, char **av)
 		printf("cpy test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
 		*test1  = matrice_mult_1x1_nb(*test1, 10);
 		printf("nb test = %f,testx =  %f,testy = %f,testz = %f\n", test, test1->x, test1->y, test1->z);
+		test3->x = 8;
+		test3->y = 7;
+		test3->z = 6;
+		test6 = (double*)(test3) + 2;
+		printf("x = %f",*test6);
+
 	}
 	return (0);
 }
