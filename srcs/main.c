@@ -51,14 +51,16 @@ int					main(int ac, char **av)
 	if (ac == 2)
 	{
 		parse_file(av[1], &env, &object);
+
 		set_ray(&env->ray);
 		set_sphere(&env->object);
 		trace_test(env);
 		//trace(env->object, *env);
-		mlx_put_image_to_window(env->mlx, env->win,
-				env->img, 0, 0);
-		write(1, "finish", 6);
+		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		event(env);
+
+		write(1, "finish", 6);
+
 		mlx_loop(env->mlx);
 	}
 	else

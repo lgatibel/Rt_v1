@@ -47,7 +47,12 @@ void				set_env(t_env **env)
 	set_tp3d(&tmp->viewplane.upvec, 0, 1, 0);
 	set_tp3d(&tmp->viewplane.rvec, 1, 0, 0);
 	set_tp3d(&tmp->cam, 0, 0, 1);
-	view->upleft = tp3d_sub(tp3d_sum(tp3d_sum(tmp->cam, tp3d_mult_nb(view->vecdir, view->dist)), tp3d_mult_nb(view->upvec, view->height / 2.0f)), tp3d_mult_nb(view->rvec, view->width / 2.0f));
+	view->upleft = tp3d_sub(
+	tp3d_sum(
+	tp3d_sum(tmp->cam,
+	tp3d_mult_nb(view->vecdir, view->dist)),
+	tp3d_mult_nb(view->upvec, view->height / 2.0f)),
+	tp3d_mult_nb(view->rvec, view->width / 2.0f));
 	tmp->xindent = (float)tmp->viewplane.width / (float)WIDTH;
 	tmp->yindent = (float)tmp->viewplane.height / (float)HEIGHT;
 	tmp->t = 1000;
