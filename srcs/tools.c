@@ -32,7 +32,7 @@ double				calc_delta(t_env *env, double *t0, double *t1)
 	(ray->pos.y - s->y) + ray->dir.z * (ray->pos.z - s->z));
 	c = ((ray->pos.x - s->x) * (ray->pos.x - s->x) + (ray->pos.y - s->y) *
 		(ray->pos.y - s->y) + (ray->pos.z - s->z) * (ray->pos.z - s->z)) -
-		s->radius * s->radius;
+		s->radius * 1;//* s->radius;
 	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
 	env->t = (*t0 < *t1) ? *t0 : *t1;
