@@ -34,6 +34,7 @@ t_env *env)
 		}
 		object = object->next;
 	}
+	//
 //	printf("delta = %f, tmp = %f\n",delta, tmp);
 	return (delta);
 }
