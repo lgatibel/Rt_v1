@@ -13,12 +13,27 @@
 #include <rtv1.h>
 #include <error.h>
 
+void				malloc_object(t_object **object)
+{
+	if (*object)
+	{
+		if (!((*object)->next = (t_object *)malloc(sizeof(t_object))))
+			error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
+		*object = (*object)->next;
+	}
+	else
+	{
+		if (!(*object = (t_object *)malloc(sizeof(t_object))))
+			error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
+	}
+}
+
+
 void				set_cylinder(t_object **object)
 {
 	t_cylinder *cylinder;
 
-	if (!((*object)->next = (t_object *)malloc(sizeof(t_object))))
-		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
+	malloc_object(object);
 	if(!(cylinder = (t_cylinder *)malloc(sizeof(t_cylinder))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	cylinder->x = 0;
@@ -36,8 +51,7 @@ void				set_sphere(t_object **object)
 {
 	t_sphere *sphere;
 
-	if (!(*object = (t_object *)malloc(sizeof(t_object))))
-		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
+	malloc_object(object);
 	if(!(sphere = (t_sphere *)malloc(sizeof(t_sphere))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	sphere->x = 0;

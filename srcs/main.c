@@ -28,7 +28,7 @@ t_env *env)
 			tmp = calc_cylinder(object, t0, t1, env);
 		else
 			return (-1);
-		delta = ((tmp > -1 && delta == -1) || (tmp < delta && delta > -1))
+		delta = ((delta == -1) || (tmp < delta && tmp > -1))
 		? tmp : delta;
 		object = object->next;
 	}
@@ -63,21 +63,30 @@ static void		trace_test(t_env *env)
 	}
 }
 
+void				set_global(t_grtv1 *global)
+{
+	global->env = NULL;
+	global->object = NULL;
+	global->ray = NULL;
+}
+
 int					main(int ac, char **av)
 {
 	t_grtv1		global;
 	t_env		*env;
 	t_object	*object;
 
-	env = global.env;
-	object = global.object;
+// a voir plus tard si le global est interessant
+	set_global(&global);
+	object = NULL;
+	env = NULL;
 	if (ac == 2)
 	{
 		parse_file(av[1], &env, &object);
 
 		set_ray(&env->ray);
-		set_sphere(&env->object);
 		set_cylinder(&env->object);
+		set_sphere(&env->object);
 		trace_test(env);
 		//trace(env->object, *env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
