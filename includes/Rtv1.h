@@ -177,6 +177,7 @@ void				tp3d_cpy(t_p3d *dest, t_p3d src);
 
 void				normalized(t_p3d *point);
 //void				trace(t_object *object, t_env env);
+void				event(t_env *env);
 int					color(int color, double t);
 int					ft_exit(int keycode);
 #endif

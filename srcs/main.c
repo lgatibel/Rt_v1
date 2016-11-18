@@ -40,8 +40,6 @@ static void		trace_test(t_env *env)
 	}
 }
 
-
-
 int					main(int ac, char **av)
 {
 	t_grtv1		global;
@@ -60,8 +58,7 @@ int					main(int ac, char **av)
 		mlx_put_image_to_window(env->mlx, env->win,
 				env->img, 0, 0);
 		write(1, "finish", 6);
-		mlx_hook(env->win, 2, (1L<<0), ft_exit, &env);
-		mlx_hook(env->win, 17, (1L<<17), ft_exit, &env);
+		event(env);
 		mlx_loop(env->mlx);
 	}
 	else
