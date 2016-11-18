@@ -16,6 +16,7 @@ void				parse_file(char *file,t_env **env, t_object **object)
 {
 	int		fd;
 	char	*line;
+	t_object	*obj;
 
 	fd = -8;
 	line = NULL;
@@ -31,4 +32,6 @@ void				parse_file(char *file,t_env **env, t_object **object)
 		error(CLOSE, __LINE__, __FILE__);
 */
 	set_env(env);
+	set_object(&obj);
+	(*env)->object = obj;
 }

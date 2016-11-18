@@ -17,12 +17,14 @@ void				malloc_object(t_object **object)
 {
 	if (*object)
 	{
+		printf("1\n");
 		if (!((*object)->next = (t_object *)malloc(sizeof(t_object))))
 			error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 		*object = (*object)->next;
 	}
 	else
 	{
+		printf("2\n");
 		if (!(*object = (t_object *)malloc(sizeof(t_object))))
 			error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	}
@@ -33,7 +35,9 @@ void				set_cylinder(t_object **object)
 {
 	t_cylinder *cylinder;
 
-	malloc_object(object);
+	//malloc_object(object);
+		if (!(*object = (t_object *)malloc(sizeof(t_object))))
+			error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if(!(cylinder = (t_cylinder *)malloc(sizeof(t_cylinder))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	cylinder->x = 0;
@@ -51,17 +55,25 @@ void				set_sphere(t_object **object)
 {
 	t_sphere *sphere;
 
-	malloc_object(object);
+	//malloc_object(object);
+		if (!(*object = (t_object *)malloc(sizeof(t_object))))
+			error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if(!(sphere = (t_sphere *)malloc(sizeof(t_sphere))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	sphere->x = 0;
 	sphere->y = 0;
 	sphere->z = 0;
-	sphere->radius = 150;
+	sphere->radius = 100;
 	(*object)->type = SPHERE;
 	(*object)->color = GREEN;
 	(*object)->ptr = sphere;
 	(*object)->next = NULL;
+}
+
+void			set_object(t_object **object)
+{
+		set_sphere(&(*object));
+		set_cylinder(&(*object)->next);
 }
 /*
 void				set_object(t_object object)

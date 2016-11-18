@@ -22,6 +22,7 @@ t_env *env)
 	tmp = -1;
 	while (object)
 	{
+		printf("type = %d\n", object->type);
 		if (object->type == SPHERE)
 			tmp = calc_sphere(object, t0, t1, env);
 		else if (object->type == CYLINDER)
@@ -57,7 +58,7 @@ static void		trace_test(t_env *env)
 			{
 				*(env->img_addr + (int)x + ((int)y * env->size_line) / 4) =
 					color(GREEN, 1);
-		printf("delta = %f\n", delta);
+	//	printf("delta = %f\n", delta);
 			}
 		}
 	}
@@ -85,8 +86,6 @@ int					main(int ac, char **av)
 		parse_file(av[1], &env, &object);
 
 		set_ray(&env->ray);
-		set_cylinder(&env->object);
-		set_sphere(&env->object);
 		trace_test(env);
 		//trace(env->object, *env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);

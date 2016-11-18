@@ -52,7 +52,8 @@ $(TARGET): $(OBJ)
 	@make -C $(LIBMLX_PATH)
 	@echo "\x1b[32m\n########################\x1b[0m"
 	@echo "\x1b[32m\n######## 3/3 Rt_v1 ########\x1b[0m"
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LIBMLX) $(APPKIT) $(OPENGL) -o $(TARGET)
+	#$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LIBMLX) $(APPKIT) $(OPENGL) -o $(TARGET)
+	$(CC) $(CFLAGS) $(DFLAG2) $(OBJ) $(LIBFT) $(LIBMLX) $(APPKIT) $(OPENGL) -o $(TARGET) -g3
 	@echo "\x1b[32m\n########################\x1b[0m"
 
 $(addprefix $(OBJ_PATH),%.o) : $(addprefix $(SRC_PATH),%.c)

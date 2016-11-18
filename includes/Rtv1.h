@@ -167,8 +167,9 @@ void				parse_file(char *file, t_env **env, t_object **object);
 
 void				set_env(t_env **env);
 void				set_ray(t_ray *ray);
-void				set_sphere(t_object **object);
-void				set_cylinder(t_object **object);
+//void				set_sphere(t_object **object);
+//void				set_cylinder(t_object **object);
+void				set_object(t_object **object);
 
 double				calc_sphere(t_object *object, double *t0, double *t1,
 t_env *env);
