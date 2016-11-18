@@ -34,9 +34,9 @@ static void		trace_test(t_env *env)
 			{
 				*(env->img_addr + (int)x + ((int)y * env->size_line) / 4) =
 					color(GREEN, 1);
+		printf("delta = %f\n", delta);
 			}
 		}
-		printf("y = %d\n", y);
 	}
 }
 
