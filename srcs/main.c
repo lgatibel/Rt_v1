@@ -12,6 +12,30 @@
 
 #include <rtv1.h>
 
+double			calc_delta(t_object *object, double *t0, double *t1,
+t_env *env)
+{
+	double		delta;
+	double		tmp;
+
+	delta = -1;
+	tmp = -1;
+	while (object)
+	{
+		if (object->type == SPHERE)
+			tmp = calc_sphere(object, t0, t1, env);
+		else if (object->type == CYLINDER)
+			tmp = calc_cylinder(object, t0, t1, env);
+		else
+			return (-1);
+		delta = ((tmp > -1 && delta == -1) || (tmp < delta && delta > -1))
+		? tmp : delta;
+		object = object->next;
+	}
+//	printf("delta = %f, tmp = %f\n",delta, tmp);
+	return (delta);
+}
+
 static void		trace_test(t_env *env)
 {
 	int		x;
@@ -19,7 +43,6 @@ static void		trace_test(t_env *env)
 	double		t0;
 	double		t1;
 	double		delta;
-
 
 	y = -1;
 	x = -1;
@@ -29,7 +52,7 @@ static void		trace_test(t_env *env)
 		while (++x < WIDTH)
 		{
 			calc_ray(env, x, y);
-			delta = calc_delta(env, &t0, &t1);
+			delta = calc_delta(env->object, &t0, &t1, env);
 			if (delta >= 0)
 			{
 				*(env->img_addr + (int)x + ((int)y * env->size_line) / 4) =
@@ -54,6 +77,7 @@ int					main(int ac, char **av)
 
 		set_ray(&env->ray);
 		set_sphere(&env->object);
+		set_cylinder(&env->object);
 		trace_test(env);
 		//trace(env->object, *env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);

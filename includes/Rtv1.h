@@ -90,8 +90,10 @@ typedef struct		s_cone
 {
 	t_p3d		pos;
 	t_p3d		rot;
+	double		x;
+	double		y;
+	double		z;
 	int			height;
-	int			base;
 	int			radius;
 }					t_cone;
 
@@ -99,6 +101,9 @@ typedef struct		s_cylinder
 {
 	t_p3d		pos;
 	t_p3d		rot;
+	double		x;
+	double		y;
+	double		z;
 	int			height;
 	int			base;
 	int			radius;
@@ -163,10 +168,14 @@ void				parse_file(char *file, t_env **env, t_object **object);
 void				set_env(t_env **env);
 void				set_ray(t_ray *ray);
 void				set_sphere(t_object **object);
+void				set_cylinder(t_object **object);
 
-double				calc_delta(t_env *env, double *t0, double *t1);
+double				calc_sphere(t_object *object, double *t0, double *t1,
+t_env *env);
+double				calc_cylinder(t_object *object, double *t0, double *t1,
+t_env *env);
 void				calc_ray(t_env *env, double x, double y);
-t_bool				calc_sphere(t_object *object, t_ray ray, double *t);
+//t_bool				calc_sphere(t_object *object, t_ray ray, double *t);
 
 
 t_p3d				tp3d_sum(t_p3d matrice1, t_p3d matrice2);

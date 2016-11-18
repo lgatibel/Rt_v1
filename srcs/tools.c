@@ -16,7 +16,30 @@ void				calc_t(double a, double b, double c)
 {
 }
 */
-double				calc_delta(t_env *env, double *t0, double *t1)
+double				calc_cylinder(t_object *object, double *t0, double *t1,
+t_env *env)
+{
+	double		a;
+	double		b;
+	double		c;
+	t_cylinder	*s;
+	t_ray		*ray;
+
+	s = (t_cylinder *)object->ptr;
+	ray = (t_ray *)&env->ray;
+	a = ray->dir.x * ray->dir.x + ray->dir.z * ray->dir.z;
+	b = 2 * (ray->dir.x * (ray->pos.x - s->x) + ray->dir.z *
+	(ray->pos.z - s->z));
+	c = ((ray->pos.x - s->x) * (ray->pos.x - s->x) + (ray->pos.z - s->z) *
+		(ray->pos.z - s->z)) - s->radius * 1;//* s->radius;
+	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
+	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
+	env->t = (*t0 < *t1) ? *t0 : *t1;
+	return ((b * b) - (4 * a * c));
+}
+
+double				calc_sphere(t_object *object, double *t0, double *t1,
+t_env *env)
 {
 	double		a;
 	double		b;
@@ -24,7 +47,7 @@ double				calc_delta(t_env *env, double *t0, double *t1)
 	t_sphere	*s;
 	t_ray		*ray;
 
-	s = (t_sphere *)env->object->ptr;
+	s = (t_sphere *)object->ptr;
 	ray = (t_ray *)&env->ray;
 	a = ray->dir.x * ray->dir.x + ray->dir.y * ray->dir.y + ray->dir.z *
 		ray->dir.z;
@@ -32,7 +55,7 @@ double				calc_delta(t_env *env, double *t0, double *t1)
 	(ray->pos.y - s->y) + ray->dir.z * (ray->pos.z - s->z));
 	c = ((ray->pos.x - s->x) * (ray->pos.x - s->x) + (ray->pos.y - s->y) *
 		(ray->pos.y - s->y) + (ray->pos.z - s->z) * (ray->pos.z - s->z)) -
-		s->radius * 1;//* s->radius;
+		s->radius * 1;//\* s->radius;
 	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
 	env->t = (*t0 < *t1) ? *t0 : *t1;
