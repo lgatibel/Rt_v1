@@ -40,6 +40,7 @@ void				set_env(t_env **env)
 	if (!(tmp = (t_env *)malloc(sizeof(t_env))))
 		error(INIT, __LINE__ - 1, __FILE__, EXIT);
 	view = &tmp->viewplane;
+	tmp->color = BLACK;
 	tmp->viewplane.width = 0.5;
 	tmp->viewplane.height = 0.5;
 	tmp->viewplane.dist = 1;

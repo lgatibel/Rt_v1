@@ -27,10 +27,11 @@ t_env *env)
 			tmp = calc_sphere(object, t0, t1, env);
 		else if (object->type == CYLINDER)
 			tmp = calc_cylinder(object, t0, t1, env);
-		else
-			return (-1);
-		delta = ((delta == -1) || (tmp < delta && tmp > -1))
-		? tmp : delta;
+		if (tmp > -1 && (tmp < delta || delta == -1))
+		{
+			delta = tmp;
+			env->color = object->color;
+		}
 		object = object->next;
 	}
 //	printf("delta = %f, tmp = %f\n",delta, tmp);
@@ -56,8 +57,8 @@ static void		trace_test(t_env *env)
 			delta = calc_delta(env->object, &t0, &t1, env);
 			if (delta >= 0)
 			{
-				*(env->img_addr + (int)x + ((int)y * env->size_line) / 4) =
-					color(GREEN, 1);
+				*(env->img_addr + x + (y * env->size_line) / 4) =
+				color(env->color, 1);
 	//	printf("delta = %f\n", delta);
 			}
 		}

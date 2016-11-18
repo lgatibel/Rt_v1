@@ -25,18 +25,23 @@
 # define WIDTH 600
 # define HEIGHT 600
 # define RAYON_SIZE 1000
+
 # define RED 0XFF0000
 # define GREEN 0X00FF00
 # define BLUE 0X0000FF
 # define WHITE 0XFFFFFF
+# define BLACK 0x000000
 # define CUSTOM 0x0ECB25
+
 # define ANGLE 90
+
 # define SQUARE 1
 # define RECTANGLE 2
 # define TRIANGLE 3
 # define SPHERE 4
 # define CONE 5
 # define CYLINDER 6
+
 # define T 600
 
 typedef enum		e_bool
@@ -144,6 +149,7 @@ typedef struct		s_env
 
 	double		xindent;
 	double		yindent;
+	int			color;
 
 	void		*mlx;
 	void		*win;
