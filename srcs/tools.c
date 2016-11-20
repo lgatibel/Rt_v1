@@ -22,6 +22,8 @@ t_env **env)
 	double		a;
 	double		b;
 	double		c;
+	double		z0;
+	double		z1;
 	t_cylinder	*s;
 	t_ray		*ray;
 
@@ -33,10 +35,15 @@ t_env **env)
 	c = ((ray->pos.x - s->x) * (ray->pos.x - s->x) +
 	(ray->pos.z - s->z) * (ray->pos.z - s->z)) -
 	s->radius * 1;//* s->radius;
+//	if ()
+//		b = 0;
 	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
 	(*env)->t = (*t0 > 0 && *t0 < *t1) ? *t0 : *t1;
 	(*env)->t = (*t1 > 0) ? *t1 : -1;
+	z0 = ray->pos.y + ray->dir.y * *t0 ;
+	z1 = ray->pos.y + ray->dir.y * *t1 ;
+	printf("z0 = %f, z1 = %f\n",z0,z1);
 	//(*env)->t = ((*env)->t > -1) ? (*env)->t : -1;
 	return ((b * b) - (4 * a * c));
 }

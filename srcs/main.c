@@ -36,7 +36,7 @@ t_env **env)
 			delta = tmp;
 			(*env)->color = object->color;
 		}
-		printf("t = %f\n",(*env)->t);
+	//	printf("t = %f\n",(*env)->t);
 		t = (*env)->t;
 		object = object->next;
 	}
