@@ -30,13 +30,13 @@ t_env **env)
 		else if (object->type == CYLINDER)
 			tmp = calc_cylinder(object, t0, t1, &(*env));
 	//	if (tmp > -1 && (tmp < delta || delta == -1) &&
-		printf("t = %f\n",(*env)->t);
-		if (tmp > -1 &&
-		t >= (*env)->t)
+		if (tmp > -1 //&& (delta == -1 || tmp < delta)) //&&
+		 && (t >= (*env)->t || ((*env)->t > -1 && t == -1)))
 		{
 			delta = tmp;
 			(*env)->color = object->color;
 		}
+		printf("t = %f\n",(*env)->t);
 		t = (*env)->t;
 		object = object->next;
 	}

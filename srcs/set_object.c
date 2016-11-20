@@ -42,7 +42,7 @@ void				set_cylinder(t_object **object)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	cylinder->x = 0;
 	cylinder->y = 0;
-	cylinder->z = 10;
+	cylinder->z = 0;
 	cylinder->radius = 50;
 	cylinder->height = 100;
 	(*object)->type = CYLINDER;
@@ -62,8 +62,8 @@ void				set_sphere(t_object **object)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	sphere->x = 0;
 	sphere->y = 0;
-	sphere->z = 0;
-	sphere->radius = 150;
+	sphere->z = 10;
+	sphere->radius = 50;
 	(*object)->type = SPHERE;
 	(*object)->color = GREEN;
 	(*object)->ptr = sphere;
@@ -72,8 +72,9 @@ void				set_sphere(t_object **object)
 
 void			set_object(t_object **object)
 {
-		set_sphere(&(*object));
-		set_cylinder(&(*object)->next);
+		set_cylinder(&(*object));
+	//	set_sphere(&(*object));
+	//	set_cylinder(&(*object)->next);
 }
 /*
 void				set_object(t_object object)
