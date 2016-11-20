@@ -56,7 +56,7 @@ void				set_env(t_env **env)
 	tp3d_mult_nb(view->rvec, view->width / 2.0f));
 	tmp->xindent = (float)tmp->viewplane.width / (float)WIDTH;
 	tmp->yindent = (float)tmp->viewplane.height / (float)HEIGHT;
-	tmp->t = 1000;
+	tmp->t = -1;
 	set_mlx(&tmp);
 	*env = tmp;
 	printf("x = %f, y = %f, z = %f\n",view->upleft.x,view->upleft.y,view->upleft.z);

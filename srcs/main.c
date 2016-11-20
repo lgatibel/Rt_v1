@@ -13,25 +13,31 @@
 #include <rtv1.h>
 
 double			calc_delta(t_object *object, double *t0, double *t1,
-t_env *env)
+t_env **env)
 {
 	double		delta;
 	double		tmp;
+	double		t;
 
 	delta = -1;
 	tmp = -1;
+	t = -1;
 	while (object)
 	{
-		printf("type = %d\n", object->type);
+		//printf("type = %d\n", object->type);
 		if (object->type == SPHERE)
-			tmp = calc_sphere(object, t0, t1, env);
+			tmp = calc_sphere(object, t0, t1, &(*env));
 		else if (object->type == CYLINDER)
-			tmp = calc_cylinder(object, t0, t1, env);
-		if (tmp > -1 && (tmp < delta || delta == -1))
+			tmp = calc_cylinder(object, t0, t1, &(*env));
+	//	if (tmp > -1 && (tmp < delta || delta == -1) &&
+		printf("t = %f\n",(*env)->t);
+		if (tmp > -1 &&
+		t >= (*env)->t)
 		{
 			delta = tmp;
-			env->color = object->color;
+			(*env)->color = object->color;
 		}
+		t = (*env)->t;
 		object = object->next;
 	}
 	//
@@ -55,7 +61,7 @@ static void		trace_test(t_env *env)
 		while (++x < WIDTH)
 		{
 			calc_ray(env, x, y);
-			delta = calc_delta(env->object, &t0, &t1, env);
+			delta = calc_delta(env->object, &t0, &t1, &env);
 			if (delta >= 0)
 			{
 				*(env->img_addr + x + (y * env->size_line) / 4) =

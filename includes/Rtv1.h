@@ -178,9 +178,9 @@ void				set_ray(t_ray *ray);
 void				set_object(t_object **object);
 
 double				calc_sphere(t_object *object, double *t0, double *t1,
-t_env *env);
+t_env **env);
 double				calc_cylinder(t_object *object, double *t0, double *t1,
-t_env *env);
+t_env **env);
 void				calc_ray(t_env *env, double x, double y);
 //t_bool				calc_sphere(t_object *object, t_ray ray, double *t);
 
