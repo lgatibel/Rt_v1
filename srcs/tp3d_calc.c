@@ -6,11 +6,21 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 17:22:33 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 14:41:06 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/21 13:15:11 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+
+t_p3d			tp3d_square(t_p3d *src)
+{
+	t_p3d	result;
+
+	result.x = src->x * src->x;
+	result.y = src->y * src->y;
+	result.z = src->z * src->z;
+	return (result);
+}
 
 void			tp3d_cpy(t_p3d *dest,
 t_p3d src)

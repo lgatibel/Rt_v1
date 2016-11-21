@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 12:26:01 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/21 13:28:47 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,54 @@ void				calc_t(double a, double b, double c)
 {
 }
 */
+double				calc_cone(t_object *object, double *t0, double *t1,
+t_env **env)
+{
+	double		a;
+	double		b;
+	double		c;
+	t_cone		*co;
+	t_ray		*ray;
+
+	co = (t_cone *)object->ptr;
+	ray = (t_ray *)&(*env)->ray;
+	a = ray->dir.x * ray->dir.x + ray->dir.y *
+	ray->dir.y - ray->dir.z * ray->dir.z;
+	b = 2 * (ray->dir.x * (ray->pos.x - co->x) +
+	ray->dir.y * (ray->pos.y - co->y) - ray->dir.z *
+	(ray->pos.z - co->z));
+	c = ((ray->pos.x - co->x) * (ray->pos.x - co->x) +
+	(ray->pos.y - co->y) * (ray->pos.y - co->y) +
+	(ray->pos.z - co->z) * (ray->pos.z - co->z));// -
+	//co->radius * 1;//\* co->radius;
+	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
+	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
+	(*env)->t = (*t0 > 0 && *t0 < *t1) ? *t0 : *t1;
+	(*env)->t = (*t1 > 0) ? *t1 : -1;
+	return ((b * b) - (4 * a * c));
+}
+
 double				calc_cylinder(t_object *object, double *t0, double *t1,
 t_env **env)
 {
 	double		a;
 	double		b;
 	double		c;
-	double		z0;
-	double		z1;
-	t_cylinder	*s;
+	t_cylinder	*cyl;
 	t_ray		*ray;
 
-	s = (t_cylinder *)object->ptr;
+	cyl = (t_cylinder *)object->ptr;
 	ray = (t_ray *)&(*env)->ray;
 	a = ray->dir.x * ray->dir.x + ray->dir.z * ray->dir.z;
-	b = 2 * (ray->dir.x * (ray->pos.x - s->x) +
-	ray->dir.z * (ray->pos.z - s->z));
-	c = ((ray->pos.x - s->x) * (ray->pos.x - s->x) +
-	(ray->pos.z - s->z) * (ray->pos.z - s->z)) -
-	s->radius * 1;//* s->radius;
-//	if ()
-//		b = 0;
+	b = 2 * (ray->dir.x * (ray->pos.x - cyl->x) +
+	ray->dir.z * (ray->pos.z - cyl->z));
+	c = ((ray->pos.x - cyl->x) * (ray->pos.x - cyl->x) +
+	(ray->pos.z - cyl->z) * (ray->pos.z - cyl->z)) -
+	cyl->radius * 1;//* c->radius;
 	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
 	(*env)->t = (*t0 > 0 && *t0 < *t1) ? *t0 : *t1;
 	(*env)->t = (*t1 > 0) ? *t1 : -1;
-	z0 = ray->pos.y + ray->dir.y * *t0 ;
-	z1 = ray->pos.y + ray->dir.y * *t1 ;
-	printf("z0 = %f, z1 = %f\n",z0,z1);
 	//(*env)->t = ((*env)->t > -1) ? (*env)->t : -1;
 	return ((b * b) - (4 * a * c));
 }
@@ -72,7 +92,6 @@ t_env **env)
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
 	(*env)->t = (*t0 > 0 && *t0 < *t1) ? *t0 : *t1;
 	(*env)->t = (*t1 > 0) ? *t1 : -1;
-	//(*env)->t = ((*env)->t > -1) ? (*env)->t : -1;
 	return ((b * b) - (4 * a * c));
 }
 

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/21 10:36:24 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/21 13:23:22 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,10 +177,13 @@ void				set_object(t_object **object);
 
 double				calc_sphere(t_object *object, double *t0, double *t1,
 t_env **env);
+double				calc_cone(t_object *object, double *t0, double *t1,
+t_env **env);
 double				calc_cylinder(t_object *object, double *t0, double *t1,
 t_env **env);
 void				calc_ray(t_env *env, double x, double y);
 
+t_p3d				tp3d_square(t_p3d *src);
 t_p3d				tp3d_sum(t_p3d matrice1, t_p3d matrice2);
 t_p3d				tp3d_mult_nb(t_p3d matrice, double nb);
 t_p3d				tp3d_sub(t_p3d matrice1, t_p3d matrice2);

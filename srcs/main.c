@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 16:17:26 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/21 13:22:21 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_env **env)
 			tmp = calc_sphere(object, t0, t1, &(*env));
 		else if (object->type == CYLINDER)
 			tmp = calc_cylinder(object, t0, t1, &(*env));
+		else if (object->type == CONE)
+			tmp = calc_cone(object, t0, t1, &(*env));
 	//	if (tmp > -1 && (tmp < delta || delta == -1) &&
 		if (tmp > -1 //&& (delta == -1 || tmp < delta)) //&&
 		 && (t >= (*env)->t || ((*env)->t > -1 && t == -1)))

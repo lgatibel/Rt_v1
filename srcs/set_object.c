@@ -6,30 +6,33 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/21 10:40:10 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/21 13:28:49 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <error.h>
 
-void				malloc_object(t_object **object)
+t_object			*set_cone(void)
 {
-	if (*object)
-	{
-		printf("1\n");
-		if (!((*object)->next = (t_object *)malloc(sizeof(t_object))))
-			error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-		*object = (*object)->next;
-	}
-	else
-	{
-		printf("2\n");
-		if (!(*object = (t_object *)malloc(sizeof(t_object))))
-			error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	}
-}
+	t_cone		*cone;
+	t_object	*object;
 
+	if (!(object = (t_object *)malloc(sizeof(t_object))))
+		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
+	if(!(cone = (t_cone *)malloc(sizeof(t_cone))))
+		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
+	cone->x = 0;
+	cone->y = 0;
+	cone->z = 0;
+	cone->radius = 50;
+	cone->height = 5;
+	object->type = CONE;
+	object->color = BLUE;
+	object->ptr = cone;
+	object->next = NULL;
+	return (object);
+}
 
 t_object			*set_cylinder(void)
 {
@@ -42,9 +45,9 @@ t_object			*set_cylinder(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	cylinder->x = 0;
 	cylinder->y = 0;
-	cylinder->z = 0;
+	cylinder->z = 100;
 	cylinder->radius = 50;
-	cylinder->height = 10;
+	cylinder->height = 5;
 	object->type = CYLINDER;
 	object->color = RED;
 	object->ptr = cylinder;
@@ -63,7 +66,7 @@ t_object			*set_sphere(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	sphere->x = 0;
 	sphere->y = 0;
-	sphere->z = 0;
+	sphere->z = 100;
 	sphere->radius = 150;
 	object->type = SPHERE;
 	object->color = GREEN;
@@ -75,14 +78,19 @@ t_object			*set_sphere(void)
 void			set_object(t_object **object)
 {
 	t_object		*obj;
+	t_object		*tmp;
 	t_object		**start;
 
 	obj = NULL;
+	start = NULL;
 	if (obj == NULL)
 	{
 		obj = set_sphere();
+	//	obj = set_cylinder();
 		start = &obj;
 	}
 	obj->next = set_cylinder();
+	tmp = obj->next;
+	tmp->next = set_cone();
 	*object = *start;
 }
