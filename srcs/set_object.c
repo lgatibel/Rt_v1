@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/21 13:33:30 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/21 13:40:33 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ t_object			*set_cone(void)
 	cone->y = 0;
 	cone->z = 0;
 	cone->radius = 10;
-	cone->height = 1;
+	cone->height = 1;////////////////////////////////////
 	object->type = CONE;
-	object->color = CUSTOM;
+	object->color = RED;
 	object->ptr = cone;
 	object->next = NULL;
 	return (object);
@@ -45,9 +45,9 @@ t_object			*set_cylinder(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	cylinder->x = 0;
 	cylinder->y = 0;
-	cylinder->z = 100;
+	cylinder->z = 0;
 	cylinder->radius = 50;
-	cylinder->height = 5;
+	cylinder->height = 5;/////////////////////////////////
 	object->type = CYLINDER;
 	object->color = RED;
 	object->ptr = cylinder;
@@ -66,7 +66,7 @@ t_object			*set_sphere(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	sphere->x = 0;
 	sphere->y = 0;
-	sphere->z = 100;
+	sphere->z = 0;
 	sphere->radius = 150;
 	object->type = SPHERE;
 	object->color = GREEN;

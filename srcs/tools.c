@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/21 13:34:47 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/21 13:36:59 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_env **env)
 	(ray->pos.y - co->y));
 	c = ((ray->pos.x - co->x) * (ray->pos.x - co->x) +
 	(ray->pos.z - co->z) * (ray->pos.z - co->z) -
-	(ray->pos.y - co->z) * (ray->pos.y - co->y));
+	(ray->pos.y - co->y) * (ray->pos.y - co->y));
 	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
 	(*env)->t = (*t0 > 0 && *t0 < *t1) ? *t0 : *t1;
