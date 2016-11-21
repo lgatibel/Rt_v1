@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/21 13:39:34 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/21 15:22:36 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_env **env)
 			tmp = calc_cone(object, t0, t1, &(*env));
 	//	if (tmp > -1 && (tmp < delta || delta == -1) &&
 		if (tmp > -1 //&& (delta == -1 || tmp < delta)) //&&
-		 && (t >= (*env)->t || ((*env)->t > -1 && t == -1)))
+		 && ((t >= (*env)->t && (*env)->t > -1) || ((*env)->t > -1 && t == -1)))
 		{
 			delta = tmp;
 			(*env)->color = object->color;

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/21 13:40:33 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/21 15:24:53 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_object			*set_cone(void)
 	cone->x = 0;
 	cone->y = 0;
 	cone->z = 0;
-	cone->radius = 10;
+	cone->radius = 39;
 	cone->height = 1;////////////////////////////////////
 	object->type = CONE;
 	object->color = RED;
@@ -46,10 +46,10 @@ t_object			*set_cylinder(void)
 	cylinder->x = 0;
 	cylinder->y = 0;
 	cylinder->z = 0;
-	cylinder->radius = 50;
+	cylinder->radius = 40;
 	cylinder->height = 5;/////////////////////////////////
 	object->type = CYLINDER;
-	object->color = RED;
+	object->color = WHITE;
 	object->ptr = cylinder;
 	object->next = NULL;
 	return (object);
@@ -66,8 +66,8 @@ t_object			*set_sphere(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	sphere->x = 0;
 	sphere->y = 0;
-	sphere->z = 0;
-	sphere->radius = 150;
+	sphere->z = 10;
+	sphere->radius = 100;
 	object->type = SPHERE;
 	object->color = GREEN;
 	object->ptr = sphere;
@@ -83,13 +83,14 @@ void			set_object(t_object **object)
 
 	obj = NULL;
 	start = NULL;
-	if (obj == NULL)
-	{
+//	if (obj == NULL)
+//	{
 		obj = set_sphere();
 	//	obj = set_cylinder();
 		start = &obj;
-	}
-	obj->next = set_cylinder();
+//	}
+	tmp = obj;
+	tmp->next = set_cylinder();
 	tmp = obj->next;
 	tmp->next = set_cone();
 	*object = *start;
