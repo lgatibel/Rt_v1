@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 16:18:54 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/21 10:40:10 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void				malloc_object(t_object **object)
 }
 
 
-void				set_cylinder(t_object **object)
+t_object			*set_cylinder(void)
 {
 	t_cylinder *cylinder;
+	t_object	*object;
 
-	//malloc_object(object);
-		if (!(*object = (t_object *)malloc(sizeof(t_object))))
-			error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
+	if (!(object = (t_object *)malloc(sizeof(t_object))))
+		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if(!(cylinder = (t_cylinder *)malloc(sizeof(t_cylinder))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	cylinder->x = 0;
@@ -45,40 +45,44 @@ void				set_cylinder(t_object **object)
 	cylinder->z = 0;
 	cylinder->radius = 50;
 	cylinder->height = 10;
-	(*object)->type = CYLINDER;
-	(*object)->color = RED;
-	(*object)->ptr = cylinder;
-	(*object)->next = NULL;
+	object->type = CYLINDER;
+	object->color = RED;
+	object->ptr = cylinder;
+	object->next = NULL;
+	return (object);
 }
 
-void				set_sphere(t_object **object)
+t_object			*set_sphere(void)
 {
-	t_sphere *sphere;
+	t_sphere	*sphere;
+	t_object	*object;
 
-	//malloc_object(object);
-		if (!(*object = (t_object *)malloc(sizeof(t_object))))
-			error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
+	if (!(object = (t_object *)malloc(sizeof(t_object))))
+		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if(!(sphere = (t_sphere *)malloc(sizeof(t_sphere))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	sphere->x = 0;
 	sphere->y = 0;
 	sphere->z = 0;
 	sphere->radius = 150;
-	(*object)->type = SPHERE;
-	(*object)->color = GREEN;
-	(*object)->ptr = sphere;
-	(*object)->next = NULL;
+	object->type = SPHERE;
+	object->color = GREEN;
+	object->ptr = sphere;
+	object->next = NULL;
+	return (object);
 }
 
 void			set_object(t_object **object)
 {
-//		set_cylinder(&(*object));
-		set_sphere(&(*object));
-		set_cylinder(&(*object)->next);
+	t_object		*obj;
+	t_object		**start;
+
+	obj = NULL;
+	if (obj == NULL)
+	{
+		obj = set_sphere();
+		start = &obj;
+	}
+	obj->next = set_cylinder();
+	*object = *start;
 }
-/*
-void				set_object(t_object object)
-{
-	
-}
-*/
