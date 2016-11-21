@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/21 13:28:47 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/21 13:34:47 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,14 @@ t_env **env)
 
 	co = (t_cone *)object->ptr;
 	ray = (t_ray *)&(*env)->ray;
-	a = ray->dir.x * ray->dir.x + ray->dir.y *
-	ray->dir.y - ray->dir.z * ray->dir.z;
+	a = ray->dir.x * ray->dir.x + ray->dir.z *
+	ray->dir.z - ray->dir.y * ray->dir.y;
 	b = 2 * (ray->dir.x * (ray->pos.x - co->x) +
-	ray->dir.y * (ray->pos.y - co->y) - ray->dir.z *
-	(ray->pos.z - co->z));
+	ray->dir.z * (ray->pos.z - co->z) - ray->dir.y *
+	(ray->pos.y - co->y));
 	c = ((ray->pos.x - co->x) * (ray->pos.x - co->x) +
-	(ray->pos.y - co->y) * (ray->pos.y - co->y) +
-	(ray->pos.z - co->z) * (ray->pos.z - co->z));// -
-	//co->radius * 1;//\* co->radius;
+	(ray->pos.z - co->z) * (ray->pos.z - co->z) -
+	(ray->pos.y - co->z) * (ray->pos.y - co->y));
 	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
 	(*env)->t = (*t0 > 0 && *t0 < *t1) ? *t0 : *t1;
