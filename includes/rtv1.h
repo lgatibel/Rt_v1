@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/21 13:23:22 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/22 14:58:18 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,15 @@
 # define BLUE 0X0000FF
 # define WHITE 0XFFFFFF
 # define BLACK 0x000000
+# define YELLOW 0XF7FA04
 # define CUSTOM 0x0ECB25
 
 # define ANGLE 90
 
-# define SQUARE 1
-# define RECTANGLE 2
-# define TRIANGLE 3
-# define SPHERE 4
-# define CONE 5
-# define CYLINDER 6
+# define PLAN 1
+# define SPHERE 2
+# define CONE 3
+# define CYLINDER 4
 
 # define T 600
 
@@ -64,22 +63,6 @@ typedef struct		s_square
 	t_p3d		rot;
 	int			width;
 }					t_square;
-
-typedef struct		s_rectangle
-{
-	t_p3d		pos;
-	t_p3d		rot;
-	int			length;
-	int			width;
-}					t_rectangle;
-
-typedef struct		s_triangle
-{
-	t_p3d		pos;
-	t_p3d		rot;
-	int			height;
-	int			base;
-}					t_triangle;
 
 typedef struct		s_sphere
 {
@@ -113,6 +96,15 @@ typedef struct		s_cylinder
 	int			base;
 	int			radius;
 }					t_cylinder;
+
+typedef struct		s_plan
+{
+	t_p3d		pos;
+	t_p3d		rot;
+	double		x;
+	double		y;
+	double		z;
+}					t_plan;
 
 typedef struct		s_ray
 {

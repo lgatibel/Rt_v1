@@ -6,12 +6,30 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/21 15:24:53 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/22 14:58:05 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <error.h>
+t_object			*set_plan(void)
+{
+	t_plan		*plan;
+	t_object	*object;
+
+	if (!(object = (t_object *)malloc(sizeof(t_object))))
+		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
+	if(!(plan = (t_plan *)malloc(sizeof(t_plan))))
+		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
+	plan->x = 0;
+	plan->y = 0;
+	plan->z = 0;
+	object->type = PLAN;
+	object->color = YELLOW;
+	object->ptr = plan;
+	object->next = NULL;
+	return (object);
+}
 
 t_object			*set_cone(void)
 {
@@ -25,8 +43,8 @@ t_object			*set_cone(void)
 	cone->x = 0;
 	cone->y = 0;
 	cone->z = 0;
-	cone->radius = 39;
-	cone->height = 1;////////////////////////////////////
+	cone->radius = 1;
+	cone->height = 10;
 	object->type = CONE;
 	object->color = RED;
 	object->ptr = cone;
