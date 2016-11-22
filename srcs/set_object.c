@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/22 14:58:05 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/22 15:52:00 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ t_object			*set_plan(void)
 	plan->x = 0;
 	plan->y = 0;
 	plan->z = 0;
+	plan->t = 0;
+	plan->u = 0;
+	plan->v = 0;
 	object->type = PLAN;
 	object->color = YELLOW;
 	object->ptr = plan;
@@ -111,5 +114,7 @@ void			set_object(t_object **object)
 	tmp->next = set_cylinder();
 	tmp = obj->next;
 	tmp->next = set_cone();
+	tmp = obj->next;
+//	tmp->next = set_plan();
 	*object = *start;
 }

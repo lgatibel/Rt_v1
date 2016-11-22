@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/22 14:58:18 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/22 16:05:46 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,9 @@ typedef struct		s_plan
 	double		x;
 	double		y;
 	double		z;
+	double		t;
+	double		u;
+	double		v;
 }					t_plan;
 
 typedef struct		s_ray
@@ -180,6 +183,7 @@ t_p3d				tp3d_sum(t_p3d matrice1, t_p3d matrice2);
 t_p3d				tp3d_mult_nb(t_p3d matrice, double nb);
 t_p3d				tp3d_sub(t_p3d matrice1, t_p3d matrice2);
 double				tp3d_mult(t_p3d matrice1, t_p3d matrice2);
+double				tp3d_div(t_p3d matrice1, t_p3d matrice2);
 void				tp3d_cpy(t_p3d *dest, t_p3d src);
 
 void				normalized(t_p3d *point);
