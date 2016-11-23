@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/23 11:26:06 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/23 18:59:48 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 // a virer
 # include <stdio.h>
 //
-# define WIDTH 600
-# define HEIGHT 600
+# define WIDTH 1600
+# define HEIGHT 900
 # define RAYON_SIZE 1000
 
 # define RED 0XFF0000

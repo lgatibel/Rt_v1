@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 12:25:38 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 16:19:21 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/23 18:58:15 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void				set_env(t_env **env)
 		error(INIT, __LINE__ - 1, __FILE__, EXIT);
 	view = &tmp->viewplane;
 	tmp->color = BLACK;
-	tmp->viewplane.width = 0.5;
-	tmp->viewplane.height = 0.5;
+	tmp->viewplane.width = 1.6;
+	tmp->viewplane.height = 0.9;
 	tmp->viewplane.dist = 1;
 	set_tp3d(&tmp->viewplane.vecdir, 0, 0, 1);
 	set_tp3d(&tmp->viewplane.upvec, 0, 1, 0);

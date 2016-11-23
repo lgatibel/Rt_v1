@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 12:38:33 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/17 14:39:32 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/23 19:00:20 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ void				set_ray(t_ray *ray)
 
 	ray->dir.x = 0;
 	ray->dir.y = 0;
-	// a quoi cela sert
+	// a quoi cela sert ???
 	ray->dir.z = 1;
 }

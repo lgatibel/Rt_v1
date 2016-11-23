@@ -6,11 +6,12 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/23 18:40:47 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/23 18:50:36 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+/*
 size_t			twocolor_lerp(unsigned int a, unsigned int b, const float pc)
 {
 	t_pos	color;
@@ -26,24 +27,26 @@ size_t			twocolor_lerp(unsigned int a, unsigned int b, const float pc)
 			(((unsigned int)color.y) & 0x00ff00) |
 			(((unsigned int)color.z) & 0x0000ff));
 }
-
+*//*
 size_t			onecolor_lerp(unsigned int a, const float pc)
 {
-	t_pos	color;
 	int		b;
+	int		x;
+	int		y;
+	int		z;
 
 	b = (a >> 1) & 8355711;
 	if (pc <= 0.0f)
 		return (a);
 	if (pc >= 1.0f)
 		return (b);
-	color.x = (float)(a & 0xff0000) * (1.0f - pc) + (float)(b & 0xff0000) * pc;
-	color.y = (float)(a & 0x00ff00) * (1.0f - pc) + (float)(b & 0x00ff00) * pc;
-	color.z = (float)(a & 0x0000ff) * (1.0f - pc) + (float)(b & 0x0000ff) * pc;
-	return((((unsigned int)color.x) & 0xff0000) |
-			(((unsigned int)color.y) & 0x00ff00) |
-			(((unsigned int)color.z) & 0x0000ff));
-}
+	x = (float)(a & 0xff0000) * (1.0f - pc) + (float)(b & 0xff0000) * pc;
+	y = (float)(a & 0x00ff00) * (1.0f - pc) + (float)(b & 0x00ff00) * pc;
+	z = (float)(a & 0x0000ff) * (1.0f - pc) + (float)(b & 0x0000ff) * pc;
+	return((((unsigned int)x) & 0xff0000) |
+			(((unsigned int)y) & 0x00ff00) |
+			(((unsigned int)z) & 0x0000ff));
+}*/
 // a couleur 
 // pc pourcentage degrader t / (posz_objs - radius)
 
@@ -79,6 +82,7 @@ double			calc_delta(t_object *object, double *t0, double *t1,
 		{
 			res = delta;
 			(*env)->color = object->color;
+	//		(*env)->color = (int)onecolor_lerp(object->color, (*ent)->t / (object_>ptr->pos->z - object->ptr->radius));
 		}
 		t = ((*env)->t >= 0) ? (*env)->t : -1;
 		//	printf("t = %f\n",(*env)->t);
