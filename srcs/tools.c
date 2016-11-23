@@ -6,38 +6,32 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/22 17:11:12 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/23 18:32:14 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-double				calc_plan(t_object *object,
+double				calc_plane(t_object *object, double *t0, double *t1,
 t_env **env)
 {
 /*	double		a;
 	double		b;
 	double		c;
-*/	t_plan		*pl;
+*/	t_plane		*pl;
 	t_ray		*ray;
+	double	d;
 
-	pl = (t_plan *)object->ptr;
+	d = 1;
+	pl = (t_plane *)object->ptr;
 	ray = (t_ray *)&(*env)->ray;
-	/*a = ray->dir.x * ray->dir.x + ray->dir.z *
-	ray->dir.z - ray->dir.y * ray->dir.y;
-	b = 2 * (ray->dir.x * (ray->pos.x - co->x) +
-	ray->dir.z * (ray->pos.z - co->z) - ray->dir.y *
-	(ray->pos.y - co->y));
-	c = ((ray->pos.x - co->x) * (ray->pos.x - co->x) +
-	(ray->pos.z - co->z) * (ray->pos.z - co->z) -
-	(ray->pos.y - co->y) * (ray->pos.y - co->y));// - co->radius;
-	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
-	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
-	(*env)->t = (*t0 > 0 && *t0 < *t1) ? *t0 : -1;
-	(*env)->t = (*t1 > 0 && *t1 < *t0) ? *t1 : -1;*/
-	if ((*env)->t < 0)
-		return (-1);
-	return (1);//(b * b) - (4 * a * c));
+	(*env)->t = pl->x * ray->pos.x + pl->y * ray->pos.y + pl->z * ray->pos.z + d /
+	pl->x * ray->dir.x + pl->y * ray->dir.y + pl->z * ray->dir.z;
+	// faire gaffe a floting point execption
+	*t0 = *t1;
+	//printf("env->t = %f\n",(*env)->t);
+	(*env)->t = ((*env)->t < 0) ? -8 : 2000000;//2000000;
+	return ((*env)->t);
 }
 
 double				calc_cone(t_object *object, double *t0, double *t1,
@@ -61,8 +55,8 @@ t_env **env)
 	(ray->pos.y - co->y) * (ray->pos.y - co->y));// - co->radius;
 	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
-	(*env)->t = (*t0 > 0 && *t0 < *t1) ? *t0 : -1;
-	(*env)->t = (*t1 > 0 && *t1 < *t0) ? *t1 : -1;
+	(*env)->t = (*t0 >= 0 && *t0 < *t1) ? *t0 : *t1;
+	(*env)->t = ((*env)->t >= 0) ? (*env)->t : -8;
 	return ((b * b) - (4 * a * c));
 }
 
@@ -85,9 +79,8 @@ t_env **env)
 	cyl->radius * 1;//* c->radius;
 	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
-	(*env)->t = (*t0 > 0 && *t0 < *t1) ? *t0 : -1;
-	(*env)->t = (*t1 > 0 && *t1 < *t0) ? *t1 : -1;
-	//(*env)->t = ((*env)->t > -1) ? (*env)->t : -1;
+	(*env)->t = (*t0 >= 0 && *t0 < *t1) ? *t0 : *t1;
+	(*env)->t = ((*env)->t >= 0) ? (*env)->t : -8;
 	return ((b * b) - (4 * a * c));
 }
 
@@ -113,8 +106,8 @@ t_env **env)
 	s->radius * 1;//\* s->radius;
 	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
-	(*env)->t = (*t0 > 0 && *t0 < *t1) ? *t0 : *t1;
-	(*env)->t = (*t1 > 0) ? *t1 : -1;
+	(*env)->t = (*t0 >= 0 && *t0 < *t1) ? *t0 : *t1;
+	(*env)->t = ((*env)->t >= 0) ? (*env)->t : -8;
 	return ((b * b) - (4 * a * c));
 }
 

@@ -6,45 +6,89 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/22 13:40:32 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/23 18:40:47 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+size_t			twocolor_lerp(unsigned int a, unsigned int b, const float pc)
+{
+	t_pos	color;
+
+	if (pc <= 0.0f)
+		return (a);
+	if (pc >=	 1.0f)
+		return (b);
+	color.x = (float)(a & 0xff0000) * (1.0f - pc) + (float)(b & 0xff0000) * pc;
+	color.y = (float)(a & 0x00ff00) * (1.0f - pc) + (float)(b & 0x00ff00) * pc;
+	color.z = (float)(a & 0x0000ff) * (1.0f - pc) + (float)(b & 0x0000ff) * pc;
+	return((((unsigned int)color.x) & 0xff0000) |
+			(((unsigned int)color.y) & 0x00ff00) |
+			(((unsigned int)color.z) & 0x0000ff));
+}
+
+size_t			onecolor_lerp(unsigned int a, const float pc)
+{
+	t_pos	color;
+	int		b;
+
+	b = (a >> 1) & 8355711;
+	if (pc <= 0.0f)
+		return (a);
+	if (pc >= 1.0f)
+		return (b);
+	color.x = (float)(a & 0xff0000) * (1.0f - pc) + (float)(b & 0xff0000) * pc;
+	color.y = (float)(a & 0x00ff00) * (1.0f - pc) + (float)(b & 0x00ff00) * pc;
+	color.z = (float)(a & 0x0000ff) * (1.0f - pc) + (float)(b & 0x0000ff) * pc;
+	return((((unsigned int)color.x) & 0xff0000) |
+			(((unsigned int)color.y) & 0x00ff00) |
+			(((unsigned int)color.z) & 0x0000ff));
+}
+// a couleur 
+// pc pourcentage degrader t / (posz_objs - radius)
 
 double			calc_delta(t_object *object, double *t0, double *t1,
-t_env **env)
+		t_env **env)
 {
 	double		delta;
-	double		tmp;
+	double		res;
 	double		t;
 
+	int			test;
+
+
 	delta = -1;
-	tmp = -1;
+	res = -1;
 	t = -1;
+	test = 1;
 	while (object)
 	{
 		//printf("type = %d\n", object->type);
 		if (object->type == SPHERE)
-			tmp = calc_sphere(object, t0, t1, &(*env));
+			delta = calc_sphere(object, t0, t1, env);
 		else if (object->type == CYLINDER)
-			tmp = calc_cylinder(object, t0, t1, &(*env));
+			delta = calc_cylinder(object, t0, t1, env);
 		else if (object->type == CONE)
-			tmp = calc_cone(object, t0, t1, &(*env));
-	//	if (tmp > -1 && (tmp < delta || delta == -1) &&
-		if (tmp > -1 //&& (delta == -1 || tmp < delta)) //&&
-		 && ((t >= (*env)->t && (*env)->t > -1) || ((*env)->t > -1 && t == -1)))
+			delta = calc_cone(object, t0, t1, env);
+		else if (object->type == PLANE)
+			delta = calc_plane(object, t0, t1, env);
+		else
+			delta = -1;
+		if (delta >= 0 && (*env)->t >= 0 && (((*env)->t < t && t >= 0)  ||
+					t == -1))
 		{
-			delta = tmp;
+			res = delta;
 			(*env)->color = object->color;
 		}
-	//	printf("t = %f\n",(*env)->t);
-		t = (*env)->t;
+		t = ((*env)->t >= 0) ? (*env)->t : -1;
+		//	printf("t = %f\n",(*env)->t);
 		object = object->next;
+		test++;
 	}
+	//printf("test = %d\n",test);
 	//
-//	printf("delta = %f, tmp = %f\n",delta, tmp);
-	return (delta);
+	//	printf("delta = %f, tmp = %f\n",delta, tmp);
+	return (res);
 }
 
 static void		trace_test(t_env *env)
@@ -67,8 +111,8 @@ static void		trace_test(t_env *env)
 			if (delta >= 0)
 			{
 				*(env->img_addr + x + (y * env->size_line) / 4) =
-				color(env->color, 1);
-	//	printf("delta = %f\n", delta);
+					color(env->color, 1);
+				//	printf("delta = %f\n", delta);
 			}
 		}
 	}
@@ -87,7 +131,7 @@ int					main(int ac, char **av)
 	t_env		*env;
 	t_object	*object;
 
-// a voir plus tard si le global est interessant
+	// a voir plus tard si le global est interessant
 	set_global(&global);
 	object = NULL;
 	env = NULL;

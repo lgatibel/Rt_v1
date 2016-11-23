@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/22 16:05:46 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/23 11:26:06 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 
 # define ANGLE 90
 
-# define PLAN 1
+# define PLANE 1
 # define SPHERE 2
 # define CONE 3
 # define CYLINDER 4
@@ -97,7 +97,7 @@ typedef struct		s_cylinder
 	int			radius;
 }					t_cylinder;
 
-typedef struct		s_plan
+typedef struct		s_plane
 {
 	t_p3d		pos;
 	t_p3d		rot;
@@ -107,7 +107,7 @@ typedef struct		s_plan
 	double		t;
 	double		u;
 	double		v;
-}					t_plan;
+}					t_plane;
 
 typedef struct		s_ray
 {
@@ -175,6 +175,8 @@ t_env **env);
 double				calc_cone(t_object *object, double *t0, double *t1,
 t_env **env);
 double				calc_cylinder(t_object *object, double *t0, double *t1,
+t_env **env);
+double				calc_plane(t_object *object, double *t0, double *t1,
 t_env **env);
 void				calc_ray(t_env *env, double x, double y);
 
