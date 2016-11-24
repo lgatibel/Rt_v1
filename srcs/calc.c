@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/24 10:34:29 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/24 14:12:44 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ t_env **env)
 	(ray->pos.y - co->y));
 	c = ((ray->pos.x - co->x) * (ray->pos.x - co->x) +
 	(ray->pos.z - co->z) * (ray->pos.z - co->z) -
-	(ray->pos.y - co->y) * (ray->pos.y - co->y));// - co->radius;
+	(ray->pos.y - co->y) * (ray->pos.y - co->y));
 	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
-	(*env)->t = (*t0 >= 0 && *t0 < *t1) ? *t0 : *t1;
+	(*env)->t = (*t0 >= 0 && (*t0 < *t1 || *t1 < 0)) ? *t0 : *t1;
 	(*env)->t = ((*env)->t >= 0) ? (*env)->t : -8;
 	return ((b * b) - (4 * a * c));
 }
@@ -77,10 +77,10 @@ t_env **env)
 	ray->dir.z * (ray->pos.z - cyl->z));
 	c = ((ray->pos.x - cyl->x) * (ray->pos.x - cyl->x) +
 	(ray->pos.z - cyl->z) * (ray->pos.z - cyl->z)) -
-	cyl->radius * 1;//* c->radius;
+	cyl->radius * cyl->radius;
 	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
-	(*env)->t = (*t0 >= 0 && *t0 < *t1) ? *t0 : *t1;
+	(*env)->t = (*t0 >= 0 && (*t0 < *t1 || *t1 < 0)) ? *t0 : *t1;
 	(*env)->t = ((*env)->t >= 0) ? (*env)->t : -8;
 	return ((b * b) - (4 * a * c));
 }
@@ -104,10 +104,10 @@ t_env **env)
 	c = ((ray->pos.x - s->x) * (ray->pos.x - s->x) +
 	(ray->pos.y - s->y) * (ray->pos.y - s->y) +
 	(ray->pos.z - s->z) * (ray->pos.z - s->z)) -
-	s->radius * 1;//\* s->radius;
+	s->radius * s->radius;
 	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
-	(*env)->t = (*t0 >= 0 && *t0 < *t1) ? *t0 : *t1;
+	(*env)->t = (*t0 >= 0 && (*t0 < *t1 || *t1 < 0)) ? *t0 : *t1;
 	(*env)->t = ((*env)->t >= 0) ? (*env)->t : -8;
 	return ((b * b) - (4 * a * c));
 }
