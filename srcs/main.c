@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/24 17:53:11 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/24 17:58:10 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ double			calc_delta(t_object *object, double *t0, double *t1,
 			res = delta;
 			(*env)->color = object->color;
 	//		(*env)->color = (int)onecolor_lerp(object->color, (*ent)->t / (object_>ptr->pos->z - object->ptr->radius));
-		t = ((*env)->t > 0) ? (*env)->t : -8;
+			t = ((*env)->t > 0) ? (*env)->t : -8;
 		}
 		//	printf("t = %f\n",(*env)->t);
 		object = object->next;

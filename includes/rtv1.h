@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/24 11:12:43 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/24 18:01:53 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,7 @@ typedef struct		s_plane
 	double		x;
 	double		y;
 	double		z;
-	double		t;
-	double		u;
-	double		v;
+	double		d;
 }					t_plane;
 
 typedef struct		s_ray

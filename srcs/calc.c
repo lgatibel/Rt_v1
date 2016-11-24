@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/24 17:32:36 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/24 18:02:38 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,16 @@
 double				calc_plane(t_object *object, double *t0, double *t1,
 t_env **env)
 {
-/*	double		a;
-	double		b;
-	double		c;
-*/	t_plane		*pl;
+	t_plane		*pl;
 	t_ray		*ray;
-	double	d;
 
-	d = 10;
 	pl = (t_plane *)object->ptr;
 	ray = (t_ray *)&(*env)->ray;
 	(*env)->t = -(pl->x * ray->pos.x + pl->y * ray->pos.y + pl->z *
-		ray->pos.z + d) /(pl->x * ray->dir.x + pl->y * ray->dir.y + pl->z *
+		ray->pos.z + pl->d) /(pl->x * ray->dir.x + pl->y * ray->dir.y + pl->z *
 			ray->dir.z);
 	// faire gaffe a floting point execption
 	*t0 = *t1;
-	//printf("env->t = %f\n",(*env)->t);
-//	if ((*env)->t != 1)
-//	printf("t = %f\n",(*env)->t);
 	(*env)->t = ((*env)->t < 0) ? -8 : (*env)->t;//2000000;
 	if ((*env)->t > 0)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/24 17:53:39 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/24 18:03:32 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_object			*set_plane(void)
 	plane->x = 0;
 	plane->y = 1;
 	plane->z = 0;
+	plane->d = 10;
 	object->type = PLANE;
 	object->color = YELLOW;
 	object->ptr = plane;
@@ -105,10 +106,10 @@ void			set_object(t_object **object)
 		start = &obj;
 //	}
 	tmp = obj;
-	tmp->next = set_cylinder();
-	tmp = obj->next;
 	tmp->next = set_sphere();
-	tmp = obj->next;
+	tmp = tmp->next;
+	tmp->next = set_cylinder();
+	tmp = tmp->next;
 	tmp->next = set_plane();
 	*object = *start;
 }
