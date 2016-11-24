@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   calc.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/23 18:32:14 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/24 10:34:29 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ t_env **env)
 	d = 1;
 	pl = (t_plane *)object->ptr;
 	ray = (t_ray *)&(*env)->ray;
-	(*env)->t = pl->x * ray->pos.x + pl->y * ray->pos.y + pl->z * ray->pos.z + d /
-	pl->x * ray->dir.x + pl->y * ray->dir.y + pl->z * ray->dir.z;
+	(*env)->t = (pl->x * ray->pos.x + pl->y * ray->pos.y + pl->z *
+		ray->pos.z + d) /(pl->x * ray->dir.x + pl->y * ray->dir.y + pl->z *
+			ray->dir.z);
 	// faire gaffe a floting point execption
 	*t0 = *t1;
 	//printf("env->t = %f\n",(*env)->t);

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/23 18:59:48 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/24 11:12:43 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ typedef struct		s_env
 	int			endian;
 
 	double		t;
+	int			i;
 }					t_env;
 
 typedef struct		s_grtv1
@@ -192,4 +193,9 @@ void				normalized(t_p3d *point);
 //void				trace(t_object *object, t_env env);
 void				event(t_env *env);
 int					color(int color, double t);
+
+
+
+
+int				test(t_env *env);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 12:25:38 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/23 18:58:15 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/24 11:13:03 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void				set_env(t_env **env)
 	tmp->xindent = (float)tmp->viewplane.width / (float)WIDTH;
 	tmp->yindent = (float)tmp->viewplane.height / (float)HEIGHT;
 	tmp->t = -1;
+	tmp->i = 0;
 	set_mlx(&tmp);
 	*env = tmp;
 	printf("x = %f, y = %f, z = %f\n",view->upleft.x,view->upleft.y,view->upleft.z);

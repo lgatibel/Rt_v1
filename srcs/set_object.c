@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/23 18:59:19 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/24 11:38:41 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_object			*set_plane(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	plane->x = 0;
 	plane->y = 0;
-	plane->z = 10;
+	plane->z = 0;
 	object->type = PLANE;
 	object->color = YELLOW;
 	object->ptr = plane;
@@ -103,14 +103,14 @@ void			set_object(t_object **object)
 	start = NULL;
 //	if (obj == NULL)
 //	{
-		obj = set_sphere();
+		obj = set_cylinder();
 		start = &obj;
 //	}
 	tmp = obj;
-//	tmp->next = set_sphere();
+	tmp->next = set_sphere();
 	tmp = obj->next;
-//	tmp->next = set_cone();
+	tmp->next = set_cone();
 	tmp = obj->next;
-//	tmp->next = set_plane();
+	tmp->next = set_plane();
 	*object = *start;
 }

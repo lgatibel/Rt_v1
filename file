@@ -1,0 +1,16 @@
+camera 
+	origin 0 0 0
+	rot 0 0 90
+fenetre
+	height 1080
+	width  800
+object
+	sphere
+		origin 0 0 0
+		radius 100
+		rot 0 0 90
+		-color rgb (255 0 0)
+spot
+	origin 1000 1000 0
+ray
+
