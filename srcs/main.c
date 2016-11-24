@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/24 12:15:38 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/24 17:53:11 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,16 @@ double			calc_delta(t_object *object, double *t0, double *t1,
 			delta = calc_cone(object, t0, t1, env);
 		else if (object->type == PLANE)
 			delta = calc_plane(object, t0, t1, env);
-		else
-			delta = -1;
-		if (delta >= 0 && (*env)->t >= 0 && (((*env)->t < t && t >= 0)  ||
-					t == -1))
+	//	else
+	//		delta = -8;
+		if (delta >= 0 && (*env)->t > 0 &&
+				(((*env)->t < t && t > 0) || t == -1))
 		{
 			res = delta;
 			(*env)->color = object->color;
 	//		(*env)->color = (int)onecolor_lerp(object->color, (*ent)->t / (object_>ptr->pos->z - object->ptr->radius));
+		t = ((*env)->t > 0) ? (*env)->t : -8;
 		}
-		t = ((*env)->t >= 0) ? (*env)->t : -1;
 		//	printf("t = %f\n",(*env)->t);
 		object = object->next;
 		test++;
@@ -101,7 +101,6 @@ static void		trace_test(t_env *env)
 	int		y;
 	double		t0;
 	double		t1;
-	double		delta;
 
 	y = -1;
 	x = -1;
@@ -111,8 +110,7 @@ static void		trace_test(t_env *env)
 		while (++x < WIDTH)
 		{
 			calc_ray(env, x, y);
-			delta = calc_delta(env->object, &t0, &t1, &env);
-			if (delta >= 0)
+			if (calc_delta(env->object, &t0, &t1, &env) >= 0)
 			{
 				*(env->img_addr + x + (y * env->size_line) / 4) =
 					color(env->color, 1);
