@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/24 18:02:38 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 11:19:33 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ t_env **env)
 
 	pl = (t_plane *)object->ptr;
 	ray = (t_ray *)&(*env)->ray;
-	(*env)->t = -(pl->x * ray->pos.x + pl->y * ray->pos.y + pl->z *
-		ray->pos.z + pl->d) /(pl->x * ray->dir.x + pl->y * ray->dir.y + pl->z *
+//	normalized(&(*env)->ray.dir);
+	(*env)->t = -(pl->a * (ray->pos.x - pl->x) + pl->b * (ray->pos.y- pl->y) + pl->c *
+		(ray->pos.z - pl->z) + pl->d) /(pl->a * ray->dir.x + pl->b * ray->dir.y + pl->c *
 			ray->dir.z);
 	// faire gaffe a floting point execption
 	*t0 = *t1;
@@ -42,6 +43,7 @@ t_env **env)
 
 	co = (t_cone *)object->ptr;
 	ray = (t_ray *)&(*env)->ray;
+//	normalized(&(*env)->ray.dir);
 	a = ray->dir.x * ray->dir.x + ray->dir.z *
 	ray->dir.z - ray->dir.y * ray->dir.y;
 	b = 2 * (ray->dir.x * (ray->pos.x - co->x) +
@@ -68,6 +70,7 @@ t_env **env)
 
 	cyl = (t_cylinder *)object->ptr;
 	ray = (t_ray *)&(*env)->ray;
+//	normalized(&(*env)->ray.dir);
 	a = ray->dir.x * ray->dir.x + ray->dir.z * ray->dir.z;
 	b = 2 * (ray->dir.x * (ray->pos.x - cyl->x) +
 	ray->dir.z * (ray->pos.z - cyl->z));
@@ -92,6 +95,7 @@ t_env **env)
 
 	s = (t_sphere *)object->ptr;
 	ray = (t_ray *)&(*env)->ray;
+//	normalized(&(*env)->ray.dir);
 	a = ray->dir.x * ray->dir.x + ray->dir.y *
 	ray->dir.y + ray->dir.z * ray->dir.z;
 	b = 2 * (ray->dir.x * (ray->pos.x - s->x) +

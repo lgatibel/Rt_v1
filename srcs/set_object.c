@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/24 18:03:32 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 11:20:59 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ t_object			*set_plane(void)
 	if(!(plane = (t_plane *)malloc(sizeof(t_plane))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	plane->x = 0;
-	plane->y = 1;
+	plane->y = -1;
 	plane->z = 0;
-	plane->d = 10;
+	plane->d = 0;
+	plane->a = 0;
+	plane->b = 1;
+	plane->c = 0;
 	object->type = PLANE;
 	object->color = YELLOW;
 	object->ptr = plane;
@@ -41,9 +44,9 @@ t_object			*set_cone(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if(!(cone = (t_cone *)malloc(sizeof(t_cone))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	cone->x = 0;
+	cone->x = 100;
 	cone->y = 0;
-	cone->z = 200;
+	cone->z = 400;
 	cone->radius = 1;
 	object->type = CONE;
 	object->color = RED;

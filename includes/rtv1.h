@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/24 18:01:53 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 11:14:18 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ typedef struct		s_plane
 	double		y;
 	double		z;
 	double		d;
+	double		a;
+	double		b;
+	double		c;
 }					t_plane;
 
 typedef struct		s_ray
@@ -133,9 +136,15 @@ typedef struct		s_viewplane
 
 }					t_viewplane;
 
+typedef struct		s_cam
+{
+	t_p3d		pos;
+	t_p3d		rot;
+}					t_cam;
+
 typedef struct		s_env
 {
-	t_p3d		cam;
+	t_cam		*cam;
 	t_object	*object;
 	t_viewplane viewplane;
 	t_ray		ray;
@@ -166,7 +175,7 @@ typedef struct		s_grtv1
 void				parse_file(char *file, t_env **env, t_object **object);
 
 void				set_env(t_env **env);
-void				set_ray(t_ray *ray);
+void				set_ray(t_ray *ray, t_cam *cam);
 void				set_object(t_object **object);
 
 double				calc_sphere(t_object *object, double *t0, double *t1,

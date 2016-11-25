@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 12:38:33 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/24 16:09:49 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 11:02:35 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ void				calc_ray(t_env *env, double x, double y)
 			tp3d_mult_nb(env->viewplane.rvec,x * env->xindent),
 			tp3d_mult_nb(env->viewplane.upvec, y * env->yindent))));
 			//facultatif ou necessaire
-			if (env->ray.dir.z < 0)
-				env->ray.dir.z = -env->ray.dir.z;
-		//	normalized(&env->ray.dir);
+//			if (env->ray.dir.z < 0)
+//				env->ray.dir.z = -env->ray.dir.z;
+//			normalized(&env->ray.dir);
 }
 
-void				set_ray(t_ray *ray)
+void				set_ray(t_ray *ray, t_cam *cam)
 {
-	ray->pos.x = 0;
-	ray->pos.y = 0;
-	ray->pos.z = 1;
+	ray->pos.x = cam->pos.x;
+	ray->pos.y = cam->pos.y;
+	ray->pos.z = cam->pos.z;
 
 	ray->dir.x = 0;
 	ray->dir.y = 0;
