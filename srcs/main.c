@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 10:41:16 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 13:12:16 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ size_t			onecolor_lerp(unsigned int a, const float pc)
 // a couleur 
 // pc pourcentage degrader t / (posz_objs - radius)
 
-double			calc_delta(t_object *object, double *t0, double *t1,
+double			calc_object(t_object *object, double *t0, double *t1,
 		t_env **env)
 {
 	double		delta;
@@ -75,8 +75,6 @@ double			calc_delta(t_object *object, double *t0, double *t1,
 			delta = calc_cone(object, t0, t1, env);
 		else if (object->type == PLANE)
 			delta = calc_plane(object, t0, t1, env);
-	//	else
-	//		delta = -8;
 		if (delta >= 0 && (*env)->t > 0 &&
 				(((*env)->t < t && t > 0) || t == -1))
 		{
@@ -110,7 +108,7 @@ static void		trace_test(t_env *env)
 		while (++x < WIDTH)
 		{
 			calc_ray(env, x, y);
-			if (calc_delta(env->object, &t0, &t1, &env) >= 0)
+			if (calc_object(env->object, &t0, &t1, &env) >= 0)
 			{
 				*(env->img_addr + x + (y * env->size_line) / 4) =
 					color(env->color, 1);

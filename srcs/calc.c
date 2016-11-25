@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 11:19:33 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 13:08:11 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,17 @@ t_env **env)
 	(*env)->t = ((*env)->t > 0) ? (*env)->t : -8;
 	return ((b * b) - (4 * a * c));
 }
+int					calc_delta(double a, double b, double c, double *t)
+{
+	double		t0;
+	double		t1;
+
+	t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
+	t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
+	*t = (t0 > 0 && (t0 < t1 || t1 <= 0)) ? t0 : t1;
+	*t = (*t > 0) ? *t : -8;
+	return (*t);
+}
 
 double				calc_cylinder(t_object *object, double *t0, double *t1,
 t_env **env)
@@ -68,6 +79,7 @@ t_env **env)
 	t_cylinder	*cyl;
 	t_ray		*ray;
 
+	*t0 = *t1;
 	cyl = (t_cylinder *)object->ptr;
 	ray = (t_ray *)&(*env)->ray;
 //	normalized(&(*env)->ray.dir);
@@ -77,6 +89,7 @@ t_env **env)
 	c = ((ray->pos.x - cyl->x) * (ray->pos.x - cyl->x) +
 	(ray->pos.z - cyl->z) * (ray->pos.z - cyl->z)) -
 	cyl->radius * cyl->radius;
+//	calc_delta (a, b, c, &(*env)->t);
 	*t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
 	*t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
 	(*env)->t = (*t0 > 0 && (*t0 < *t1 || *t1 <= 0)) ? *t0 : *t1;

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 12:38:33 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 11:02:35 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 12:43:54 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ void				set_ray(t_ray *ray, t_cam *cam)
 	ray->pos.x = cam->pos.x;
 	ray->pos.y = cam->pos.y;
 	ray->pos.z = cam->pos.z;
-
-	ray->dir.x = 0;
-	ray->dir.y = 0;
-	// a quoi cela sert ???
-	ray->dir.z = 1;
+	ray->dir.x = cam->rot.x;
+	ray->dir.y = cam->rot.y;
+	ray->dir.z = cam->rot.z;
 }
