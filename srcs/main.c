@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 16:28:33 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 16:35:08 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,10 @@ int					main(int ac, char **av)
 
 		set_ray(&env->ray, &env->cam);
 		trace_test(env);
-		//trace(env->object, *env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		event(env);
-
+//a suprimer
 		write(1, "finish", 6);
-
 		mlx_loop(env->mlx);
 	}
 	else
