@@ -6,13 +6,13 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 18:12:55 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 18:09:05 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-double				calc_delta(double a, double b, double c)
+double					calc_delta(double a, double b, double c)
 {
 	double	t0;
 	double	t1;
@@ -35,7 +35,7 @@ double				calc_plane(t_object *object, t_ray *ray)
 	pl = (t_plane *)object->ptr;
 //	normalized(&(*env)->ray.dir);
 	t = -(pl->a * (ray->pos.x - pl->x) + pl->b * (ray->pos.y- pl->y) + pl->c *
-		(ray->pos.z - pl->z) + pl->d) /(pl->a * ray->dir.x + pl->b * ray->dir.y + pl->c *
+		(ray->pos.z - pl->z) + pl->d) / (pl->a * ray->dir.x + pl->b * ray->dir.y + pl->c *
 			ray->dir.z);
 	// faire gaffe a floting point execption
 	return((t < 0) ? -8 : t);//2000000;
@@ -98,4 +98,14 @@ double				calc_sphere(t_object *object, t_ray *ray)
 	(ray->pos.z - s->z) * (ray->pos.z - s->z)) -
 	s->radius * s->radius;
 	return (calc_delta (a, b, c));
+}
+
+void				normalized(t_p3d *point)
+{
+	if (point->x < 0)
+		point->x = -point->x;
+	if (point->y < 0)
+		point->y = -point->y;
+	if (point->z < 0)
+		point->z = -point->z;
 }

@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/24 12:17:00 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 18:11:26 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 int				test(t_env	*env)
 {
 	env->i = (env->i > 0xFFFFF0)? 0 : env->i + 1000;
-//	printf("i = %d\n",env->i);
-//	*(env->img_addr + 800 + (450 * env->size_line) / 4) = 0xFFFFFF - env->i;
-//	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	mlx_string_put(env->mlx, env->win, 10, 5, 0xFFFFFF - env->i, "Rt_v1");
-	//its working the refresh
 	return (0);
 }
 
