@@ -6,13 +6,13 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 17:32:02 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 18:08:21 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-double					calc_delta(double a, double b, double c)
+double				calc_delta(double a, double b, double c)
 {
 	double	t0;
 	double	t1;

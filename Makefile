@@ -1,5 +1,6 @@
-TARGET = rt_v1
+vpath
 
+TARGET = rt_v1
 #Sources
 SRC_NAME = main.c set_object.c tp3d_calc.c tp3d_calc_annexe.c ray.c color.c parse.c \
 set_env.c calc.c event.c
