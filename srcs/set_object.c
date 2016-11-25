@@ -6,12 +6,13 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 15:40:29 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 16:52:53 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 #include <error.h>
+
 t_object			*set_plane(void)
 {
 	t_plane		*plane;
@@ -19,7 +20,7 @@ t_object			*set_plane(void)
 
 	if (!(object = (t_object *)malloc(sizeof(t_object))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	if(!(plane = (t_plane *)malloc(sizeof(t_plane))))
+	if (!(plane = (t_plane *)malloc(sizeof(t_plane))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	plane->x = 0;
 	plane->y = -1;
@@ -42,7 +43,7 @@ t_object			*set_cone(void)
 
 	if (!(object = (t_object *)malloc(sizeof(t_object))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	if(!(cone = (t_cone *)malloc(sizeof(t_cone))))
+	if (!(cone = (t_cone *)malloc(sizeof(t_cone))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	cone->x = 0;
 	cone->y = 0;
@@ -62,7 +63,7 @@ t_object			*set_cylinder(void)
 
 	if (!(object = (t_object *)malloc(sizeof(t_object))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	if(!(cylinder = (t_cylinder *)malloc(sizeof(t_cylinder))))
+	if (!(cylinder = (t_cylinder *)malloc(sizeof(t_cylinder))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	cylinder->x = -24;
 	cylinder->y = 0;
@@ -82,7 +83,7 @@ t_object			*set_sphere(void)
 
 	if (!(object = (t_object *)malloc(sizeof(t_object))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	if(!(sphere = (t_sphere *)malloc(sizeof(t_sphere))))
+	if (!(sphere = (t_sphere *)malloc(sizeof(t_sphere))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	sphere->x = 24;
 	sphere->y = 0;
