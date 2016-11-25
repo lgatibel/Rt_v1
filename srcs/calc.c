@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 18:12:55 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 18:24:46 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ double				calc_plane(t_object *object, t_ray *ray)
 	double		t;
 
 	pl = (t_plane *)object->ptr;
-//	normalized(&(*env)->ray.dir);
-	t = -(pl->a * (ray->pos.x - pl->x) + pl->b * (ray->pos.y- pl->y) + pl->c *
-		(ray->pos.z - pl->z) + pl->d) /(pl->a * ray->dir.x + pl->b * ray->dir.y + pl->c *
-			ray->dir.z);
+	t = -(pl->a * (ray->pos.x - pl->x) + pl->b *
+		(ray->pos.y - pl->y) + pl->c * (ray->pos.z - pl->z) +
+		pl->d) / (pl->a * ray->dir.x + pl->b * ray->dir.y +
+			pl->c * ray->dir.z);
 	// faire gaffe a floting point execption
-	return((t < 0) ? -8 : t);//2000000;
+	return ((t < 0) ? -8 : t);
 }
 
 double				calc_cone(t_object *object, t_ray *ray)
@@ -49,7 +49,6 @@ double				calc_cone(t_object *object, t_ray *ray)
 	t_cone		*co;
 
 	co = (t_cone *)object->ptr;
-//	normalized(&(*env)->ray.dir);
 	a = ray->dir.x * ray->dir.x + ray->dir.z *
 	ray->dir.z - ray->dir.y * ray->dir.y;
 	b = 2 * (ray->dir.x * (ray->pos.x - co->x) +
@@ -58,7 +57,7 @@ double				calc_cone(t_object *object, t_ray *ray)
 	c = ((ray->pos.x - co->x) * (ray->pos.x - co->x) +
 	(ray->pos.z - co->z) * (ray->pos.z - co->z) -
 	(ray->pos.y - co->y) * (ray->pos.y - co->y));
-	return (calc_delta (a, b, c));
+	return (calc_delta(a, b, c));
 }
 
 double				calc_cylinder(t_object *object, t_ray *ray)
@@ -69,14 +68,13 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	t_cylinder	*cyl;
 
 	cyl = (t_cylinder *)object->ptr;
-//	normalized(&(*env)->ray.dir);
 	a = ray->dir.x * ray->dir.x + ray->dir.z * ray->dir.z;
 	b = 2 * (ray->dir.x * (ray->pos.x - cyl->x) +
 	ray->dir.z * (ray->pos.z - cyl->z));
 	c = ((ray->pos.x - cyl->x) * (ray->pos.x - cyl->x) +
 	(ray->pos.z - cyl->z) * (ray->pos.z - cyl->z)) -
 	cyl->radius * cyl->radius;
-	return (calc_delta (a, b, c));
+	return (calc_delta(a, b, c));
 }
 
 double				calc_sphere(t_object *object, t_ray *ray)
@@ -87,7 +85,6 @@ double				calc_sphere(t_object *object, t_ray *ray)
 	t_sphere	*s;
 
 	s = (t_sphere *)object->ptr;
-//	normalized(&(*env)->ray.dir);
 	a = ray->dir.x * ray->dir.x + ray->dir.y *
 	ray->dir.y + ray->dir.z * ray->dir.z;
 	b = 2 * (ray->dir.x * (ray->pos.x - s->x) +
@@ -97,5 +94,5 @@ double				calc_sphere(t_object *object, t_ray *ray)
 	(ray->pos.y - s->y) * (ray->pos.y - s->y) +
 	(ray->pos.z - s->z) * (ray->pos.z - s->z)) -
 	s->radius * s->radius;
-	return (calc_delta (a, b, c));
+	return (calc_delta(a, b, c));
 }

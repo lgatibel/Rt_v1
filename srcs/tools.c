@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 18:12:27 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 18:13:03 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 18:20:10 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,3 @@ void				normalized(t_p3d *point)
 	if (point->z < 0)
 		point->z = -point->z;
 }
-

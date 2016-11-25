@@ -6,23 +6,24 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 18:11:26 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 18:32:23 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-int				test(t_env	*env)
+int				test(t_env *env)
 {
-	env->i = (env->i > 0xFFFFF0)? 0 : env->i + 1000;
-	mlx_string_put(env->mlx, env->win, 10, 5, 0xFFFFFF - env->i, "Rt_v1");
+	env->i = (env->i > 0xFFFFF0) ? 0 : env->i + 1000;
+	mlx_string_put(env->mlx, env->win, 10, 5, 0xFFFFFF - env->i,
+			"Rt_v1");
 	return (0);
 }
 
-void				parse_file(char *file,t_env **env, t_object **object)
+void			parse_file(char *file, t_env **env, t_object **object)
 {
-	int		fd;
-	char	*line;
+	int			fd;
+	char		*line;
 	t_object	*obj;
 
 	fd = -8;

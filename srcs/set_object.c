@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 16:52:53 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 18:20:52 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_object			*set_cone(void)
 
 t_object			*set_cylinder(void)
 {
-	t_cylinder *cylinder;
+	t_cylinder	*cylinder;
 	t_object	*object;
 
 	if (!(object = (t_object *)malloc(sizeof(t_object))))
@@ -96,7 +96,7 @@ t_object			*set_sphere(void)
 	return (object);
 }
 
-void			set_object(t_object **object)
+void				set_object(t_object **object)
 {
 	t_object		*obj;
 	t_object		*tmp;
@@ -104,11 +104,8 @@ void			set_object(t_object **object)
 
 	obj = NULL;
 	start = NULL;
-//	if (obj == NULL)
-//	{
-		obj = set_sphere();
-		start = &obj;
-//	}
+	obj = set_sphere();
+	start = &obj;
 	tmp = obj;
 	tmp->next = set_cylinder();
 	tmp = tmp->next;
