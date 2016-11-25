@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 13:11:52 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 15:40:29 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ t_object			*set_cone(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if(!(cone = (t_cone *)malloc(sizeof(t_cone))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	cone->x = 100;
+	cone->x = 0;
 	cone->y = 0;
-	cone->z = 400;
+	cone->z = 200;
 	cone->radius = 1;
 	object->type = CONE;
 	object->color = RED;
@@ -64,7 +64,7 @@ t_object			*set_cylinder(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if(!(cylinder = (t_cylinder *)malloc(sizeof(t_cylinder))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	cylinder->x = 14;
+	cylinder->x = -24;
 	cylinder->y = 0;
 	cylinder->z = 200;
 	cylinder->radius = 20;
@@ -84,10 +84,10 @@ t_object			*set_sphere(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if(!(sphere = (t_sphere *)malloc(sizeof(t_sphere))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	sphere->x = 0;
+	sphere->x = 24;
 	sphere->y = 0;
-	sphere->z = 100;
-	sphere->radius = 20;
+	sphere->z = 200;
+	sphere->radius = 21;
 	object->type = SPHERE;
 	object->color = GREEN;
 	object->ptr = sphere;
@@ -105,13 +105,13 @@ void			set_object(t_object **object)
 	start = NULL;
 //	if (obj == NULL)
 //	{
-		obj = set_cone();
+		obj = set_sphere();
 		start = &obj;
 //	}
 	tmp = obj;
-	tmp->next = set_sphere();
-	tmp = tmp->next;
 	tmp->next = set_cylinder();
+	tmp = tmp->next;
+	tmp->next = set_cone();
 	tmp = tmp->next;
 	tmp->next = set_plane();
 	*object = *start;

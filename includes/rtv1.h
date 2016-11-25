@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 11:14:18 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 15:11:13 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ typedef struct		s_cam
 
 typedef struct		s_env
 {
-	t_cam		*cam;
+	t_cam		cam;
 	t_object	*object;
 	t_viewplane viewplane;
 	t_ray		ray;
