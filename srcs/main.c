@@ -6,14 +6,13 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 15:35:12 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 16:28:33 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-double			calc_object(t_object *object, double *t0, double *t1,
-		t_env **env)
+double			calc_object(t_object *object, t_env **env)
 {
 	double		dist;
 	double		t;
@@ -27,13 +26,13 @@ double			calc_object(t_object *object, double *t0, double *t1,
 	{
 		//printf("type = %d\n", object->type);
 		if (object->type == SPHERE)
-			dist = calc_sphere(object, t0, t1, env);
+			dist = calc_sphere(object, &(*env)->ray);
 		else if (object->type == CYLINDER)
-			dist = calc_cylinder(object, t0, t1, env);
+			dist = calc_cylinder(object, &(*env)->ray);
 		else if (object->type == CONE)
-			dist	 = calc_cone(object, t0, t1, env);
+			dist	 = calc_cone(object, &(*env)->ray);
 		else if (object->type == PLANE)
-			dist = calc_plane(object, t0, t1, env);
+			dist = calc_plane(object, &(*env)->ray);
 //		if (dist > 0 && (*env)->t > 0 &&
 //				(((*env)->t < t && t > 0) || t == -1))
 		if (dist > 0 &&
@@ -57,8 +56,6 @@ static void		trace_test(t_env *env)
 {
 	int		x;
 	int		y;
-	double		t0;
-	double		t1;
 
 	y = -1;
 	x = -1;
@@ -68,7 +65,7 @@ static void		trace_test(t_env *env)
 		while (++x < WIDTH)
 		{
 			calc_ray(env, x, y);
-			if (calc_object(env->object, &t0, &t1, &env) >= 0)
+			if (calc_object(env->object, &env) >= 0)
 			{
 				*(env->img_addr + x + (y * env->size_line) / 4) =
 					color(env->color, 1);

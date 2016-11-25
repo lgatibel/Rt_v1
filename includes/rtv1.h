@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 15:11:13 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 16:22:06 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,9 +145,9 @@ typedef struct		s_cam
 typedef struct		s_env
 {
 	t_cam		cam;
+	t_ray		ray;
 	t_object	*object;
 	t_viewplane viewplane;
-	t_ray		ray;
 
 	double		xindent;
 	double		yindent;
@@ -178,14 +178,10 @@ void				set_env(t_env **env);
 void				set_ray(t_ray *ray, t_cam *cam);
 void				set_object(t_object **object);
 
-double				calc_sphere(t_object *object, double *t0, double *t1,
-t_env **env);
-double				calc_cone(t_object *object, double *t0, double *t1,
-t_env **env);
-double				calc_cylinder(t_object *object, double *t0, double *t1,
-t_env **env);
-double				calc_plane(t_object *object, double *t0, double *t1,
-t_env **env);
+double				calc_sphere(t_object *object, t_ray *ray);
+double				calc_cone(t_object *object, t_ray *ray);
+double				calc_cylinder(t_object *object, t_ray *ray);
+double				calc_plane(t_object *object, t_ray *ray);
 void				calc_ray(t_env *env, double x, double y);
 
 t_p3d				tp3d_square(t_p3d *src);

@@ -6,19 +6,18 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 15:38:25 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/25 16:27:09 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-double					calc_delta(double a, double b, double c, double *tmp)
+double					calc_delta(double a, double b, double c)
 {
 	double	t0;
 	double	t1;
 	double	t;
 
-	t = *tmp;
 	if ((b * b) - (4 * a * c) < 0)
 		return (0);
 	t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
@@ -28,37 +27,28 @@ double					calc_delta(double a, double b, double c, double *tmp)
 	return (t);
 }
 
-double				calc_plane(t_object *object, double *t0, double *t1,
-t_env **env)
+double				calc_plane(t_object *object, t_ray *ray)
 {
 	t_plane		*pl;
-	t_ray		*ray;
 	double		t;
 
 	pl = (t_plane *)object->ptr;
-	ray = (t_ray *)&(*env)->ray;
 //	normalized(&(*env)->ray.dir);
 	t = -(pl->a * (ray->pos.x - pl->x) + pl->b * (ray->pos.y- pl->y) + pl->c *
 		(ray->pos.z - pl->z) + pl->d) /(pl->a * ray->dir.x + pl->b * ray->dir.y + pl->c *
 			ray->dir.z);
 	// faire gaffe a floting point execption
-	*t0 = *t1;
 	return((t < 0) ? -8 : t);//2000000;
 }
 
-double				calc_cone(t_object *object, double *t0, double *t1,
-t_env **env)
+double				calc_cone(t_object *object, t_ray *ray)
 {
 	double		a;
 	double		b;
 	double		c;
 	t_cone		*co;
-	t_ray		*ray;
-
-	*t0 = *t1;
 
 	co = (t_cone *)object->ptr;
-	ray = (t_ray *)&(*env)->ray;
 //	normalized(&(*env)->ray.dir);
 	a = ray->dir.x * ray->dir.x + ray->dir.z *
 	ray->dir.z - ray->dir.y * ray->dir.y;
@@ -68,22 +58,17 @@ t_env **env)
 	c = ((ray->pos.x - co->x) * (ray->pos.x - co->x) +
 	(ray->pos.z - co->z) * (ray->pos.z - co->z) -
 	(ray->pos.y - co->y) * (ray->pos.y - co->y));
-	return (calc_delta (a, b, c, &(*env)->t));
+	return (calc_delta (a, b, c));
 }
 
-double				calc_cylinder(t_object *object, double *t0, double *t1,
-t_env **env)
+double				calc_cylinder(t_object *object, t_ray *ray)
 {
 	double		a;
 	double		b;
 	double		c;
 	t_cylinder	*cyl;
-	t_ray		*ray;
-
-	*t0 = *t1;
 
 	cyl = (t_cylinder *)object->ptr;
-	ray = (t_ray *)&(*env)->ray;
 //	normalized(&(*env)->ray.dir);
 	a = ray->dir.x * ray->dir.x + ray->dir.z * ray->dir.z;
 	b = 2 * (ray->dir.x * (ray->pos.x - cyl->x) +
@@ -91,22 +76,17 @@ t_env **env)
 	c = ((ray->pos.x - cyl->x) * (ray->pos.x - cyl->x) +
 	(ray->pos.z - cyl->z) * (ray->pos.z - cyl->z)) -
 	cyl->radius * cyl->radius;
-	return (calc_delta (a, b, c, &(*env)->t));
+	return (calc_delta (a, b, c));
 }
 
-double				calc_sphere(t_object *object, double *t0, double *t1,
-t_env **env)
+double				calc_sphere(t_object *object, t_ray *ray)
 {
 	double		a;
 	double		b;
 	double		c;
 	t_sphere	*s;
-	t_ray		*ray;
-
-	*t0 = *t1;
 
 	s = (t_sphere *)object->ptr;
-	ray = (t_ray *)&(*env)->ray;
 //	normalized(&(*env)->ray.dir);
 	a = ray->dir.x * ray->dir.x + ray->dir.y *
 	ray->dir.y + ray->dir.z * ray->dir.z;
@@ -117,7 +97,7 @@ t_env **env)
 	(ray->pos.y - s->y) * (ray->pos.y - s->y) +
 	(ray->pos.z - s->z) * (ray->pos.z - s->z)) -
 	s->radius * s->radius;
-	return (calc_delta (a, b, c, &(*env)->t));
+	return (calc_delta (a, b, c));
 }
 
 void				normalized(t_p3d *point)
