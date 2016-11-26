@@ -22,8 +22,11 @@
 // a virer
 # include <stdio.h>
 //
-# define WIDTH 1600
+//# define WIDTH 1600
+# define WIDTH 900
 # define HEIGHT 900
+# define VIEW_WIDTH .9
+# define VIEW_HEIGHT .9
 # define RAYON_SIZE 1000
 
 # define RED 0XFF0000
@@ -195,6 +198,7 @@ void				tp3d_cpy(t_p3d *dest, t_p3d src);
 void				normalized(t_p3d *point);
 //void				trace(t_object *object, t_env env);
 void				event(t_env *env);
+void				refresh(t_env *env);
 int					color(int color, double t);
 
 

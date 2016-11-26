@@ -19,7 +19,7 @@ void				calc_ray(t_env *env, double x, double y)
 	tp3d_sub(
 	tp3d_mult_nb(env->viewplane.rvec, x * env->xindent),
 	tp3d_mult_nb(env->viewplane.upvec, y * env->yindent))));
-	//normalise ??
+//	normalized(&env->ray.dir);
 }
 
 void				set_ray(t_ray *ray, t_cam *cam)

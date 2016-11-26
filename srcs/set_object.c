@@ -65,7 +65,7 @@ t_object			*set_cylinder(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if (!(cylinder = (t_cylinder *)malloc(sizeof(t_cylinder))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	cylinder->x = -24;
+	cylinder->x = -14;
 	cylinder->y = 0;
 	cylinder->z = 200;
 	cylinder->radius = 20;
@@ -85,9 +85,9 @@ t_object			*set_sphere(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if (!(sphere = (t_sphere *)malloc(sizeof(t_sphere))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	sphere->x = 24;
+	sphere->x = 0;
 	sphere->y = 0;
-	sphere->z = 200;
+	sphere->z = -200;
 	sphere->radius = 21;
 	object->type = SPHERE;
 	object->color = GREEN;

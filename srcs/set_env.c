@@ -41,11 +41,11 @@ void				set_env(t_env **env)
 		error(INIT, __LINE__ - 1, __FILE__, EXIT);
 	view = &tmp->viewplane;
 	tmp->color = BLACK;
-	tmp->viewplane.width = 1.6;
-	tmp->viewplane.height = 0.9;
+	tmp->viewplane.width = VIEW_WIDTH;
+	tmp->viewplane.height = VIEW_HEIGHT;
 	tmp->viewplane.dist = 1;
-	set_tp3d(&tmp->cam.pos, 0, 0, 1);
-	set_tp3d(&tmp->cam.rot, 0, 0, 1);
+	set_tp3d(&tmp->cam.pos, 0, 0, 0);
+	set_tp3d(&tmp->cam.rot, 0, 0, -1);
 	set_tp3d(&tmp->viewplane.upvec, 0, 1, 0);
 	set_tp3d(&tmp->viewplane.rvec, 1, 0, 0);
 	view->upleft = tp3d_sub(

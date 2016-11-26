@@ -12,6 +12,11 @@
 
 #include <rtv1.h>
 
+void				refresh(t_env *env)
+{
+	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
+}
+
 void				normalized(t_p3d *point)
 {
 	if (point->x < 0)
