@@ -44,10 +44,11 @@ void				set_env(t_env **env)
 	tmp->viewplane.width = VIEW_WIDTH;
 	tmp->viewplane.height = VIEW_HEIGHT;
 	tmp->viewplane.dist = 1;
-	set_tp3d(&tmp->cam.pos, 0, 0, 0);
-	set_tp3d(&tmp->cam.rot, 0, 0, -1);
+	set_tp3d(&tmp->cam.pos, 0, 0, 10);
+	set_tp3d(&tmp->cam.rot, 0, 0, 1);
 	set_tp3d(&tmp->viewplane.upvec, 0, 1, 0);
 	set_tp3d(&tmp->viewplane.rvec, 1, 0, 0);
+//	normalized(&tmp->cam.rot);
 	view->upleft = tp3d_sub(
 	tp3d_sum(
 	tp3d_sum(tmp->cam.pos, tp3d_mult_nb(tmp->cam.rot,
