@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 18:24:46 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/28 10:26:50 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ double				calc_sphere(t_object *object, t_ray *ray)
 	t_sphere	*s;
 
 	s = (t_sphere *)object->ptr;
+
+//	set_tp3d(&s->pos, 0, 0, 0);
+
 	a = ray->dir.x * ray->dir.x + ray->dir.y *
 	ray->dir.y + ray->dir.z * ray->dir.z;
 	b = 2 * (ray->dir.x * (ray->pos.x - s->x) +

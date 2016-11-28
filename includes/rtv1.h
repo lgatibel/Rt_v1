@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 16:50:36 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/28 10:03:46 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 # include <stdio.h>
 //
 //# define WIDTH 1600
-# define WIDTH 900
-# define HEIGHT 900
-# define VIEW_WIDTH .9
-# define VIEW_HEIGHT .9
+# define WIDTH 1920
+# define HEIGHT 1080
+# define VIEW_WIDTH 1.9
+# define VIEW_HEIGHT 1.08
 # define RAYON_SIZE 1000
 
 # define RED 0XFF0000
@@ -60,13 +60,6 @@ typedef struct		s_p3d
 	double		z;
 }					t_p3d;
 
-typedef struct		s_square
-{
-	t_p3d		pos;
-	t_p3d		rot;
-	int			width;
-}					t_square;
-
 typedef struct		s_sphere
 {
 	t_p3d		pos;
@@ -84,8 +77,8 @@ typedef struct		s_cone
 	double		x;
 	double		y;
 	double		z;
-	int			height;
-	int			radius;
+//	int			height;
+//	int			radius;
 }					t_cone;
 
 typedef struct		s_cylinder
@@ -202,6 +195,8 @@ void				refresh(t_env *env);
 int					color(int color, double t);
 
 
+void				set_tp3d(t_p3d *vec, double x, double y,
+		double z);
 
 
 int				test(t_env *env);

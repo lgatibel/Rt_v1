@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 18:20:52 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/28 10:28:18 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_object			*set_cone(void)
 	cone->x = 0;
 	cone->y = 0;
 	cone->z = 200;
-	cone->radius = 1;
+//	cone->radius = 1;
 	object->type = CONE;
 	object->color = RED;
 	object->ptr = cone;
