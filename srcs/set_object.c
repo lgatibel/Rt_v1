@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/29 12:17:09 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 16:17:52 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ t_object			*set_plane(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if (!(plane = (t_plane *)malloc(sizeof(t_plane))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	plane->x = 0;
-	plane->y = -1;
-	plane->z = 0;
-	plane->a = 0;
-	plane->b = 1;
-	plane->c = 0;
+	plane->pos.x = 0;
+	plane->pos.y = -1;
+	plane->pos.z = 0;
+	plane->norm.x = 0;
+	plane->norm.y = 1;
+	plane->norm.z = 0;
 	plane->d = 1;
 	object->type = PLANE;
 	object->color = YELLOW;
@@ -45,9 +45,9 @@ t_object			*set_cone(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if (!(cone = (t_cone *)malloc(sizeof(t_cone))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	cone->x = 0;
-	cone->y = 0;
-	cone->z = 250;
+	cone->pos.x = 0;
+	cone->pos.y = 0;
+	cone->pos.z = 250;
 //	cone->radius = 1;
 	object->type = CONE;
 	object->color = RED;
@@ -65,9 +65,9 @@ t_object			*set_cylinder(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if (!(cylinder = (t_cylinder *)malloc(sizeof(t_cylinder))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	cylinder->x = 0;
-	cylinder->y = 0;
-	cylinder->z = 200;
+	cylinder->pos.x = 0;
+	cylinder->pos.y = 0;
+	cylinder->pos.z = 200;
 	cylinder->radius = 20;
 	object->type = CYLINDER;
 	object->color = WHITE;
@@ -85,9 +85,9 @@ t_object			*set_sphere(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if (!(sphere = (t_sphere *)malloc(sizeof(t_sphere))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	sphere->x = 0;
-	sphere->y = 0;
-	sphere->z = 200;
+	sphere->pos.x = 0;
+	sphere->pos.y = 0;
+	sphere->pos.z = 200;
 	sphere->radius = 30;
 	object->type = SPHERE;
 	object->color = GREEN;

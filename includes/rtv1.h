@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/29 12:34:41 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 16:26:00 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 // a virer
 # include <stdio.h>
 //# define WIDTH 1600
-# define WIDTH 1920
-# define HEIGHT 1080
-# define VIEW_WIDTH 1.9
-# define VIEW_HEIGHT 1.08
+# define WIDTH 800
+# define HEIGHT 600
+# define VIEW_WIDTH .8
+# define VIEW_HEIGHT .6
 # define RAYON_SIZE 1000
 
 # define RED 0XFF0000
@@ -56,9 +56,6 @@ typedef struct		s_sphere
 {
 	t_p3d		pos;
 	t_p3d		rot;
-	double		x;
-	double		y;
-	double		z;
 	int			radius;
 }					t_sphere;
 
@@ -66,18 +63,12 @@ typedef struct		s_cone
 {
 	t_p3d		pos;
 	t_p3d		rot;
-	double		x;
-	double		y;
-	double		z;
 }					t_cone;
 
 typedef struct		s_cylinder
 {
 	t_p3d		pos;
 	t_p3d		rot;
-	double		x;
-	double		y;
-	double		z;
 	int			height;
 	int			base;
 	int			radius;
@@ -86,14 +77,8 @@ typedef struct		s_cylinder
 typedef struct		s_plane
 {
 	t_p3d		pos;
-	t_p3d		rot;
-	double		x;
-	double		y;
-	double		z;
+	t_p3d		norm;
 	double		d;
-	double		a;
-	double		b;
-	double		c;
 }					t_plane;
 
 typedef struct		s_ray

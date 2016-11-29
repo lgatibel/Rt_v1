@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 10:53:26 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/29 12:05:20 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 15:21:06 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,21 @@
 
 void			print_tp3d(t_p3d *vector)
 {
-	ft_putendl(ft_lltoa_base(vector->x, 10));
-	ft_putendl(ft_lltoa_base(vector->y, 10));
-	ft_putendl(ft_lltoa_base(vector->z, 10));
+	char *str;
+	char *tmp;
+
+	str = ft_lltoa_base(vector->x, 10);
+	tmp = str;
+	str = ft_strjoin(str, ", ");
+	free(tmp);
+	tmp = str;
+	str = ft_strjoin(str, ft_lltoa_base(vector->y, 10));
+	free(tmp);
+	tmp = str;
+	str = ft_strjoin(str, ", ");
+	free(tmp);
+	tmp = str;
+	str = ft_strjoin(str, ft_lltoa_base(vector->z, 10));
+	free(tmp);
+	ft_putendl(str);
 }
