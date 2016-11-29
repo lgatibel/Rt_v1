@@ -1,16 +1,19 @@
-###start
-##camera
+###START
+##CAM
 	origin 0 0 0
 	rot 0 0 90
 
-##scene
+##SCENE
 	height 1080
 	width  800
 
-##object
-	#sphere
+##OBJECT
+	#SPHERE
 		origin 0 0 0
 		radius 100
 		rot 0 0 90
 		-color rgb (255 0 0)
-##end
+##END
+
+
+

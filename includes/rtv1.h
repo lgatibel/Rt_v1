@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/29 16:26:00 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 16:27:07 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,16 @@ typedef struct		s_cone
 {
 	t_p3d		pos;
 	t_p3d		rot;
+//	int			base;
+//	int			radius;
 }					t_cone;
 
 typedef struct		s_cylinder
 {
 	t_p3d		pos;
 	t_p3d		rot;
-	int			height;
-	int			base;
+//	int			height;
+//	int			base;
 	int			radius;
 }					t_cylinder;
 
