@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/28 10:03:46 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 10:21:53 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct		s_ray
 {
 	t_p3d		pos;
 	t_p3d		dir;
+	int			length;
 }					t_ray;
 
 typedef struct		s_object
@@ -188,7 +189,7 @@ double				tp3d_mult(t_p3d matrice1, t_p3d matrice2);
 double				tp3d_div(t_p3d matrice1, t_p3d matrice2);
 void				tp3d_cpy(t_p3d *dest, t_p3d src);
 
-void				normalized(t_p3d *point);
+void				normalized(t_p3d *point, int length);
 //void				trace(t_object *object, t_env env);
 void				event(t_env *env);
 void				refresh(t_env *env);

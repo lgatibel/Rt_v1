@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 18:12:27 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/28 09:52:54 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 10:18:49 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,9 @@ void				refresh(t_env *env)
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 }
 
-void				normalized(t_p3d *point)
+void				normalized(t_p3d *point, int length)
 {
-	if (point->x < 0)
-		point->x = -point->x;
-	if (point->y < 0)
-		point->y = -point->y;
-	if (point->z < 0)
-		point->z = -point->z;
+		point->x = point->x / length;
+		point->y = point->y / length;
+		point->z = point->z / length;
 }
