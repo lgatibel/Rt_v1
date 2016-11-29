@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 12:25:38 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/29 11:10:21 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 11:44:27 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void				set_env(t_env **env)
 	tmp->viewplane.dist = 1;
 
 	//voir pour une converison humaine des point de rotation et position
-	set_tp3d(&tmp->intersect, 0, 0, 0);
+//	set_tp3d(&tmp->intersect, 0, 0, 0);
 	set_tp3d(&tmp->cam.pos, 0, 0, 0);
 	set_tp3d(&tmp->cam.rot, 0, 0, 1);
 	set_tp3d(&view->upvec, 0, 1, 0);

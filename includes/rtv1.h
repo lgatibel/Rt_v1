@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/29 11:00:28 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 12:34:41 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@
 # include <math.h>
 # include <error.h>
 # include <fcntl.h>
-#include <tp3d.h>
-
+# include <tp3d.h>
 // a virer
 # include <stdio.h>
-//
 //# define WIDTH 1600
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -71,8 +69,6 @@ typedef struct		s_cone
 	double		x;
 	double		y;
 	double		z;
-//	int			height;
-//	int			radius;
 }					t_cone;
 
 typedef struct		s_cylinder
@@ -177,10 +173,9 @@ double				calc_plane(t_object *object, t_ray *ray);
 void				calc_ray(t_env *env, double x, double y);
 
 void				normalized(t_p3d *point, int length);
-//void				trace(t_object *object, t_env env);
 void				event(t_env *env);
 void				refresh(t_env *env);
 int					color(int color, double t);
 
-int				test(t_env *env);
+int					test(t_env *env);
 #endif

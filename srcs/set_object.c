@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/28 10:28:18 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 12:17:09 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_object			*set_cone(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	cone->x = 0;
 	cone->y = 0;
-	cone->z = 200;
+	cone->z = 250;
 //	cone->radius = 1;
 	object->type = CONE;
 	object->color = RED;
@@ -65,7 +65,7 @@ t_object			*set_cylinder(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	if (!(cylinder = (t_cylinder *)malloc(sizeof(t_cylinder))))
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	cylinder->x = -14;
+	cylinder->x = 0;
 	cylinder->y = 0;
 	cylinder->z = 200;
 	cylinder->radius = 20;
@@ -87,8 +87,8 @@ t_object			*set_sphere(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	sphere->x = 0;
 	sphere->y = 0;
-	sphere->z = -200;
-	sphere->radius = 21;
+	sphere->z = 200;
+	sphere->radius = 30;
 	object->type = SPHERE;
 	object->color = GREEN;
 	object->ptr = sphere;
