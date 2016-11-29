@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/29 17:36:26 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 19:32:31 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ t_object		*manage_line(char *line, int *index)
 	object = NULL;
 	if (*index == 0 && ft_strcmp(line, "###START"))
 		error_parse(__FILE__, "no start in file", *index + 1);
-	else if (*index == 1 && (ft_strcmp(line, "##CAM") && !set_cam(&object,
-			*index)))
+	else if (*index == 1 && ft_strcmp(line, "##CAM"))// && !set_cam(&object,*index)))
 		error_parse(__FILE__, "bad camera definition", *index + 1);
 
 	return (object);
@@ -65,6 +64,6 @@ void			parse_file(char *file, t_env **env, t_object **object)
 	if (close(fd) == -1)
 		error(CLOSE, __LINE__, __FILE__, NO_EXIT);
 	set_env(env);
-//	set_object(&obj);
+	set_object(&obj);
 	(*env)->object = obj;
 }
