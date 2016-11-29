@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/29 10:21:53 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 11:00:28 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <math.h>
 # include <error.h>
 # include <fcntl.h>
+#include <tp3d.h>
 
 // a virer
 # include <stdio.h>
@@ -52,13 +53,6 @@ typedef enum		e_bool
 	false,
 	true
 }					t_bool;
-
-typedef struct		s_p3d
-{
-	double		x;
-	double		y;
-	double		z;
-}					t_p3d;
 
 typedef struct		s_sphere
 {
@@ -143,6 +137,7 @@ typedef struct		s_env
 {
 	t_cam		cam;
 	t_ray		ray;
+	t_p3d		intersect;
 	t_object	*object;
 	t_viewplane viewplane;
 
@@ -181,24 +176,11 @@ double				calc_cylinder(t_object *object, t_ray *ray);
 double				calc_plane(t_object *object, t_ray *ray);
 void				calc_ray(t_env *env, double x, double y);
 
-t_p3d				tp3d_square(t_p3d *src);
-t_p3d				tp3d_sum(t_p3d matrice1, t_p3d matrice2);
-t_p3d				tp3d_mult_nb(t_p3d matrice, double nb);
-t_p3d				tp3d_sub(t_p3d matrice1, t_p3d matrice2);
-double				tp3d_mult(t_p3d matrice1, t_p3d matrice2);
-double				tp3d_div(t_p3d matrice1, t_p3d matrice2);
-void				tp3d_cpy(t_p3d *dest, t_p3d src);
-
 void				normalized(t_p3d *point, int length);
 //void				trace(t_object *object, t_env env);
 void				event(t_env *env);
 void				refresh(t_env *env);
 int					color(int color, double t);
-
-
-void				set_tp3d(t_p3d *vec, double x, double y,
-		double z);
-
 
 int				test(t_env *env);
 #endif

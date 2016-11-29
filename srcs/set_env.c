@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 12:25:38 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/29 10:25:34 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 11:10:21 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,16 @@ void				set_env(t_env **env)
 	tmp->viewplane.dist = 1;
 
 	//voir pour une converison humaine des point de rotation et position
+	set_tp3d(&tmp->intersect, 0, 0, 0);
 	set_tp3d(&tmp->cam.pos, 0, 0, 0);
 	set_tp3d(&tmp->cam.rot, 0, 0, 1);
 	set_tp3d(&view->upvec, 0, 1, 0);
 	set_tp3d(&view->rvec, 1, 0, 0);
-	view->upleft = tp3d_sub(
-	tp3d_sum(
-	tp3d_sum(tmp->cam.pos, tp3d_mult_nb(tmp->cam.rot,
-	view->dist)), tp3d_mult_nb(view->upvec, view->height /
-	2.0f)), tp3d_mult_nb(view->rvec, view->width / 2.0f));
+	view->upleft = sub_tp3d(
+	sum_tp3d(
+	sum_tp3d(tmp->cam.pos, mult_nb_tp3d(tmp->cam.rot,
+	view->dist)), mult_nb_tp3d(view->upvec, view->height /
+	2.0f)), mult_nb_tp3d(view->rvec, view->width / 2.0f));
 	tmp->xindent = tmp->viewplane.width / WIDTH;
 	tmp->yindent = tmp->viewplane.height / HEIGHT;
 	tmp->t = -1;

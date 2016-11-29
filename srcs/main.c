@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/29 10:21:03 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 11:09:19 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ double				calc_object(t_object *object, t_env **env)
 		}
 		object = object->next;
 	}
+	(*env)->intersect = mult_nb_tp3d(
+			sum_tp3d((*env)->ray.pos, (*env)->ray.dir), t);
+	print_tp3d((*env)->intersect);
 	return (t);
 }
 
