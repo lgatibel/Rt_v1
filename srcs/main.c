@@ -6,12 +6,12 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/30 16:40:02 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/30 16:43:42 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-
+//
 double				calc_object(t_object *object, t_env **env)
 {
 	double		dist;
