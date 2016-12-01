@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/01 11:30:01 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/01 12:36:36 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ void				set_object(t_object **object)
 
 	obj = NULL;
 	start = NULL;
-//	obj = set_sphere();
+	obj = set_sphere();
 	start = &obj;
 	tmp = obj;
-//	tmp->next = set_cylinder();
-//	tmp = tmp->next;
-//	tmp->next = set_cone();
-//	tmp = tmp->next;
-//	tmp->next = set_plane();
+	tmp->next = set_cylinder();
+	tmp = tmp->next;
+	tmp->next = set_cone();
+	tmp = tmp->next;
+	tmp->next = set_plane();
 	*object = *start;
 }

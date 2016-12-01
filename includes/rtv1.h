@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/01 11:48:00 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/01 12:37:08 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define VIEW_WIDTH .8
 # define VIEW_HEIGHT .6
 # define RAYON_SIZE 1000
-
 # define RED 0XFF0000
 # define GREEN 0X00FF00
 # define BLUE 0X0000FF
@@ -147,7 +146,7 @@ typedef struct		s_grtv1
 	t_ray		*ray;
 }					t_grtv1;
 
-void				parse_file(char *file, t_env **env, t_object **object);
+t_object			*parse_file(char *file, t_env **env);
 
 void				set_env(t_env **env);
 void				set_ray(t_ray *ray, t_cam *cam);

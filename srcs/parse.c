@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/01 11:36:47 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/01 12:39:36 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,16 @@ int				test(t_env *env)
 	return (0);
 }
 
-
-t_object		*manage_line(char *line, int *index)
+/*
+t_object		*manage_parameter(char *line, int *index, int fd,
+	t_object **object)
 {
-	t_object *object;
-
-	object = NULL;
-	if (*index == 0 && ft_strcmp(line, "###START"))
-		error_parse(__FILE__, "no start in file", *index + 1);
 	else if (*index == 1 && ft_strcmp(line, "##CAM"))// && !set_cam(&object,*index)))
 		error_parse(__FILE__, "bad camera definition", *index + 1);
+	else ()
 	return (object);
 }
-
+*/
 static int		good_extension(char * file)
 {
 	int		length;
@@ -44,16 +41,12 @@ static int		good_extension(char * file)
 	return (0);
 }
 
-void			parse_file(char *file, t_env **env, t_object **object)
+t_object		*parse_file(char *file, t_env **env)
 {
 	int			fd;
 	int			index;
 	char		*line;
 	t_object	*obj;
-
-	fd = -8;
-	line = NULL;
-	*object = NULL;
 
 	obj = NULL;
 	index = 0;
@@ -63,11 +56,9 @@ void			parse_file(char *file, t_env **env, t_object **object)
 		error(OPEN, __LINE__, __FILE__, EXIT);
 	while((get_next_line(fd, &line)) > 0)
 	{
-		manage_line(line, &index);
-		if (obj == NULL)
-			printf("null\n");
-		//*object = manage_line(line, object)
-//			error(INIT, __LINE__, __FILE__ );
+		if (!strcmp(&line, "###START"))
+			manage_parameter(line, &index, fd, &object);
+		ft_putendl(line);
 		index++;
 	}
 	if (close(fd) == -1)
@@ -75,4 +66,5 @@ void			parse_file(char *file, t_env **env, t_object **object)
 	set_env(env);
 	set_object(&obj);
 	(*env)->object = obj;
+	return (obj);
 }
