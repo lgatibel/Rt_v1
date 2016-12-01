@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/01 12:35:50 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/01 18:04:14 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int					main(int ac, char **av)
 	env = NULL;
 	if (ac == 2)
 	{
-		object = parse_file(av[1], &env);
+		parse_file(av[1], &env);
 		set_ray(&env->ray, &env->cam);
 		trace_test(env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);

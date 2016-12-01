@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/01 12:36:36 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/01 18:03:09 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_object			*set_cone(void)
 		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
 	cone->pos.x = 0;
 	cone->pos.y = 0;
-	cone->pos.z = 150;
+	cone->pos.z = 550;
 	cone->radius = 1;
 	object->type = CONE;
 	object->color = RED;
@@ -109,8 +109,8 @@ void				set_object(t_object **object)
 	tmp = obj;
 	tmp->next = set_cylinder();
 	tmp = tmp->next;
-	tmp->next = set_cone();
-	tmp = tmp->next;
+	//tmp->next = set_cone();
+	//tmp = tmp->next;
 	tmp->next = set_plane();
 	*object = *start;
 }

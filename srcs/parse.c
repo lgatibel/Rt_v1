@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/01 12:39:36 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/01 18:02:31 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,68 @@ int				test(t_env *env)
 	return (0);
 }
 
-/*
-t_object		*manage_parameter(char *line, int *index, int fd,
-	t_object **object)
+void			set_vecteur(char **tab, t_p3d *point)
 {
-	else if (*index == 1 && ft_strcmp(line, "##CAM"))// && !set_cam(&object,*index)))
-		error_parse(__FILE__, "bad camera definition", *index + 1);
-	else ()
-	return (object);
+	int		i;
+	int 	t;
+
+	i = 0;
+	t = -1;
+	while (tab[++i])
+	{
+		++t;
+		if (ft_strisnum(tab[i]))
+			*(&point->x + t) = ft_atod(tab[i]);
+		else
+			error_parse(__FILE__, "bad argument", __LINE__ - 2);
+	}
+		printf("x = %f, y = %f, z = %f\n",point->x, point->y, point->z);
 }
-*/
+
+int				handle_cam(t_cam *cam, int fd)
+{
+	char	*line;
+	int		i;
+	char	**tab;
+
+	i = -1;
+	line = NULL;
+	tab = NULL;
+	while ((get_next_line(fd, &line)) > 0 && ++i < 2)
+	{
+		if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "		origin"))
+		{
+			printf("origin ok\n");
+			set_vecteur(tab, &cam->pos);
+		}
+		else if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "		rot"))
+		{
+			printf("rot ok\n");
+			set_vecteur(tab, &cam->rot);
+		}
+		else
+			return (0);
+	}
+	return (1);
+}
+
+int				manage_parameter(int *index, int fd, t_env **env,
+		t_object **obj)
+{
+	char	*line;
+
+	t_object *test;
+	test = *obj;
+
+	line = NULL;
+	get_next_line(fd, &line);
+	if (!ft_strcmp(line, "	##CAM"))// && !set_cam(&object,*index)))
+		handle_cam(&(*env)->cam, fd);
+	else
+		error_parse(__FILE__, "Cam must be defined below start", *index + 1);
+	return (1);
+}
+
 static int		good_extension(char * file)
 {
 	int		length;
@@ -48,22 +100,25 @@ t_object		*parse_file(char *file, t_env **env)
 	char		*line;
 	t_object	*obj;
 
+	line = NULL;
 	obj = NULL;
 	index = 0;
+	set_env(env);
 	if (!good_extension(file))
 		error_extension(".rtv1", EXIT);
 	if ((fd = open(file, O_RDONLY)) < 1)
 		error(OPEN, __LINE__, __FILE__, EXIT);
-	while((get_next_line(fd, &line)) > 0)
+/*	while((get_next_line(fd, &line)) > 0)
 	{
-		if (!strcmp(&line, "###START"))
-			manage_parameter(line, &index, fd, &object);
+		if (++index && !strcmp(line, "###START"))
+			manage_parameter(&index, fd, env, &obj);
 		ft_putendl(line);
-		index++;
-	}
+	}*/
 	if (close(fd) == -1)
 		error(CLOSE, __LINE__, __FILE__, NO_EXIT);
-	set_env(env);
+	if (!obj)
+		printf("test");
+//		error(INIT, __LINE__, __FILE__, EXIT);
 	set_object(&obj);
 	(*env)->object = obj;
 	return (obj);

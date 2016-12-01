@@ -70,3 +70,6 @@ fclean: clean
 	@rm -rf $(TARGET)
 
 re: fclean all
+
+norme:
+	@norminette $(SRC_PATH) $(INC_PATH)
