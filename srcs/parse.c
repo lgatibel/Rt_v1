@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/30 18:01:03 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/01 11:36:47 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,15 @@ t_object		*manage_line(char *line, int *index)
 		error_parse(__FILE__, "bad camera definition", *index + 1);
 	return (object);
 }
-/*
-char			*ft_strrsrr(char *big, char little)
-{
-	if (!litle)
-		return (NULL)
-}
-*/
-int				good_extension(char * file)
-{
-	char *ext;
 
-	ext = ft_strstr(file, ".rtv1");
-	if(ext && !ft_strcmp(ext, ".rtv1"))
-		return (1);
+static int		good_extension(char * file)
+{
+	int		length;
+
+	length = 0;
+	if ((length = ft_strlen(file)) >= 5)
+		if (!ft_strcmp(&file[length - 5], ".rtv1"))
+			return (1);
 	return (0);
 }
 
@@ -65,7 +60,7 @@ void			parse_file(char *file, t_env **env, t_object **object)
 	if (!good_extension(file))
 		error_extension(".rtv1", EXIT);
 	if ((fd = open(file, O_RDONLY)) < 1)
-		error(OPEN, __LINE__, __FILE__, NO_EXIT);
+		error(OPEN, __LINE__, __FILE__, EXIT);
 	while((get_next_line(fd, &line)) > 0)
 	{
 		manage_line(line, &index);

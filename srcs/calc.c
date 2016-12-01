@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/29 16:25:28 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/01 10:22:34 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ double				calc_cone(t_object *object, t_ray *ray)
 	ray->dir.z - ray->dir.y * ray->dir.y;
 	b = 2 * (ray->dir.x * (ray->pos.x - co->pos.x) +
 	ray->dir.z * (ray->pos.z - co->pos.z) - ray->dir.y *
-	(ray->pos.y - co->pos.y));
+	(ray->pos.y - co->pos.y));// - co->radius * co->radius;
 	c = ((ray->pos.x - co->pos.x) * (ray->pos.x - co->pos.x) +
 	(ray->pos.z - co->pos.z) * (ray->pos.z - co->pos.z) -
 	(ray->pos.y - co->pos.y) * (ray->pos.y - co->pos.y));
