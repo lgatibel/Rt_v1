@@ -11,10 +11,10 @@
 ##OBJECT
 	#SPHERE
 		origin 0 0 0
-		radius 100
 		rot 0 0 90
+		radius 0
 		-color rgb (255 0 0)
-##END
+###END
 
 
 
