@@ -34,6 +34,9 @@
 # define BLACK 0x000000
 # define YELLOW 0XF7FA04
 # define CUSTOM 0x0ECB25
+# define ERROR -1
+# define END 0
+# define OK 1
 
 # define ANGLE 90
 
@@ -135,6 +138,7 @@ typedef struct		s_env
 	int			size_line;
 	int			endian;
 
+	char		*line;
 	double		t;
 	int			i;
 }					t_env;
