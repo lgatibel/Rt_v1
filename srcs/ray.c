@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 12:38:33 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 18:33:16 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/11/29 16:35:46 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 void				calc_ray(t_env *env, double x, double y)
 {
-	tp3d_cpy(&env->ray.dir,
-	tp3d_sum(env->viewplane.upleft,
-	tp3d_sub(
-	tp3d_mult_nb(env->viewplane.rvec, x * env->xindent),
-	tp3d_mult_nb(env->viewplane.upvec, y * env->yindent))));
-//	normalized(&env->ray.dir);
+	cpy_tp3d(&env->ray.dir,
+	sum_tp3d(env->viewplane.upleft,
+	sub_tp3d(
+	mult_nb_tp3d(env->viewplane.rvec, x * env->xindent),
+	mult_nb_tp3d(env->viewplane.upvec, y * env->yindent))));
+	normalized(&env->ray.dir, env->ray.length);
+//	printf("X = %f, Y = %f\n", x,y);
 }
 
 void				set_ray(t_ray *ray, t_cam *cam)
@@ -30,4 +31,5 @@ void				set_ray(t_ray *ray, t_cam *cam)
 	ray->dir.x = cam->rot.x;
 	ray->dir.y = cam->rot.y;
 	ray->dir.z = cam->rot.z;
+	ray->length = 1;
 }

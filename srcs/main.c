@@ -6,12 +6,12 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 18:28:49 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/01 18:04:14 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-
+//
 double				calc_object(t_object *object, t_env **env)
 {
 	double		dist;
@@ -35,6 +35,13 @@ double				calc_object(t_object *object, t_env **env)
 			t = dist;
 		}
 		object = object->next;
+	}
+	//delete
+	if (t > 0)
+	{
+	cpy_tp3d(&(*env)->intersect, mult_nb_tp3d(
+			sum_tp3d((*env)->ray.pos, (*env)->ray.dir), t));
+//	print_tp3d(&(*env)->intersect);
 	}
 	return (t);
 }
@@ -77,15 +84,19 @@ int					main(int ac, char **av)
 	// a voir plus tard si le global est interessant
 	set_global(&global);
 	object = NULL;
-	env = NULL;
+//	env = NULL;
+	if (!(env = (t_env *)malloc(sizeof(t_env))))
+		error(INIT, __LINE__ - 1, __FILE__, EXIT);
 	if (ac == 2)
 	{
-		parse_file(av[1], &env, &object);
+		parse_file(av[1], &env);
 		set_ray(&env->ray, &env->cam);
 		trace_test(env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		event(env);
+
 		write(1, "finish", 6);
+
 		mlx_loop(env->mlx);
 	}
 	else

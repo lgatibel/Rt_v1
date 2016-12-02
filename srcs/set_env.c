@@ -6,13 +6,13 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 12:25:38 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/11/25 16:51:47 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/01 17:28:26 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-static void			set_tp3d(t_p3d *vec, double x, double y, double z)
+void			set_tp3d(t_p3d *vec, double x, double y, double z)
 {
 	vec->x = x;
 	vec->y = y;
@@ -37,29 +37,27 @@ void				set_env(t_env **env)
 	t_env			*tmp;
 	t_viewplane		*view;
 
-	if (!(tmp = (t_env *)malloc(sizeof(t_env))))
-		error(INIT, __LINE__ - 1, __FILE__, EXIT);
+	tmp = *env;
 	view = &tmp->viewplane;
 	tmp->color = BLACK;
 	tmp->viewplane.width = VIEW_WIDTH;
 	tmp->viewplane.height = VIEW_HEIGHT;
 	tmp->viewplane.dist = 1;
-	set_tp3d(&tmp->cam.pos, 0, 0, 0);
-	set_tp3d(&tmp->cam.rot, 0, 0, 1);
-	set_tp3d(&tmp->viewplane.upvec, 0, 1, 0);
-	set_tp3d(&tmp->viewplane.rvec, 1, 0, 0);
-//	normalized(&tmp->cam.rot);
-	view->upleft = tp3d_sub(
-	tp3d_sum(
-	tp3d_sum(tmp->cam.pos, tp3d_mult_nb(tmp->cam.rot,
-	view->dist)), tp3d_mult_nb(view->upvec, view->height /
-	2.0f)), tp3d_mult_nb(view->rvec, view->width / 2.0f));
-	tmp->xindent = (float)tmp->viewplane.width / (float)WIDTH;
-	tmp->yindent = (float)tmp->viewplane.height / (float)HEIGHT;
-	tmp->xindent = (float)tmp->viewplane.width / 1920;
-	tmp->yindent = (float)tmp->viewplane.height / 1080;
+	//voir pour une converison humaine des point de rotation et position
+//	set_tp3d(&tmp->intersect, 0, 0, 0);
+//	set_tp3d(&tmp->cam.pos, 3, 4, 5);
+//	set_tp3d(&tmp->cam.rot, 0, 0, 1);
+	set_tp3d(&view->upvec, 0, 1, 0);
+	set_tp3d(&view->rvec, 1, 0, 0);
+	view->upleft = sub_tp3d(
+	sum_tp3d(
+	sum_tp3d(tmp->cam.pos, mult_nb_tp3d(tmp->cam.rot,
+	view->dist)), mult_nb_tp3d(view->upvec, view->height /
+	2.0f)), mult_nb_tp3d(view->rvec, view->width / 2.0f));
+	tmp->xindent = tmp->viewplane.width / WIDTH;
+	tmp->yindent = tmp->viewplane.height / HEIGHT;
 	tmp->t = -1;
 	tmp->i = 0;
 	set_mlx(&tmp);
-	*env = tmp;
+//	*env = tmp;
 }

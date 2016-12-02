@@ -1,0 +1,31 @@
+###START
+	##CAM
+		origin 0 0 -0.005l
+		rot 0 0 1
+	##OBJECT
+	#SPHERE
+		origin 0 0 200
+		rot 0 0 0
+		radius 30
+		color 0x00FF00
+	#PLANE
+		origin 0 -1 0
+		rot 0 1 0
+		distance 20
+		color 0xF7FA04
+	#CYLINDER
+		origin 0 0 200
+		rot 0 0 0
+		radius 20
+		color 0xFFFFFF
+	#CONE
+		origin 0 0 250
+		rot 0 0 0
+		radius 1
+		color 0xFF0000
+	#SPHERE
+		origin 14 0 200
+		rot 0 0 0
+		radius 0
+		color 0x00FF0
+###END

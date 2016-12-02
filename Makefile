@@ -1,8 +1,9 @@
 vpath
 
-TARGET = rt_v1
+TARGET = rtv1
 #Sources
-SRC_NAME = main.c set_object.c tp3d_calc.c tp3d_calc_annexe.c ray.c color.c parse.c \
+SRC_NAME = main.c set_object.c print_tp3d.c \
+calc_tp3d.c calc_tp3d_annexe.c ray.c color.c parse.c \
 set_env.c calc.c event.c tools.c
 #trace.c sphere.c
 SRC_PATH = ./srcs/
@@ -43,7 +44,7 @@ DFLAG2 = -fsanitize=address
 
 all: $(TARGET)
 
-.PHONY: clean fclean re
+.PHONY: all clean fclean re
 
 $(TARGET): $(OBJ)
 	@echo "\x1b[32m\n######## 1/3 libft ########\x1b[0m"
@@ -69,3 +70,6 @@ fclean: clean
 	@rm -rf $(TARGET)
 
 re: fclean all
+
+norme:
+	@norminette $(SRC_PATH) $(INC_PATH)
