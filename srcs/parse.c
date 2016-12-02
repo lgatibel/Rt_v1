@@ -66,7 +66,7 @@ int				handle_cam(t_cam *cam, int fd)
 	return (1);
 }
 
-int				manage_parameter(int *index, int fd, t_env **env,
+int				manage_parameter(int *index, int fd, t_env *env,
 		t_object **obj)
 {
 	char	*line;
@@ -78,9 +78,9 @@ int				manage_parameter(int *index, int fd, t_env **env,
 	get_next_line(fd, &line);
 		ft_putendl(line);
 	if (!ft_strcmp(line, "	##CAM"))// && !set_cam(&object,*index)))
-		handle_cam(&(*env)->cam, fd);
-	else if (!ft_strcmp(line, "	OBJECT"))
-		
+		handle_cam(&env->cam, fd);
+//	else if (!ft_strcmp(line, "	OBJECT"))
+//		handle_object(*env);
 	else
 		error_parse(__FILE__, "Cam must be defined below start", *index + 1);
 	return (1);
@@ -97,7 +97,7 @@ static int		good_extension(char * file)
 	return (0);
 }
 
-t_object		*parse_file(char *file, t_env **env)
+t_object		*parse_file(char *file, t_env *env)
 {
 	int			fd;
 	int			index;
@@ -122,13 +122,13 @@ t_object		*parse_file(char *file, t_env **env)
 	if (!obj)
 		printf("test");
 //		error(INIT, __LINE__, __FILE__, EXIT);
-	set_object(&(*env)->object);
+	set_object(&env->object);
 		printf("pos x = %f, y = %f, z = %f\n",
-		(*env)->cam.pos.x, (*env)->cam.pos.y,
-		(*env)->cam.pos.z);
+		env->cam.pos.x, env->cam.pos.y,
+		env->cam.pos.z);
 		printf("rot x = %f, y = %f, z = %f\n",
-		(*env)->cam.rot.x, (*env)->cam.rot.y,
-		(*env)->cam.rot.z);
+		env->cam.rot.x, env->cam.rot.y,
+		env->cam.rot.z);
 	set_env(env);
 //	(*env)->object = obj;
 	return (obj);

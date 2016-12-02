@@ -89,7 +89,7 @@ int					main(int ac, char **av)
 		error(INIT, __LINE__ - 1, __FILE__, EXIT);
 	if (ac == 2)
 	{
-		parse_file(av[1], &env);
+		parse_file(av[1], env);
 		set_ray(&env->ray, &env->cam);
 		trace_test(env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);

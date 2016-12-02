@@ -32,21 +32,18 @@ static void			set_mlx(t_env **tmp)
 	&(*tmp)->bpp, &(*tmp)->size_line, &(*tmp)->endian);
 }
 
-void				set_env(t_env **env)
+void				set_env(t_env *env)
 {
 	t_env			*tmp;
 	t_viewplane		*view;
 
-	tmp = *env;
+	tmp = env;
 	view = &tmp->viewplane;
 	tmp->color = BLACK;
 	tmp->viewplane.width = VIEW_WIDTH;
 	tmp->viewplane.height = VIEW_HEIGHT;
 	tmp->viewplane.dist = 1;
 	//voir pour une converison humaine des point de rotation et position
-//	set_tp3d(&tmp->intersect, 0, 0, 0);
-//	set_tp3d(&tmp->cam.pos, 3, 4, 5);
-//	set_tp3d(&tmp->cam.rot, 0, 0, 1);
 	set_tp3d(&view->upvec, 0, 1, 0);
 	set_tp3d(&view->rvec, 1, 0, 0);
 	view->upleft = sub_tp3d(

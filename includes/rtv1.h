@@ -146,9 +146,9 @@ typedef struct		s_grtv1
 	t_ray		*ray;
 }					t_grtv1;
 
-t_object			*parse_file(char *file, t_env **env);
+t_object			*parse_file(char *file, t_env *env);
 
-void				set_env(t_env **env);
+void				set_env(t_env *env);
 void				set_ray(t_ray *ray, t_cam *cam);
 void				set_object(t_object **object);
 
