@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/05 10:54:05 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/05 11:28:08 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,6 @@ void				set_object(t_object **object)
 	tmp = tmp->next;
 	tmp->next = set_plane();
 */	*object = *start;
+	if (!*object)
+		printf("nope !!!\n");
 }

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/01 18:04:14 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/05 11:40:30 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int					main(int ac, char **av)
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		event(env);
 
-		write(1, "finish", 6);
+		write(1, "finish\n", 6);
 
 		mlx_loop(env->mlx);
 	}
