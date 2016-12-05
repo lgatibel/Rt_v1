@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/05 10:17:27 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/05 15:27:41 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@
 # define YELLOW 0XF7FA04
 # define CUSTOM 0x0ECB25
 # define ERROR -1
-# define END 0
-# define OK 1
+# define OK 0
 
 # define ANGLE 90
 

@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/05 11:39:47 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/05 16:23:48 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				handle_cam(t_cam *cam, int fd)
 	i = -1;
 	line = NULL;
 	tab = NULL;
-	while ((get_next_line(fd, &line)) > 0 && ++i < 2)
+	while (++i < 2 && (get_next_line(fd, &line)) > 0)
 	{
 		ft_putendl(line);
 		if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "		origin"))
@@ -114,19 +114,20 @@ int				args_required(char *ok, int nb)
 	return (1);
 }
 
-int				set_cone1(t_env *env, int fd, t_object *obj)
+int				set_cone1(t_env *env, int fd, t_object **obj)
 {
 	int		i;
 	char	**tab;
 	char	ok[5];
 	t_cone	*cone;
 
-	i = 0;
+	i = -1;
+	printf("----cone-----");
 	cone = (t_cone *)malloc(sizeof(t_cone));
-	obj->ptr = cone;
+//	(*obj)->ptr = cone;
 	// voir pour verif
 	ft_bzero(&ok, 5);
-	while (i <= 4 && (get_next_line(fd, &env->line)) > 0)
+	while (++i < 4 && (get_next_line(fd, &env->line)) > 0)
 	{
 		tab = ft_strsplit(env->line, ' ');
 		if (!ft_strcmp(tab[0], "		origin"))
@@ -136,13 +137,15 @@ int				set_cone1(t_env *env, int fd, t_object *obj)
 		else if (!ft_strcmp(tab[0], "		radius"))
 			ok[i] = set_radius(tab, &cone->radius);
 		else if (!ft_strcmp(tab[0], "		color"))
-			ok[i] = set_color(tab, &obj->color);
+			ok[i] = set_color(tab, &(*obj)->color);
 	}
 	if (i != 5 || !args_required(ok, 4))
 		return (ERROR);
-	obj->next = NULL;
-	obj->type = CONE;
-	return(0);
+//	(*obj)->next = NULL;
+//	(*obj)->type = CONE;
+	printf("pull\n");
+//	printf("----type  = %d\n", (*obj)->type);
+	return(OK);
 }
 ////////////////////////////tester le null dans ft_strcmp/////////////////////
 int				handle_object(t_env *env, int fd, t_object **object)
@@ -151,18 +154,20 @@ int				handle_object(t_env *env, int fd, t_object **object)
 	char		**tab;
 	t_object	*obj;
 
-	i =fd = env->cam.pos.x;
 	i = -1;
-	obj = NULL;
-	(*object) = (t_object *)malloc(sizeof(t_object));
-//	*object = obj;
-	while ((get_next_line(fd, &env->line)) > 0 && !ft_strcmp(env->line, "###END"))
+	tab = NULL;
+	obj = (t_object *)malloc(sizeof(t_object));
+	*object = obj;
+	printf("pull\n");
+		printf("line  = [%s]\n", env->line);
+	while (get_next_line(fd, &env->line) > 0 && ft_strcmp(env->line, "##END"))
 	{
-		if ( !obj && (obj = (t_object *)malloc(sizeof(t_object))))
+		if (++i > 0 && !obj->next && (obj->next = (t_object *)malloc(sizeof(t_object))))
 			error(INIT, __LINE__, __FILE__, EXIT);
 		ft_putendl(env->line);
-		if ((tab = ft_strsplit(env->line, ' ')) && !ft_strcmp(tab[0], "	CONE"))
-			set_cone1(env, fd, obj);
+		if ((tab = ft_strsplit(env->line, ' ')) && ft_strcmp(tab[0], "	#CONE"))
+			set_cone1(env, fd, &obj);
+//		printf("tab[]  = %s\n", tab[0]);
 			//set_cone1(env, fd);
 /*		else if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "	#CYLINDER"))
 			set_vecteur(tab, &cam->rot);
@@ -174,8 +179,10 @@ int				handle_object(t_env *env, int fd, t_object **object)
 			return (END);
 		else
 			return (ERROR);
-		*/	obj = obj->next;
+		*/	
 	}
+	printf("line  = [%s]\n", env->line);
+	printf("over, i = %d\n", i);
 	return (OK);
 }
 
@@ -187,6 +194,7 @@ int				manage_parameter(int *index, int fd, t_env *env)
 
 	line = NULL;
 	i = -1;
+	error = 0;
 	while (++i < 2 && (get_next_line(fd, &env->line)) > 0)
 	{
 		ft_putendl(env->line);
@@ -197,7 +205,8 @@ int				manage_parameter(int *index, int fd, t_env *env)
 		else
 			break;
 	}
-	if (i != 1)
+//	handle error;
+	if (error)
 		error_parse(__FILE__, "Cam must be defined below start", *index++);
 	return (1);
 }
