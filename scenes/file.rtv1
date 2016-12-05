@@ -1,20 +1,11 @@
 ###START
-##CAM
-	#pos
-		0 0 0
-	#rot 0 0 90
-##SCENE
-	width
-		1080
-	height
-		800
-##OBJECT
-	#SPHERE
+	##CAM
 		origin 0 0 0
-		radius 100
-		rot 0 0 90
-		-color rgb (255 0 0)
+		rot 0 0 1
+	##OBJECT
+	#CONE
+		origin 0 0 0
+		radius 1
+		rot 0 0 0
+		color 0x00FF00
 ##END
-
-
-

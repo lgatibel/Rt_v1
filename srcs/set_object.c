@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/01 18:03:09 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/05 10:54:05 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_object			*set_cone(void)
 	cone->pos.x = 0;
 	cone->pos.y = 0;
 	cone->pos.z = 550;
-	cone->radius = 1;
+	cone->radius = 0;
 	object->type = CONE;
 	object->color = RED;
 	object->ptr = cone;
@@ -104,13 +104,13 @@ void				set_object(t_object **object)
 
 	obj = NULL;
 	start = NULL;
-	obj = set_sphere();
+	obj = set_cone();
 	start = &obj;
 	tmp = obj;
-	tmp->next = set_cylinder();
+/*	tmp->next = set_cylinder();
 	tmp = tmp->next;
 	tmp->next = set_cone();
 	tmp = tmp->next;
 	tmp->next = set_plane();
-	*object = *start;
+*/	*object = *start;
 }

@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/01 18:02:31 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/05 11:04:17 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ int			set_vecteur(char **tab, t_p3d *point)
 	while (tab[++i])
 	{
 		++t;
-		if (i < 3 && ft_strisnum(tab[i]))
+		if (i < 4 && ft_strisnum(tab[i]))
 			*(&point->x + t) = ft_atod(tab[i]);
 		else
 		{
+			printf("tab[%d] = %s\n",i,tab[i]);
 			error_parse(__FILE__, "bad argument", __LINE__ - 2);
 			return (0);
 		}
@@ -81,48 +82,86 @@ int				set_cone1(t_env *env, int fd)
 	}
 	return (OK);
 }*/
-int				set_cone1(t_env *env, int fd)
+int				set_color(char **tab, int	*color)
+{
+	if (ft_strishexa(tab[1]))
+		*color = ft_atoi_base(tab[1], 16);
+	else
+		return (0);
+	return (1);
+}
+
+int				set_radius(char **tab, double *radius)
+{
+	if (ft_strisnum(tab[1]))
+		*radius = ft_atod(tab[1]);
+	else
+		return (0);
+	return (1);
+}
+
+
+int				args_required(char *ok, int nb)
+{
+	int		i;
+
+	i = -1;
+	while (++i < nb && ok[i])
+	{
+		if (ok[i] == 0)
+			return (0);
+	}
+	return (1);
+}
+
+int				set_cone1(t_env *env, int fd, t_object *obj)
 {
 	int		i;
 	char	**tab;
 	char	ok[5];
-	t_object	*obj;
+	t_cone	*cone;
 
 	i = 0;
-
+	cone = (t_cone *)obj->ptr;
+	// voir pour verif
 	ft_bzero(&ok, 5);
-	while ((get_next_line(fd, &env->line)) > 0 && i <4)
+	while (i <= 4 && (get_next_line(fd, &env->line)) > 0)
 	{
 		tab = ft_strsplit(env->line, ' ');
 		if (!ft_strcmp(tab[0], "		origin"))
-			ok[i] = set_vecteur(tab, obj->ptr.pos);
+			ok[i] = set_vecteur(tab, &cone->pos);
 		else if (!ft_strcmp(tab[0], "		rot"))
-			ok[i] = set_vecteur(tab, obj->ptr.rot);
-		else if (!ft_strcmp(tab[0], "		rot"))
-			ok[i] = set_vecteur(tab, obj->ptr.);
+			ok[i] = set_vecteur(tab, &cone->rot);
 		else if (!ft_strcmp(tab[0], "		radius"))
-			ok[i] = set_vecteur(tab, obj->ptr.rot);
+			ok[i] = set_radius(tab, &cone->radius);
+		else if (!ft_strcmp(tab[0], "		color"))
+			ok[i] = set_color(tab, &obj->color);
 	}
-	if (!args_required(ok) && i != 4)
+	if (i != 5 || !args_required(ok, 4))
 		return (ERROR);
+	obj->next = NULL;
+	obj->type = CONE;
 	return(0);
 }
 ////////////////////////////tester le null dans ft_strcmp/////////////////////
 int				handle_object(t_env *env, int fd)
 {
-	int		i;
-	char	**tab;
+	int			i;
+	char		**tab;
+	t_object	*obj;
 
 	i =fd = env->cam.pos.x;
 	i = -1;
-	tab = NULL;
-	if (env->obj = (t_object *)malloc(sizeof(t_object)))
-		error(INIT, __LINE__, __FILE__, EXIT);
+	obj = NULL;
+	env->object = (t_object *)malloc(sizeof(t_object));
+	obj = env->object;
 	while ((get_next_line(fd, &env->line)) > 0 && !ft_strcmp(env->line, "###END"))
 	{
+		if ( !obj && (obj = (t_object *)malloc(sizeof(t_object))))
+			error(INIT, __LINE__, __FILE__, EXIT);
 		ft_putendl(env->line);
 		if ((tab = ft_strsplit(env->line, ' ')) && !ft_strcmp(tab[0], "	CONE"))
-			set_cone1(obj , fd , CONE);
+			set_cone1(env, fd, obj);
 			//set_cone1(env, fd);
 /*		else if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "	#CYLINDER"))
 			set_vecteur(tab, &cam->rot);
@@ -134,8 +173,8 @@ int				handle_object(t_env *env, int fd)
 			return (END);
 		else
 			return (ERROR);
-
-	*/}
+		*/	obj = obj->next;
+	}
 	return (OK);
 }
 
@@ -147,7 +186,7 @@ int				manage_parameter(int *index, int fd, t_env *env)
 
 	line = NULL;
 	i = -1;
-	while ((get_next_line(fd, &env->line)) > 0 && ++i < 2)
+	while (++i < 2 && (get_next_line(fd, &env->line)) > 0)
 	{
 		ft_putendl(env->line);
 		if (i == 0 && !ft_strcmp(env->line, "	##CAM"))
@@ -157,7 +196,7 @@ int				manage_parameter(int *index, int fd, t_env *env)
 		else
 			break;
 	}
-	if (i != 2)
+	if (i != 1)
 		error_parse(__FILE__, "Cam must be defined below start", *index++);
 	return (1);
 }
@@ -182,6 +221,8 @@ t_object		*parse_file(char *file, t_env *env)
 	env->line = NULL;
 	obj = NULL;
 	index = 0;
+//	set_object(&env->object);
+	env->object = NULL;
 	if (!good_extension(file))
 		error_extension(".rtv1", EXIT);
 	if ((fd = open(file, O_RDONLY)) < 1)
@@ -194,10 +235,11 @@ t_object		*parse_file(char *file, t_env *env)
 	}
 	if (close(fd) == -1)
 		error(CLOSE, __LINE__, __FILE__, NO_EXIT);
-	if (!obj)
-		printf("test");
-//		error(INIT, __LINE__, __FILE__, EXIT);
-	set_object(&env->object);
+	if (!env->object)
+	{
+		printf("object not set");
+		error(INIT, __LINE__, __FILE__, EXIT);
+		}
 		printf("pos x = %f, y = %f, z = %f\n",
 		env->cam.pos.x, env->cam.pos.y,
 		env->cam.pos.z);
