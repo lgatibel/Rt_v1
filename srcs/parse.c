@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 10:49:01 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 13:35:01 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,15 @@ int			set_vecteur(char **tab, t_p3d *point)
 	while (tab[++i])
 	{
 		++t;
-			printf("tab[%d] = %s\n",i,tab[i]);
 		if (i < 4 && ft_strisnum(tab[i]))
 			*(&point->x + t) = ft_atod(tab[i]);
 		else
 		{
-			printf("tab[%d] = %s\n",i,tab[i]);
 			error_parse(__FILE__, "bad argument", __LINE__ - 2);
 			return (0);
 		}
 	}
 	return (1);
-//	printf("x = %f, y = %f, z = %f\n",point->x, point->y, point->z);
 }
 
 int				handle_cam(t_cam *cam, int fd)
@@ -108,7 +105,7 @@ int				manage_parameter(int *index, int fd, t_env *env)
 
 	line = NULL;
 	i = -1;
-	error = 0;
+	error = -1;
 	while (++i < 2 && (get_next_line(fd, &env->line)) > 0)
 	{
 		ft_putendl(env->line);
@@ -119,7 +116,6 @@ int				manage_parameter(int *index, int fd, t_env *env)
 		else
 			break;
 	}
-//	handle error;
 	if (error)
 		error_parse(__FILE__, "Cam must be defined below start", *index++);
 	return (1);
@@ -144,7 +140,6 @@ t_object		*parse_file(char *file, t_env *env)
 	env->line = NULL;
 	index = 0;
 	env->object = NULL;
-//	set_object(&env->object);
 	if (!good_extension(file))
 		error_extension(".rtv1", EXIT);
 	if ((fd = open(file, O_RDONLY)) < 1)
@@ -155,21 +150,11 @@ t_object		*parse_file(char *file, t_env *env)
 		if (++index && !strcmp(env->line, "###START"))
 			manage_parameter(&index, fd, env);
 	}
+	/// diviser le set env en deux une partie pour la camera
+	set_env(env);
 	if (close(fd) == -1)
 		error(CLOSE, __LINE__, __FILE__, NO_EXIT);
 	if (!env->object)
-	{
-		printf("object not set");
-		error(INIT, __LINE__, __FILE__, NO_EXIT);
-	}
-	set_env(env);
-	printf("----type  = %d\n", env->object->color);
-/*		printf("pos x = %f, y = %f, z = %f\n",
-		env->cam.pos.x, env->cam.pos.y,
-		env->cam.pos.z);
-		printf("rot x = %f, y = %f, z = %f\n",
-		env->cam.rot.x, env->cam.rot.y,
-		env->cam.rot.z);
-*/
+		error(INIT, __LINE__, __FILE__, EXIT);
 	return (env->object);
 }

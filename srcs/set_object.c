@@ -6,11 +6,43 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 10:40:46 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 10:48:13 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 13:35:38 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+
+int				set_plane(t_env *env, int fd, t_object **obj)
+{
+	int			i;
+	char		**tab;
+	char		ok[5];
+	t_plane		*plane;
+
+	i = -1;
+	plane = (t_plane *)malloc(sizeof(t_plane));
+	(*obj)->ptr = plane;
+	(*obj)->type = PLANE;
+	(*obj)->next = NULL;
+	// voir pour verif
+	ft_bzero(&ok, 5);
+	while (++i < 4 && (get_next_line(fd, &env->line)) > 0)
+	{
+		ft_putendl(env->line);
+		tab = ft_strsplit(env->line, ' ');
+		if (!ft_strcmp(tab[0], "		origin"))
+			ok[i] = set_vecteur(tab, &plane->pos);
+		else if (!ft_strcmp(tab[0], "		norm"))
+			ok[i] = set_vecteur(tab, &plane->norm);
+		else if (!ft_strcmp(tab[0], "		length"))
+			ok[i] = set_radius(tab, &plane->d);
+		else if (!ft_strcmp(tab[0], "		color"))
+			ok[i] = set_color(tab, &(*obj)->color);
+	}
+	if (i != 4 || !args_required(ok, 3))
+		return (ERROR);
+	return(OK);
+}
 
 int				set_cylinder(t_env *env, int fd, t_object **obj)
 {
@@ -28,6 +60,7 @@ int				set_cylinder(t_env *env, int fd, t_object **obj)
 	ft_bzero(&ok, 5);
 	while (++i < 4 && (get_next_line(fd, &env->line)) > 0)
 	{
+		ft_putendl(env->line);
 		tab = ft_strsplit(env->line, ' ');
 		if (!ft_strcmp(tab[0], "		origin"))
 			ok[i] = set_vecteur(tab, &cylinder->pos);
@@ -59,6 +92,7 @@ int				set_sphere(t_env *env, int fd, t_object **obj)
 	ft_bzero(&ok, 5);
 	while (++i < 4 && (get_next_line(fd, &env->line)) > 0)
 	{
+		ft_putendl(env->line);
 		tab = ft_strsplit(env->line, ' ');
 		if (!ft_strcmp(tab[0], "		origin"))
 			ok[i] = set_vecteur(tab, &sphere->pos);
@@ -90,6 +124,7 @@ int				set_cone(t_env *env, int fd, t_object **obj)
 	ft_bzero(&ok, 5);
 	while (++i < 4 && (get_next_line(fd, &env->line)) > 0)
 	{
+		ft_putendl(env->line);
 		tab = ft_strsplit(env->line, ' ');
 		if (!ft_strcmp(tab[0], "		origin"))
 			ok[i] = set_vecteur(tab, &cone->pos);
@@ -115,7 +150,7 @@ int				handle_object(t_env *env, int fd, t_object **object)
 	tab = NULL;
 	obj = (t_object *)malloc(sizeof(t_object));
 	*object = obj;
-	while (get_next_line(fd, &env->line) > 0 && ft_strcmp(env->line, "##END"))
+	while (get_next_line(fd, &env->line) > 0 && ft_strcmp(env->line, "###END"))
 	{
 		if (++i > 0 && !(obj->next = (t_object *)malloc(sizeof(t_object))))
 			error(INIT, __LINE__, __FILE__, EXIT);
@@ -124,21 +159,14 @@ int				handle_object(t_env *env, int fd, t_object **object)
 		ft_putendl(env->line);
 		if ((tab = ft_strsplit(env->line, ' ')) && !ft_strcmp(tab[0], "	#CONE"))
 			set_cone(env, fd, &obj);
-//		printf("tab[]  = %s\n", tab[0]);
-			//set_cone1(env, fd);
 		else if ((tab = ft_strsplit(env->line, ' ')) && !ft_strcmp(tab[0], "	#CYLINDER"))
 			set_cylinder(env, fd, &obj);
-//		else if ((tab = ft_strsplit(env->line, ' ')) && !ft_strcmp(tab[0], "	#PLANE"))
-//			set_plane1(tab, &cam->rot);
+		else if ((tab = ft_strsplit(env->line, ' ')) && !ft_strcmp(tab[0], "	#PLANE"))
+			set_plane(env, fd, &obj);
 		else if ((tab = ft_strsplit(env->line, ' ')) && !ft_strcmp(tab[0], "	#SPHERE"))
 			set_sphere(env, fd, &obj);
-/*		else if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "###END"))
-			return (END);
 		else
 			return (ERROR);
-		*/	
 	}
-	printf("line  = [%s]\n", env->line);
-	printf("over, i = %d\n", i);
 	return (OK);
 }
