@@ -6,13 +6,13 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 10:40:46 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 16:47:26 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 18:45:17 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-int					set_plane(t_env *env, int fd, t_object **obj)
+static void			set_plane(t_env *env, int fd, t_object **obj)
 {
 	int			i;
 	char		**tab;
@@ -37,10 +37,11 @@ int					set_plane(t_env *env, int fd, t_object **obj)
 		else if (!ft_strcmp(tab[0], "		color"))
 			ok[i] = set_color(tab, &(*obj)->color);
 	}
-	return (i != 4 || !args_required(ok, 4)) ? ERROR : OK;
+	if (i != 4 || !args_required(ok, 4))
+		err(__FILE__, __LINE__, "bad parameter", EXIT);
 }
 
-int					set_cylinder(t_env *env, int fd, t_object **obj)
+static void			set_cylinder(t_env *env, int fd, t_object **obj)
 {
 	int			i;
 	char		**tab;
@@ -65,10 +66,11 @@ int					set_cylinder(t_env *env, int fd, t_object **obj)
 		else if (!ft_strcmp(tab[0], "		color"))
 			ok[i] = set_color(tab, &(*obj)->color);
 	}
-	return (i != 4 || !args_required(ok, 4)) ? ERROR : OK;
+	if (i != 4 || !args_required(ok, 4))
+		err(__FILE__, __LINE__, "bad parameter", EXIT);
 }
 
-int					set_sphere(t_env *env, int fd, t_object **obj)
+static void			set_sphere(t_env *env, int fd, t_object **obj)
 {
 	int			i;
 	char		**tab;
@@ -93,10 +95,11 @@ int					set_sphere(t_env *env, int fd, t_object **obj)
 		else if (!ft_strcmp(tab[0], "		color"))
 			ok[i] = set_color(tab, &(*obj)->color);
 	}
-	return (i != 4 || !args_required(ok, 4)) ? ERROR : OK;
+	if (i != 4 || !args_required(ok, 4))
+		err(__FILE__, __LINE__, "bad parameter", EXIT);
 }
 
-int					set_cone(t_env *env, int fd, t_object **obj)
+static void			set_cone(t_env *env, int fd, t_object **obj)
 {
 	int		i;
 	char	**tab;
@@ -121,7 +124,8 @@ int					set_cone(t_env *env, int fd, t_object **obj)
 		else if (!ft_strcmp(tab[0], "		color"))
 			ok[i] = set_color(tab, &(*obj)->color);
 	}
-	return (i != 4 || !args_required(ok, 4)) ? ERROR : OK;
+	if (i != 4 || !args_required(ok, 4))
+		err(__FILE__, __LINE__, "bad parameter", EXIT);
 }
 
 void				set_object(t_env *env, int fd, t_object **object)
@@ -129,10 +133,8 @@ void				set_object(t_env *env, int fd, t_object **object)
 	int			i;
 	char		**tab;
 	t_object	*obj;
-	int			error;
 
 	i = -1;
-	error = ERROR;
 	while (get_next_line(fd, &env->line) > 0 && ft_strcmp(env->line, "###END"))
 	{
 		ft_putendl(env->line);
@@ -141,14 +143,15 @@ void				set_object(t_env *env, int fd, t_object **object)
 			set_cone(env, fd, &obj);
 		else if ((tab = ft_strsplit(env->line, ' ')) &&
 				!ft_strcmp(*tab, "	#CYLINDER"))
-			error = set_cylinder(env, fd, &obj);
+			set_cylinder(env, fd, &obj);
 		else if ((tab = ft_strsplit(env->line, ' ')) &&
 				!ft_strcmp(*tab, "	#PLANE"))
 			set_plane(env, fd, &obj);
 		else if ((tab = ft_strsplit(env->line, ' ')) &&
 				!ft_strcmp(*tab, "	#SPHERE"))
 			set_sphere(env, fd, &obj);
+		else
+			err(__FILE__, __LINE__, "bad parameter for object set", EXIT);
 	}
-	if (error == ERROR)
-		err(__FILE__, i, "bad parameter for object set", EXIT);
 }
+// probleme avec trop de pareametre ca fonctionne

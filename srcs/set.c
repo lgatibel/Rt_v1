@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 16:35:31 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 16:56:01 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 18:48:05 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int					set_vecteur(char **tab, t_p3d *point)
 			*(&point->x + t) = ft_atod(tab[i]);
 		else
 		{
-			error_parse(__FILE__, "bad argument", __LINE__ - 2);
+	//		error_parse(__FILE__, "bad argument", __LINE__);
 			return (ERROR);
 		}
 	}
@@ -58,7 +58,7 @@ void				set_cam(t_cam *cam, int fd)
 
 int					set_color(char **tab, int *color)
 {
-	if (ft_strishexa(tab[1]))
+	if (ft_strishexa(tab[1]) && !tab[2])
 		*color = ft_atoi_base(tab[1], 16);
 	else
 		return (ERROR);
@@ -67,7 +67,7 @@ int					set_color(char **tab, int *color)
 
 int					set_radius(char **tab, double *radius)
 {
-	if (ft_strisnum(tab[1]))
+	if (ft_strisnum(tab[1]) && !tab[2])
 		*radius = ft_atod(tab[1]);
 	else
 		return (ERROR);

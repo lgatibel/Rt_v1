@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 16:57:32 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 18:44:12 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int				args_required(char *ok, int nb)
 	int		i;
 
 	i = -1;
-	while (++i < nb && ok[i])
+	while (++i < nb)
 	{
-		if (ok[i] == 0)
+		if (!ok[i] || ok[i] == 0)
 			return (0);
 	}
 	return (1);
@@ -35,7 +35,7 @@ int				args_required(char *ok, int nb)
 
 ////////////////////////////tester le null dans ft_strcmp/////////////////////
 
-int				manage_parameter(int *index, int fd, t_env *env)
+int				manage_parameter(int fd, t_env *env)
 {
 	int		i;
 
@@ -46,15 +46,17 @@ int				manage_parameter(int *index, int fd, t_env *env)
 		if (i == 0 && !ft_strcmp(env->line, "	##CAM"))
 			set_cam(&env->cam, fd);
 		else if (i == 1 && !ft_strcmp(env->line, "	##OBJECT"))
+		{
 			set_object(env, fd, &env->object);
+			ft_putendl(env->line);
+			if (ft_strcmp(env->line, "###END"))
+				err(__FILE__, __LINE__, "No [###END] defined", EXIT);
+		}
 		else
 			return (ERROR);
 	}
 	if (i == 0)
-		err(__FILE__, __LINE__, "Cam must be defined below start", *index++);
-	else if (i == 1)
-		err(__FILE__, __LINE__, "Object must be defined below camera set",
-				*index++);
+		err(__FILE__, __LINE__, "Cam must be defined below start", EXIT);
 	return (OK);
 }
 
@@ -67,6 +69,16 @@ static int		good_extension(char *file)
 		if (ft_strcmp(&file[length - 5], ".rtv1"))
 			return (ERROR);
 	return (OK);
+}
+
+void			handle_error(int index, int fd, t_env *env)
+{
+	if (!index)
+		err(__FILE__, __LINE__, "No [###START] defined", EXIT);
+	if (close(fd) == -1)
+		err(__FILE__, __LINE__, "Close error", NO_EXIT);
+	if (!env->object)
+		err(__FILE__, __LINE__, "Object not set", NO_EXIT);
 }
 
 t_object		*parse_file(char *file, t_env *env)
@@ -83,13 +95,10 @@ t_object		*parse_file(char *file, t_env *env)
 	while ((get_next_line(fd, &env->line)) > 0)
 	{
 		ft_putendl(env->line);
-		if (++index && !strcmp(env->line, "###START"))
-			manage_parameter(&index, fd, env);
+		if (!strcmp(env->line, "###START") && ++index)
+			manage_parameter(fd, env);
 	}
+	handle_error(index, fd, env);
 	set_viewplane(env);
-	if (close(fd) == -1)
-		err(__FILE__, __LINE__, "close error", NO_EXIT);
-	if (!env->object)
-		err(__FILE__, __LINE__, "object not set", NO_EXIT);
 	return (env->object);
 }

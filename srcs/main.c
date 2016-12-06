@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 17:00:13 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 17:54:00 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void				trace_test(t_env *env)
 int					main(int ac, char **av)
 {
 	t_env		*env;
-	t_object	*object;
 
 	if (!(env = (t_env *)malloc(sizeof(t_env))))
 		error(INIT, __LINE__ - 1, __FILE__, EXIT);
@@ -74,7 +73,6 @@ int					main(int ac, char **av)
 		trace_test(env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		event(env);
-		write(1, "finish\n", 6);
 		mlx_loop(env->mlx);
 	}
 	else
