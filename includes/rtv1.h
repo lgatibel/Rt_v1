@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 15:53:16 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 16:46:39 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int					set_vecteur(char **tab, t_p3d *point);
 int					set_radius(char **tab, double *radius);
 int					set_color(char **tab, int *color);
 void				set_object(t_env *env, int fd, t_object **object);
+void				set_cam(t_cam *cam, int fd);
 
 double				calc_sphere(t_object *object, t_ray *ray);
 double				calc_cone(t_object *object, t_ray *ray);
@@ -172,4 +173,5 @@ int					args_required(char *ok, int nb);
 
 int					test(t_env *env);
 void				print_line(char **str);
+void				malloc_object(t_object **obj, t_object **object, int i);
 #endif

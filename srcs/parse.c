@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 15:56:09 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 16:53:13 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,66 +18,6 @@ int				test(t_env *env)
 	mlx_string_put(env->mlx, env->win, 10, 5, 0xFFFFFF - env->i,
 			"Rt_v1");
 	return (0);
-}
-
-int			set_vecteur(char **tab, t_p3d *point)
-{
-	int		i;
-	int 	t;
-
-	i = 0;
-	t = -1;
-	while (tab[++i])
-	{
-		++t;
-		if (i < 4 && ft_strisnum(tab[i]))
-			*(&point->x + t) = ft_atod(tab[i]);
-		else
-		{
-			error_parse(__FILE__, "bad argument", __LINE__ - 2);
-			return (0);
-		}
-	}
-	return (1);
-}
-
-int				set_cam(t_cam *cam, int fd)
-{
-	char	*line;
-	int		i;
-	char	**tab;
-
-	i = -1;
-	line = NULL;
-	tab = NULL;
-	while (++i < 2 && (get_next_line(fd, &line)) > 0)
-	{
-		ft_putendl(line);
-		if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "		origin"))
-			set_vecteur(tab, &cam->pos);
-		else if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "		rot"))
-			set_vecteur(tab, &cam->rot);
-		else
-			err(__FILE__, __LINE__, "bad argument for cam set");
-	}
-}
-
-int				set_color(char **tab, int	*color)
-{
-	if (ft_strishexa(tab[1]))
-		*color = ft_atoi_base(tab[1], 16);
-	else
-		return (0);
-	return (1);
-}
-
-int				set_radius(char **tab, double *radius)
-{
-	if (ft_strisnum(tab[1]))
-		*radius = ft_atod(tab[1]);
-	else
-		return (0);
-	return (1);
 }
 
 
@@ -98,25 +38,24 @@ int				args_required(char *ok, int nb)
 
 int				manage_parameter(int *index, int fd, t_env *env)
 {
-	char	*line;
-	int		error;
 	int		i;
 
-	line = NULL;
 	i = -1;
-	error = -1;
 	while (++i < 2 && (get_next_line(fd, &env->line)) > 0)
 	{
 		ft_putendl(env->line);
 		if (i == 0 && !ft_strcmp(env->line, "	##CAM"))
-			error = set_cam(&env->cam, fd);
+			set_cam(&env->cam, fd);
 		else if (i == 1 && !ft_strcmp(env->line, "	##OBJECT"))
 			set_object(env, fd, &env->object);
 		else
 			return(ERROR);
 	}
-	if (error)
-		error_parse(__FILE__, "Cam must be defined below start", *index++);
+	if (i == 0)
+		err(__FILE__, __LINE__, "Cam must be defined below start", *index++);
+	else if (i == 1)
+		err(__FILE__, __LINE__, "Object must be defined below camera set",
+				*index++);
 	return (OK);
 }
 
@@ -126,9 +65,9 @@ static int		good_extension(char * file)
 
 	length = 0;
 	if ((length = ft_strlen(file)) >= 5)
-		if (!ft_strcmp(&file[length - 5], ".rtv1"))
+		if (ft_strcmp(&file[length - 5], ".rtv1"))
 			return (ERROR);
-	return (ok);
+	return (OK);
 }
 
 t_object		*parse_file(char *file, t_env *env)
@@ -150,8 +89,8 @@ t_object		*parse_file(char *file, t_env *env)
 	}
 	set_viewplane(env);
 	if (close(fd) == -1)
-		error(CLOSE, __LINE__, __FILE__, NO_EXIT);
+		err(__FILE__,__LINE__, "close error", NO_EXIT);
 	if (!env->object)
-		error(INIT, __LINE__, __FILE__, EXIT);
+		err(__FILE__, __LINE__, "object not set", NO_EXIT);
 	return (env->object);
 }

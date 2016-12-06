@@ -6,13 +6,13 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 10:40:46 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 15:57:32 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 16:47:26 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-int				set_plane(t_env *env, int fd, t_object **obj)
+int					set_plane(t_env *env, int fd, t_object **obj)
 {
 	int			i;
 	char		**tab;
@@ -23,7 +23,6 @@ int				set_plane(t_env *env, int fd, t_object **obj)
 	plane = (t_plane *)malloc(sizeof(t_plane));
 	(*obj)->ptr = plane;
 	(*obj)->type = PLANE;
-	// voir pour verif
 	ft_bzero(&ok, 5);
 	while (++i < 4 && (get_next_line(fd, &env->line)) > 0 &&
 			(tab = ft_strsplit(env->line, ' ')))
@@ -41,7 +40,7 @@ int				set_plane(t_env *env, int fd, t_object **obj)
 	return (i != 4 || !args_required(ok, 4)) ? ERROR : OK;
 }
 
-int				set_cylinder(t_env *env, int fd, t_object **obj)
+int					set_cylinder(t_env *env, int fd, t_object **obj)
 {
 	int			i;
 	char		**tab;
@@ -52,9 +51,8 @@ int				set_cylinder(t_env *env, int fd, t_object **obj)
 	cylinder = (t_cylinder *)malloc(sizeof(t_cylinder));
 	(*obj)->ptr = cylinder;
 	(*obj)->type = CYLINDER;
-	// voir pour verif
 	ft_bzero(&ok, 5);
-	while (++i < 4 && (get_next_line(fd, &env->line)) > 0 && 
+	while (++i < 4 && (get_next_line(fd, &env->line)) > 0 &&
 			(tab = ft_strsplit(env->line, ' ')))
 	{
 		print_line(&env->line);
@@ -70,7 +68,7 @@ int				set_cylinder(t_env *env, int fd, t_object **obj)
 	return (i != 4 || !args_required(ok, 4)) ? ERROR : OK;
 }
 
-int				set_sphere(t_env *env, int fd, t_object **obj)
+int					set_sphere(t_env *env, int fd, t_object **obj)
 {
 	int			i;
 	char		**tab;
@@ -81,7 +79,6 @@ int				set_sphere(t_env *env, int fd, t_object **obj)
 	sphere = (t_sphere *)malloc(sizeof(t_sphere));
 	(*obj)->ptr = sphere;
 	(*obj)->type = SPHERE;
-	// voir pour verif
 	ft_bzero(&ok, 5);
 	while (++i < 4 && (get_next_line(fd, &env->line)) > 0 &&
 			(tab = ft_strsplit(env->line, ' ')))
@@ -110,7 +107,6 @@ int					set_cone(t_env *env, int fd, t_object **obj)
 	cone = (t_cone *)malloc(sizeof(t_cone));
 	(*obj)->ptr = cone;
 	(*obj)->type = CONE;
-	// voir pour verif
 	ft_bzero(&ok, 5);
 	while (++i < 4 && (get_next_line(fd, &env->line)) > 0 &&
 			(tab = ft_strsplit(env->line, ' ')))
@@ -126,25 +122,6 @@ int					set_cone(t_env *env, int fd, t_object **obj)
 			ok[i] = set_color(tab, &(*obj)->color);
 	}
 	return (i != 4 || !args_required(ok, 4)) ? ERROR : OK;
-}
-
-static void			malloc_object(t_object **obj, t_object **object, int i)
-{
-	//proteger les malloc
-	if (i <= 0)
-	{
-		if (!(*obj = (t_object *)malloc(sizeof(t_object))))
-			err(__FILE__, __LINE__, "malloc error !!", EXIT);
-		*object = *obj;
-		(*obj)->next = NULL;
-	}
-	else
-	{
-		if (!((*obj)->next = (t_object *)malloc(sizeof(t_object))))
-			err(__FILE__, __LINE__, "malloc error !!", EXIT);
-		*obj = (*obj)->next;
-		(*obj)->next = NULL;
-	}
 }
 
 void				set_object(t_env *env, int fd, t_object **object)
@@ -172,6 +149,6 @@ void				set_object(t_env *env, int fd, t_object **object)
 				!ft_strcmp(*tab, "	#SPHERE"))
 			set_sphere(env, fd, &obj);
 	}
-	if (error = ERROR)
-		err(__FILE__, i, "bad parameter in object set", EXIT);
+	if (error == ERROR)
+		err(__FILE__, i, "bad parameter for object set", EXIT);
 }
