@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 13:42:54 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 15:04:14 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			set_vecteur(char **tab, t_p3d *point)
 	return (1);
 }
 
-int				handle_cam(t_cam *cam, int fd)
+int				set_cam(t_cam *cam, int fd)
 {
 	char	*line;
 	int		i;
@@ -110,9 +110,9 @@ int				manage_parameter(int *index, int fd, t_env *env)
 	{
 		ft_putendl(env->line);
 		if (i == 0 && !ft_strcmp(env->line, "	##CAM"))
-			error = handle_cam(&env->cam, fd);
+			error = set_cam(&env->cam, fd);
 		else if (i == 1 && !ft_strcmp(env->line, "	##OBJECT"))
-			error = handle_object(env, fd, &env->object);
+			error = set_object(env, fd, &env->object);
 		else
 			break;
 	}
