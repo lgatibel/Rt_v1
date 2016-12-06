@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 16:53:13 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 16:57:32 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int				test(t_env *env)
 			"Rt_v1");
 	return (0);
 }
-
 
 int				args_required(char *ok, int nb)
 {
@@ -49,7 +48,7 @@ int				manage_parameter(int *index, int fd, t_env *env)
 		else if (i == 1 && !ft_strcmp(env->line, "	##OBJECT"))
 			set_object(env, fd, &env->object);
 		else
-			return(ERROR);
+			return (ERROR);
 	}
 	if (i == 0)
 		err(__FILE__, __LINE__, "Cam must be defined below start", *index++);
@@ -59,7 +58,7 @@ int				manage_parameter(int *index, int fd, t_env *env)
 	return (OK);
 }
 
-static int		good_extension(char * file)
+static int		good_extension(char *file)
 {
 	int		length;
 
@@ -81,7 +80,7 @@ t_object		*parse_file(char *file, t_env *env)
 		error_extension(".rtv1", EXIT);
 	if ((fd = open(file, O_RDONLY)) < 1)
 		error(OPEN, __LINE__, __FILE__, EXIT);
-	while((get_next_line(fd, &env->line)) > 0)
+	while ((get_next_line(fd, &env->line)) > 0)
 	{
 		ft_putendl(env->line);
 		if (++index && !strcmp(env->line, "###START"))
@@ -89,7 +88,7 @@ t_object		*parse_file(char *file, t_env *env)
 	}
 	set_viewplane(env);
 	if (close(fd) == -1)
-		err(__FILE__,__LINE__, "close error", NO_EXIT);
+		err(__FILE__, __LINE__, "close error", NO_EXIT);
 	if (!env->object)
 		err(__FILE__, __LINE__, "object not set", NO_EXIT);
 	return (env->object);
