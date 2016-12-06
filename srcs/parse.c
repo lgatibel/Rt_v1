@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/05 17:45:10 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 10:49:01 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,77 +98,7 @@ int				args_required(char *ok, int nb)
 	return (1);
 }
 
-int				set_cone1(t_env *env, int fd, t_object **obj)
-{
-	int		i;
-	char	**tab;
-	char	ok[5];
-	t_cone	*cone;
-
-	i = -1;
-	printf("----cone-----\n");
-	cone = (t_cone *)malloc(sizeof(t_cone));
-	(*obj)->ptr = cone;
-	// voir pour verif
-	ft_bzero(&ok, 5);
-		printf("???cone line = %s\n",env->line);
-	while (++i < 4 && (get_next_line(fd, &env->line)) > 0)
-	{
-		printf("cone line = %s\n",env->line);
-		tab = ft_strsplit(env->line, ' ');
-		if (!ft_strcmp(tab[0], "		origin"))
-			ok[i] = set_vecteur(tab, &cone->pos);
-		else if (!ft_strcmp(tab[0], "		rot"))
-			ok[i] = set_vecteur(tab, &cone->rot);
-		else if (!ft_strcmp(tab[0], "		radius"))
-			ok[i] = set_radius(tab, &cone->radius);
-		else if (!ft_strcmp(tab[0], "		color"))
-			ok[i] = set_color(tab, &(*obj)->color);
-	}
-	(*obj)->type = CONE;
-	(*obj)->next = NULL;
-	if (i != 4 || !args_required(ok, 4))
-		return (ERROR);
-		printf("pos x = %f, y = %f, z = %f\n",cone->pos.x,cone->pos.y,cone->pos.z);
-		printf("pos x = %f, y = %f, z = %f\n",cone->rot.x,cone->rot.y,cone->rot.z);
-	return(OK);
-}
 ////////////////////////////tester le null dans ft_strcmp/////////////////////
-int				handle_object(t_env *env, int fd, t_object **object)
-{
-	int			i;
-	char		**tab;
-	t_object	*obj;
-
-	i = -1;
-	tab = NULL;
-	obj = (t_object *)malloc(sizeof(t_object));
-	*object = obj;
-	while (get_next_line(fd, &env->line) > 0 && ft_strcmp(env->line, "##END"))
-	{
-		if (++i > 0 && !obj->next && (obj->next = (t_object *)malloc(sizeof(t_object))))
-			error(INIT, __LINE__, __FILE__, EXIT);
-		ft_putendl(env->line);
-		if ((tab = ft_strsplit(env->line, ' ')) && !ft_strcmp(tab[0], "	#CONE"))
-			set_cone1(env, fd, &obj);
-//		printf("tab[]  = %s\n", tab[0]);
-			//set_cone1(env, fd);
-/*		else if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "	#CYLINDER"))
-			set_vecteur(tab, &cam->rot);
-		else if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "	#PLANE"))
-			set_vecteur(tab, &cam->rot);
-		else if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "	#SPHERE"))
-			set_vecteur(tab, &cam->rot);
-		else if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "###END"))
-			return (END);
-		else
-			return (ERROR);
-		*/	
-	}
-	printf("line  = [%s]\n", env->line);
-	printf("over, i = %d\n", i);
-	return (OK);
-}
 
 int				manage_parameter(int *index, int fd, t_env *env)
 {
@@ -214,7 +144,6 @@ t_object		*parse_file(char *file, t_env *env)
 	env->line = NULL;
 	index = 0;
 	env->object = NULL;
-	set_env(env);
 //	set_object(&env->object);
 	if (!good_extension(file))
 		error_extension(".rtv1", EXIT);
@@ -233,6 +162,7 @@ t_object		*parse_file(char *file, t_env *env)
 		printf("object not set");
 		error(INIT, __LINE__, __FILE__, NO_EXIT);
 	}
+	set_env(env);
 	printf("----type  = %d\n", env->object->color);
 /*		printf("pos x = %f, y = %f, z = %f\n",
 		env->cam.pos.x, env->cam.pos.y,

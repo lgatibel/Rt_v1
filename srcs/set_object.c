@@ -3,116 +3,142 @@
 /*                                                        :::      ::::::::   */
 /*   set_object.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/09 14:37:57 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/05 11:28:08 by lgatibel         ###   ########.fr       */
+/*   Created: 2016/12/06 10:40:46 by lgatibel          #+#    #+#             */
+/*   Updated: 2016/12/06 10:48:13 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-#include <error.h>
 
-t_object			*set_plane(void)
+int				set_cylinder(t_env *env, int fd, t_object **obj)
 {
-	t_plane		*plane;
-	t_object	*object;
-
-	if (!(object = (t_object *)malloc(sizeof(t_object))))
-		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	if (!(plane = (t_plane *)malloc(sizeof(t_plane))))
-		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	plane->pos.x = 0;
-	plane->pos.y = -1;
-	plane->pos.z = 0;
-	plane->norm.x = 0;
-	plane->norm.y = 1;
-	plane->norm.z = 0;
-	plane->d = 20;
-	object->type = PLANE;
-	object->color = YELLOW;
-	object->ptr = plane;
-	object->next = NULL;
-	return (object);
-}
-
-t_object			*set_cone(void)
-{
-	t_cone		*cone;
-	t_object	*object;
-
-	if (!(object = (t_object *)malloc(sizeof(t_object))))
-		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	if (!(cone = (t_cone *)malloc(sizeof(t_cone))))
-		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	cone->pos.x = 0;
-	cone->pos.y = 0;
-	cone->pos.z = 550;
-	cone->radius = 0;
-	object->type = CONE;
-	object->color = RED;
-	object->ptr = cone;
-	object->next = NULL;
-	return (object);
-}
-
-t_object			*set_cylinder(void)
-{
+	int			i;
+	char		**tab;
+	char		ok[5];
 	t_cylinder	*cylinder;
-	t_object	*object;
 
-	if (!(object = (t_object *)malloc(sizeof(t_object))))
-		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	if (!(cylinder = (t_cylinder *)malloc(sizeof(t_cylinder))))
-		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	cylinder->pos.x = 0;
-	cylinder->pos.y = 0;
-	cylinder->pos.z = 200;
-	cylinder->radius = 20;
-	object->type = CYLINDER;
-	object->color = WHITE;
-	object->ptr = cylinder;
-	object->next = NULL;
-	return (object);
+	i = -1;
+	cylinder = (t_cylinder *)malloc(sizeof(t_cylinder));
+	(*obj)->ptr = cylinder;
+	(*obj)->type = CYLINDER;
+	(*obj)->next = NULL;
+	// voir pour verif
+	ft_bzero(&ok, 5);
+	while (++i < 4 && (get_next_line(fd, &env->line)) > 0)
+	{
+		tab = ft_strsplit(env->line, ' ');
+		if (!ft_strcmp(tab[0], "		origin"))
+			ok[i] = set_vecteur(tab, &cylinder->pos);
+		else if (!ft_strcmp(tab[0], "		rot"))
+			ok[i] = set_vecteur(tab, &cylinder->rot);
+		else if (!ft_strcmp(tab[0], "		radius"))
+			ok[i] = set_radius(tab, &cylinder->radius);
+		else if (!ft_strcmp(tab[0], "		color"))
+			ok[i] = set_color(tab, &(*obj)->color);
+	}
+	if (i != 4 || !args_required(ok, 4))
+		return (ERROR);
+	return(OK);
 }
 
-t_object			*set_sphere(void)
+int				set_sphere(t_env *env, int fd, t_object **obj)
 {
+	int			i;
+	char		**tab;
+	char		ok[5];
 	t_sphere	*sphere;
-	t_object	*object;
 
-	if (!(object = (t_object *)malloc(sizeof(t_object))))
-		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	if (!(sphere = (t_sphere *)malloc(sizeof(t_sphere))))
-		error(MALLOC, __LINE__ - 1, __FILE__, EXIT);
-	sphere->pos.x = 0;
-	sphere->pos.y = 0;
-	sphere->pos.z = -1200;
-	sphere->radius = 30;
-	object->type = SPHERE;
-	object->color = GREEN;
-	object->ptr = sphere;
-	object->next = NULL;
-	return (object);
+	i = -1;
+	sphere = (t_sphere *)malloc(sizeof(t_sphere));
+	(*obj)->ptr = sphere;
+	(*obj)->type = SPHERE;
+	(*obj)->next = NULL;
+	// voir pour verif
+	ft_bzero(&ok, 5);
+	while (++i < 4 && (get_next_line(fd, &env->line)) > 0)
+	{
+		tab = ft_strsplit(env->line, ' ');
+		if (!ft_strcmp(tab[0], "		origin"))
+			ok[i] = set_vecteur(tab, &sphere->pos);
+		else if (!ft_strcmp(tab[0], "		rot"))
+			ok[i] = set_vecteur(tab, &sphere->rot);
+		else if (!ft_strcmp(tab[0], "		radius"))
+			ok[i] = set_radius(tab, &sphere->radius);
+		else if (!ft_strcmp(tab[0], "		color"))
+			ok[i] = set_color(tab, &(*obj)->color);
+	}
+	if (i != 4 || !args_required(ok, 4))
+		return (ERROR);
+	return(OK);
 }
 
-void				set_object(t_object **object)
+int				set_cone(t_env *env, int fd, t_object **obj)
 {
-	t_object		*obj;
-	t_object		*tmp;
-	t_object		**start;
+	int		i;
+	char	**tab;
+	char	ok[5];
+	t_cone	*cone;
 
-	obj = NULL;
-	start = NULL;
-	obj = set_cone();
-	start = &obj;
-	tmp = obj;
-/*	tmp->next = set_cylinder();
-	tmp = tmp->next;
-	tmp->next = set_cone();
-	tmp = tmp->next;
-	tmp->next = set_plane();
-*/	*object = *start;
-	if (!*object)
-		printf("nope !!!\n");
+	i = -1;
+	cone = (t_cone *)malloc(sizeof(t_cone));
+	(*obj)->ptr = cone;
+	(*obj)->type = CONE;
+	(*obj)->next = NULL;
+	// voir pour verif
+	ft_bzero(&ok, 5);
+	while (++i < 4 && (get_next_line(fd, &env->line)) > 0)
+	{
+		tab = ft_strsplit(env->line, ' ');
+		if (!ft_strcmp(tab[0], "		origin"))
+			ok[i] = set_vecteur(tab, &cone->pos);
+		else if (!ft_strcmp(tab[0], "		rot"))
+			ok[i] = set_vecteur(tab, &cone->rot);
+		else if (!ft_strcmp(tab[0], "		radius"))
+			ok[i] = set_radius(tab, &cone->radius);
+		else if (!ft_strcmp(tab[0], "		color"))
+			ok[i] = set_color(tab, &(*obj)->color);
+	}
+	if (i != 4 || !args_required(ok, 4))
+		return (ERROR);
+	return(OK);
+}
+
+int				handle_object(t_env *env, int fd, t_object **object)
+{
+	int			i;
+	char		**tab;
+	t_object	*obj;
+
+	i = -1;
+	tab = NULL;
+	obj = (t_object *)malloc(sizeof(t_object));
+	*object = obj;
+	while (get_next_line(fd, &env->line) > 0 && ft_strcmp(env->line, "##END"))
+	{
+		if (++i > 0 && !(obj->next = (t_object *)malloc(sizeof(t_object))))
+			error(INIT, __LINE__, __FILE__, EXIT);
+		else if (i > 0)
+			obj = obj->next;
+		ft_putendl(env->line);
+		if ((tab = ft_strsplit(env->line, ' ')) && !ft_strcmp(tab[0], "	#CONE"))
+			set_cone(env, fd, &obj);
+//		printf("tab[]  = %s\n", tab[0]);
+			//set_cone1(env, fd);
+		else if ((tab = ft_strsplit(env->line, ' ')) && !ft_strcmp(tab[0], "	#CYLINDER"))
+			set_cylinder(env, fd, &obj);
+//		else if ((tab = ft_strsplit(env->line, ' ')) && !ft_strcmp(tab[0], "	#PLANE"))
+//			set_plane1(tab, &cam->rot);
+		else if ((tab = ft_strsplit(env->line, ' ')) && !ft_strcmp(tab[0], "	#SPHERE"))
+			set_sphere(env, fd, &obj);
+/*		else if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "###END"))
+			return (END);
+		else
+			return (ERROR);
+		*/	
+	}
+	printf("line  = [%s]\n", env->line);
+	printf("over, i = %d\n", i);
+	return (OK);
 }

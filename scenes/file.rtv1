@@ -4,8 +4,38 @@
 		rot 0 0 1
 	##OBJECT
 	#CONE
-		origin 0 0 0
-		radius 1
+		origin 0 0 500
+		radius 0
 		rot 0 0 0
-		color 0x000000
+		color 0x00FF00
+	#SPHERE
+		origin 0 0 500
+		radius 50
+		rot 0 0 0
+		color 0xFF0000
+	#CYLINDER
+		origin 0 0 500
+		radius 40
+		rot 0 0 0
+		color 0x0000FF
+	#SPHERE
+		origin 25 0 500
+		radius 50
+		rot 0 0 0
+		color 0x00FF00
+	#SPHERE
+		origin -25 0 500
+		radius 50
+		rot 0 0 0
+		color 0x0000FF
+	#SPHERE
+		origin -35 0 500
+		radius 50
+		rot 0 0 0
+		color 0xFF0000
+	#SPHERE
+		origin 35 0 500
+		radius 50
+		rot 0 0 0
+		color 0xFF0000
 ##END
