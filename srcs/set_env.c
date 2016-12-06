@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 12:25:38 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/01 17:28:26 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 13:44:42 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,25 @@ static void			set_mlx(t_env **tmp)
 
 void				set_env(t_env *env)
 {
+	env->object = NULL;
+	env->xindent = 0;
+	env->yindent = 0;
+	env->color = BLACK;
+	env->bpp = 0;
+	set_mlx(&env);
+
+	env->line = NULL;
+	env->t = -1;
+	env->i = 0;
+}
+
+void				set_viewplane(t_env *env)
+{
 	t_env			*tmp;
 	t_viewplane		*view;
 
 	tmp = env;
 	view = &tmp->viewplane;
-	tmp->color = BLACK;
 	tmp->viewplane.width = VIEW_WIDTH;
 	tmp->viewplane.height = VIEW_HEIGHT;
 	tmp->viewplane.dist = 1;
@@ -53,8 +66,4 @@ void				set_env(t_env *env)
 	2.0f)), mult_nb_tp3d(view->rvec, view->width / 2.0f));
 	tmp->xindent = tmp->viewplane.width / WIDTH;
 	tmp->yindent = tmp->viewplane.height / HEIGHT;
-	tmp->t = -1;
-	tmp->i = 0;
-	set_mlx(&tmp);
-//	*env = tmp;
 }

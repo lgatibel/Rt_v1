@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 10:48:29 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 13:43:26 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ typedef struct		s_env
 	double		xindent;
 	double		yindent;
 	int			color;
-
 	void		*mlx;
 	void		*win;
 	void		*img;
@@ -152,6 +151,7 @@ typedef struct		s_grtv1
 t_object			*parse_file(char *file, t_env *env);
 
 void				set_env(t_env *env);
+void				set_viewplane(t_env *env);
 void				set_ray(t_ray *ray, t_cam *cam);
 int					set_vecteur(char **tab, t_p3d *point);
 int					set_radius(char **tab, double *radius);

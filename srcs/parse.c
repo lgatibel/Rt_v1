@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 13:35:01 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 13:42:54 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,8 @@ t_object		*parse_file(char *file, t_env *env)
 	int			fd;
 	int			index;
 
-	env->line = NULL;
 	index = 0;
-	env->object = NULL;
+	set_env(env);
 	if (!good_extension(file))
 		error_extension(".rtv1", EXIT);
 	if ((fd = open(file, O_RDONLY)) < 1)
@@ -151,7 +150,7 @@ t_object		*parse_file(char *file, t_env *env)
 			manage_parameter(&index, fd, env);
 	}
 	/// diviser le set env en deux une partie pour la camera
-	set_env(env);
+	set_viewplane(env);
 	if (close(fd) == -1)
 		error(CLOSE, __LINE__, __FILE__, NO_EXIT);
 	if (!env->object)
