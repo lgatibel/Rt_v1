@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 15:04:14 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 15:56:09 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,8 @@ int				set_cam(t_cam *cam, int fd)
 		else if ((tab = ft_strsplit(line, ' ')) && !ft_strcmp(tab[0], "		rot"))
 			set_vecteur(tab, &cam->rot);
 		else
-			return (ERROR);
+			err(__FILE__, __LINE__, "bad argument for cam set");
 	}
-	return (OK);
 }
 
 int				set_color(char **tab, int	*color)
@@ -112,13 +111,13 @@ int				manage_parameter(int *index, int fd, t_env *env)
 		if (i == 0 && !ft_strcmp(env->line, "	##CAM"))
 			error = set_cam(&env->cam, fd);
 		else if (i == 1 && !ft_strcmp(env->line, "	##OBJECT"))
-			error = set_object(env, fd, &env->object);
+			set_object(env, fd, &env->object);
 		else
-			break;
+			return(ERROR);
 	}
 	if (error)
 		error_parse(__FILE__, "Cam must be defined below start", *index++);
-	return (1);
+	return (OK);
 }
 
 static int		good_extension(char * file)
@@ -128,8 +127,8 @@ static int		good_extension(char * file)
 	length = 0;
 	if ((length = ft_strlen(file)) >= 5)
 		if (!ft_strcmp(&file[length - 5], ".rtv1"))
-			return (1);
-	return (0);
+			return (ERROR);
+	return (ok);
 }
 
 t_object		*parse_file(char *file, t_env *env)
@@ -149,7 +148,6 @@ t_object		*parse_file(char *file, t_env *env)
 		if (++index && !strcmp(env->line, "###START"))
 			manage_parameter(&index, fd, env);
 	}
-	/// diviser le set env en deux une partie pour la camera
 	set_viewplane(env);
 	if (close(fd) == -1)
 		error(CLOSE, __LINE__, __FILE__, NO_EXIT);

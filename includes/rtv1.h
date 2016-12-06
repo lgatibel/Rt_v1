@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 15:09:50 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 15:53:16 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 # define BLACK 0x000000
 # define YELLOW 0XF7FA04
 # define CUSTOM 0x0ECB25
-# define ERROR -1
-# define OK 0
+# define ERROR 0
+# define OK 1
 
 # define ANGLE 90
 
@@ -156,7 +156,7 @@ void				set_ray(t_ray *ray, t_cam *cam);
 int					set_vecteur(char **tab, t_p3d *point);
 int					set_radius(char **tab, double *radius);
 int					set_color(char **tab, int *color);
-int					set_object(t_env *env, int fd, t_object **object);
+void				set_object(t_env *env, int fd, t_object **object);
 
 double				calc_sphere(t_object *object, t_ray *ray);
 double				calc_cone(t_object *object, t_ray *ray);

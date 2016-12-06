@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 10:40:46 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 15:34:14 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/06 15:57:32 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,13 +147,15 @@ static void			malloc_object(t_object **obj, t_object **object, int i)
 	}
 }
 
-int					set_object(t_env *env, int fd, t_object **object)
+void				set_object(t_env *env, int fd, t_object **object)
 {
 	int			i;
 	char		**tab;
 	t_object	*obj;
+	int			error;
 
 	i = -1;
+	error = ERROR;
 	while (get_next_line(fd, &env->line) > 0 && ft_strcmp(env->line, "###END"))
 	{
 		ft_putendl(env->line);
@@ -162,15 +164,14 @@ int					set_object(t_env *env, int fd, t_object **object)
 			set_cone(env, fd, &obj);
 		else if ((tab = ft_strsplit(env->line, ' ')) &&
 				!ft_strcmp(*tab, "	#CYLINDER"))
-			set_cylinder(env, fd, &obj);
+			error = set_cylinder(env, fd, &obj);
 		else if ((tab = ft_strsplit(env->line, ' ')) &&
 				!ft_strcmp(*tab, "	#PLANE"))
 			set_plane(env, fd, &obj);
 		else if ((tab = ft_strsplit(env->line, ' ')) &&
 				!ft_strcmp(*tab, "	#SPHERE"))
 			set_sphere(env, fd, &obj);
-		else
-			return (ERROR);
 	}
-	return (OK);
+	if (error = ERROR)
+		err(__FILE__, i, "bad parameter in object set", EXIT);
 }
