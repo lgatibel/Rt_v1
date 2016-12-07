@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 16:35:31 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/07 11:07:23 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/07 12:45:05 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void				set_cam(t_cam *cam, int fd)
 		ft_putendl(line);
 		if ((tab = ft_strsplit(line, ' ')) &&
 				!ft_strcmp(tab[0], "		origin"))
-			ok[i] = set_vecteur(&tab[1], &cam->pos);
+			ok[0] = set_vecteur(&tab[1], &cam->pos);
 		else if ((tab = ft_strsplit(line, ' ')) &&
 				!ft_strcmp(tab[0], "		rot"))
-			ok[i] = set_vecteur(&tab[1], &cam->rot);
+			ok[1] = set_vecteur(&tab[1], &cam->rot);
 	}
 	if (!args_required(ok, 2))
 		err(__FILE__, __LINE__, "bad argument for cam set", EXIT);

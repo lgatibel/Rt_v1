@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 10:40:46 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/07 12:29:32 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/07 12:44:03 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ static void			set_plane(t_env *env, int fd, t_object **obj)
 	{
 		print_line(&env->line);
 		if (!ft_strcmp(tab[0], "		origin"))
-			ok[i] = set_vecteur(&tab[1], &plane->pos);
+			ok[0] = set_vecteur(&tab[1], &plane->pos);
 		else if (!ft_strcmp(tab[0], "		norm"))
-			ok[i] = set_vecteur(&tab[1], &plane->norm);
+			ok[1] = set_vecteur(&tab[1], &plane->norm);
 		else if (!ft_strcmp(tab[0], "		length"))
-			ok[i] = set_radius(&tab[1], &plane->d);
+			ok[2] = set_radius(&tab[1], &plane->d);
 		else if (!ft_strcmp(tab[0], "		color"))
-			ok[i] = set_color(&tab[1], &(*obj)->color);
+			ok[3] = set_color(&tab[1], &(*obj)->color);
 	}
-	if (i != 4 || !args_required(ok, 4))
+	if (!args_required(ok, 4))
 		err(__FILE__, __LINE__, "bad parameter", EXIT);
 }
 
@@ -58,15 +58,15 @@ static void			set_cylinder(t_env *env, int fd, t_object **obj)
 	{
 		print_line(&env->line);
 		if (!ft_strcmp(tab[0], "		origin"))
-			ok[i] = set_vecteur(&tab[1], &cylinder->pos);
+			ok[0] = set_vecteur(&tab[1], &cylinder->pos);
 		else if (!ft_strcmp(tab[0], "		rot"))
-			ok[i] = set_vecteur(&tab[1], &cylinder->rot);
+			ok[1] = set_vecteur(&tab[1], &cylinder->rot);
 		else if (!ft_strcmp(tab[0], "		radius"))
-			ok[i] = set_radius(&tab[1], &cylinder->radius);
+			ok[2] = set_radius(&tab[1], &cylinder->radius);
 		else if (!ft_strcmp(tab[0], "		color"))
-			ok[i] = set_color(&tab[1], &(*obj)->color);
+			ok[3] = set_color(&tab[1], &(*obj)->color);
 	}
-	if (i != 4 || !args_required(ok, 4))
+	if (!args_required(ok, 4))
 		err(__FILE__, __LINE__, "bad parameter", EXIT);
 }
 
@@ -87,13 +87,13 @@ static void			set_sphere(t_env *env, int fd, t_object **obj)
 	{
 		print_line(&env->line);
 		if (!ft_strcmp(tab[0], "		origin"))
-			ok[i] = set_vecteur(&tab[1], &sphere->pos);
+			ok[0] = set_vecteur(&tab[1], &sphere->pos);
 		else if (!ft_strcmp(tab[0], "		rot"))
-			ok[i] = set_vecteur(&tab[1], &sphere->rot);
+			ok[1] = set_vecteur(&tab[1], &sphere->rot);
 		else if (!ft_strcmp(tab[0], "		radius"))
-			ok[i] = set_radius(&tab[1], &sphere->radius);
+			ok[2] = set_radius(&tab[1], &sphere->radius);
 		else if (!ft_strcmp(tab[0], "		color"))
-			ok[i] = set_color(&tab[1], &(*obj)->color);
+			ok[3] = set_color(&tab[1], &(*obj)->color);
 	}
 	if (!args_required(ok, 4))
 		err(__FILE__, __LINE__, "bad parameter", EXIT);
@@ -116,15 +116,15 @@ static void			set_cone(t_env *env, int fd, t_object **obj)
 	{
 		print_line(&env->line);
 		if (!ft_strcmp(tab[0], "		origin"))
-			ok[i] = set_vecteur(&tab[1], &cone->pos);
+			ok[0] = set_vecteur(&tab[1], &cone->pos);
 		else if (!ft_strcmp(tab[0], "		rot"))
-			ok[i] = set_vecteur(&tab[1], &cone->rot);
+			ok[1] = set_vecteur(&tab[1], &cone->rot);
 		else if (!ft_strcmp(tab[0], "		radius"))
-			ok[i] = set_radius(&tab[1], &cone->radius);
+			ok[2] = set_radius(&tab[1], &cone->radius);
 		else if (!ft_strcmp(tab[0], "		color"))
-			ok[i] = set_color(&tab[1], &(*obj)->color);
+			ok[3] = set_color(&tab[1], &(*obj)->color);
 	}
-	if (i != 4 || !args_required(ok, 4))
+	if (!args_required(ok, 4))
 		err(__FILE__, __LINE__, "bad parameter", EXIT);
 }
 
