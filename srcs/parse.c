@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 18:44:12 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/07 10:26:52 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				args_required(char *ok, int nb)
 
 ////////////////////////////tester le null dans ft_strcmp/////////////////////
 
-int				manage_parameter(int fd, t_env *env)
+void				manage_parameter(int fd, t_env *env)
 {
 	int		i;
 
@@ -53,14 +53,16 @@ int				manage_parameter(int fd, t_env *env)
 				err(__FILE__, __LINE__, "No [###END] defined", EXIT);
 		}
 		else
-			return (ERROR);
+			break ;
 	}
 	if (i == 0)
 		err(__FILE__, __LINE__, "Cam must be defined below start", EXIT);
-	return (OK);
+	if (i == 1)
+		err(__FILE__, __LINE__,
+				"##OBJECT must be defined below cam arguments", EXIT);
 }
 
-static int		good_extension(char *file)
+static int			good_extension(char *file)
 {
 	int		length;
 
@@ -71,17 +73,17 @@ static int		good_extension(char *file)
 	return (OK);
 }
 
-void			handle_error(int index, int fd, t_env *env)
+void				handle_error(int index, int fd, t_env *env)
 {
 	if (!index)
 		err(__FILE__, __LINE__, "No [###START] defined", EXIT);
 	if (close(fd) == -1)
 		err(__FILE__, __LINE__, "Close error", NO_EXIT);
 	if (!env->object)
-		err(__FILE__, __LINE__, "Object not set", NO_EXIT);
+		err(__FILE__, __LINE__, "No object set", NO_EXIT);
 }
 
-t_object		*parse_file(char *file, t_env *env)
+t_object			*parse_file(char *file, t_env *env)
 {
 	int			fd;
 	int			index;

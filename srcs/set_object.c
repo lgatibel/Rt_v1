@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_object.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 10:40:46 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 18:45:17 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/07 11:01:23 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ static void			set_plane(t_env *env, int fd, t_object **obj)
 	{
 		print_line(&env->line);
 		if (!ft_strcmp(tab[0], "		origin"))
-			ok[i] = set_vecteur(tab, &plane->pos);
+			ok[i] = set_vecteur(&tab[1], &plane->pos);
 		else if (!ft_strcmp(tab[0], "		norm"))
-			ok[i] = set_vecteur(tab, &plane->norm);
+			ok[i] = set_vecteur(&tab[1], &plane->norm);
 		else if (!ft_strcmp(tab[0], "		length"))
-			ok[i] = set_radius(tab, &plane->d);
+			ok[i] = set_radius(&tab[1], &plane->d);
 		else if (!ft_strcmp(tab[0], "		color"))
-			ok[i] = set_color(tab, &(*obj)->color);
+			ok[i] = set_color(&tab[1], &(*obj)->color);
 	}
 	if (i != 4 || !args_required(ok, 4))
 		err(__FILE__, __LINE__, "bad parameter", EXIT);
@@ -58,13 +58,13 @@ static void			set_cylinder(t_env *env, int fd, t_object **obj)
 	{
 		print_line(&env->line);
 		if (!ft_strcmp(tab[0], "		origin"))
-			ok[i] = set_vecteur(tab, &cylinder->pos);
+			ok[i] = set_vecteur(&tab[1], &cylinder->pos);
 		else if (!ft_strcmp(tab[0], "		rot"))
-			ok[i] = set_vecteur(tab, &cylinder->rot);
+			ok[i] = set_vecteur(&tab[1], &cylinder->rot);
 		else if (!ft_strcmp(tab[0], "		radius"))
-			ok[i] = set_radius(tab, &cylinder->radius);
+			ok[i] = set_radius(&tab[1], &cylinder->radius);
 		else if (!ft_strcmp(tab[0], "		color"))
-			ok[i] = set_color(tab, &(*obj)->color);
+			ok[i] = set_color(&tab[1], &(*obj)->color);
 	}
 	if (i != 4 || !args_required(ok, 4))
 		err(__FILE__, __LINE__, "bad parameter", EXIT);
@@ -87,15 +87,15 @@ static void			set_sphere(t_env *env, int fd, t_object **obj)
 	{
 		print_line(&env->line);
 		if (!ft_strcmp(tab[0], "		origin"))
-			ok[i] = set_vecteur(tab, &sphere->pos);
+			ok[i] = set_vecteur(&tab[1], &sphere->pos);
 		else if (!ft_strcmp(tab[0], "		rot"))
-			ok[i] = set_vecteur(tab, &sphere->rot);
+			ok[i] = set_vecteur(&tab[1], &sphere->rot);
 		else if (!ft_strcmp(tab[0], "		radius"))
-			ok[i] = set_radius(tab, &sphere->radius);
+			ok[i] = set_radius(&tab[1], &sphere->radius);
 		else if (!ft_strcmp(tab[0], "		color"))
-			ok[i] = set_color(tab, &(*obj)->color);
+			ok[i] = set_color(&tab[1], &(*obj)->color);
 	}
-	if (i != 4 || !args_required(ok, 4))
+	if (!args_required(ok, 4))
 		err(__FILE__, __LINE__, "bad parameter", EXIT);
 }
 
@@ -116,13 +116,13 @@ static void			set_cone(t_env *env, int fd, t_object **obj)
 	{
 		print_line(&env->line);
 		if (!ft_strcmp(tab[0], "		origin"))
-			ok[i] = set_vecteur(tab, &cone->pos);
+			ok[i] = set_vecteur(&tab[1], &cone->pos);
 		else if (!ft_strcmp(tab[0], "		rot"))
-			ok[i] = set_vecteur(tab, &cone->rot);
+			ok[i] = set_vecteur(&tab[1], &cone->rot);
 		else if (!ft_strcmp(tab[0], "		radius"))
-			ok[i] = set_radius(tab, &cone->radius);
+			ok[i] = set_radius(&tab[1], &cone->radius);
 		else if (!ft_strcmp(tab[0], "		color"))
-			ok[i] = set_color(tab, &(*obj)->color);
+			ok[i] = set_color(&tab[1], &(*obj)->color);
 	}
 	if (i != 4 || !args_required(ok, 4))
 		err(__FILE__, __LINE__, "bad parameter", EXIT);
@@ -151,7 +151,6 @@ void				set_object(t_env *env, int fd, t_object **object)
 				!ft_strcmp(*tab, "	#SPHERE"))
 			set_sphere(env, fd, &obj);
 		else
-			err(__FILE__, __LINE__, "bad parameter for object set", EXIT);
+			err(__FILE__, __LINE__, "bad object defined", EXIT);
 	}
 }
-// probleme avec trop de pareametre ca fonctionne
