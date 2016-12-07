@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 16:35:31 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/07 12:45:05 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/07 17:08:40 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,34 @@ int					set_vecteur(char **tab, t_p3d *point)
 	return (i == 3) ? OK : ERROR;
 }
 
+int					set_vecteur_cam(char **tab, t_p3d *point)
+{
+	int		i;
+	int		t;
+//	int		nb;
+
+	i = -1;
+	t = -1;
+	while (tab[++i])
+	{
+		++t;
+		if (i == 0 && tab[i] && ft_strisnum(tab[i]))
+			*(&point->x + t) = ft_atod(tab[i]);
+		else if (i == 1 && tab[i] && ft_strisnum(tab[i]))
+			*(&point->x + t) = ft_atod(tab[i]) / HEIGHT;
+		else if (i == 2 && tab[i] && ft_strisnum(tab[i]))
+		{
+//			nb = ft_strichr(tab[i], ',');
+//			nb = (nb > 0) ? ft_power(nb, 10) : ft_power(ft_strlen(tab[i]), 100);
+			*(&point->x + t) = ft_atod(tab[i]);
+		}
+		else
+			return (ERROR);
+	}
+	return (i == 3) ? OK : ERROR;
+}
+
+
 void				set_cam(t_cam *cam, int fd)
 {
 	char	*line;
@@ -46,7 +74,7 @@ void				set_cam(t_cam *cam, int fd)
 		ft_putendl(line);
 		if ((tab = ft_strsplit(line, ' ')) &&
 				!ft_strcmp(tab[0], "		origin"))
-			ok[0] = set_vecteur(&tab[1], &cam->pos);
+			ok[0] = set_vecteur_cam(&tab[1], &cam->pos);
 		else if ((tab = ft_strsplit(line, ' ')) &&
 				!ft_strcmp(tab[0], "		rot"))
 			ok[1] = set_vecteur(&tab[1], &cam->rot);
