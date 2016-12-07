@@ -4,8 +4,8 @@
 		rot 0 0 1
 	##OBJECT
 	#SPHERE
-		color FFFFFF
+		color 0xFFFFFF
 		radius 100
-		origin 0 500 0
+		origin 0 0 500
 		rot 0 0 0
 ###END
