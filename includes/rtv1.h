@@ -38,6 +38,10 @@
 # define OK 1
 
 # define ANGLE 90
+//# define Z 1.5708
+# define X cyl->rot.x
+# define Y cyl->rot.y
+# define Z cyl->rot.z
 
 # define PLANE 1
 # define SPHERE 2
@@ -154,6 +158,7 @@ void				set_env(t_env *env);
 void				set_viewplane(t_env *env);
 void				set_ray(t_ray *ray, t_cam *cam);
 int					set_vecteur(char **tab, t_p3d *point);
+int					set_rotation_vecteur(char **tab, t_p3d *point);
 int					set_radius(char **tab, double *radius);
 int					set_color(char **tab, int *color);
 void				set_object(t_env *env, int fd, t_object **object);

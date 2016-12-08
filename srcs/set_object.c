@@ -60,7 +60,7 @@ static void			set_cylinder(t_env *env, int fd, t_object **obj)
 		if (!ft_strcmp(tab[0], "		origin"))
 			ok[0] = set_vecteur(&tab[1], &cylinder->pos);
 		else if (!ft_strcmp(tab[0], "		rot"))
-			ok[1] = set_vecteur(&tab[1], &cylinder->rot);
+			ok[1] = set_rotation_vecteur(&tab[1], &cylinder->rot);
 		else if (!ft_strcmp(tab[0], "		radius"))
 			ok[2] = set_radius(&tab[1], &cylinder->radius);
 		else if (!ft_strcmp(tab[0], "		color"))
@@ -89,7 +89,7 @@ static void			set_sphere(t_env *env, int fd, t_object **obj)
 		if (!ft_strcmp(tab[0], "		origin"))
 			ok[0] = set_vecteur(&tab[1], &sphere->pos);
 		else if (!ft_strcmp(tab[0], "		rot"))
-			ok[1] = set_vecteur(&tab[1], &sphere->rot);
+			ok[1] = set_rotation_vecteur(&tab[1], &sphere->rot);
 		else if (!ft_strcmp(tab[0], "		radius"))
 			ok[2] = set_radius(&tab[1], &sphere->radius);
 		else if (!ft_strcmp(tab[0], "		color"))
@@ -118,7 +118,7 @@ static void			set_cone(t_env *env, int fd, t_object **obj)
 		if (!ft_strcmp(tab[0], "		origin"))
 			ok[0] = set_vecteur(&tab[1], &cone->pos);
 		else if (!ft_strcmp(tab[0], "		rot"))
-			ok[1] = set_vecteur(&tab[1], &cone->rot);
+			ok[1] = set_rotation_vecteur(&tab[1], &cone->rot);
 		else if (!ft_strcmp(tab[0], "		radius"))
 			ok[2] = set_radius(&tab[1], &cone->radius);
 		else if (!ft_strcmp(tab[0], "		color"))
