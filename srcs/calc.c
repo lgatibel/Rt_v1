@@ -82,10 +82,12 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	cpy_tp3d(&rdir, ray->dir);
 	cyl = (t_cylinder *)object->ptr;
 	//rotation sur z
+//	ray->dir.x *= cyl->pos.x;
+//	ray->dir.y *= cyl->pos.y;
 	rdir.x = ray->dir.x * cos(cyl->rot.z) + ray->dir.y * -sin(cyl->rot.z);
 	rdir.y = ray->dir.x * sin(cyl->rot.z) + ray->dir.y * cos(cyl->rot.z);
 	//
-	//rotation sur y
+	//rotation sur ++++y
 //	rdir.x = ray->dir.x * cos(Y) + ray->dir.z * sin(Y);
 //	rdir.z = ray->dir.x * -sin(Y) + ray->dir.z * cos(Y);
 	//
@@ -94,13 +96,15 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 //	rdir.z = ray->dir.y * sin(X) + ray->dir.z * cos(X);
 	//
 //	ray->diri.z = ray->dirz * cos(45) + ray->dir.z * sin(45);
+		t_p3d		pos;
 
+	set_tp3d(&pos, cyl->pos.x, cyl->pos.y, cyl->pos.z);
 /////////////////////////////////////////////voir pour les martice de translation
 	a = rdir.x * rdir.x + rdir.z * rdir.z;
-	b = 2 * (rdir.x * (ray->pos.x - cyl->pos.x) +
-	rdir.z * (ray->pos.z - cyl->pos.z));
-	c = ((ray->pos.x - cyl->pos.x) * (ray->pos.x - cyl->pos.x) +
-	(ray->pos.z - cyl->pos.z) * (ray->pos.z - cyl->pos.z)) -
+	b = 2 * (rdir.x * (ray->pos.x - pos.x) +
+	rdir.z * (ray->pos.z - pos.z));
+	c = ((ray->pos.x - pos.x) * (ray->pos.x - pos.x) +
+	(ray->pos.z - pos.z) * (ray->pos.z - pos.z)) -
 	cyl->radius * cyl->radius;
 	return (calc_delta(a, b, c));
 }

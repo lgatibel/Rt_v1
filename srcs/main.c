@@ -35,6 +35,7 @@ double				calc_object(t_object *object, t_env **env)
 		}
 		object = object->next;
 	}
+		//	printf("t= [%f]\n",t);
 	return (t);
 }
 
@@ -69,7 +70,7 @@ int					main(int ac, char **av)
 	if (ac == 2)
 	{
 		parse_file(av[1], env);
-		set_ray(&env->ray, &env->cam);
+		set_ray(&env->ray, env);
 		trace_test(env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		event(env);
