@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 12:38:33 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/07 17:10:47 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/07 17:24:13 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void				set_ray(t_ray *ray, t_cam *cam)
 	ray->dir.y = cam->rot.y;
 	ray->dir.z = cam->rot.z;
 	ray->length = 1;
+	// cette variable doit etre fixe ou pas ???
 }
