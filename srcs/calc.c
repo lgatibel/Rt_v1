@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/05 17:44:08 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 09:14:58 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	//rotation sur z
 //	ray->dir.x *= cyl->pos.x;
 //	ray->dir.y *= cyl->pos.y;
-	rdir.x = ray->dir.x * cos(cyl->rot.z) + ray->dir.y * -sin(cyl->rot.z);
-	rdir.y = ray->dir.x * sin(cyl->rot.z) + ray->dir.y * cos(cyl->rot.z);
+//	rdir.x = ray->dir.x * cos(cyl->rot.z) + ray->dir.y * -sin(cyl->rot.z);
+//	rdir.y = ray->dir.x * sin(cyl->rot.z) + ray->dir.y * cos(cyl->rot.z);
 	//
 	//rotation sur ++++y
 //	rdir.x = ray->dir.x * cos(Y) + ray->dir.z * sin(Y);

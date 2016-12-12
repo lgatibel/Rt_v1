@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 17:54:00 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 09:56:18 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ double				calc_object(t_object *object, t_env **env)
 	return (t);
 }
 
-void				trace_test(t_env *env)
+void				trace(t_env *env)
 {
 	int		x;
 	int		y;
@@ -71,7 +71,8 @@ int					main(int ac, char **av)
 	{
 		parse_file(av[1], env);
 		set_ray(&env->ray, env);
-		trace_test(env);
+		set_light(&env->light);
+		trace(env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		event(env);
 		mlx_loop(env->mlx);

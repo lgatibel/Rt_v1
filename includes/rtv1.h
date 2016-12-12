@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/07 16:24:20 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 09:55:53 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,17 @@ typedef struct		s_plane
 	double		d;
 }					t_plane;
 
+typedef struct		s_light
+{
+	t_p3d			pos;
+	t_p3d			dir;
+}					t_light;
+
 typedef struct		s_ray
 {
-	t_p3d		pos;
-	t_p3d		dir;
-	double		length;
+	t_p3d			pos;
+	t_p3d			dir;
+	double			length;
 }					t_ray;
 
 typedef struct		s_object
@@ -125,6 +131,7 @@ typedef struct		s_env
 {
 	t_cam		cam;
 	t_ray		ray;
+	t_light		light;
 	t_p3d		intersect;
 	t_object	*object;
 	t_viewplane viewplane;
@@ -145,18 +152,12 @@ typedef struct		s_env
 	int			i;
 }					t_env;
 
-typedef struct		s_grtv1
-{
-	t_env		*env;
-	t_object	*object;
-	t_ray		*ray;
-}					t_grtv1;
-
 t_object			*parse_file(char *file, t_env *env);
 
 void				set_env(t_env *env);
 void				set_viewplane(t_env *env);
 void				set_ray(t_ray *ray, t_env *env);
+void				set_light(t_light *ligth);
 int					set_vecteur(char **tab, t_p3d *point);
 int					set_rotation_vecteur(char **tab, t_p3d *point);
 int					set_radius(char **tab, double *radius);
