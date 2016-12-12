@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:44:07 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/07 12:51:15 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 10:19:09 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void				manage_parameter(int fd, t_env *env)
 		{
 			set_object(env, fd, &env->object);
 			ft_putendl(env->line);
-			if (ft_strcmp(env->line, "###END"))
+			if (ft_strcmp(ft_strtrim(env->line), "###END"))
 				err(__FILE__, __LINE__, "No [###END] defined", EXIT);
 		}
 		else
@@ -97,7 +97,7 @@ t_object			*parse_file(char *file, t_env *env)
 	while ((get_next_line(fd, &env->line)) > 0)
 	{
 		ft_putendl(env->line);
-		if (!strcmp(env->line, "###START") && ++index)
+		if (!strcmp(ft_strtrim(env->line), "###START") && ++index)
 			manage_parameter(fd, env);
 	}
 	handle_error(index, fd, env);

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/12 09:56:18 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 10:06:29 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ double				calc_object(t_object *object, t_env **env)
 		{
 			(*env)->color = object->color;
 			t = dist;
+				printf("t= [%f]\n",t);
 		}
 		object = object->next;
 	}
-		//	printf("t= [%f]\n",t);
 	return (t);
 }
 

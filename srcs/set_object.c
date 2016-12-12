@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 10:40:46 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/07 12:44:03 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 10:17:34 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ static void			set_plane(t_env *env, int fd, t_object **obj)
 			(tab = ft_strsplit(env->line, ' ')))
 	{
 		print_line(&env->line);
-		if (!ft_strcmp(tab[0], "		origin"))
+		if (!ft_strcmp(ft_strtrim(tab[0]), "origin"))
 			ok[0] = set_vecteur(&tab[1], &plane->pos);
-		else if (!ft_strcmp(tab[0], "		norm"))
+		else if (!ft_strcmp(ft_strtrim(tab[0]), "norm"))
 			ok[1] = set_vecteur(&tab[1], &plane->norm);
-		else if (!ft_strcmp(tab[0], "		length"))
+		else if (!ft_strcmp(ft_strtrim(tab[0]), "length"))
 			ok[2] = set_radius(&tab[1], &plane->d);
-		else if (!ft_strcmp(tab[0], "		color"))
+		else if (!ft_strcmp(ft_strtrim(tab[0]), "color"))
 			ok[3] = set_color(&tab[1], &(*obj)->color);
 	}
 	if (!args_required(ok, 4))
@@ -57,13 +57,13 @@ static void			set_cylinder(t_env *env, int fd, t_object **obj)
 			(tab = ft_strsplit(env->line, ' ')))
 	{
 		print_line(&env->line);
-		if (!ft_strcmp(tab[0], "		origin"))
+		if (!ft_strcmp(ft_strtrim(tab[0]), "origin"))
 			ok[0] = set_vecteur(&tab[1], &cylinder->pos);
-		else if (!ft_strcmp(tab[0], "		rot"))
+		else if (!ft_strcmp(ft_strtrim(tab[0]), "rot"))
 			ok[1] = set_rotation_vecteur(&tab[1], &cylinder->rot);
-		else if (!ft_strcmp(tab[0], "		radius"))
+		else if (!ft_strcmp(ft_strtrim(tab[0]), "radius"))
 			ok[2] = set_radius(&tab[1], &cylinder->radius);
-		else if (!ft_strcmp(tab[0], "		color"))
+		else if (!ft_strcmp(ft_strtrim(tab[0]), "color"))
 			ok[3] = set_color(&tab[1], &(*obj)->color);
 	}
 	if (!args_required(ok, 4))
@@ -86,13 +86,13 @@ static void			set_sphere(t_env *env, int fd, t_object **obj)
 			(tab = ft_strsplit(env->line, ' ')))
 	{
 		print_line(&env->line);
-		if (!ft_strcmp(tab[0], "		origin"))
+		if (!ft_strcmp(ft_strtrim(tab[0]), "origin"))
 			ok[0] = set_vecteur(&tab[1], &sphere->pos);
-		else if (!ft_strcmp(tab[0], "		rot"))
+		else if (!ft_strcmp(ft_strtrim(tab[0]), "rot"))
 			ok[1] = set_rotation_vecteur(&tab[1], &sphere->rot);
-		else if (!ft_strcmp(tab[0], "		radius"))
+		else if (!ft_strcmp(ft_strtrim(tab[0]), "radius"))
 			ok[2] = set_radius(&tab[1], &sphere->radius);
-		else if (!ft_strcmp(tab[0], "		color"))
+		else if (!ft_strcmp(ft_strtrim(tab[0]), "color"))
 			ok[3] = set_color(&tab[1], &(*obj)->color);
 	}
 	if (!args_required(ok, 4))
@@ -115,13 +115,13 @@ static void			set_cone(t_env *env, int fd, t_object **obj)
 			(tab = ft_strsplit(env->line, ' ')))
 	{
 		print_line(&env->line);
-		if (!ft_strcmp(tab[0], "		origin"))
+		if (!ft_strcmp(ft_strtrim(tab[0]), "origin"))
 			ok[0] = set_vecteur(&tab[1], &cone->pos);
-		else if (!ft_strcmp(tab[0], "		rot"))
+		else if (!ft_strcmp(ft_strtrim(tab[0]), "rot"))
 			ok[1] = set_rotation_vecteur(&tab[1], &cone->rot);
-		else if (!ft_strcmp(tab[0], "		radius"))
+		else if (!ft_strcmp(ft_strtrim(tab[0]), "radius"))
 			ok[2] = set_radius(&tab[1], &cone->radius);
-		else if (!ft_strcmp(tab[0], "		color"))
+		else if (!ft_strcmp(ft_strtrim(tab[0]), "color"))
 			ok[3] = set_color(&tab[1], &(*obj)->color);
 	}
 	if (!args_required(ok, 4))
