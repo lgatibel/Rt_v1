@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/12 11:26:52 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 12:12:50 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ double				calc_object(t_object *object, t_env **env, double x ,
 	return (t);
 }
 
+void				calc_light(t_env *env)
+{
+	t_p3d diff;
+
+	diff = sub_tp3d(env->intersect, env->light.pos);
+	printf("x = [%f], y = [%f], z = [%f]\n",diff.x, diff.y, diff.z);
+	double shade;
+	shade = mult_tp3d();
+}
+
 void				trace(t_env *env)
 {
 	int		x;
@@ -57,6 +67,7 @@ void				trace(t_env *env)
 			calc_ray(env, x, y);
 			if (calc_object(env->object, &env, x, y) >= 0)
 			{
+				calc_light(env);
 				*(env->img_addr + x + (y * env->size_line) / 4) =
 					color(env->color, 1);
 			}
