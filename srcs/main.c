@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/12 18:56:15 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 19:27:36 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ double				calc_object(t_object *object, t_env **env, double x ,
 			t = dist;
 			// il faudra peut etre calculer la normal du vecteur pour les position 
 			// different de zero
+			 x = y;
 			set_tp3d(&(*env)->intersect, x, y, dist);
 			//pas sur pour les pooint x et y  a voir
-		//		printf("t= [%f]\n",t);
+				printf("t= [%f]\n",t);
 		}
 		object = object->next;
 	}
@@ -46,11 +47,14 @@ double				calc_object(t_object *object, t_env **env, double x ,
 
 int					calc_light(t_env *env)
 {
-	double color;
+	int color;
 	t_light *light;
 	//t_p3d	norm;
 	double angle;
 	int col;
+	double coef;
+
+	coef = 0.2;
 
 	angle = 0;
 	light = &env->light;
@@ -67,8 +71,13 @@ int					calc_light(t_env *env)
 //	printf("color = [%d]\n",color);
 	
 //	return (color);
-	printf("angle = [%f]\n",angle);
-	col = angle * color * 0.2;
+//	printf("angle = [%f]\n",angle);
+	if (angle <= 0)
+		col = 0;
+	else
+	col = (int)(angle * 0xFFFFFF * coef) & color +
+	 (int)(angle * 0xFFFFFF * coef) & color +
+	 (int)(angle * 0xFFFFFF * coef) & color;
 //	col = shade * ((color && 0xFF0000) * .2 + (color && 0x00FF00) * 0.2 +
 //			(color && 0x0000FF) * 0.2);
 //	printf("col = [%d]\n",col);
