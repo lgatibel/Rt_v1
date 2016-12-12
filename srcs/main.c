@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/12 12:12:50 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 18:56:15 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ double				calc_object(t_object *object, t_env **env, double x ,
 		{
 			(*env)->color = object->color;
 			t = dist;
+			// il faudra peut etre calculer la normal du vecteur pour les position 
+			// different de zero
 			set_tp3d(&(*env)->intersect, x, y, dist);
 			//pas sur pour les pooint x et y  a voir
 		//		printf("t= [%f]\n",t);
@@ -42,14 +44,35 @@ double				calc_object(t_object *object, t_env **env, double x ,
 	return (t);
 }
 
-void				calc_light(t_env *env)
+int					calc_light(t_env *env)
 {
-	t_p3d diff;
+	double color;
+	t_light *light;
+	//t_p3d	norm;
+	double angle;
+	int col;
 
-	diff = sub_tp3d(env->intersect, env->light.pos);
-	printf("x = [%f], y = [%f], z = [%f]\n",diff.x, diff.y, diff.z);
-	double shade;
-	shade = mult_tp3d();
+	angle = 0;
+	light = &env->light;
+
+	light->dir = sub_tp3d(env->intersect, light->pos);
+//	light->dir = sub_tp3d(light->pos, env->intersect);
+	normalized(&light->dir, 1);
+	normalized(&env->intersect, 1);
+	color = env->color;
+	angle = mult_tp3d(env->intersect, light->dir);
+//	color = shade;
+//	printf("x = [%f], y = [%f], z = [%f]\n",diff.x, diff.y, diff.z);
+	//shade = mult_tp3d(diff, one);
+//	printf("color = [%d]\n",color);
+	
+//	return (color);
+	printf("angle = [%f]\n",angle);
+	col = angle * color * 0.2;
+//	col = shade * ((color && 0xFF0000) * .2 + (color && 0x00FF00) * 0.2 +
+//			(color && 0x0000FF) * 0.2);
+//	printf("col = [%d]\n",col);
+	return (col);
 }
 
 void				trace(t_env *env)
@@ -67,9 +90,9 @@ void				trace(t_env *env)
 			calc_ray(env, x, y);
 			if (calc_object(env->object, &env, x, y) >= 0)
 			{
-				calc_light(env);
 				*(env->img_addr + x + (y * env->size_line) / 4) =
-					color(env->color, 1);
+				calc_light(env);
+				//	color(env->color, 1);
 			}
 		}
 	}

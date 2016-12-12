@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/12 11:26:06 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 13:41:59 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ typedef struct		s_env
 	double		xindent;
 	double		yindent;
 	int			color;
+	int			final_color;
 	void		*mlx;
 	void		*win;
 	void		*img;

@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 18:12:27 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 16:45:47 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 18:52:47 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,12 @@ void				refresh(t_env *env)
 
 void				normalized(t_p3d *point, int length)
 {
-	point->x = point->x / length;
-	point->y = point->y / length;
-	point->z = point->z / length;
+	double		norm;
+
+	norm = sqrt(point->x * point->x + point->y * point->y +point->z * point->z);
+	// length a supprimer
+	length = norm;
+	point->x = point->x / norm;
+	point->y = point->y / norm;
+	point->z = point->z / norm;
 }

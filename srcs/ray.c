@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 12:38:33 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/12 10:06:45 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 18:54:09 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void				calc_ray(t_env *env, double x, double y)
 
 void				set_light(t_light *light)
 {
-	set_tp3d(&light->pos, 3, 3, 3);
+//	set_tp3d(&light->pos, 0.5, 0.5, 100);
+	set_tp3d(&light->pos, 3, 3, 100);
 	set_tp3d(&light->dir, 0, 0, 0);
 }
 

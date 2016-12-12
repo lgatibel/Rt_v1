@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 12:25:38 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/07 17:10:58 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 13:42:47 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void			set_mlx(t_env *env)
 
 void				set_env(t_env *env)
 {
+	env->final_color = 0;
 	env->object = NULL;
 	env->xindent = 0;
 	env->yindent = 0;
