@@ -6,13 +6,14 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/12 10:06:29 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 11:26:52 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-double				calc_object(t_object *object, t_env **env)
+double				calc_object(t_object *object, t_env **env, double x ,
+		double y)
 {
 	double		dist;
 	double		t;
@@ -32,7 +33,9 @@ double				calc_object(t_object *object, t_env **env)
 		{
 			(*env)->color = object->color;
 			t = dist;
-				printf("t= [%f]\n",t);
+			set_tp3d(&(*env)->intersect, x, y, dist);
+			//pas sur pour les pooint x et y  a voir
+		//		printf("t= [%f]\n",t);
 		}
 		object = object->next;
 	}
@@ -52,7 +55,7 @@ void				trace(t_env *env)
 		while (++x < WIDTH)
 		{
 			calc_ray(env, x, y);
-			if (calc_object(env->object, &env) >= 0)
+			if (calc_object(env->object, &env, x, y) >= 0)
 			{
 				*(env->img_addr + x + (y * env->size_line) / 4) =
 					color(env->color, 1);

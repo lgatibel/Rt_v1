@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 16:35:31 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/07 17:26:07 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 10:23:59 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ void				set_cam(t_cam *cam, int fd)
 	{
 		ft_putendl(line);
 		if ((tab = ft_strsplit(line, ' ')) &&
-				!ft_strcmp(tab[0], "		origin"))
+				!ft_strcmp(ft_strtrim(tab[0]), "origin"))
 			ok[0] = set_vecteur_cam(&tab[1], &cam->pos);
 		else if ((tab = ft_strsplit(line, ' ')) &&
-				!ft_strcmp(tab[0], "		rot"))
+				!ft_strcmp(ft_strtrim(tab[0]), "rot"))
 			ok[1] = set_rotation_vecteur(&tab[1], &cam->rot);
 	}
 	if (!args_required(ok, 2))

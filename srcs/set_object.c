@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 10:40:46 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/12 10:17:34 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/12 10:40:22 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,22 +135,23 @@ void				set_object(t_env *env, int fd, t_object **object)
 	t_object	*obj;
 
 	i = -1;
-	while (get_next_line(fd, &env->line) > 0 && ft_strcmp(env->line, "###END"))
+	while (get_next_line(fd, &env->line) > 0 && ft_strcmp(ft_strtrim(env->line),
+				"###END"))
 	{
 		ft_putendl(env->line);
 		malloc_object(&obj, object, ++i);
-		if ((tab = ft_strsplit(env->line, ' ')) && !ft_strcmp(*tab, "	#CONE"))
+		tab = ft_strsplit(env->line, ' ');
+		printf("tab[0] = [%s] \n",tab[0]);
+		if (tab && !ft_strcmp(ft_strtrim(tab[0]), "#CONE"))
 			set_cone(env, fd, &obj);
-		else if ((tab = ft_strsplit(env->line, ' ')) &&
-				!ft_strcmp(*tab, "	#CYLINDER"))
+		else if (tab && !ft_strcmp(ft_strtrim(tab[0]), "#CYLINDER"))
 			set_cylinder(env, fd, &obj);
-		else if ((tab = ft_strsplit(env->line, ' ')) &&
-				!ft_strcmp(*tab, "	#PLANE"))
+		else if (tab && !ft_strcmp(ft_strtrim(tab[0]), "#PLANE"))
 			set_plane(env, fd, &obj);
-		else if ((tab = ft_strsplit(env->line, ' ')) &&
-				!ft_strcmp(*tab, "	#SPHERE"))
+		else if (tab && !ft_strcmp(ft_strtrim(tab[0]), "#SPHERE"))
 			set_sphere(env, fd, &obj);
 		else
 			err(__FILE__, __LINE__, "bad object defined", EXIT);
+//			err(__FILE__, __LINE__, tab[0], EXIT);
 	}
 }
