@@ -30,6 +30,24 @@ int					set_vecteur(char **tab, t_p3d *point)
 	return (i == 3) ? OK : ERROR;
 }
 
+int					set_rotation_vecteur(char **tab, t_p3d *point)
+{
+	int		i;
+	int		t;
+
+	i = -1;
+	t = -1;
+	while (tab[++i])
+	{
+		++t;
+		if (i < 3 && tab[i] && ft_strisnum(tab[i]))
+			*(&point->x + t) = (M_PI * ft_atod(tab[i])) / 180;
+		else
+			return (ERROR);
+	}
+	return (i == 3) ? OK : ERROR;
+}
+
 int					set_vecteur_cam(char **tab, t_p3d *point)
 {
 	int		i;
@@ -44,7 +62,7 @@ int					set_vecteur_cam(char **tab, t_p3d *point)
 		if (i == 0 && tab[i] && ft_strisnum(tab[i]))
 			*(&point->x + t) = ft_atod(tab[i]);
 		else if (i == 1 && tab[i] && ft_strisnum(tab[i]))
-			*(&point->x + t) = ft_atod(tab[i]) / HEIGHT;
+			*(&point->x + t) = ft_atod(tab[i]);
 		else if (i == 2 && tab[i] && ft_strisnum(tab[i]))
 		{
 //			nb = ft_strichr(tab[i], ',');
@@ -77,7 +95,7 @@ void				set_cam(t_cam *cam, int fd)
 			ok[0] = set_vecteur_cam(&tab[1], &cam->pos);
 		else if ((tab = ft_strsplit(line, ' ')) &&
 				!ft_strcmp(tab[0], "		rot"))
-			ok[1] = set_vecteur(&tab[1], &cam->rot);
+			ok[1] = set_rotation_vecteur(&tab[1], &cam->rot);
 	}
 	if (!args_required(ok, 2))
 		err(__FILE__, __LINE__, "bad argument for cam set", EXIT);

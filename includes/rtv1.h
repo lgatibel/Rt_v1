@@ -23,9 +23,9 @@
 # include <stdio.h>
 //# define WIDTH 1600
 # define WIDTH 800
-# define HEIGHT 600
+# define HEIGHT 800
 # define VIEW_WIDTH .8
-# define VIEW_HEIGHT .6
+# define VIEW_HEIGHT .8
 # define RAYON_SIZE 1000
 # define RED 0XFF0000
 # define GREEN 0X00FF00
@@ -38,6 +38,10 @@
 # define OK 1
 
 # define ANGLE 90
+//# define Z 1.5708
+# define X cyl->rot.x
+# define Y cyl->rot.y
+# define Z cyl->rot.z
 
 # define PLANE 1
 # define SPHERE 2
@@ -152,8 +156,9 @@ t_object			*parse_file(char *file, t_env *env);
 
 void				set_env(t_env *env);
 void				set_viewplane(t_env *env);
-void				set_ray(t_ray *ray, t_cam *cam);
+void				set_ray(t_ray *ray, t_env *env);
 int					set_vecteur(char **tab, t_p3d *point);
+int					set_rotation_vecteur(char **tab, t_p3d *point);
 int					set_radius(char **tab, double *radius);
 int					set_color(char **tab, int *color);
 void				set_object(t_env *env, int fd, t_object **object);

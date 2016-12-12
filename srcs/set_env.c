@@ -42,16 +42,18 @@ void				set_env(t_env *env)
 void				set_viewplane(t_env *env)
 {
 	t_viewplane		*view;
+	t_p3d			vecdir;
 
 	view = &env->viewplane;
+	view->dist = 1;
 	view->width = VIEW_WIDTH;
 	view->height = VIEW_HEIGHT;
-	view->dist = 1;
+	set_tp3d(&vecdir, 0, 0, 1);
 	set_tp3d(&view->upvec, 0, 1, 0);
 	set_tp3d(&view->rvec, 1, 0, 0);
 	view->upleft = sub_tp3d(
 	sum_tp3d(
-	sum_tp3d(env->cam.pos, mult_nb_tp3d(env->cam.rot,
+	sum_tp3d(env->cam.pos, mult_nb_tp3d(vecdir,//env->cam.rot,
 	view->dist)), mult_nb_tp3d(view->upvec, view->height /
 	2.0f)), mult_nb_tp3d(view->rvec, view->width / 2.0f));
 	env->xindent = view->width / WIDTH;
