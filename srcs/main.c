@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/13 19:09:03 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/13 19:17:31 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int					calc_light(t_env *env)
 		color = (angle * 1 * coef) ;//+
 		col = (int)color;
 		printf("color = [%f]\n",color);
-		col = (((int)color & 0xFF00) * 255);
+		col = (int)(cos(color) * 255) << 8;
 		printf("col = [%d]\n",col);
 	}
 //	col = ((int)((1 - angle) * env->color * coef) & 0x00FF00) +
