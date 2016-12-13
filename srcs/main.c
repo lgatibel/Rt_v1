@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/13 17:09:18 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/13 19:09:03 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,15 @@ int					calc_light(t_env *env)
 	//t_p3d	norm;
 	double angle;
 	int col;
+	double color;
 	double coef;
 
-	coef = 0.2;
+	coef = 1;
 
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
-	reverse_tp3d(&light->dir);
 //	light->dir = sub_tp3d(light->pos, env->intersect);
+	reverse_tp3d(&light->dir);
 	normalized(&light->dir, 1);
 	normalized(&env->intersect, 1);
 	angle = mult_tp3d(env->intersect, light->dir);
@@ -97,7 +98,14 @@ int					calc_light(t_env *env)
 	if (angle <= 0)
 		col = 0x000000;
 	else
-	col = (int)((1 - angle) * 0xffffff * coef) & 0xff00 ;//+
+	{
+		printf("angle = [%f]\n",angle);
+		color = (angle * 1 * coef) ;//+
+		col = (int)color;
+		printf("color = [%f]\n",color);
+		col = (((int)color & 0xFF00) * 255);
+		printf("col = [%d]\n",col);
+	}
 //	col = ((int)((1 - angle) * env->color * coef) & 0x00FF00) +
 //	 ((int)((1 - angle) * env->color * coef) & 0xFF0000) ;//+
 //	 ((int)((1 - angle) * env->color * coef) & 0x0000FF);
