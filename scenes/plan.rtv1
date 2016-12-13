@@ -1,0 +1,16 @@
+###START
+##CAM
+origin 0 0 0
+rot 0 0 0
+##OBJECT
+#SPHERE
+origin 0 0 100
+radius 10
+rot 0 0 0
+color 0X00FF00
+###END
+#PLANE
+origin 0 0 200
+norm 1 0 0
+length -100
+color 0xFF00FF

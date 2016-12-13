@@ -6,17 +6,26 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/12 19:27:36 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/13 10:54:58 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+
+double		norm(t_p3d *vec)
+{
+	double res;
+	res = sqrt(vec->x * vec->x + vec->y * vec->y + vec->z * vec->z);
+	return (res);
+}
 
 double				calc_object(t_object *object, t_env **env, double x ,
 		double y)
 {
 	double		dist;
 	double		t;
+	t_p3d		ray;
+//	double		length;
 
 	t = -1;
 	while (object)
@@ -32,13 +41,22 @@ double				calc_object(t_object *object, t_env **env, double x ,
 		if (dist > 0 && ((dist < t) || t == -1))
 		{
 			(*env)->color = object->color;
+			if (t == -1)
+				cpy_tp3d(&(*env)->intersect, mult_nb_tp3d(sum_tp3d((*env)->ray.pos,(*env)->ray.dir), dist));
 			t = dist;
 			// il faudra peut etre calculer la normal du vecteur pour les position 
 			// different de zero
-			 x = y;
-			set_tp3d(&(*env)->intersect, x, y, dist);
+
+			//set_tp3d(&(*env)->intersect, x *  dist, y * dist, dist);
+			cpy_tp3d(&ray, mult_nb_tp3d(sum_tp3d((*env)->ray.pos,(*env)->ray.dir), dist));
+			if (norm(&ray) < norm(&(*env)->intersect))
+				cpy_tp3d(&(*env)->intersect, mult_nb_tp3d(sum_tp3d((*env)->ray.pos,(*env)->ray.dir), dist));
+			printf("x = [%f], y = [%f], z  = [%f]\n",ray.x,ray.y, ray.z );
+			x *=1;
+			y *=1;
+//			if (norm(&ray))
 			//pas sur pour les pooint x et y  a voir
-				printf("t= [%f]\n",t);
+//				printf("t= [%f]\n",t);
 		}
 		object = object->next;
 	}
@@ -54,7 +72,7 @@ int					calc_light(t_env *env)
 	int col;
 	double coef;
 
-	coef = 0.2;
+	coef = 0.8;
 
 	angle = 0;
 	light = &env->light;
@@ -75,9 +93,9 @@ int					calc_light(t_env *env)
 	if (angle <= 0)
 		col = 0;
 	else
-	col = (int)(angle * 0xFFFFFF * coef) & color +
-	 (int)(angle * 0xFFFFFF * coef) & color +
-	 (int)(angle * 0xFFFFFF * coef) & color;
+	col = (int)(angle * 0xFFFFFF * coef) & color ;//+
+//	 (int)(angle * 0xFFFFFF * coef) & color +
+//	 (int)(angle * 0xFFFFFF * coef) & color;
 //	col = shade * ((color && 0xFF0000) * .2 + (color && 0x00FF00) * 0.2 +
 //			(color && 0x0000FF) * 0.2);
 //	printf("col = [%d]\n",col);
