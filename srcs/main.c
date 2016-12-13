@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/13 10:54:58 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/13 14:39:14 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ double				calc_object(t_object *object, t_env **env, double x ,
 			cpy_tp3d(&ray, mult_nb_tp3d(sum_tp3d((*env)->ray.pos,(*env)->ray.dir), dist));
 			if (norm(&ray) < norm(&(*env)->intersect))
 				cpy_tp3d(&(*env)->intersect, mult_nb_tp3d(sum_tp3d((*env)->ray.pos,(*env)->ray.dir), dist));
-			printf("x = [%f], y = [%f], z  = [%f]\n",ray.x,ray.y, ray.z );
+//			printf("x = [%f], y = [%f], z  = [%f]\n",ray.x,ray.y, ray.z );
 			x *=1;
 			y *=1;
 //			if (norm(&ray))
@@ -63,9 +63,15 @@ double				calc_object(t_object *object, t_env **env, double x ,
 	return (t);
 }
 
+void				reverse_tp3d(t_p3d *vec)
+{
+	vec->x *= -1;
+	vec->y *= -1;
+	vec->z *= -1;
+}
+
 int					calc_light(t_env *env)
 {
-	int color;
 	t_light *light;
 	//t_p3d	norm;
 	double angle;
@@ -74,14 +80,13 @@ int					calc_light(t_env *env)
 
 	coef = 0.8;
 
-	angle = 0;
 	light = &env->light;
-
 	light->dir = sub_tp3d(env->intersect, light->pos);
+	reverse_tp3d(&light->dir);
 //	light->dir = sub_tp3d(light->pos, env->intersect);
 	normalized(&light->dir, 1);
 	normalized(&env->intersect, 1);
-	color = env->color;
+	col = env->color;
 	angle = mult_tp3d(env->intersect, light->dir);
 //	color = shade;
 //	printf("x = [%f], y = [%f], z = [%f]\n",diff.x, diff.y, diff.z);
@@ -93,12 +98,14 @@ int					calc_light(t_env *env)
 	if (angle <= 0)
 		col = 0;
 	else
-	col = (int)(angle * 0xFFFFFF * coef) & color ;//+
-//	 (int)(angle * 0xFFFFFF * coef) & color +
-//	 (int)(angle * 0xFFFFFF * coef) & color;
+	col = ((int)((1 - angle) * env->color * coef)& 0x00FF00) ;//+
+//	col = ((int)((1 - angle) * env->color * coef) & 0x00FF00) +
+//	 ((int)((1 - angle) * env->color * coef) & 0xFF0000) ;//+
+//	 ((int)((1 - angle) * env->color * coef) & 0x0000FF);
 //	col = shade * ((color && 0xFF0000) * .2 + (color && 0x00FF00) * 0.2 +
+//	printf("color = %d", ((int)((1 - angle) * env->color * coef) & 0x0000FF));
 //			(color && 0x0000FF) * 0.2);
-//	printf("col = [%d]\n",col);
+//printf("col = [%d]\n",col);
 	return (col);
 }
 
