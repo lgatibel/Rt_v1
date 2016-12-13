@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/12 13:41:59 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/13 17:06:07 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define BLACK 0x000000
 # define YELLOW 0XF7FA04
 # define CUSTOM 0x0ECB25
+# define FOND 0x00FFFFFF
 # define ERROR 0
 # define OK 1
 
