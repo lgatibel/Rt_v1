@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/14 13:07:12 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/14 14:28:12 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ double				calc_plane(t_object *object, t_ray *ray)
 
 	cpy_tp3d(&rdir, ray->dir);
 	pl = (t_plane *)object->ptr;
-	//rotation sur z
-	rdir.x = ray->dir.x * cos(pl->norm.z) + ray->dir.y * -sin(pl->norm.z);
-	rdir.y = ray->dir.x * sin(pl->norm.z) + ray->dir.y * cos(pl->norm.z);
 
 	t = -(pl->norm.x * (ray->pos.x - pl->pos.x) + pl->norm.y *
 		(ray->pos.y - pl->pos.y) + pl->norm.z * (ray->pos.z - pl->pos.z) +

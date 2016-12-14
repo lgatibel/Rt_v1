@@ -3,16 +3,16 @@
 origin 0 0 0
 rot 0 0 0
 ##OBJECT
-#SPHERE
+#CYLINDER
 origin 0 0 500
 radius 80
 rot 0 0 0
-color 0X00FF00
+color 0Xff0000
 ###END
+#PLANE
+origin 15 15 0
+norm 0 1 0
+length -1
+color 0xFF0000
 #
 color 0X3ee5f6
-#PLANE
-origin 0 0 200
-norm 1 0 0
-length -100
-color 0xFF00FF

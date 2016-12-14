@@ -6,11 +6,18 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/14 13:09:20 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/14 17:00:31 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+
+void				reverse_tp3d(t_p3d *vec)
+{
+	vec->x *= -1;
+	vec->y *= -1;
+	vec->z *= -1;
+}
 
 double		norm(t_p3d *vec)
 {
@@ -24,13 +31,14 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 {
 
 	t_sphere *sphere;
-	sphere = (t_sphere *)object->ptr;
 
 	cpy_tp3d(&env->intersect,
 		mult_nb_tp3d(
 		sum_tp3d(ray->pos,
 		ray->dir), t));
-	env->norm = div_nb_tp3d(sub_tp3d(env->intersect, sphere->pos), sphere->radius);
+		sphere = (t_sphere *)object->ptr;
+		env->norm = div_nb_tp3d(sub_tp3d(env->intersect, sphere->pos), sphere->radius);
+	//	reverse_tp3d(&env->norm);
 //	env->norm = sub_tp3d(env->intersect, sphere->pos);
 //	printf("test = [%f]\n",env->norm.z);
 	return (norm(&env->intersect));
@@ -67,13 +75,6 @@ double				calc_object(t_object *object, t_env **env)
 	return (length);
 }
 
-void				reverse_tp3d(t_p3d *vec)
-{
-	vec->x *= -1;
-	vec->y *= -1;
-	vec->z *= -1;
-}
-
 int					calc_light(t_env *env)
 {
 	t_light *light;
@@ -83,12 +84,11 @@ int					calc_light(t_env *env)
 
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
-	normalized(&env->intersect, 1);
-	//norm(&env->intersect);
-	normalized(&light->dir, 1);
-//	light->dir = sub_tp3d(light->pos, env->intersect);
 	reverse_tp3d(&light->dir);
+	normalized(&env->intersect, 1);
+	normalized(&light->dir, 1);
 	angle = mult_tp3d(env->norm, light->dir);
+
 //	color = shade;
 //	printf("x = [%f], y = [%f], z = [%f]\n",diff.x, diff.y, diff.z);
 	//shade = mult_tp3d(diff, one);
@@ -96,22 +96,22 @@ int					calc_light(t_env *env)
 	
 //	return (color);
 //	printf("angle = [%f]\n",angle);
-	if (angle <= 0)
-		col = 0x000000;
-	else
-	{
-//		color = 1;
-//		col = env->color;
-//		/*
+//	double red = (double)(env->color & 0xff0000) / 255;
+//	printf("red[%f]\n", red);
+//	printf("red[%d]\n", 0xff0000);
+//	if (angle <= 0)
+//		col = 0x000000;
+//	else
+//	{
 		printf("angle = [%f]\n",angle);
-		color = ((1 - angle) * 1 * COEFF) ;
-		printf("color = [%f]\n",color);
-		col = ((int)(cos(color) * 255 * 0) << 16) +
-			((int)(cos(color) * 255) << 8) +
-			(int)(cos(color) * 255 * 0);
+		color = (1 -(angle) * 1 * COEFF);
+//		col = ((int)(cos(color) * 255 * 0 ) << 16) +
+col =		((int)(cos(color) * 255) << 8) ;//+
+//			(int)(cos(color) * 255 * 0);
+		printf("color * 255 = [%f]\n",color * 255);
 		printf("col = [%d]\n",col);
 //		*/
-	}
+//	}
 	return (col);
 }
 
