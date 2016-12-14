@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/14 18:37:48 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/14 19:49:43 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 {
 
 	t_sphere *sphere;
+	t_cylinder *cyl;
 
 	cpy_tp3d(&env->intersect,
 		mult_nb_tp3d(
@@ -38,11 +39,14 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 		ray->dir), t));
 		sphere = (t_sphere *)object->ptr;
 		env->norm = div_nb_tp3d(sub_tp3d(env->intersect, sphere->pos), sphere->radius);
-	//	env->norm = sub_tp3d(env->intersect, sphere->pos);
 		if (object->type == CYLINDER)
 		{
-		set_tp3d(&env->norm, env->norm.x, 0, env->norm.z);
-	//	set_tp3d(&env->intersect, env->intersect.x, 0, env->intersect.z);
+			cyl = (t_cylinder *)object->ptr;
+			env->norm = div_nb_tp3d(sub_tp3d(env->intersect, cyl->pos),
+					cyl->radius);
+			set_tp3d(&env->intersect, env->intersect.x, 0,
+					env->intersect.z);
+//			set_tp3d(&env->norm, env->norm.x, 0, env->norm.z);
 		}
 	//	reverse_tp3d(&env->norm);
 	//	reverse_tp3d(&env->norm);
@@ -113,9 +117,9 @@ int					calc_light(t_env *env)
 //		printf("angle = [%f]\n",angle);
 		color = (1 -(angle) * 1 * COEFF);
 //		col = ((int)(cos(color) * 255 * 0 ) << 16) +
-	//if (angle < 0)
-	//	color = ((angle) * 1 * COEFF);
-col =		((int)(cos(color) * 255) << 8) ;//+
+col = ((int)(cos(color) * 255) << 8) ;//+
+//	if (angle == 0)
+//		col = 0;
 //			(int)(cos(color) * 255 * 0);
 //		printf("color * 255 = [%f]\n",color * 255);
 //		printf("col = [%d]\n",col);
