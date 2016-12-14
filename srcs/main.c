@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/14 12:36:45 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/14 13:09:20 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ double		norm(t_p3d *vec)
 double				calc_norm(t_ray *ray, double t, t_env *env,
 		t_object *object)
 {
-	double	res;
 
 	t_sphere *sphere;
 	sphere = (t_sphere *)object->ptr;
@@ -32,9 +31,9 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 		sum_tp3d(ray->pos,
 		ray->dir), t));
 	env->norm = div_nb_tp3d(sub_tp3d(env->intersect, sphere->pos), sphere->radius);
-	res = norm(&env->intersect);
+//	env->norm = sub_tp3d(env->intersect, sphere->pos);
 //	printf("test = [%f]\n",env->norm.z);
-	return (res);
+	return (norm(&env->intersect));
 }
 
 double				calc_object(t_object *object, t_env **env)
@@ -81,9 +80,6 @@ int					calc_light(t_env *env)
 	double angle;
 	int col;
 	double color;
-	double coef;
-
-	coef = 1;
 
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
@@ -108,12 +104,11 @@ int					calc_light(t_env *env)
 //		col = env->color;
 //		/*
 		printf("angle = [%f]\n",angle);
-		color = ((1-angle) * .4 * coef) ;//+
-		col = (int)color;
+		color = ((1 - angle) * 1 * COEFF) ;
 		printf("color = [%f]\n",color);
 		col = ((int)(cos(color) * 255 * 0) << 16) +
-			((int)(cos(color) * 255) << 8) + (int)(cos(color) * 255 * 0);
-//		col = (int)(cos(color) * 255) << 8;
+			((int)(cos(color) * 255) << 8) +
+			(int)(cos(color) * 255 * 0);
 		printf("col = [%d]\n",col);
 //		*/
 	}
