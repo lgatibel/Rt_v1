@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/13 17:06:07 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/14 12:08:27 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ typedef struct		s_env
 	t_ray		ray;
 	t_light		light;
 	t_p3d		intersect;
+	t_p3d		norm;
 	t_object	*object;
 	t_viewplane viewplane;
 

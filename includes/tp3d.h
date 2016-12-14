@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 10:54:12 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/06 16:33:35 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/14 12:16:02 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_p3d				mult_nb_tp3d(t_p3d vector, double nb);
 t_p3d				sub_tp3d(t_p3d vector1, t_p3d vector2);
 double				mult_tp3d(t_p3d vector1, t_p3d vector2);
 double				div_tp3d(t_p3d vector1, t_p3d vector2);
+t_p3d				div_nb_tp3d(t_p3d vector, double nb);
 void				cpy_tp3d(t_p3d *dest, t_p3d src);
 
 void				print_tp3d(t_p3d *vector);

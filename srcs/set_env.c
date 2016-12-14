@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 12:25:38 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/13 10:51:41 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/14 11:34:17 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,23 @@
 
 static void			set_mlx(t_env *env)
 {
-	env->mlx = mlx_init();
-	env->win = mlx_new_window(env->mlx, WIDTH, HEIGHT, "hello");
-	env->img = mlx_new_image(env->mlx, WIDTH, HEIGHT);
+	if (!(env->mlx = mlx_init()))
+		err(__FILE__, __LINE__, "Error in mlx init fucntion", EXIT);
+	if (!(env->win = mlx_new_window(env->mlx, WIDTH, HEIGHT, "hello")))
+		err(__FILE__, __LINE__, "Error in mlx init fucntion", EXIT);
+	if (!(env->img = mlx_new_image(env->mlx, WIDTH, HEIGHT)))
+		err(__FILE__, __LINE__, "Error in mlx init fucntion", EXIT);
 	env->bpp = 0;
 	env->size_line = 0;
 	env->endian = 0;
-	env->img_addr = (int *)mlx_get_data_addr(env->img,
-	&env->bpp, &env->size_line, &env->endian);
+	if (!(env->img_addr = (int *)mlx_get_data_addr(env->img,
+	&env->bpp, &env->size_line, &env->endian)))
+		err(__FILE__, __LINE__, "Error in mlx init fucntion", EXIT);
 }
 
 void				set_env(t_env *env)
 {
+	set_tp3d(&env->norm, 0, 0, 0);
 	env->final_color = 0;
 	env->object = NULL;
 	env->xindent = 0;

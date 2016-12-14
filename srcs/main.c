@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/13 19:17:31 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/14 12:36:45 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,48 +19,53 @@ double		norm(t_p3d *vec)
 	return (res);
 }
 
-double				calc_object(t_object *object, t_env **env, double x ,
-		double y)
+double				calc_norm(t_ray *ray, double t, t_env *env,
+		t_object *object)
 {
-	double		dist;
+	double	res;
+
+	t_sphere *sphere;
+	sphere = (t_sphere *)object->ptr;
+
+	cpy_tp3d(&env->intersect,
+		mult_nb_tp3d(
+		sum_tp3d(ray->pos,
+		ray->dir), t));
+	env->norm = div_nb_tp3d(sub_tp3d(env->intersect, sphere->pos), sphere->radius);
+	res = norm(&env->intersect);
+//	printf("test = [%f]\n",env->norm.z);
+	return (res);
+}
+
+double				calc_object(t_object *object, t_env **env)
+{
+	double		tmp;
 	double		t;
-	t_p3d		ray;
-//	double		length;
+	double		length;
+//	t_p3d		ray;
 
 	t = -1;
+	tmp = -1;
+	length = -1;
 	while (object)
 	{
 		if (object->type == SPHERE)
-			dist = calc_sphere(object, &(*env)->ray);
+			t = calc_sphere(object, &(*env)->ray);
 		else if (object->type == CYLINDER)
-			dist = calc_cylinder(object, &(*env)->ray);
+			t = calc_cylinder(object, &(*env)->ray);
 		else if (object->type == CONE)
-			dist  = calc_cone(object, &(*env)->ray);
+			t  = calc_cone(object, &(*env)->ray);
 		else if (object->type == PLANE)
-			dist = calc_plane(object, &(*env)->ray);
-		if (dist > 0 && ((dist < t) || t == -1))
+			t = calc_plane(object, &(*env)->ray);
+		tmp = calc_norm(&(*env)->ray, t, *env, object);
+		if (tmp > 0 && ((tmp < length) || length == -1))
 		{
 			(*env)->color = object->color;
-			if (t == -1)
-				cpy_tp3d(&(*env)->intersect, mult_nb_tp3d(sum_tp3d((*env)->ray.pos,(*env)->ray.dir), dist));
-			t = dist;
-			// il faudra peut etre calculer la normal du vecteur pour les position 
-			// different de zero
-
-			//set_tp3d(&(*env)->intersect, x *  dist, y * dist, dist);
-			cpy_tp3d(&ray, mult_nb_tp3d(sum_tp3d((*env)->ray.pos,(*env)->ray.dir), dist));
-			if (norm(&ray) < norm(&(*env)->intersect))
-				cpy_tp3d(&(*env)->intersect, mult_nb_tp3d(sum_tp3d((*env)->ray.pos,(*env)->ray.dir), dist));
-//			printf("x = [%f], y = [%f], z  = [%f]\n",ray.x,ray.y, ray.z );
-			x *=1;
-			y *=1;
-//			if (norm(&ray))
-			//pas sur pour les pooint x et y  a voir
-//				printf("t= [%f]\n",t);
+			length = tmp;
 		}
 		object = object->next;
 	}
-	return (t);
+	return (length);
 }
 
 void				reverse_tp3d(t_p3d *vec)
@@ -73,7 +78,6 @@ void				reverse_tp3d(t_p3d *vec)
 int					calc_light(t_env *env)
 {
 	t_light *light;
-	//t_p3d	norm;
 	double angle;
 	int col;
 	double color;
@@ -83,11 +87,12 @@ int					calc_light(t_env *env)
 
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
+	normalized(&env->intersect, 1);
+	//norm(&env->intersect);
+	normalized(&light->dir, 1);
 //	light->dir = sub_tp3d(light->pos, env->intersect);
 	reverse_tp3d(&light->dir);
-	normalized(&light->dir, 1);
-	normalized(&env->intersect, 1);
-	angle = mult_tp3d(env->intersect, light->dir);
+	angle = mult_tp3d(env->norm, light->dir);
 //	color = shade;
 //	printf("x = [%f], y = [%f], z = [%f]\n",diff.x, diff.y, diff.z);
 	//shade = mult_tp3d(diff, one);
@@ -99,20 +104,19 @@ int					calc_light(t_env *env)
 		col = 0x000000;
 	else
 	{
+//		color = 1;
+//		col = env->color;
+//		/*
 		printf("angle = [%f]\n",angle);
-		color = (angle * 1 * coef) ;//+
+		color = ((1-angle) * .4 * coef) ;//+
 		col = (int)color;
 		printf("color = [%f]\n",color);
-		col = (int)(cos(color) * 255) << 8;
+		col = ((int)(cos(color) * 255 * 0) << 16) +
+			((int)(cos(color) * 255) << 8) + (int)(cos(color) * 255 * 0);
+//		col = (int)(cos(color) * 255) << 8;
 		printf("col = [%d]\n",col);
+//		*/
 	}
-//	col = ((int)((1 - angle) * env->color * coef) & 0x00FF00) +
-//	 ((int)((1 - angle) * env->color * coef) & 0xFF0000) ;//+
-//	 ((int)((1 - angle) * env->color * coef) & 0x0000FF);
-//	col = shade * ((color && 0xFF0000) * .2 + (color && 0x00FF00) * 0.2 +
-//	printf("color = %d", ((int)((1 - angle) * env->color * coef) & 0x0000FF));
-//			(color && 0x0000FF) * 0.2);
-//printf("col = [%d]\n",col);
 	return (col);
 }
 
@@ -120,6 +124,8 @@ void				trace(t_env *env)
 {
 	int		x;
 	int		y;
+	int		length;
+	int		color;
 
 	y = -1;
 	x = -1;
@@ -129,14 +135,11 @@ void				trace(t_env *env)
 		while (++x < WIDTH)
 		{
 			calc_ray(env, x, y);
-			if (calc_object(env->object, &env, x, y) >= 0)
-			{
-				*(env->img_addr + x + (y * env->size_line) / 4) =
-				calc_light(env);
-				//	color(env->color, 1);
-			}
+			if ((length = calc_object(env->object, &env)) >= 0)
+				color = calc_light(env);
 			else
-				*(env->img_addr + x + (y * env->size_line) / 4) = FOND;
+				color = FOND;
+			*(env->img_addr + x + (y * env->size_line) / 4) = color;
 		}
 	}
 }
