@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/14 18:37:48 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/14 14:39:04 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,23 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 {
 
 	t_sphere *sphere;
+	t_plane *plane;
 
 	cpy_tp3d(&env->intersect,
 		mult_nb_tp3d(
 		sum_tp3d(ray->pos,
 		ray->dir), t));
+	if (object->type == SPHERE)
+	{
 		sphere = (t_sphere *)object->ptr;
 		env->norm = div_nb_tp3d(sub_tp3d(env->intersect, sphere->pos), sphere->radius);
-	//	env->norm = sub_tp3d(env->intersect, sphere->pos);
-		if (object->type == CYLINDER)
-		{
-		set_tp3d(&env->norm, env->norm.x, 0, env->norm.z);
-	//	set_tp3d(&env->intersect, env->intersect.x, 0, env->intersect.z);
-		}
+	}
+	else if (object->type == PLANE)
+	{
+		plane = (t_plane *)object->ptr;
+		cpy_tp3d(&env->norm, plane->norm);
 	//	reverse_tp3d(&env->norm);
-	//	reverse_tp3d(&env->norm);
+	}
 //	env->norm = sub_tp3d(env->intersect, sphere->pos);
 //	printf("test = [%f]\n",env->norm.z);
 	return (norm(&env->intersect));
@@ -91,11 +93,12 @@ int					calc_light(t_env *env)
 
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
-	reverse_tp3d(&light->dir);
 	normalized(&env->intersect, 1);
+	//norm(&env->intersect);
 	normalized(&light->dir, 1);
+//	light->dir = sub_tp3d(light->pos, env->intersect);
+	reverse_tp3d(&light->dir);
 	angle = mult_tp3d(env->norm, light->dir);
-
 //	color = shade;
 //	printf("x = [%f], y = [%f], z = [%f]\n",diff.x, diff.y, diff.z);
 	//shade = mult_tp3d(diff, one);
@@ -103,24 +106,23 @@ int					calc_light(t_env *env)
 	
 //	return (color);
 //	printf("angle = [%f]\n",angle);
-//	double red = (double)(env->color & 0xff0000) / 255;
-//	printf("red[%f]\n", red);
-//	printf("red[%d]\n", 0xff0000);
-//	if (angle <= 0)
-//		col = 0x000000;
-//	else
-//	{
-//		printf("angle = [%f]\n",angle);
-		color = (1 -(angle) * 1 * COEFF);
-//		col = ((int)(cos(color) * 255 * 0 ) << 16) +
-	//if (angle < 0)
-	//	color = ((angle) * 1 * COEFF);
-col =		((int)(cos(color) * 255) << 8) ;//+
-//			(int)(cos(color) * 255 * 0);
-//		printf("color * 255 = [%f]\n",color * 255);
-//		printf("col = [%d]\n",col);
+	int red = env->color & 0xff0000;
+	if (angle <= 0)
+		col = 0x000000;
+	else
+	{
+//		color = 1;
+//		col = env->color;
+//		/*
+		printf("angle = [%f]\n",angle);
+		color = ((1 - angle) * 1 * COEFF) ;
+		printf("color = [%f]\n",color);
+		col = ((int)(cos(color) * 255 * 0 ) << 16) +
+			((int)(cos(color) * 255) << 8) +
+			(int)(cos(color) * 255 * 0);
+		printf("col = [%d]\n",col);
 //		*/
-//	}
+	}
 	return (col);
 }
 
