@@ -3,7 +3,7 @@
 origin 0 0 0
 rot 0 0 0
 ##OBJECT
-#CYLINDER
+#SPHERE
 origin 0 0 500
 radius 80
 rot 0 0 0
