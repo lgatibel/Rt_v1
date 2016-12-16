@@ -62,9 +62,11 @@ $(addprefix $(OBJ_PATH),%.o) : $(addprefix $(SRC_PATH),%.c)
 
 
 clean:
+	@make clean -C Libft
 	@rm -rf $(OBJ_PATH)
 
 fclean: clean
+	@make fclean -C Libft
 	@rm -rf $(TARGET)
 
 re: fclean all
