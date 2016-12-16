@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/16 13:06:16 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/16 13:31:07 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 
 	t_sphere *sphere;
 	t_cylinder *cyl;
+	t_cone *cone;
 
 	cpy_tp3d(&env->intersect,
 		mult_nb_tp3d(
@@ -39,20 +40,21 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 		ray->dir), t));
 		sphere = (t_sphere *)object->ptr;
 		env->norm = div_nb_tp3d(sub_tp3d(env->intersect, sphere->pos), sphere->radius);
-		if (object->type == CYLINDER || object->type == CONE)
+		if (object->type == CYLINDER || object->type == EXIT)
 		{
 			cyl = (t_cylinder *)object->ptr;
 			env->norm = div_nb_tp3d(sub_tp3d(env->intersect, cyl->pos),
 					cyl->radius);
 			set_tp3d(&env->norm, env->norm.x, 0, env->norm.z);
-			printf("--cylindre\n");
+		//	printf("--cylindre\n");
 		}
 		else if (object->type == CONE)
 		{
-			printf("--cone\n");
-			cyl = (t_cylinder *)object->ptr;
-			env->norm = sub_tp3d(env->intersect, cyl->pos);
-			set_tp3d(&env->norm, env->norm.x, env->norm.y, 0);
+		//	printf("--cone\n");
+			cone = (t_cone *)object->ptr;
+			env->norm = sub_tp3d(env->intersect, cone->pos);
+//			env->norm = div_nb_tp3d(sub_tp3d(env->intersect, cone->pos),cone->radius);
+			set_tp3d(&env->norm, 0, env->norm.y, env->norm.z);
 		}
 	//	reverse_tp3d(&env->norm);
 	//	reverse_tp3d(&env->norm);
