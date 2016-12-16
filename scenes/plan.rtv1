@@ -3,9 +3,9 @@
 origin 0 0 0
 rot 0 0 0
 ##OBJECT
-#CYLINDER
+#CONE
 origin 0 0 500
-radius 80
+radius 0
 rot 0 0 0
 color 0Xff0000
 ###END
