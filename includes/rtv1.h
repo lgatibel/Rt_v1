@@ -176,7 +176,7 @@ void				calc_ray(t_env *env, double x, double y);
 void				normalized(t_p3d *point, int length);
 void				event(t_env *env);
 void				refresh(t_env *env);
-int					color(int color, double t);
+double				color(int object_color, int rgb);
 int					args_required(char *ok, int nb);
 
 int					test(t_env *env);

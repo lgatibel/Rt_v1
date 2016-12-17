@@ -99,7 +99,7 @@ int					calc_light(t_env *env)
 	t_light *light;
 	double angle;
 	int col;
-	double color;
+	double diffuse;
 
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
@@ -109,28 +109,10 @@ int					calc_light(t_env *env)
 	angle = mult_tp3d(env->norm, light->dir);
 
 //	color = shade;
-//	printf("x = [%f], y = [%f], z = [%f]\n",diff.x, diff.y, diff.z);
-	//shade = mult_tp3d(diff, one);
-//	printf("color = [%d]\n",color);
-	
-//	return (color);
-//	printf("angle = [%f]\n",angle);
-//	double red = (double)(env->color & 0xff0000) / 255;
-//	printf("red[%f]\n", red);
-//	printf("red[%d]\n", 0xff0000);
-//	if (angle <= 0)
-//		col = 0x000000;
-//	else
-//	{
-//		printf("angle = [%f]\n",angle);
-		color = ((angle) * 1 * COEFF);
-//		col = ((int)(cos(color) * 255 * 0 ) << 16) +
-col = ((int)(color * 255) << 8) ;//+
-//			(int)(cos(color) * 255 * 0);
-//		printf("color * 255 = [%f]\n",color * 255);
-//		printf("col = [%d]\n",col);
-//		*/
-//	}
+	diffuse = angle * COEFF * 255;
+	col = ((int)(color(env->color, RED) * diffuse) << 16) +
+	((int)(color(env->color, GREEN) * diffuse) << 8) +
+	(int)(color(env->color, BLUE) * diffuse) ;
 	return (col);
 }
 

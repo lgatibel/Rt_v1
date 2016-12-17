@@ -116,8 +116,6 @@ double				calc_sphere(t_object *object, t_ray *ray)
 
 	s = (t_sphere *)object->ptr;
 	cpy_tp3d(&rdir, ray->dir);
-	rdir.x = ray->dir.x * cos(s->rot.z) + ray->dir.y * -sin(s->rot.z);
-	rdir.y = ray->dir.x * sin(s->rot.z) + ray->dir.y * cos(s->rot.z);
 	a = rdir.x * rdir.x + rdir.y *
 	rdir.y + rdir.z * rdir.z;
 	b = 2 * (rdir.x * (ray->pos.x - s->pos.x) +

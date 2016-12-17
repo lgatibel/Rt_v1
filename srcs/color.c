@@ -10,19 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int				color(int color, double t)
-{
-	int		red;
-	int		green;
-	int		blue;
-	int		result;
+#include <rtv1.h>
 
-	result = 0;
-	t = result;
-	red = (color & 0xFF0000);
-	green = (color & 0x00FF00);
-	blue = (color & 0x0000FF);
-	result = red + green + blue;
-	t = red;
-	return (result);
+double				color(int object_color, int rgb)
+{
+	if (rgb == RED)
+		return ((double)((object_color & RED) >> 16) / 255);
+	else if (rgb == GREEN)
+		return ((double)((object_color & GREEN) >> 8) / 255);
+	else if (rgb == BLUE)
+		return ((double)((object_color & BLUE)) / 255);
+	return (0);
 }

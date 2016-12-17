@@ -3,11 +3,16 @@
 origin 0 0 0
 rot 0 0 0
 ##OBJECT
-#CONE
-origin 0 0 500
-radius 0
+#SPHERE
+origin 0 10 300
+radius 20
 rot 0 0 0
-color 0Xff0000
+color 0Xf422ce
+#SPHERE
+origin 0 0 500
+radius 40
+rot 0 0 0
+color 0X00FF00
 ###END
 #PLANE
 origin 15 15 0
