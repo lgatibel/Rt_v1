@@ -4,13 +4,13 @@ origin 0 0 0
 rot 0 0 0
 ##OBJECT
 #SPHERE
-origin 0 10 300
+origin -40 0 300
 radius 20
 rot 0 0 0
 color 0Xf422ce
 #SPHERE
-origin 0 0 500
-radius 40
+origin 40 0 300
+radius 20
 rot 0 0 0
 color 0X00FF00
 ###END
