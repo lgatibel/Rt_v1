@@ -40,6 +40,7 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 		ray->dir), t));
 		sphere = (t_sphere *)object->ptr;
 		env->norm = div_nb_tp3d(sub_tp3d(env->intersect, sphere->pos), sphere->radius);
+//		printf("color[%d]\n", object->color);
 		if (object->type == CYLINDER || object->type == EXIT)
 		{
 			cyl = (t_cylinder *)object->ptr;
@@ -73,8 +74,10 @@ double				calc_object(t_object *object, t_env **env)
 	t = -1;
 	tmp = -1;
 	length = -1;
+	int i = 0;//debug
 	while (object)
 	{
+	++i;
 		if (object->type == SPHERE)
 			t = calc_sphere(object, &(*env)->ray);
 		else if (object->type == CYLINDER)
@@ -84,7 +87,8 @@ double				calc_object(t_object *object, t_env **env)
 		else if (object->type == PLANE)
 			t = calc_plane(object, &(*env)->ray);
 		tmp = calc_norm(&(*env)->ray, t, *env, object);
-		if (tmp > 0 && ((tmp < length) || length == -1))
+		if (t >= 0 && tmp > 0 && ((tmp < length) ||
+		length == -1))
 		{
 			(*env)->color = object->color;
 			length = tmp;
@@ -103,7 +107,7 @@ int					calc_light(t_env *env)
 
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
-	reverse_tp3d(&light->dir);
+//	reverse_tp3d(&light->dir);
 	normalized(&env->intersect, 1);
 	normalized(&light->dir, 1);
 	angle = mult_tp3d(env->norm, light->dir);

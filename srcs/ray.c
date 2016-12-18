@@ -29,7 +29,7 @@ void				calc_ray(t_env *env, double x, double y)
 
 void				set_light(t_light *light)
 {
-	set_tp3d(&light->pos, 0, 0, 0);
+	set_tp3d(&light->pos, -50, 0, 200);
 	set_tp3d(&light->dir, 0, 0, 0);
 }
 

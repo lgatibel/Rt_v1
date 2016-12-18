@@ -42,7 +42,7 @@ DFLAG2 = -g3
 
 all: $(TARGET)
 
-.PHONY: all clean fclean re
+.PHONY: clean fclean re
 
 $(TARGET): $(OBJ)
 	@echo "\x1b[32m\n######## 1/3 libft ########\x1b[0m"
