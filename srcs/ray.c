@@ -24,7 +24,7 @@ void				calc_ray(t_env *env, double x, double y)
 	sub_tp3d(
 	mult_nb_tp3d(env->viewplane.rvec, x * env->xindent),
 	mult_nb_tp3d(env->viewplane.upvec, y * env->yindent))));
-	normalized(&env->ray.dir, env->ray.length);
+	normalized(&env->ray.dir, 1);
 }
 
 void				set_light(t_light *light)

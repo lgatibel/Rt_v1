@@ -106,9 +106,9 @@ int					calc_light(t_env *env)
 	double diffuse;
 
 	light = &env->light;
+	normalized(&env->intersect, 1);
 	light->dir = sub_tp3d(env->intersect, light->pos);
 //	reverse_tp3d(&light->dir);
-	normalized(&env->intersect, 1);
 	normalized(&light->dir, 1);
 	angle = mult_tp3d(env->norm, light->dir);
 
