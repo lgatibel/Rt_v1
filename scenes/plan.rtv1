@@ -3,20 +3,20 @@
 origin 0 0 0
 rot 0 0 0
 ##OBJECT
-#SPHERE
-origin 0 10 300
-radius 20
-rot 0 0 0
-color 0Xf422ce
-#SPHERE
+#CYLINDER
 origin 0 0 500
 radius 40
 rot 0 0 0
 color 0X00FF00
 ###END
+#SPHERE
+origin 0 0 500
+radius 20
+rot 0 0 0
+color 0XFF0000
 #PLANE
 origin 15 15 0
-norm 0 1 0
+norm 0 1
 length -1
 color 0xFF0000
 #
