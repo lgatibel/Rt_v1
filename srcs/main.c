@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 17:39:36 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 18:41:25 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 	t_cone *cone;
 	t_plane *plane;
 
-//		print_tp3d(&env->intersect);
 	if (t <= 0)
 		return (0);
 	cpy_tp3d(&env->intersect, mult_nb_tp3d(	sum_tp3d(ray->pos, ray->dir), t));
@@ -87,7 +86,6 @@ double				calc_object(t_object *object, t_env *env, t_ray *ray)
 		{
 			env->color = object->color;
 			length = tmp;
-			env->length = length;
 		}
 		object = object->next;
 	}
@@ -100,25 +98,17 @@ int					calc_light(t_env *env)
 	double angle;
 	double diffuse;
 	int col;
-	double shade;
 
-	shade  = env->length;
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
-	if (shade > calc_object(env->object, env, light))
-	{
-	printf("shade[%f], calc[%f]\n",shade, calc_object(env->object, env, light));
-		return (0);
-	}
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir);
 	angle = mult_tp3d(env->norm, light->dir);
 	diffuse = angle * COEFF * 255;
-
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
 	((int)(color(env->color, GREEN) * diffuse) << 8) +
 	(int)(color(env->color, BLUE) * diffuse) ;
-	return (col);
+	return ((col > 0) ? col : env->font_color);
 }
 
 void				trace(t_env *env)
@@ -138,7 +128,10 @@ void				trace(t_env *env)
 			env->color = env->font_color;
 			calc_ray(env, x, y);
 			if ((length = calc_object(env->object, env, &env->ray)) >= 0)
+			{
 				color = calc_light(env);
+				env->length = length;
+			}
 			else
 				color = env->font_color;
 			*(env->img_addr + x + (y * env->size_line) / 4) = color;
