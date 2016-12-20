@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 11:17:34 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 11:59:46 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 	t_cone *cone;
 	t_plane *plane;
 
+//		print_tp3d(&env->intersect);
+	if (t <= 0)
+		return (0);
 	cpy_tp3d(&env->intersect,
 		mult_nb_tp3d(
 		sum_tp3d(ray->pos,
@@ -112,18 +115,16 @@ int					calc_light(t_env *env)
 	light = &env->light;
 	//	if (env->intersect.y > 0)
 	//	printf("x[%f], y[%f], z[%f]\n", env->intersect.x, env->intersect.y, env->intersect.z);
+	normalized(&env->intersect, 1);
 	light->dir = sub_tp3d(env->intersect, light->pos);
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir, 1);
-	normalized(&env->intersect, 1);
-	normalized(&env->norm, 1);
+//	normalized(&env->norm, 1);
 	angle = mult_tp3d(env->norm, light->dir);
 //	if (angle <= 0)
 //		return (0);
 
 //	color = shade;
-	if (angle < 0)
-		angle *= -1;
 	diffuse = angle * COEFF * 255;
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
 	((int)(color(env->color, GREEN) * diffuse) << 8) +
@@ -131,7 +132,9 @@ int					calc_light(t_env *env)
 //	if (col < 0)
 //		col *= -1;
 	if (color > 0)
+	{
 		printf("color [%x], col[%d], angle[%f]\n", env->color, col, angle);
+	}
 	return (col);
 }
 
