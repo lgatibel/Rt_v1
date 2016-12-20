@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 14:30:05 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 14:51:20 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int					calc_light(t_env *env)
 	normalized(&light->dir, 1);
 //	normalized(&env->norm, 1);
 	angle = mult_tp3d(env->norm, light->dir);
-	printf("angle[%f]\n",angle);
+//	printf("angle[%f]\n",angle);
 	diffuse = fabs(angle) * COEFF * 255;
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
 	((int)(color(env->color, GREEN) * diffuse) << 8) +
