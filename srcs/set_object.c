@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 10:40:46 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/12 10:40:22 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 16:53:34 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ void				set_object(t_env *env, int fd, t_object **object)
 		ft_putendl(env->line);
 		malloc_object(&obj, object, ++i);
 		tab = ft_strsplit(env->line, ' ');
-		printf("tab[0] = [%s] \n",tab[0]);
 		if (tab && !ft_strcmp(ft_strtrim(tab[0]), "#CONE"))
 			set_cone(env, fd, &obj);
 		else if (tab && !ft_strcmp(ft_strtrim(tab[0]), "#CYLINDER"))

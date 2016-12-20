@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 18:12:27 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/14 10:07:58 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 16:27:26 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,12 @@ void				refresh(t_env *env)
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 }
 
-void				normalized(t_p3d *point, int length)
+void				normalized(t_p3d *point)
 {
 	double		norm;
 
 	norm = sqrt(point->x * point->x + point->y * point->y +
 			point->z * point->z);
-	// length a supprimer
-	length = norm;
 	point->x = point->x / norm;
 	point->y = point->y / norm;
 	point->z = point->z / norm;

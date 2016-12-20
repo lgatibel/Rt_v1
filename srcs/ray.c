@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 12:38:33 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 14:50:58 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 16:54:26 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ void				calc_ray(t_env *env, double x, double y)
 	sub_tp3d(
 	mult_nb_tp3d(env->viewplane.rvec, x * env->xindent),
 	mult_nb_tp3d(env->viewplane.upvec, y * env->yindent))));
-	normalized(&env->ray.dir, 1);
+	normalized(&env->ray.dir);
 }
 
-void				set_light(t_light *light)
+void				set_light(t_ray *light)
 {
-	set_tp3d(&light->pos, 0, 0, 490);
+	set_tp3d(&light->pos, -80, 0, 500);
 	set_tp3d(&light->dir, 0, 0, 0);
+	light->next = NULL;
 }
 
 void				set_ray(t_ray *ray, t_env *env)
@@ -41,7 +42,5 @@ void				set_ray(t_ray *ray, t_env *env)
 	ray->dir.x = 0;
 	ray->dir.y = 0;
 	ray->dir.z = 1;
-// a quoi sert ceci ???
-	ray->length = 1;
-	// cette variable doit etre fixe ou pas ???
+	ray->next = NULL;
 }

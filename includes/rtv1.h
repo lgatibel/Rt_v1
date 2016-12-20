@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 12:38:56 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 17:32:02 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,11 @@ typedef struct		s_plane
 	double		d;
 }					t_plane;
 
-typedef struct		s_light
-{
-	t_p3d			pos;
-	t_p3d			dir;
-}					t_light;
-
 typedef struct		s_ray
 {
 	t_p3d			pos;
 	t_p3d			dir;
-	double			length;
+	struct s_ray	*next;
 }					t_ray;
 
 typedef struct		s_object
@@ -131,7 +125,7 @@ typedef struct		s_env
 {
 	t_cam		cam;
 	t_ray		ray;
-	t_light		light;
+	t_ray		light;
 	t_p3d		intersect;
 	t_p3d		norm;
 	t_object	*object;
@@ -139,6 +133,7 @@ typedef struct		s_env
 
 	double		xindent;
 	double		yindent;
+	double		length;
 	int			color;
 	int			final_color;
 	int			font_color;
@@ -160,7 +155,7 @@ t_object			*parse_file(char *file, t_env *env);
 void				set_env(t_env *env);
 void				set_viewplane(t_env *env);
 void				set_ray(t_ray *ray, t_env *env);
-void				set_light(t_light *ligth);
+void				set_light(t_ray *ligth);
 int					set_vecteur(char **tab, t_p3d *point);
 int					set_rotation_vecteur(char **tab, t_p3d *point);
 int					set_radius(char **tab, double *radius);
@@ -174,7 +169,7 @@ double				calc_cylinder(t_object *object, t_ray *ray);
 double				calc_plane(t_object *object, t_ray *ray);
 void				calc_ray(t_env *env, double x, double y);
 
-void				normalized(t_p3d *point, int length);
+void				normalized(t_p3d *point);
 void				event(t_env *env);
 void				refresh(t_env *env);
 double				color(int object_color, int rgb);

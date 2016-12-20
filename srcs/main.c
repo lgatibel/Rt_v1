@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 14:51:20 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 17:39:36 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 	return (norm(&env->intersect));
 }
 
-double				calc_object(t_object *object, t_env **env)
+double				calc_object(t_object *object, t_env *env, t_ray *ray)
 {
 	double		tmp;
 	double		t;
@@ -72,23 +72,22 @@ double				calc_object(t_object *object, t_env **env)
 	t = -1;
 	tmp = -1;
 	length = -1;
-	int i = 0;//debug
 	while (object)
 	{
-	++i;
 		if (object->type == SPHERE)
-			t = calc_sphere(object, &(*env)->ray);
+			t = calc_sphere(object, ray);
 		else if (object->type == CYLINDER)
-			t = calc_cylinder(object, &(*env)->ray);
+			t = calc_cylinder(object, ray);
 		else if (object->type == CONE)
-			t  = calc_cone(object, &(*env)->ray);
+			t  = calc_cone(object, ray);
 		else if (object->type == PLANE)
-			t = calc_plane(object, &(*env)->ray);
-		tmp = calc_norm(&(*env)->ray, t, *env, object);
+			t = calc_plane(object, ray);
+		tmp = calc_norm(ray, t, env, object);
 		if (tmp > 0 && ((tmp < length) || length == -1))
 		{
-			(*env)->color = object->color;
+			env->color = object->color;
 			length = tmp;
+			env->length = length;
 		}
 		object = object->next;
 	}
@@ -97,19 +96,25 @@ double				calc_object(t_object *object, t_env **env)
 
 int					calc_light(t_env *env)
 {
-	t_light *light;
+	t_ray *light;
 	double angle;
-	int col;
 	double diffuse;
+	int col;
+	double shade;
 
+	shade  = env->length;
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
+	if (shade > calc_object(env->object, env, light))
+	{
+	printf("shade[%f], calc[%f]\n",shade, calc_object(env->object, env, light));
+		return (0);
+	}
 	reverse_tp3d(&light->dir);
-	normalized(&light->dir, 1);
-//	normalized(&env->norm, 1);
+	normalized(&light->dir);
 	angle = mult_tp3d(env->norm, light->dir);
-//	printf("angle[%f]\n",angle);
-	diffuse = fabs(angle) * COEFF * 255;
+	diffuse = angle * COEFF * 255;
+
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
 	((int)(color(env->color, GREEN) * diffuse) << 8) +
 	(int)(color(env->color, BLUE) * diffuse) ;
@@ -132,7 +137,7 @@ void				trace(t_env *env)
 		{
 			env->color = env->font_color;
 			calc_ray(env, x, y);
-			if ((length = calc_object(env->object, &env)) >= 0)
+			if ((length = calc_object(env->object, env, &env->ray)) >= 0)
 				color = calc_light(env);
 			else
 				color = env->font_color;

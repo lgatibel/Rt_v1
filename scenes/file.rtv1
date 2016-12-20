@@ -23,16 +23,6 @@
 		radius 50
 		rot 0 0 0
 		color 0xFF0000
-	#CYLINDER
-		origin -100 0 500
-		radius 30
-		rot 0 0 0
-		color 0x0000FF
-	#CYLINDER
-		origin 100 0 500
-		radius 30
-		rot 0 0 0
-		color 0x0000FF
 	#PLANE
 		origin 0 -1 0
 		norm 0 1 0
@@ -43,4 +33,14 @@
 		norm 0 1 0
 		length -100
 		color 0x00FF00
+	#CYLINDER
+		origin -100 0 500
+		radius 30
+		rot 0 0 0
+		color 0x0000FF
+	#CYLINDER
+		origin 100 0 500
+		radius 30
+		rot 0 0 0
+		color 0x0000FF
 ###END
