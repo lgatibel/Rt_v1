@@ -7,7 +7,7 @@ rot 0 0 0
 origin -50 0 500
 radius 40
 rot 0 0 0
-color 0XFF0000
+color 0XF79C19
 #SPHERE
 origin 50 0 500
 radius 40

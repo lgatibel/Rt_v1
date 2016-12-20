@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 10:39:46 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 11:17:34 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,16 @@ int					calc_light(t_env *env)
 //		return (0);
 
 //	color = shade;
+	if (angle < 0)
+		angle *= -1;
 	diffuse = angle * COEFF * 255;
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
 	((int)(color(env->color, GREEN) * diffuse) << 8) +
 	(int)(color(env->color, BLUE) * diffuse) ;
+//	if (col < 0)
+//		col *= -1;
+	if (color > 0)
+		printf("color [%x], col[%d], angle[%f]\n", env->color, col, angle);
 	return (col);
 }
 
@@ -143,11 +149,12 @@ void				trace(t_env *env)
 		x = -1;
 		while (++x < WIDTH)
 		{
+			env->color = env->font_color;
 			calc_ray(env, x, y);
 			if ((length = calc_object(env->object, &env)) >= 0)
 				color = calc_light(env);
 			else
-				color = FOND;
+				color = env->font_color;
 			*(env->img_addr + x + (y * env->size_line) / 4) = color;
 		}
 	}
