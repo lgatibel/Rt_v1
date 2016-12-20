@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/14 14:28:12 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 14:15:59 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ double				calc_cone(t_object *object, t_ray *ray)
 
 	cpy_tp3d(&rdir, ray->dir);
 	co = (t_cone *)object->ptr;
-	//rotation sur z
-	rdir.x = ray->dir.x * cos(co->rot.z) + ray->dir.y * -sin(co->rot.z);
-	rdir.y = ray->dir.x * sin(co->rot.z) + ray->dir.y * cos(co->rot.z);
 	a = rdir.x * rdir.x + rdir.z *
 	rdir.z - rdir.y * rdir.y;
 	b = 2 * (rdir.x * (ray->pos.x - co->pos.x) +
@@ -78,6 +75,17 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 
 	cpy_tp3d(&rdir, ray->dir);
 	cyl = (t_cylinder *)object->ptr;
+	a = rdir.x * rdir.x + rdir.z * rdir.z;
+	b = 2 * (rdir.x * (ray->pos.x - cyl->pos.x) +
+	rdir.z * (ray->pos.z - cyl->pos.z));
+	c = ((ray->pos.x - cyl->pos.x) * (ray->pos.x - cyl->pos.x) +
+	(ray->pos.z - cyl->pos.z) * (ray->pos.z - cyl->pos.z)) -
+	cyl->radius * cyl->radius;
+	return (calc_delta(a, b, c));
+}
+
+/////////////////////////////////////////////voir pour les martice de translation
+//	set_tp3d(&pos, cyl->pos.x, cyl->pos.y, cyl->pos.z);
 	//rotation sur z
 //	ray->dir.x *= cyl->pos.x;
 //	ray->dir.y *= cyl->pos.y;
@@ -93,18 +101,6 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 //	rdir.z = ray->dir.y * sin(X) + ray->dir.z * cos(X);
 	//
 //	ray->diri.z = ray->dirz * cos(45) + ray->dir.z * sin(45);
-		t_p3d		pos;
-
-	set_tp3d(&pos, cyl->pos.x, cyl->pos.y, cyl->pos.z);
-/////////////////////////////////////////////voir pour les martice de translation
-	a = rdir.x * rdir.x + rdir.z * rdir.z;
-	b = 2 * (rdir.x * (ray->pos.x - pos.x) +
-	rdir.z * (ray->pos.z - pos.z));
-	c = ((ray->pos.x - pos.x) * (ray->pos.x - pos.x) +
-	(ray->pos.z - pos.z) * (ray->pos.z - pos.z)) -
-	cyl->radius * cyl->radius;
-	return (calc_delta(a, b, c));
-}
 
 double				calc_sphere(t_object *object, t_ray *ray)
 {
