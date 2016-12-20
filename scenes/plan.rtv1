@@ -15,9 +15,7 @@ rot 0 0 0
 color 0XFF0000
 ###END
 #PLANE
-origin 15 15 0
+origin 0 0 0
 norm 0 1 0
-length -1
-color 0xFF0000
-#
-color 0X3ee5f6
+length -10
+color 0xFFFFFF

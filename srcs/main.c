@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 09:56:35 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 10:39:46 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 	t_sphere *sphere;
 	t_cylinder *cyl;
 	t_cone *cone;
+	t_plane *plane;
 
 	cpy_tp3d(&env->intersect,
 		mult_nb_tp3d(
@@ -56,6 +57,11 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 			env->norm = sub_tp3d(env->intersect, cone->pos);
 //			env->norm = div_nb_tp3d(sub_tp3d(env->intersect, cone->pos),cone->radius);
 			set_tp3d(&env->norm, 0, env->norm.y, env->norm.z);
+		}
+		if (object->type == PLANE)
+		{
+			plane = (t_plane *)object->ptr;
+			cpy_tp3d(&env->norm, plane->norm);
 		}
 	//	reverse_tp3d(&env->norm);
 	//	reverse_tp3d(&env->norm);
@@ -104,14 +110,16 @@ int					calc_light(t_env *env)
 	double diffuse;
 
 	light = &env->light;
-		if (env->intersect.y > 0)
-		printf("x[%f], y[%f], z[%f]\n", env->intersect.x, env->intersect.y, env->intersect.z);
+	//	if (env->intersect.y > 0)
+	//	printf("x[%f], y[%f], z[%f]\n", env->intersect.x, env->intersect.y, env->intersect.z);
 	light->dir = sub_tp3d(env->intersect, light->pos);
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir, 1);
 	normalized(&env->intersect, 1);
-//	normalized(&env->norm, 1);
+	normalized(&env->norm, 1);
 	angle = mult_tp3d(env->norm, light->dir);
+//	if (angle <= 0)
+//		return (0);
 
 //	color = shade;
 	diffuse = angle * COEFF * 255;
