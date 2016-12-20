@@ -71,5 +71,10 @@ fclean: clean
 
 re: fclean all
 
+r:
+	@rm -rf $(OBJ_PATH)
+	@rm -rf $(TARGET)
+	@make
+
 norme:
 	@norminette $(SRC_PATH) $(INC_PATH)

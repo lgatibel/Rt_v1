@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 11:18:16 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 12:38:56 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define CUSTOM 0x0ECB25
 //# define FONT 0x00FFFFFF
 # define FONT 0x0
-# define COEFF 1
+# define COEFF .8
 # define ERROR 0
 # define OK 1
 
