@@ -1,0 +1,11 @@
+###START
+	##CAM
+		origin 0 0 0
+		rot 0 0 0
+	##OBJECT
+#PLANE
+	origin 0 0 0
+	norm 0 1 0
+	length 15
+	color 0x00ff00
+###END
