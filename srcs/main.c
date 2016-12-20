@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 12:51:48 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 13:07:39 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 		sphere = (t_sphere *)object->ptr;
 		env->norm = div_nb_tp3d(sub_tp3d(env->intersect, sphere->pos),
 				sphere->radius);
-		if (object->type == CYLINDER || object->type == EXIT)
+		if (object->type == CYLINDER)
 		{
 			cyl = (t_cylinder *)object->ptr;
 			env->norm = div_nb_tp3d(sub_tp3d(env->intersect, cyl->pos),
@@ -53,7 +53,7 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 			set_tp3d(&env->norm, env->norm.x, 0, env->norm.z);
 		//	printf("--cylindre\n");
 		}
-		else if (object->type == CONE)
+		else if (object->type == EXIT)
 		{
 		//	printf("--cone\n");
 			cone = (t_cone *)object->ptr;
@@ -117,7 +117,6 @@ int					calc_light(t_env *env)
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir, 1);
 //	normalized(&env->norm, 1);
-//	normalized(&env->intersect, 1);
 	angle = mult_tp3d(env->norm, light->dir);
 	printf("angle[%f]\n",angle);
 	diffuse = fabs(angle) * COEFF * 255;
