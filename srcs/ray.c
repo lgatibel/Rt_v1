@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 12:38:33 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 09:45:28 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 12:02:54 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void				calc_ray(t_env *env, double x, double y)
 	sub_tp3d(
 	mult_nb_tp3d(env->viewplane.rvec, x * env->xindent),
 	mult_nb_tp3d(env->viewplane.upvec, y * env->yindent))));
-	normalized(&env->ray.dir, env->ray.length);
+	normalized(&env->ray.dir, 1);
 }
 
 void				set_light(t_light *light)

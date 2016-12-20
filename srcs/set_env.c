@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 12:25:38 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/14 11:34:17 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 11:18:33 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void				set_env(t_env *env)
 	env->xindent = 0;
 	env->yindent = 0;
 	env->color = BLACK;
+	env->font_color = FONT;
 	env->bpp = 0;
 	env->size_line = 0;
 	env->endian = 0;
