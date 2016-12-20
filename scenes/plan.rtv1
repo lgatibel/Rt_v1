@@ -4,16 +4,16 @@ origin 0 0 0
 rot 0 0 0
 ##OBJECT
 #SPHERE
-origin 0 0 500
+origin -50 0 500
 radius 40
 rot 0 0 0
-color 0Xf422ce
-###END
+color 0XFF0000
 #SPHERE
-origin 50 0 400
-radius 20
+origin 50 0 500
+radius 40
 rot 0 0 0
-color 0X0000FF
+color 0XFF0000
+###END
 #PLANE
 origin 15 15 0
 norm 0 1 0

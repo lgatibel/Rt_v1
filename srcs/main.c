@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 09:35:52 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/20 09:56:35 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ double				calc_norm(t_ray *ray, double t, t_env *env,
 		sum_tp3d(ray->pos,
 		ray->dir), t));
 		sphere = (t_sphere *)object->ptr;
-		env->norm = div_nb_tp3d(sub_tp3d(env->intersect, sphere->pos), sphere->radius);
+		env->norm = div_nb_tp3d(sub_tp3d(env->intersect, sphere->pos),
+				sphere->radius);
 		if (object->type == CYLINDER || object->type == EXIT)
 		{
 			cyl = (t_cylinder *)object->ptr;
@@ -85,8 +86,7 @@ double				calc_object(t_object *object, t_env **env)
 		else if (object->type == PLANE)
 			t = calc_plane(object, &(*env)->ray);
 		tmp = calc_norm(&(*env)->ray, t, *env, object);
-		if (t >= 0 && tmp > 0 && ((tmp < length) ||
-		length == -1))
+		if (tmp > 0 && ((tmp < length) || length == -1))
 		{
 			(*env)->color = object->color;
 			length = tmp;
@@ -106,11 +106,11 @@ int					calc_light(t_env *env)
 	light = &env->light;
 		if (env->intersect.y > 0)
 		printf("x[%f], y[%f], z[%f]\n", env->intersect.x, env->intersect.y, env->intersect.z);
-	normalized(&env->intersect, 1);
 	light->dir = sub_tp3d(env->intersect, light->pos);
-//	reverse_tp3d(&light->dir);
+	reverse_tp3d(&light->dir);
 	normalized(&light->dir, 1);
-	normalized(&env->norm, 1);
+	normalized(&env->intersect, 1);
+//	normalized(&env->norm, 1);
 	angle = mult_tp3d(env->norm, light->dir);
 
 //	color = shade;
