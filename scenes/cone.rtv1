@@ -3,9 +3,9 @@
 origin 0 0 0
 rot 0 0 0
 ##OBJECT
-#SPHERE
-origin 0 80 500
-radius 1
+#CONE
+origin 0 0 500
+radius 0
 rot 0 0 0
 color 0XFF0000
 ###END
