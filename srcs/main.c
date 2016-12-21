@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/21 14:41:37 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/21 15:16:35 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
 	return (nearest);
 }
 
-t_p3d				*calc_norm(t_p3d *intersect, t_object *nearest_object)
+t_p3d				calc_norm(t_p3d *intersect, t_object *nearest_object)
 {
 	if (nearest_object->type == SPHERE)
 		return(calc_sphere_norm(intersect, nearest_object));
@@ -69,7 +69,7 @@ t_p3d				*calc_norm(t_p3d *intersect, t_object *nearest_object)
 		return (calc_cone_norm(nearest_object));
 	else if (nearest_object->type == PLANE)
 		return (calc_plane_norm(nearest_object));
-	return (NULL);
+	return (nearest_object->norm);
 }
 
 int					calc_light(t_env *env)
@@ -84,13 +84,13 @@ int					calc_light(t_env *env)
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
 	nearest = calc_object(env->object, &env->light_intersect, light);
-	if (!nearest || env->nearest_object->ptr != nearest->ptr)
-		return (WHITE);
+//	if (!nearest || env->nearest_object->ptr != nearest->ptr)
+//		return (WHITE);
 	env->color = nearest->color;
 //		printf("nearest[%p], nearest[%p]\n",env->nearest_object->ptr, nearest->ptr);
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir);
-	angle = mult_tp3d(*calc_norm(&env->intersect, env->nearest_object),
+	angle = mult_tp3d(calc_norm(&env->intersect, env->nearest_object),
 			light->dir);
 	diffuse = (angle <= 1) ? angle * COEFF : 0;
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
