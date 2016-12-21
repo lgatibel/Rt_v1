@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/21 13:18:07 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/21 13:31:30 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ int					calc_light(t_env *env)
 	light->dir = sub_tp3d(env->intersect, light->pos);
 	nearest = calc_object(env->object, &env->light_intersect, light);
 	if (nearest && env->nearest_object->ptr != nearest->ptr)
-		env->color = env->nearest_object->color;
-	else if (nearest)
-		env->color = nearest->color;
+		env->color = 0xff0000;//env->nearest_object->color;
+	else if (nearest && env->nearest_object->ptr == nearest->ptr )
+		env->color = 0xFFFFFF;
 	else
 		env->color = env->font_color;
 //		printf("nearest[%p], nearest[%p]\n",env->nearest_object->ptr, nearest->ptr);
