@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/21 16:05:57 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/21 16:07:15 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,12 @@ t_p3d				*calc_norm(t_p3d *intersect, t_object *nearest_object)
 		return (calc_plane_norm(nearest_object));
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	set_tp3d(&nearest_object->norm, -8, -8, -8);
 	return (nearest_object->norm);
+=======
+	return (NULL);
+>>>>>>> parent of 4e2af30... save
 =======
 	return (NULL);
 >>>>>>> parent of 4e2af30... save
