@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/21 13:15:27 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/21 14:41:21 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,10 +175,10 @@ double				calc_cylinder(t_object *object, t_ray *ray);
 double				calc_plane(t_object *object, t_ray *ray);
 void				calc_ray(t_env *env, double x, double y);
 
-t_p3d				calc_sphere_norm(t_p3d *intersect, t_object *nearest_object);
-t_p3d				calc_cylinder_norm(t_p3d *intersect, t_object *nearest_object);
-t_p3d				calc_cone_norm(t_object *nearest_object);
-t_p3d				calc_plane_norm(t_object *nearest_object);
+t_p3d				*calc_sphere_norm(t_p3d *intersect, t_object *nearest_object);
+t_p3d				*calc_cylinder_norm(t_p3d *intersect, t_object *nearest_object);
+t_p3d				*calc_cone_norm(t_object *nearest_object);
+t_p3d				*calc_plane_norm(t_object *nearest_object);
 
 void				normalized(t_p3d *point);
 void				event(t_env *env);

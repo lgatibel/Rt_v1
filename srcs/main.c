@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/21 13:31:30 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/21 14:41:37 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,8 @@ t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
 	return (nearest);
 }
 
-t_p3d				calc_norm(t_p3d *intersect, t_object *nearest_object)
+t_p3d				*calc_norm(t_p3d *intersect, t_object *nearest_object)
 {
-	t_p3d	error;
-
 	if (nearest_object->type == SPHERE)
 		return(calc_sphere_norm(intersect, nearest_object));
 	else if (nearest_object->type == CYLINDER)
@@ -71,8 +69,7 @@ t_p3d				calc_norm(t_p3d *intersect, t_object *nearest_object)
 		return (calc_cone_norm(nearest_object));
 	else if (nearest_object->type == PLANE)
 		return (calc_plane_norm(nearest_object));
-	set_tp3d(&error, -8, -8, -8);
-	return (error);
+	return (NULL);
 }
 
 int					calc_light(t_env *env)
@@ -87,16 +84,13 @@ int					calc_light(t_env *env)
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
 	nearest = calc_object(env->object, &env->light_intersect, light);
-	if (nearest && env->nearest_object->ptr != nearest->ptr)
-		env->color = 0xff0000;//env->nearest_object->color;
-	else if (nearest && env->nearest_object->ptr == nearest->ptr )
-		env->color = 0xFFFFFF;
-	else
-		env->color = env->font_color;
+	if (!nearest || env->nearest_object->ptr != nearest->ptr)
+		return (WHITE);
+	env->color = nearest->color;
 //		printf("nearest[%p], nearest[%p]\n",env->nearest_object->ptr, nearest->ptr);
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir);
-	angle = mult_tp3d(calc_norm(&env->intersect, env->nearest_object),
+	angle = mult_tp3d(*calc_norm(&env->intersect, env->nearest_object),
 			light->dir);
 	diffuse = (angle <= 1) ? angle * COEFF : 0;
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
