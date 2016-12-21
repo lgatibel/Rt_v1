@@ -6,11 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2016/12/21 15:42:03 by lgatibel         ###   ########.fr       */
-=======
-/*   Updated: 2016/12/21 14:41:37 by lgatibel         ###   ########.fr       */
->>>>>>> parent of 4e2af30... save
+/*   Updated: 2016/12/21 16:05:57 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +70,12 @@ t_p3d				*calc_norm(t_p3d *intersect, t_object *nearest_object)
 	else if (nearest_object->type == PLANE)
 		return (calc_plane_norm(nearest_object));
 <<<<<<< HEAD
+<<<<<<< HEAD
 	set_tp3d(&nearest_object->norm, -8, -8, -8);
 	return (nearest_object->norm);
+=======
+	return (NULL);
+>>>>>>> parent of 4e2af30... save
 =======
 	return (NULL);
 >>>>>>> parent of 4e2af30... save
