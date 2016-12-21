@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/21 16:38:44 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/21 17:36:19 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
 
 	t = -1;
 	nearest = NULL;
+	int i = 0;
 	while (object)
 	{
+		i++;
 		if (object->type == SPHERE)
 			t = calc_sphere(object, ray);
 		else if (object->type == CYLINDER)
@@ -52,6 +54,7 @@ t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
 		else if (object->type == PLANE)
 			t = calc_plane(object, ray);
 		object->dist = length_ray(ray, t, intersect);
+//		printf("object[%d], i[%d]\n",object->type, i);
 		if (object->dist > 0 && ((!nearest) || (object->dist < nearest->dist)))
 			nearest = object;
 		object = object->next;
@@ -113,12 +116,14 @@ void				trace(t_env *env)
 		x = -1;
 		while (++x < WIDTH)
 		{
-			env->color = env->font_color;
 			calc_ray(env, x, y);
 			env->nearest_object = calc_object(env->object, &env->intersect,
 					&env->ray);
 			if (env->nearest_object)
+			{
+				printf("color\n");
 				color = calc_light(env);
+			}
 			else
 				color = env->font_color;
 			*(env->img_addr + x + (y * env->size_line) / 4) = color;

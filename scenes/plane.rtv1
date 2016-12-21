@@ -3,21 +3,26 @@
 origin 0 0 0
 rot 0 0 0
 ##OBJECT
-#SPHERE
-origin 0 80 500
-radius 40
-rot 0 0 0
-color 0XFF0000
-#SPHERE
+#PLANE
+origin 0 0 0
+norm 0 1 0
+length -10
+color 0xFFFFFF
+#CYLINDER
 origin 0 0 500
 radius 40
 rot 0 0 0
-color 0XF79C19
-#SPHERE
-origin 0 -80 500
-radius 40
-rot 0 0 0
 color 0X00FF00
+#SPHERE
+origin 0 0 500
+radius 80
+rot 0 0 0
+color 0XFF0000
+#SPHERE
+origin 100 0 500
+radius 80
+rot 0 0 0
+color 0XFF0000
 ###END
 #PLANE
 origin 0 0 0

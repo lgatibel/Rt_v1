@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 16:26:15 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/21 16:44:51 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/21 16:46:51 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_p3d			calc_cylinder_norm(t_p3d *intersect, t_object *object)
 {
 	t_cylinder *cylinder;
 
-	cylinder = (cylinder *)object->ptr;
+	cylinder = (t_cylinder *)object->ptr;
 	object->norm = sub_tp3d(*intersect, cylinder->pos);
 	object->norm.y = 0;
 	return (object->norm);
