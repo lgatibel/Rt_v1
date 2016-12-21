@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 12:25:38 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 11:18:33 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/21 10:40:53 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void				set_env(t_env *env)
 	set_tp3d(&env->norm, 0, 0, 0);
 	env->final_color = 0;
 	env->object = NULL;
+	env->nearest_object = NULL;
 	env->xindent = 0;
 	env->yindent = 0;
 	env->color = BLACK;

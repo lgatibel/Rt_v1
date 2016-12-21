@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 18:41:25 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/21 11:53:21 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,51 +26,21 @@ double		norm(t_p3d *vec)
 	return (res);
 }
 
-double				calc_norm(t_ray *ray, double t, t_env *env,
-		t_object *object)
+double				length_ray(t_ray *ray, double t, t_p3d *intersect)
 {
-
-	t_sphere *sphere;
-	t_cylinder *cyl;
-	t_cone *cone;
-	t_plane *plane;
-
 	if (t <= 0)
 		return (0);
-	cpy_tp3d(&env->intersect, mult_nb_tp3d(	sum_tp3d(ray->pos, ray->dir), t));
-	sphere = (t_sphere *)object->ptr;
-	env->norm = div_nb_tp3d(sub_tp3d(env->intersect, sphere->pos),
-			sphere->radius);
-	if (object->type == CYLINDER)
-	{
-		cyl = (t_cylinder *)object->ptr;
-		env->norm = div_nb_tp3d(sub_tp3d(env->intersect, cyl->pos),
-				cyl->radius);
-		set_tp3d(&env->norm, env->norm.x, 0, env->norm.z);
-	//	printf("--cylindre\n");
-	}
-	else if (object->type == CONE)
-	{
-		cone = (t_cone *)object->ptr;
-		set_tp3d(&env->norm, 0, 0, 1);
-	}
-	if (object->type == PLANE)
-	{
-		plane = (t_plane *)object->ptr;
-		cpy_tp3d(&env->norm, plane->norm);
-	}
-	return (norm(&env->intersect));
+	cpy_tp3d(intersect, mult_nb_tp3d(sum_tp3d(ray->pos, ray->dir), t));
+	return (norm(intersect));
 }
 
-double				calc_object(t_object *object, t_env *env, t_ray *ray)
+t_object			*calc_object(t_object *object, t_p3d intersect, t_ray *ray)
 {
-	double		tmp;
 	double		t;
-	double		length;
+	t_object	*nearest;
 
 	t = -1;
-	tmp = -1;
-	length = -1;
+	nearest = NULL;
 	while (object)
 	{
 		if (object->type == SPHERE)
@@ -81,33 +51,48 @@ double				calc_object(t_object *object, t_env *env, t_ray *ray)
 			t  = calc_cone(object, ray);
 		else if (object->type == PLANE)
 			t = calc_plane(object, ray);
-		tmp = calc_norm(ray, t, env, object);
-		if (tmp > 0 && ((tmp < length) || length == -1))
-		{
-			env->color = object->color;
-			length = tmp;
-		}
+		object->dist = length_ray(ray, t, &intersect);
+		if (object->dist > 0 && ((!nearest) || (object->dist < nearest->dist)))
+			nearest = object;
 		object = object->next;
 	}
-	return (length);
+	return (nearest);
+}
+
+t_p3d				calc_norm(t_env *env, t_object *nearest_object)
+{
+	if (nearest_object->type == SPHERE)
+		return(calc_sphere_norm(env, nearest_object));
+	else if (nearest_object->type == CYLINDER)
+		return (calc_sphere_norm(env, nearest_object));
+	else if (nearest_object->type == CONE)
+		return (calc_sphere_norm(env, nearest_object));
+	else if (nearest_object->type == PLANE)
+		return (calc_sphere_norm(env, nearest_object));
+	return (env->norm);
 }
 
 int					calc_light(t_env *env)
 {
-	t_ray *light;
-	double angle;
-	double diffuse;
-	int col;
+	t_ray		*light;
+	double		angle;
+	double		diffuse;
+	int			col;
+	t_object	*nearest;
 
+	nearest = NULL;
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
+//	nearest = calc_object(env->object, env->intersect, light);
+//	if (!nearest && nearest->dist < norm(&light->dir))
+//		return (0xFFFFFF);
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir);
-	angle = mult_tp3d(env->norm, light->dir);
+	angle = mult_tp3d(calc_norm(env, env->nearest_object), light->dir);
 	diffuse = angle * COEFF * 255;
-	col = ((int)(color(env->color, RED) * diffuse) << 16) +
-	((int)(color(env->color, GREEN) * diffuse) << 8) +
-	(int)(color(env->color, BLUE) * diffuse) ;
+	col = ((int)(color(env->nearest_object->color, RED) * diffuse) << 16) +
+	((int)(color(env->nearest_object->color, GREEN) * diffuse) << 8) +
+	(int)(color(env->nearest_object->color, BLUE) * diffuse);
 	return ((col > 0) ? col : env->font_color);
 }
 
@@ -115,7 +100,6 @@ void				trace(t_env *env)
 {
 	int		x;
 	int		y;
-	int		length;
 	int		color;
 
 	y = -1;
@@ -127,10 +111,11 @@ void				trace(t_env *env)
 		{
 			env->color = env->font_color;
 			calc_ray(env, x, y);
-			if ((length = calc_object(env->object, env, &env->ray)) >= 0)
+			env->nearest_object = calc_object(env->object, env->intersect,
+					&env->ray);
+			if (env->nearest_object)
 			{
 				color = calc_light(env);
-				env->length = length;
 			}
 			else
 				color = env->font_color;
