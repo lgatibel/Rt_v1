@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/21 17:36:19 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/21 18:52:13 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
 		else if (object->type == PLANE)
 			t = calc_plane(object, ray);
 		object->dist = length_ray(ray, t, intersect);
-//		printf("object[%d], i[%d]\n",object->type, i);
+		printf("norm[%f]\n",length_ray(ray, t, intersect));
+		if (object->dist > 0)
+		printf("object[%d], i[%d]\n",object->type, i);
 		if (object->dist > 0 && ((!nearest) || (object->dist < nearest->dist)))
 			nearest = object;
 		object = object->next;
@@ -122,7 +124,7 @@ void				trace(t_env *env)
 			if (env->nearest_object)
 			{
 				printf("color\n");
-				color = calc_light(env);
+				color = WHITE;//calc_light(env);
 			}
 			else
 				color = env->font_color;
