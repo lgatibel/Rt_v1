@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/21 16:09:43 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/21 16:11:26 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
 	return (nearest);
 }
 
-t_p3d				*calc_norm(t_p3d *intersect, t_object *nearest_object)
+t_p3d				calc_norm(t_p3d *intersect, t_object *nearest_object)
 {
 	if (nearest_object->type == SPHERE)
 		return(calc_sphere_norm(intersect, nearest_object));
