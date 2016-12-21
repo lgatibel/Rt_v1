@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/21 11:53:21 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/21 13:18:07 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ double				length_ray(t_ray *ray, double t, t_p3d *intersect)
 	return (norm(intersect));
 }
 
-t_object			*calc_object(t_object *object, t_p3d intersect, t_ray *ray)
+t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
 {
 	double		t;
 	t_object	*nearest;
@@ -51,7 +51,7 @@ t_object			*calc_object(t_object *object, t_p3d intersect, t_ray *ray)
 			t  = calc_cone(object, ray);
 		else if (object->type == PLANE)
 			t = calc_plane(object, ray);
-		object->dist = length_ray(ray, t, &intersect);
+		object->dist = length_ray(ray, t, intersect);
 		if (object->dist > 0 && ((!nearest) || (object->dist < nearest->dist)))
 			nearest = object;
 		object = object->next;
@@ -59,17 +59,20 @@ t_object			*calc_object(t_object *object, t_p3d intersect, t_ray *ray)
 	return (nearest);
 }
 
-t_p3d				calc_norm(t_env *env, t_object *nearest_object)
+t_p3d				calc_norm(t_p3d *intersect, t_object *nearest_object)
 {
+	t_p3d	error;
+
 	if (nearest_object->type == SPHERE)
-		return(calc_sphere_norm(env, nearest_object));
+		return(calc_sphere_norm(intersect, nearest_object));
 	else if (nearest_object->type == CYLINDER)
-		return (calc_sphere_norm(env, nearest_object));
+		return (calc_cylinder_norm(intersect, nearest_object));
 	else if (nearest_object->type == CONE)
-		return (calc_sphere_norm(env, nearest_object));
+		return (calc_cone_norm(nearest_object));
 	else if (nearest_object->type == PLANE)
-		return (calc_sphere_norm(env, nearest_object));
-	return (env->norm);
+		return (calc_plane_norm(nearest_object));
+	set_tp3d(&error, -8, -8, -8);
+	return (error);
 }
 
 int					calc_light(t_env *env)
@@ -83,16 +86,22 @@ int					calc_light(t_env *env)
 	nearest = NULL;
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
-//	nearest = calc_object(env->object, env->intersect, light);
-//	if (!nearest && nearest->dist < norm(&light->dir))
-//		return (0xFFFFFF);
+	nearest = calc_object(env->object, &env->light_intersect, light);
+	if (nearest && env->nearest_object->ptr != nearest->ptr)
+		env->color = env->nearest_object->color;
+	else if (nearest)
+		env->color = nearest->color;
+	else
+		env->color = env->font_color;
+//		printf("nearest[%p], nearest[%p]\n",env->nearest_object->ptr, nearest->ptr);
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir);
-	angle = mult_tp3d(calc_norm(env, env->nearest_object), light->dir);
-	diffuse = angle * COEFF * 255;
-	col = ((int)(color(env->nearest_object->color, RED) * diffuse) << 16) +
-	((int)(color(env->nearest_object->color, GREEN) * diffuse) << 8) +
-	(int)(color(env->nearest_object->color, BLUE) * diffuse);
+	angle = mult_tp3d(calc_norm(&env->intersect, env->nearest_object),
+			light->dir);
+	diffuse = (angle <= 1) ? angle * COEFF : 0;
+	col = ((int)(color(env->color, RED) * diffuse) << 16) +
+	((int)(color(env->color, GREEN) * diffuse) << 8) +
+	(int)(color(env->color, BLUE) * diffuse);
 	return ((col > 0) ? col : env->font_color);
 }
 
@@ -111,7 +120,7 @@ void				trace(t_env *env)
 		{
 			env->color = env->font_color;
 			calc_ray(env, x, y);
-			env->nearest_object = calc_object(env->object, env->intersect,
+			env->nearest_object = calc_object(env->object, &env->intersect,
 					&env->ray);
 			if (env->nearest_object)
 			{

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/21 11:30:21 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/21 13:15:27 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define CUSTOM 0x0ECB25
 //# define FONT 0x00FFFFFF
 # define FONT 0x0
-# define COEFF .8
+# define COEFF 1
 # define ERROR 0
 # define OK 1
 
@@ -102,6 +102,7 @@ typedef struct		s_object
 	struct s_object		*next;
 	int					color;
 	double				dist;
+	t_p3d				norm;
 }					t_object;
 
 typedef struct		s_viewplane
@@ -128,10 +129,11 @@ typedef struct		s_env
 	t_ray		ray;
 	t_ray		light;
 	t_p3d		intersect;
-	t_p3d		norm;
 	t_object	*object;
+	t_p3d		light_intersect;
 	t_object	*nearest_object;
 
+//	t_p3d				norm;
 	t_viewplane viewplane;
 	double		xindent;
 	double		yindent;
@@ -173,10 +175,10 @@ double				calc_cylinder(t_object *object, t_ray *ray);
 double				calc_plane(t_object *object, t_ray *ray);
 void				calc_ray(t_env *env, double x, double y);
 
-t_p3d				calc_sphere_norm(t_env *env, t_object *nearest_object);
-t_p3d				calc_cylinder_norm(t_env *env, t_object *nearest_object);
-t_p3d				calc_cone_norm(t_env *env, t_object *nearest_object);
-t_p3d				calc_plane_norm(t_env *env, t_object *nearest_object);
+t_p3d				calc_sphere_norm(t_p3d *intersect, t_object *nearest_object);
+t_p3d				calc_cylinder_norm(t_p3d *intersect, t_object *nearest_object);
+t_p3d				calc_cone_norm(t_object *nearest_object);
+t_p3d				calc_plane_norm(t_object *nearest_object);
 
 void				normalized(t_p3d *point);
 void				event(t_env *env);
