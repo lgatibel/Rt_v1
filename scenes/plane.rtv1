@@ -13,12 +13,12 @@ origin 0 0 140
 radius 50
 rot 0 0 0
 color 0XFF0000
+###END
 #CYLINDER
 origin -100 0 300
 radius 100
 rot 0 0 0
 color 0X00FF00
-###END
 #SPHERE
 origin 100 0 500
 radius 40

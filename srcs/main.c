@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/22 18:09:14 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/22 18:43:34 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ double		norm(t_p3d *vec)
 
 double				length_ray(t_ray *ray, double t, t_p3d *intersect)
 {
+	t_p3d	vec;
 	if (t <= 0)
 		return (-8);
 	cpy_tp3d(intersect, mult_nb_tp3d(sum_tp3d(ray->pos, ray->dir), t));
-	return (norm(intersect));
+	vec = sub_tp3d(*intersect, ray->pos);
+	return (norm(&vec));
+//	return (norm(intersect));
 }
 
 t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
@@ -54,6 +57,7 @@ t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
 		else if (object->type == PLANE)
 			t = calc_plane(object, ray);
 		object->dist = length_ray(ray, t, intersect);
+//	printf("dist[%f]\n", object->dist);
 		if (object->dist > 0 && ((!nearest) || (object->dist < nearest->dist)))
 			nearest = object;
 		object = object->next;
@@ -94,7 +98,7 @@ int					calc_light(t_env *env)
 		return (YELLOW);//env->font_color);
 		return (BLUE);
 	}
-//		return (nearest->color);
+	//return (nearest->color);
 		env->color = nearest->color;
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir);
@@ -102,8 +106,8 @@ int					calc_light(t_env *env)
 	normalized(&normal);
 	angle = mult_tp3d(normal, light->dir);
 	diffuse = (angle > 0) ? angle * COEFF : 0;
-	printf("light x[%f], y[%f], z[%f]\n", light->dir.x, light->dir.y, light->dir.z);
-	printf("normal x[%f], y[%f], z[%f]\n",normal.x,normal.y, normal.z);
+//	printf("light x[%f], y[%f], z[%f]\n", light->dir.x, light->dir.y, light->dir.z);
+//	printf("normal x[%f], y[%f], z[%f]\n",normal.x,normal.y, normal.z);
 //	printf("x[%f], y[%f], z[%f]\n",env->intersect.x,env->intersect.y,
 //			env->intersect.z);
 //	if (diffuse == 0)
