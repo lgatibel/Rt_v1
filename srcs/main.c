@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/22 11:31:55 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/22 12:16:47 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,14 @@ int					calc_light(t_env *env)
 	double		diffuse;
 	int			col;
 	t_object	*nearest;
+	t_p3d		norm;
 
 	nearest = NULL;
 	light = &env->light;
 	light->dir = sub_tp3d(env->intersect, light->pos);
 	nearest = calc_object(env->object, &env->light_intersect, light);
 	if (!nearest || env->nearest_object->ptr != nearest->ptr)
-		return (YELLOW);//env->font_color);
+		return (env->font_color);//env->font_color);
 /*
 	if (nearest->type == SPHERE)
 		return (GREEN);
@@ -99,13 +100,15 @@ int					calc_light(t_env *env)
 //		printf("nearest[%p], nearest[%p]\n",env->nearest_object->ptr, nearest->ptr);
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir);
-	angle = mult_tp3d(calc_norm(&env->intersect, nearest),
-			light->dir);
+	norm = calc_norm(&env->intersect, nearest);
+	normalized(&norm);
+	angle = mult_tp3d(norm, light->dir);
+//	angle = mult_tp3d(calc_norm(&env->intersect, env->nearest_object),
+//			light->dir);
 	diffuse = (angle <= 1) ? angle * COEFF : 0;
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
 	((int)(color(env->color, GREEN) * diffuse) << 8) +
 	(int)(color(env->color, BLUE) * diffuse);
-	return (col);
 	return ((col > 0) ? col : env->font_color);
 }
 
@@ -123,12 +126,9 @@ void				trace(t_env *env)
 		while (++x < WIDTH)
 		{
 			calc_ray(env, x, y);
-			env->nearest_object = calc_object(env->object, &env->intersect,
-					&env->ray);
-			if (env->nearest_object)
-			{
+			if((env->nearest_object = calc_object(env->object, &env->intersect,
+					&env->ray)))
 				color = calc_light(env);
-			}
 			else
 				color = env->font_color;
 			*(env->img_addr + x + (y * env->size_line) / 4) = color;
