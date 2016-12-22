@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/22 11:10:58 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/22 11:31:55 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,18 @@ t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
 	return (nearest);
 }
 
-t_p3d				calc_norm(t_p3d *intersect, t_object *nearest_object)
+t_p3d				calc_norm(t_p3d *intersect, t_object *object)
 {
-	if (nearest_object->type == SPHERE)
-		return(calc_sphere_norm(intersect, nearest_object));
-	else if (nearest_object->type == CYLINDER)
-		return (calc_cylinder_norm(intersect, nearest_object));
-	else if (nearest_object->type == CONE)
-		return (calc_cone_norm(nearest_object));
-	else if (nearest_object->type == PLANE)
-		return (calc_plane_norm(nearest_object));
-	set_tp3d(&nearest_object->norm, -8, -8, -8);
-	return (nearest_object->norm);
+	if (object->type == SPHERE)
+		return(calc_sphere_norm(intersect, object));
+	else if (object->type == CYLINDER)
+		return (calc_cylinder_norm(intersect, object));
+	else if (object->type == CONE)
+		return (calc_cone_norm(object));
+	else if (object->type == PLANE)
+		return (calc_plane_norm(object));
+	set_tp3d(&object->norm, -8, -8, -8);
+	return (object->norm);
 }
 
 int					calc_light(t_env *env)
@@ -101,11 +101,11 @@ int					calc_light(t_env *env)
 	normalized(&light->dir);
 	angle = mult_tp3d(calc_norm(&env->intersect, nearest),
 			light->dir);
-	diffuse = (angle < 1) ? angle * COEFF : 0;
+	diffuse = (angle <= 1) ? angle * COEFF : 0;
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
 	((int)(color(env->color, GREEN) * diffuse) << 8) +
 	(int)(color(env->color, BLUE) * diffuse);
-//	return (col);
+	return (col);
 	return ((col > 0) ? col : env->font_color);
 }
 
