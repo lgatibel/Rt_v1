@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calc_norm.c                                        :+:      :+:    :+:   */
+/*   calc_normal.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 16:26:15 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/22 11:11:00 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/22 17:23:35 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
-t_p3d			calc_sphere_norm(t_p3d *intersect, t_object *object)
+t_p3d			calc_sphere_normal(t_p3d *intersect, t_object *object)
 {
 	t_sphere *sphere;
 
@@ -20,27 +20,27 @@ t_p3d			calc_sphere_norm(t_p3d *intersect, t_object *object)
 	return (div_nb_tp3d(sub_tp3d(*intersect, sphere->pos), sphere->radius));
 }
 
-t_p3d			calc_cylinder_norm(t_p3d *intersect, t_object *object)
+t_p3d			calc_cylinder_normal(t_p3d *intersect, t_object *object)
 {
 	t_cylinder *cylinder;
 
 	cylinder = (t_cylinder *)object->ptr;
-	object->norm = div_nb_tp3d(sub_tp3d(*intersect, cylinder->pos),
+	object->normal = div_nb_tp3d(sub_tp3d(*intersect, cylinder->pos),
 			cylinder->radius);
-	object->norm.y = 0;
-	return (object->norm);
+	object->normal.y = 0;
+	return (object->normal);
 }
 
-t_p3d			calc_cone_norm(t_object *object)
+t_p3d			calc_cone_normal(t_object *object)
 {
-	set_tp3d(&object->norm, 0, 0, 1);
-	return (object->norm);
+	set_tp3d(&object->normal, 0, 0, 1);
+	return (object->normal);
 }
 
-t_p3d			calc_plane_norm(t_object *object)
+t_p3d			calc_plane_normal(t_object *object)
 {
 	t_plane *plane;
 
 	plane = (t_plane *)object->ptr;
-	return (plane->norm);
+	return (plane->normal);
 }

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/22 13:31:52 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/22 17:44:16 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,18 @@ t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
 	return (nearest);
 }
 
-t_p3d				calc_norm(t_p3d *intersect, t_object *object)
+t_p3d				calc_normal(t_p3d *intersect, t_object *object)
 {
 	if (object->type == SPHERE)
-		return(calc_sphere_norm(intersect, object));
+		return(calc_sphere_normal(intersect, object));
 	else if (object->type == CYLINDER)
-		return (calc_cylinder_norm(intersect, object));
+		return (calc_cylinder_normal(intersect, object));
 	else if (object->type == CONE)
-		return (calc_cone_norm(object));
+		return (calc_cone_normal(object));
 	else if (object->type == PLANE)
-		return (calc_plane_norm(object));
-	set_tp3d(&object->norm, -8, -8, -8);
-	return (object->norm);
+		return (calc_plane_normal(object));
+	set_tp3d(&object->normal, -8, -8, -8);
+	return (object->normal);
 }
 
 int					calc_light(t_env *env)
@@ -82,7 +82,7 @@ int					calc_light(t_env *env)
 	double		diffuse;
 	int			col;
 	t_object	*nearest;
-	t_p3d		norm;
+	t_p3d		normal;
 
 	nearest = NULL;
 	light = &env->light;
@@ -90,35 +90,26 @@ int					calc_light(t_env *env)
 	nearest = calc_object(env->object, &env->light_intersect, light);
 	if (!nearest || env->nearest_object->ptr != nearest->ptr)
 	{
-		return (env->font_color);
+		if (!nearest)
+		return (YELLOW);//env->font_color);
+		return (BLUE);
 	}
-	else
+//		return (nearest->color);
 		env->color = nearest->color;
-//	if (env->nearest_object->type == SPHERE)
-//		printf("SPHERE\n");
-//	else if (nearest->type == CYLINDER)
-//		printf("CYLINDER\n");
-/*
-	if (nearest->type == SPHERE)
-		return (GREEN);
-	else
-		return (RED);
-*/
-//		printf("nearest[%p], nearest[%p]\n",env->nearest_object->ptr, nearest->ptr);
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir);
-	norm = calc_norm(&env->intersect, nearest);
-//	printf("x[%f], y[%f], z[%f]\n", norm.x, norm.y,norm.z);
-	normalized(&norm);
-	angle = mult_tp3d(norm, light->dir);
-//	angle = mult_tp3d(calc_norm(&env->intersect, env->nearest_object),
-//			light->dir);
-	diffuse = (angle <= 1) ? angle * COEFF : 0;
+
+	normal = calc_normal(&env->intersect, nearest);
+	normalized(&normal);
+	angle = mult_tp3d(normal, light->dir);
+	diffuse = (angle > 0) ? angle * COEFF : 0;
+
+//	if (diffuse == 0)
+//		return (YELLOW);
+//	printf("diffuse[%f], angle[%f]\n", diffuse, angle);
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
 	((int)(color(env->color, GREEN) * diffuse) << 8) +
 	(int)(color(env->color, BLUE) * diffuse);
-	if(angle < 0 &&  nearest->type != 4)
-		printf("type[%d]\n", nearest->type);
 	return (col);
 	return ((col > 0) ? col : env->font_color);
 }

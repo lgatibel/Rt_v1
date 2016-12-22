@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/22 11:45:06 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/22 17:44:31 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 # define BLACK 0x000000
 # define YELLOW 0XF7FA04
 # define CUSTOM 0x0ECB25
-//# define FONT 0x00FFFFFF
-# define FONT 0x0
+# define FONT 0x00FFFFFF
+//# define FONT 0x0
 # define COEFF 1
 # define ERROR 0
 # define OK 1
@@ -84,7 +84,7 @@ typedef struct		s_cylinder
 typedef struct		s_plane
 {
 	t_p3d		pos;
-	t_p3d		norm;
+	t_p3d		normal;
 	double		d;
 }					t_plane;
 
@@ -102,7 +102,7 @@ typedef struct		s_object
 	struct s_object		*next;
 	int					color;
 	double				dist;
-	t_p3d				norm;
+	t_p3d				normal;
 }					t_object;
 
 typedef struct		s_viewplane
@@ -175,10 +175,10 @@ double				calc_cylinder(t_object *object, t_ray *ray);
 double				calc_plane(t_object *object, t_ray *ray);
 void				calc_ray(t_env *env, double x, double y);
 
-t_p3d				calc_sphere_norm(t_p3d *intersect, t_object *object);
-t_p3d				calc_cylinder_norm(t_p3d *intersect, t_object *object);
-t_p3d				calc_cone_norm(t_object *object);
-t_p3d				calc_plane_norm(t_object *object);
+t_p3d				calc_sphere_normal(t_p3d *intersect, t_object *object);
+t_p3d				calc_cylinder_normal(t_p3d *intersect, t_object *object);
+t_p3d				calc_cone_normal(t_object *object);
+t_p3d				calc_plane_normal(t_object *object);
 
 void				normalized(t_p3d *point);
 void				event(t_env *env);

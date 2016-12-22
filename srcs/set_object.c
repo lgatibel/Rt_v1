@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 10:40:46 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/22 10:13:55 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/22 17:26:54 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void			set_plane(t_env *env, int fd, t_object **obj)
 		if (!ft_strcmp(ft_strtrim(tab[0]), "origin"))
 			ok[0] = set_vecteur(&tab[1], &plane->pos);
 		else if (!ft_strcmp(ft_strtrim(tab[0]), "norm"))
-			ok[1] = set_vecteur(&tab[1], &plane->norm);
+			ok[1] = set_vecteur(&tab[1], &plane->normal);
 		else if (!ft_strcmp(ft_strtrim(tab[0]), "length"))
 			ok[2] = set_radius(&tab[1], &plane->d);
 		else if (!ft_strcmp(ft_strtrim(tab[0]), "color"))

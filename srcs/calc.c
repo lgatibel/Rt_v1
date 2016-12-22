@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 15:23:21 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/22 17:27:29 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ double				calc_plane(t_object *object, t_ray *ray)
 	cpy_tp3d(&rdir, ray->dir);
 	pl = (t_plane *)object->ptr;
 
-	t = -(pl->norm.x * (ray->pos.x - pl->pos.x) + pl->norm.y *
-		(ray->pos.y - pl->pos.y) + pl->norm.z * (ray->pos.z - pl->pos.z) +
-		pl->d) / (pl->norm.x * rdir.x + pl->norm.y * rdir.y +
-			pl->norm.z * rdir.z);
+	t = -(pl->normal.x * (ray->pos.x - pl->pos.x) + pl->normal.y *
+		(ray->pos.y - pl->pos.y) + pl->normal.z * (ray->pos.z - pl->pos.z) +
+		pl->d) / (pl->normal.x * rdir.x + pl->normal.y * rdir.y +
+			pl->normal.z * rdir.z);
 	// faire gaffe a floting point execption
 	return ((t < 0) ? -8 : t);
 }
