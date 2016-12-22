@@ -10,7 +10,7 @@ rot 0 0 0
 color 0X00FF00
 #SPHERE
 origin 0 0 500
-radius 40
+radius 50
 rot 0 0 0
 color 0XFF0000
 ###END
