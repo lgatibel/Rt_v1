@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/22 12:16:47 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/22 12:49:36 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,24 @@ int					calc_light(t_env *env)
 	light->dir = sub_tp3d(env->intersect, light->pos);
 	nearest = calc_object(env->object, &env->light_intersect, light);
 	if (!nearest || env->nearest_object->ptr != nearest->ptr)
-		return (env->font_color);//env->font_color);
+	{
+		nearest = env->nearest_object;
+		env->color = env->font_color;
+	}
+		//env->color = env->nearest_object->color;//env->font_color);
+	else
+	//	return (WHITE);
+		env->color = nearest->color;
+//	if (env->nearest_object->type == SPHERE)
+//		printf("SPHERE\n");
+//	else if (nearest->type == CYLINDER)
+//		printf("CYLINDER\n");
 /*
 	if (nearest->type == SPHERE)
 		return (GREEN);
 	else
 		return (RED);
 */
-	env->color = nearest->color;
 //		printf("nearest[%p], nearest[%p]\n",env->nearest_object->ptr, nearest->ptr);
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir);
@@ -109,6 +119,7 @@ int					calc_light(t_env *env)
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
 	((int)(color(env->color, GREEN) * diffuse) << 8) +
 	(int)(color(env->color, BLUE) * diffuse);
+	return (col);
 	return ((col > 0) ? col : env->font_color);
 }
 
