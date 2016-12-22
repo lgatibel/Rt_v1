@@ -6,12 +6,13 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 10:40:46 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/20 16:53:34 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/22 10:13:55 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
 
+// voir posur les radius negatif
 static void			set_plane(t_env *env, int fd, t_object **obj)
 {
 	int			i;

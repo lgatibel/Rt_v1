@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 17:22:33 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/21 14:48:45 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/22 10:11:44 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_p3d			square_tp3d(t_p3d *src)
 void			cpy_tp3d(t_p3d *dest, t_p3d src)
 {
 //	if (dest && src)
-		return ;
+//		return ;
 	dest->x = src.x;
 	dest->y = src.y;
 	dest->z = src.z;
