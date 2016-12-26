@@ -9,10 +9,10 @@ radius 50
 rot 0 0 0
 color 0X00FF00
 #SPHERE
-origin 0 0 140
+origin 0 0 250
 radius 50
 rot 0 0 0
-color 0XFF0000
+color 0X00FF00
 ###END
 #CYLINDER
 origin -100 0 300

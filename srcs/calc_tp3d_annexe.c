@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 16:45:15 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/22 15:40:02 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/26 16:06:17 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 
 double			div_tp3d(t_p3d vector1, t_p3d vector2)
 {
-	double		result;
-
-//	if (!vector1 || !vector2)
-//		return (NULL);
-	result = vector1.x / vector2.x;
-	result += vector1.y / vector2.y;
-	result += vector1.z / vector2.z;
-	return (result);
+	if (!vector1 || !vector2)
+		return (ERROR);
+	return (vector1.x / vector2.x + vector1.y /
+			vector2.y + vector1.z / vector2.z);
 }
 
 t_p3d			div_nb_tp3d(t_p3d vector, double nb)
@@ -38,14 +34,21 @@ t_p3d			div_nb_tp3d(t_p3d vector, double nb)
 
 double			mult_tp3d(t_p3d vector1, t_p3d vector2)
 {
-	double		result;
-
-//	if (!vector1 || !vector2)
-//		return (NULL);
-	result = vector1.x * vector2.x;
-	result += vector1.y * vector2.y;
-	result += vector1.z * vector2.z;
-	return (result);
+	if (!vector1 || !vector2)
+		return (ERROR);
+	return (vector1.x * vector2.x + vector1.y * vector2.y +
+		vector1.z * vector2.z);
+	
 }
 
+double			cross_product_tp3d(t_p3d vector1, t_p3d vector2)
+{
+	if (!vector1 || !vector2)
+		return (ERROR);
+
+	return (ERROR);
+	// a definir
+	return (vector1.x * vector2.x + vector1.y * vector2.y +
+		vector1.z * vector2.z);
+}
 //fonction a proteger

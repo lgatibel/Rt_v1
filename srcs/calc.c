@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/22 17:27:29 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/26 12:07:36 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ double				calc_delta(double a, double b, double c)
 	t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
 	t = (t0 > 0 && (t0 < t1 || t1 <= 0)) ? t0 : t1;
 	t = (t > 0) ? t : -8;
+//	t = (t0 < t1) ? t0 : t1;
 	return (t);
 }
 //voir pour la saisie des argument comme length ci celui-ci est set a 0 si il ny as pas de bug
