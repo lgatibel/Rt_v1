@@ -3,22 +3,17 @@
 origin 0 0 0
 rot 0 0 0
 ##OBJECT
-#CONE
-origin 0 0 275
-radius 0
-rot 0 0 0
-color 0X00FF00
-###END
-#CYLINDER
-origin 0 0 275
-radius 50
-rot 0 0 0
-color 0XFF0000
 #PLANE
 origin 0 0 0
 norm 0 1 0
 length 50
 color 0xFFFFFF
+#CYLINDER
+origin 0 0 275
+radius 50
+rot 0 0 0
+color 0XFF0000
+###END
 #CYLINDER
 origin -100 0 300
 radius 100
@@ -34,3 +29,8 @@ origin 0 0 0
 norm 0 1 0
 length -10
 color 0xFFFFFF
+#CONE
+origin 0 0 375
+radius 0
+rot 0 0 0
+color 0X00FF00

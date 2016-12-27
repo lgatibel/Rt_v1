@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/27 10:34:41 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/27 11:40:42 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,41 +90,25 @@ int					calc_light(t_env *env)
 
 	nearest = NULL;
 	light = &env->light;
-	light->dir = sub_tp3d(env->intersect, light->pos);
+	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
 	nearest = calc_object(env->object, &env->light_intersect, light);
 	if (!nearest || env->nearest_object->ptr != nearest->ptr)
 	{
 		if (!nearest)
-		return (YELLOW);//env->font_color);
-		return (BLUE);
+			nearest = env->nearest_object;//env->font_color;
+		else
+			nearest = env->nearest_object;//env->font_color;
 	}
-//	return (nearest->color);
-		env->color = nearest->color;
+	env->color = nearest->color;
 	normal = calc_normal(&nearest->inter, nearest);
-//	normal = nearest->normal;
 	normalized(&normal);
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir);
 	angle = mult_tp3d(normal, light->dir);
-	if (angle < 0)
-	{
-//	printf("normal x[%f], y[%f], z[%f]\n",normal.x,normal.y, normal.z);
-//	printf("x[%f], y[%f], z[%f]\n",env->intersect.x,env->intersect.y,
-//			env->intersect.z);
-	}
-	//	printf("diffuse[%f], angle[%f]\n", diffuse, angle);
 	diffuse = (angle > 0) ? angle * COEFF : 0;
-//	diffuse = fabs(angle) * COEFF;
-//	printf("light x[%f], y[%f], z[%f]\n", light->dir.x, light->dir.y, light->dir.z);
-//	printf("normal x[%f], y[%f], z[%f]\n",normal.x,normal.y, normal.z);
-//			env->intersect.z);
-//	if (diffuse == 0)
-//		return (YELLOW);
-//	printf("diffuse[%f], angle[%f]\n", diffuse, angle);
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
 	((int)(color(env->color, GREEN) * diffuse) << 8) +
 	(int)(color(env->color, BLUE) * diffuse);
-	return (col);
 	return ((col > 0) ? col : env->font_color);
 }
 
