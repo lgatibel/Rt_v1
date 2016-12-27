@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/27 17:13:41 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/27 19:22:52 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,35 +91,24 @@ int					calc_light(t_env *env)
 	int			col;
 	t_object	*nearest;
 	t_p3d		normal;
+	t_p3d		inters;
 
 	nearest = NULL;
 	light = &env->light;
+	cpy_tp3d(&inters, env->nearest_object->inter);
 	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
 	nearest = calc_object(env->object, light);
-	/*
-	if (nearest->type == CYLINDER)
-		printf("Cylinder\n");
-	else if (nearest->type == PLANE)
-		printf("Plane\n");
-		*/
 	if (!nearest || env->nearest_object->ptr != nearest->ptr)
 	{
-	/*	if (!nearest)
-			nearest = env->nearest_object;//env->font_color;
-		else
-//			return (YELLOW);
-			nearest = env->nearest_object;//env->font_color;
-
-		printf("blocked\n");
-	*/	env->color = env->font_color;
 		if (!nearest)
-			return (env->color);
-	//	else
-		env->color = YELLOW;
+			return (YELLOW);
+		nearest = env->nearest_object;
+	//	return (env->font_color);
+	//	env->color = env->font_color;
 	}
-	else
 	env->color = nearest->color;
-	normal = calc_normal(&nearest->inter, nearest);
+	normal = calc_normal(&inters, nearest);
+//	normal = calc_normal(&nearest->inter, nearest);
 	normalized(&normal);
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir);
