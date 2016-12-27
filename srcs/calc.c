@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/26 12:07:36 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/27 16:45:14 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ double				calc_delta(double a, double b, double c)
 //	t = (t0 < t1) ? t0 : t1;
 	return (t);
 }
-//voir pour la saisie des argument comme length ci celui-ci est set a 0 si il ny as pas de bug
+//voir pour la saisie des argument comme length ci celui-ci est set a 0 si il ny as pas de bug ou egale 
 
 double				calc_plane(t_object *object, t_ray *ray)
 {

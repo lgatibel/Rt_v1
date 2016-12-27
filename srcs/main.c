@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/27 13:10:07 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/27 17:13:41 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,28 @@ int					calc_light(t_env *env)
 	light = &env->light;
 	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
 	nearest = calc_object(env->object, light);
+	/*
+	if (nearest->type == CYLINDER)
+		printf("Cylinder\n");
+	else if (nearest->type == PLANE)
+		printf("Plane\n");
+		*/
 	if (!nearest || env->nearest_object->ptr != nearest->ptr)
 	{
-		if (!nearest)
+	/*	if (!nearest)
 			nearest = env->nearest_object;//env->font_color;
 		else
 //			return (YELLOW);
 			nearest = env->nearest_object;//env->font_color;
+
+		printf("blocked\n");
+	*/	env->color = env->font_color;
+		if (!nearest)
+			return (env->color);
+	//	else
+		env->color = YELLOW;
 	}
+	else
 	env->color = nearest->color;
 	normal = calc_normal(&nearest->inter, nearest);
 	normalized(&normal);
