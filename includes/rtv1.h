@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/27 10:28:22 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/27 13:14:02 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct		s_object
 	double				dist;
 	t_p3d				normal;
 	t_p3d				inter;
+	t_bool				set;
 }					t_object;
 
 typedef struct		s_viewplane
@@ -129,9 +130,9 @@ typedef struct		s_env
 	t_cam		cam;
 	t_ray		ray;
 	t_ray		light;
-	t_p3d		intersect;
+//	t_p3d		intersect;
 	t_object	*object;
-	t_p3d		light_intersect;
+//	t_p3d		light_intersect;
 	t_object	*nearest_object;
 
 //	t_p3d				norm;

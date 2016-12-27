@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/27 11:40:42 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/27 13:10:07 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,23 @@ double		norm(t_p3d *vec)
 	return (res);
 }
 
-double				length_ray(t_ray *ray, double t, t_p3d *intersect)
+double				length_ray(t_ray *ray, double t, t_object *object)
 {
 	t_p3d	vec;
+
 	if (t <= 0)
 		return (-8);
-	cpy_tp3d(intersect, mult_nb_tp3d(sum_tp3d(ray->pos, ray->dir), t));
-	vec = sub_tp3d(*intersect, ray->pos);
+	vec = mult_nb_tp3d(sum_tp3d(ray->pos, ray->dir), t);
+	if (object->set == false)
+	{
+		cpy_tp3d(&object->inter,vec);
+		object->set = true;
+	}
+	vec = sub_tp3d(vec, ray->pos);
 	return (norm(&vec));
-//	return (norm(intersect));
 }
 
-t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
+t_object			*calc_object(t_object *object, t_ray *ray)
 {
 	double		t;
 	t_object	*nearest;
@@ -56,8 +61,7 @@ t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
 			t  = calc_cone(object, ray);
 		else if (object->type == PLANE)
 			t = calc_plane(object, ray);
-		object->dist = length_ray(ray, t, intersect);
-		cpy_tp3d(&object->inter, *intersect);
+		object->dist = length_ray(ray, t, object);
 		if (object->dist > 0 && ((!nearest) || (object->dist < nearest->dist)))
 			nearest = object;
 		object = object->next;
@@ -91,12 +95,13 @@ int					calc_light(t_env *env)
 	nearest = NULL;
 	light = &env->light;
 	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
-	nearest = calc_object(env->object, &env->light_intersect, light);
+	nearest = calc_object(env->object, light);
 	if (!nearest || env->nearest_object->ptr != nearest->ptr)
 	{
 		if (!nearest)
 			nearest = env->nearest_object;//env->font_color;
 		else
+//			return (YELLOW);
 			nearest = env->nearest_object;//env->font_color;
 	}
 	env->color = nearest->color;
@@ -112,6 +117,15 @@ int					calc_light(t_env *env)
 	return ((col > 0) ? col : env->font_color);
 }
 
+void				reset_object(t_object *object)
+{
+	while (object)
+	{
+		object->set = false;
+		object = object->next;
+	}
+}
+
 void				trace(t_env *env)
 {
 	int		x;
@@ -125,9 +139,9 @@ void				trace(t_env *env)
 		x = -1;
 		while (++x < WIDTH)
 		{
+			reset_object(env->object);
 			calc_ray(env, x, y);
-			if((env->nearest_object = calc_object(env->object, &env->intersect,
-					&env->ray)))
+			if((env->nearest_object = calc_object(env->object, &env->ray)))
 				color = calc_light(env);
 			else
 				color = env->font_color;

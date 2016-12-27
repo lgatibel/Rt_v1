@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 12:25:38 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/21 13:15:57 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/27 13:14:21 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static void			set_mlx(t_env *env)
 
 void				set_env(t_env *env)
 {
-	set_tp3d(&env->intersect, 0, 0, 0);
-	set_tp3d(&env->light_intersect, 0, 0, 0);
 	env->final_color = 0;
 	env->object = NULL;
 	env->nearest_object = NULL;
