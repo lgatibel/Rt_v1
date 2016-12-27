@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/26 16:21:48 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/27 10:34:41 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_object			*calc_object(t_object *object, t_p3d *intersect, t_ray *ray)
 		else if (object->type == PLANE)
 			t = calc_plane(object, ray);
 		object->dist = length_ray(ray, t, intersect);
-//	printf("dist[%f]\n", object->dist);
+		cpy_tp3d(&object->inter, *intersect);
 		if (object->dist > 0 && ((!nearest) || (object->dist < nearest->dist)))
 			nearest = object;
 		object = object->next;
@@ -100,8 +100,8 @@ int					calc_light(t_env *env)
 	}
 //	return (nearest->color);
 		env->color = nearest->color;
-	calc_normal(&env->intersect, nearest);
-	normal = nearest->normal;
+	normal = calc_normal(&nearest->inter, nearest);
+//	normal = nearest->normal;
 	normalized(&normal);
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir);
@@ -114,6 +114,7 @@ int					calc_light(t_env *env)
 	}
 	//	printf("diffuse[%f], angle[%f]\n", diffuse, angle);
 	diffuse = (angle > 0) ? angle * COEFF : 0;
+//	diffuse = fabs(angle) * COEFF;
 //	printf("light x[%f], y[%f], z[%f]\n", light->dir.x, light->dir.y, light->dir.z);
 //	printf("normal x[%f], y[%f], z[%f]\n",normal.x,normal.y, normal.z);
 //			env->intersect.z);
