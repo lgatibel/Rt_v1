@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/28 10:06:11 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/28 13:16:01 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@
 # define VIEW_WIDTH .8
 # define VIEW_HEIGHT .8
 # define RAYON_SIZE 1000
+
 # define RED 0XFF0000
 # define GREEN 0X00FF00
 # define BLUE 0X0000FF
 # define WHITE 0XFFFFFF
 # define BLACK 0x000000
 # define YELLOW 0XF7FA04
+# define PURPLE 0X8D44D6
 # define CUSTOM 0x0ECB25
 //# define FONT 0x00FFFFFF
 # define FONT 0x0
@@ -104,6 +106,7 @@ typedef struct		s_object
 	double				dist;
 	t_p3d				normal;
 	t_p3d				inter;
+	t_p3d				inter2;
 	t_bool				set;
 	int					id;
 }					t_object;

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/28 12:23:22 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/28 13:30:18 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,17 @@ double				length_ray(t_ray *ray, double t, t_object *object)
 
 	if (t <= 0)
 		return (-8);
+		vec = mult_nb_tp3d(sum_tp3d(ray->pos, ray->dir), t);
 	if (object->set == false)
 	{
-		vec = mult_nb_tp3d(sum_tp3d(ray->pos, ray->dir), t);
 		cpy_tp3d(&object->inter, vec);
 	}
 	else
 	{
+		cpy_tp3d(&object->inter2, vec);
 		cpy_tp3d(&vec, object->inter);
-	object->set = true;
 	}
+	object->set = true;
 	vec = sub_tp3d(vec, ray->pos);
 	return (norm(&vec));
 }
@@ -89,6 +90,13 @@ t_p3d				calc_normal(t_p3d *intersect, t_object *object)
 	return (object->normal);
 }
 
+int					equal_tp3d(t_p3d point1, t_p3d point2)
+{
+	if (point1.x != point2.x || point1.y != point2.y || point1.z != point2.z)
+		return (0);
+	return (1);
+}
+
 int					calc_light(t_env *env)
 {
 	t_ray		*light;
@@ -111,10 +119,11 @@ int					calc_light(t_env *env)
 		return (YELLOW);
 	else if (env->nearest_object->id != nearest->id)
 	{
-		return(GREEN);
+		return(PURPLE);
 	}
-	else
-		env->color = env->nearest_object->color;
+//	else if (!equal_tp3d(env->nearest_object->inter, nearest->inter2))
+//		return (GREEN);
+	env->color = env->nearest_object->color;
 //	return (env->nearest_object->color);
 	normal = calc_normal(&env->nearest_object->inter, env->nearest_object);
 //	normal = calc_normal(&nearest->inter, nearest);
@@ -156,7 +165,7 @@ void				trace(t_env *env)
 			if((env->nearest_object = calc_object(env->object, &env->ray)))
 				color = calc_light(env);
 			else
-				color = env->font_color;
+				color = WHITE;//env->font_color;
 			*(env->img_addr + x + (y * env->size_line) / 4) = color;
 		}
 	}
