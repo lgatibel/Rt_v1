@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/27 19:22:52 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/28 12:23:22 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,15 @@ double				length_ray(t_ray *ray, double t, t_object *object)
 
 	if (t <= 0)
 		return (-8);
-	vec = mult_nb_tp3d(sum_tp3d(ray->pos, ray->dir), t);
 	if (object->set == false)
 	{
-		cpy_tp3d(&object->inter,vec);
-		object->set = true;
+		vec = mult_nb_tp3d(sum_tp3d(ray->pos, ray->dir), t);
+		cpy_tp3d(&object->inter, vec);
+	}
+	else
+	{
+		cpy_tp3d(&vec, object->inter);
+	object->set = true;
 	}
 	vec = sub_tp3d(vec, ray->pos);
 	return (norm(&vec));
@@ -46,13 +50,13 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 {
 	double		t;
 	t_object	*nearest;
+	int			i;
 
 	t = -1;
 	nearest = NULL;
-	int i = 0;
+	i = 0;
 	while (object)
 	{
-		i++;
 		if (object->type == SPHERE)
 			t = calc_sphere(object, ray);
 		else if (object->type == CYLINDER)
@@ -64,6 +68,7 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 		object->dist = length_ray(ray, t, object);
 		if (object->dist > 0 && ((!nearest) || (object->dist < nearest->dist)))
 			nearest = object;
+		object->id = ++i;
 		object = object->next;
 	}
 	return (nearest);
@@ -79,7 +84,8 @@ t_p3d				calc_normal(t_p3d *intersect, t_object *object)
 		return (calc_cone_normal(object));
 	else if (object->type == PLANE)
 		return (calc_plane_normal(object));
-	set_tp3d(&object->normal, -8, -8, -8);
+	else
+		set_tp3d(&object->normal, -8, -8, -8);
 	return (object->normal);
 }
 
@@ -91,23 +97,26 @@ int					calc_light(t_env *env)
 	int			col;
 	t_object	*nearest;
 	t_p3d		normal;
-	t_p3d		inters;
 
+//	printf("inter.x[%f], set[%d]\n",env->nearest_object->inter.y,
+//	env->nearest_object->set);
 	nearest = NULL;
 	light = &env->light;
-	cpy_tp3d(&inters, env->nearest_object->inter);
 	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
 	nearest = calc_object(env->object, light);
-	if (!nearest || env->nearest_object->ptr != nearest->ptr)
+//	if (env->object->id != 1)
+	if (nearest->id != 1)
+		printf("id[%d]\n", nearest->id);
+	if (!nearest)
+		return (YELLOW);
+	else if (env->nearest_object->id != nearest->id)
 	{
-		if (!nearest)
-			return (YELLOW);
-		nearest = env->nearest_object;
-	//	return (env->font_color);
-	//	env->color = env->font_color;
+		return(GREEN);
 	}
-	env->color = nearest->color;
-	normal = calc_normal(&inters, nearest);
+	else
+		env->color = env->nearest_object->color;
+//	return (env->nearest_object->color);
+	normal = calc_normal(&env->nearest_object->inter, env->nearest_object);
 //	normal = calc_normal(&nearest->inter, nearest);
 	normalized(&normal);
 	reverse_tp3d(&light->dir);
