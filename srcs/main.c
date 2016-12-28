@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/28 16:11:38 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/28 16:42:43 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,15 +103,19 @@ int					calc_light(t_env *env)
 	nearest = calc_object(env->object, light);
 	if (!nearest)
 		return (PURPLE);
-	else if (env->nearest_object->norminter > env->nearest_object->normlight)
+	else if (env->nearest_object->norminter > 0 &&
+			env->nearest_object->norminter == env->nearest_object->normlight)
 		return (GREEN);
-	env->color = env->nearest_object->color;
+	else
+		return (YELLOW);
 //	return (env->nearest_object->color);
+	env->color = env->nearest_object->color;
 	normal = calc_normal(&env->nearest_object->inter, env->nearest_object);
 //	normal = calc_normal(&nearest->inter, nearest);
 	normalized(&normal);
 	reverse_tp3d(&light->dir);
 	normalized(&light->dir);
+
 	angle = mult_tp3d(normal, light->dir);
 	diffuse = (angle > 0) ? angle * COEFF : 0;
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
