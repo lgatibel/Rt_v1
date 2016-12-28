@@ -8,12 +8,12 @@ origin 50 0 400
 radius 50
 rot 0 0 0
 color 0XFF0000
+###END
 #SPHERE
 origin -80 0 400
 radius 50
 rot 0 0 0
 color 0X0000FF
-###END
 
 #PLANE
 origin -80 0 0

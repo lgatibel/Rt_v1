@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/28 15:32:45 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/28 16:11:38 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,20 @@ double		calc_norm(t_p3d *vec)
 double				length_ray(t_ray *ray, double t, t_object *object)
 {
 	t_p3d	vec;
-	t_p3d	normal;
+	t_p3d	tmp;
 	t_p3d	res;
 
 	if (t <= 0)
 		return (-8);
-		vec = mult_nb_tp3d(sum_tp3d(ray->pos, ray->dir), t);
+	vec = mult_nb_tp3d(sum_tp3d(ray->pos, ray->dir), t);
+	res = sub_tp3d(vec, ray->pos);
 	if (object->set == false)
-	{
-		res = sub_tp3d(vec, ray->pos);
 		cpy_tp3d(&object->inter, vec);
-	}
 	else
 	{
-		normal = sub_tp3d(vec, ray->pos);
-		object->normlight = calc_norm(&normal);
-		normal = sub_tp3d(object->inter, ray->pos);
-		object->norminter = calc_norm(&normal);
-		res = sub_tp3d(vec, ray->pos);
+		object->normlight = calc_norm(&res);
+		tmp = sub_tp3d(object->inter, ray->pos);
+		object->norminter = calc_norm(&tmp);
 	}
 	object->set = true;
 	return (calc_norm(&res));
@@ -106,8 +102,8 @@ int					calc_light(t_env *env)
 	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
 	nearest = calc_object(env->object, light);
 	if (!nearest)
-		return (YELLOW);
-	if (env->nearest_object->norminter > env->nearest_object->normlight)
+		return (PURPLE);
+	else if (env->nearest_object->norminter > env->nearest_object->normlight)
 		return (GREEN);
 	env->color = env->nearest_object->color;
 //	return (env->nearest_object->color);
