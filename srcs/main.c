@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/28 13:30:18 by lgatibel         ###   ########.fr       */
+/*   Updated: 2016/12/28 15:14:29 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,34 @@ void				reverse_tp3d(t_p3d *vec)
 
 double		norm(t_p3d *vec)
 {
-	double res;
-	res = sqrt(vec->x * vec->x + vec->y * vec->y + vec->z * vec->z);
-	return (res);
+	return (sqrt(vec->x * vec->x + vec->y * vec->y + vec->z * vec->z));
 }
 
 double				length_ray(t_ray *ray, double t, t_object *object)
 {
 	t_p3d	vec;
+	t_p3d	normal;
+	t_p3d	res;
 
 	if (t <= 0)
 		return (-8);
 		vec = mult_nb_tp3d(sum_tp3d(ray->pos, ray->dir), t);
 	if (object->set == false)
 	{
+		res = sub_tp3d(vec, ray->pos);
 		cpy_tp3d(&object->inter, vec);
 	}
 	else
 	{
-		cpy_tp3d(&object->inter2, vec);
-		cpy_tp3d(&vec, object->inter);
+		normal = sub_tp3d(vec, ray->pos);
+		object->norm2 = norm(&normal);
+		normal = sub_tp3d(object->inter, ray->pos);
+		object->tmp = norm(&normal);
+		res = sub_tp3d(vec, ray->pos);
 	}
 	object->set = true;
 	vec = sub_tp3d(vec, ray->pos);
+	return (norm(&res));
 	return (norm(&vec));
 }
 
@@ -51,11 +56,9 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 {
 	double		t;
 	t_object	*nearest;
-	int			i;
 
 	t = -1;
 	nearest = NULL;
-	i = 0;
 	while (object)
 	{
 		if (object->type == SPHERE)
@@ -69,7 +72,6 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 		object->dist = length_ray(ray, t, object);
 		if (object->dist > 0 && ((!nearest) || (object->dist < nearest->dist)))
 			nearest = object;
-		object->id = ++i;
 		object = object->next;
 	}
 	return (nearest);
@@ -90,13 +92,6 @@ t_p3d				calc_normal(t_p3d *intersect, t_object *object)
 	return (object->normal);
 }
 
-int					equal_tp3d(t_p3d point1, t_p3d point2)
-{
-	if (point1.x != point2.x || point1.y != point2.y || point1.z != point2.z)
-		return (0);
-	return (1);
-}
-
 int					calc_light(t_env *env)
 {
 	t_ray		*light;
@@ -112,17 +107,10 @@ int					calc_light(t_env *env)
 	light = &env->light;
 	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
 	nearest = calc_object(env->object, light);
-//	if (env->object->id != 1)
-	if (nearest->id != 1)
-		printf("id[%d]\n", nearest->id);
 	if (!nearest)
 		return (YELLOW);
-	else if (env->nearest_object->id != nearest->id)
-	{
-		return(PURPLE);
-	}
-//	else if (!equal_tp3d(env->nearest_object->inter, nearest->inter2))
-//		return (GREEN);
+	if (env->nearest_object->tmp >= nearest->norm2)
+		return (GREEN);
 	env->color = env->nearest_object->color;
 //	return (env->nearest_object->color);
 	normal = calc_normal(&env->nearest_object->inter, env->nearest_object);
