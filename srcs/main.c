@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2017/01/23 09:27:46 by lgatibel         ###   ########.fr       */
+/*   Updated: 2017/01/23 13:52:27 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 	t_object	*nearest;
 
 	t = -1;
+
+
 	nearest = NULL;
 	while (object)
 	{
@@ -64,7 +66,7 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 		else if (object->type == PLANE)
 			t = calc_plane(object, ray);
 		object->dist = length_ray(ray, t, object);
-		if (object->dist > 0 && ((!nearest) || (object->dist < nearest->dist)))
+		if (object->dist >= 0 && ((!nearest) || (object->dist < nearest->dist)))
 			nearest = object;
 		object = object->next;
 	}
@@ -100,21 +102,17 @@ int					calc_light(t_env *env)
 	nearest = NULL;
 	light = &env->light;
 	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
-	nearest = calc_object(env->object, light);
-//	if (!nearest)
-//		return (PURPLE);
-//	else if (env->nearest_object->norminter > 0 &&
-//			env->nearest_object->norminter == env->nearest_object->normlight)
-//		return (GREEN);
-//	else
-//		return (YELLOW);
-//	return (env->nearest_object->color);
-//env->color = env->nearest_object->color;
-	normal = calc_normal(&env->nearest_object->inter, env->nearest_object);
+
+	if (!(nearest = calc_object(env->object, light)))
+		return (0x000000);
+	if (env->nearest_object->dist > nearest->dist)
+		return (YELLOW);
+	nearest = env->nearest_object;
+	env->color = env->nearest_object->color;
 	normal = calc_normal(&nearest->inter, nearest);
 	normalized(&normal);
-//	reverse_tp3d(&light->dir);
-//	normalized(&light->dir);
+	reverse_tp3d(&light->dir);
+	normalized(&light->dir);
 
 	angle = mult_tp3d(normal, light->dir);
 	diffuse = (angle > 0) ? angle * COEFF : 0;
