@@ -3,15 +3,15 @@
 origin 0 0 0
 rot 0 0 0
 ##OBJECT
-#SPHERE
+#CYLINDER
 origin -180 0 600
 radius 50
 rot 0 0 0
 color 0XFF0000
-#SPHERE
+#CYLINDER
 origin -50 0 600
 radius 50
-rot 0 0 0
+rot 0 0 90
 color 0X00FF00
 ###END
 

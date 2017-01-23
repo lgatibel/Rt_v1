@@ -29,9 +29,9 @@
 		length 100
 		color 0x00834700
 	#PLANE
-		origin 0 -1 0
-		norm 0 1 0
-		length -100
+		origin 0 100 0
+		norm 0 -1 0
+		length 1
 		color 0x00FF00
 	#CYLINDER
 		origin -100 0 500

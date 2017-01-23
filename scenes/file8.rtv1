@@ -53,9 +53,9 @@
 		norm 1 0 0
 		length 100
 		color 0x33FFFC
+###END
 	#PLANE
 		origin 0 0 0
 		norm 0 0 -1
 		length 600
 		color 0xB60AE1
-###END

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2017/01/23 13:52:27 by lgatibel         ###   ########.fr       */
+/*   Updated: 2017/01/23 14:55:47 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 	t_object	*nearest;
 
 	t = -1;
-
 
 	nearest = NULL;
 	while (object)
@@ -102,17 +101,20 @@ int					calc_light(t_env *env)
 	nearest = NULL;
 	light = &env->light;
 	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
+	normalized(&light->dir);
 
 	if (!(nearest = calc_object(env->object, light)))
 		return (0x000000);
-	if (env->nearest_object->dist > nearest->dist)
-		return (YELLOW);
-	nearest = env->nearest_object;
+	if (env->nearest_object != nearest)
+	{
+		return (FONT);
+	}
+//	nearest = env->nearest_object;
 	env->color = env->nearest_object->color;
+
 	normal = calc_normal(&nearest->inter, nearest);
-	normalized(&normal);
+//	normalized(&normal);
 	reverse_tp3d(&light->dir);
-	normalized(&light->dir);
 
 	angle = mult_tp3d(normal, light->dir);
 	diffuse = (angle > 0) ? angle * COEFF : 0;
@@ -157,6 +159,18 @@ void				trace(t_env *env)
 	}
 }
 
+void				set_id(t_object *object)
+{
+	int	id;
+
+	id = 0;
+	while (object){
+		object->id = id;
+		object = object->next;
+		id++;
+	}
+}
+
 int					main(int ac, char **av)
 {
 	t_env		*env;
@@ -166,6 +180,9 @@ int					main(int ac, char **av)
 	if (ac == 2)
 	{
 		parse_file(av[1], env);
+
+		set_id(env->object);
+
 		set_ray(&env->ray, env);
 		set_light(&env->light);
 		trace(env);

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/27 16:45:14 by lgatibel         ###   ########.fr       */
+/*   Updated: 2017/01/23 19:55:18 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,13 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 
 	cpy_tp3d(&rdir, ray->dir);
 	cyl = (t_cylinder *)object->ptr;
+
+//	ray->pos.x = ray->pos.x * cos(cyl->pos.z) + ray->pos.y * -sin(cyl->pos.z);
+//	ray->pos.y = ray->pos.x * sin(cyl->pos.z) + ray->pos.y * cos(cyl->pos.z);
+
+	rdir.x = ray->dir.x * cos(cyl->rot.z) + ray->dir.y * -sin(cyl->rot.z);
+	rdir.y = ray->dir.x * sin(cyl->rot.z) + ray->dir.y * cos(cyl->rot.z);
+//	rdir.z = 0;
 	a = rdir.x * rdir.x + rdir.z * rdir.z;
 	b = 2 * (rdir.x * (ray->pos.x - cyl->pos.x) +
 	rdir.z * (ray->pos.z - cyl->pos.z));

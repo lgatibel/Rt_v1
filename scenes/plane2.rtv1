@@ -23,4 +23,9 @@ origin 10 0 0
 norm -1 0 0
 length 1
 color 0xffffff
+#PLANE
+origin 0 0 110
+norm 0 0 -1
+length 1
+color 0xff0000
 ###END
