@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2017/01/23 14:55:47 by lgatibel         ###   ########.fr       */
+/*   Updated: 2017/01/25 11:52:42 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,21 +100,28 @@ int					calc_light(t_env *env)
 //	env->nearest_object->set);
 	nearest = NULL;
 	light = &env->light;
-	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
-	normalized(&light->dir);
 
+	t_cylinder *cyl;
+	cyl = (t_cylinder *)env->nearest_object->ptr;
+	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
+
+//	light->dir.x = light->dir.x * cos(cyl->rot.z) + light->dir.y * -sin(cyl->rot.z);
+//	light->dir.y = light->dir.x * sin(cyl->rot.z) + light->dir.y * cos(cyl->rot.z);
+
+	normalized(&light->dir);
 	if (!(nearest = calc_object(env->object, light)))
 		return (0x000000);
 	if (env->nearest_object != nearest)
 	{
 		return (FONT);
 	}
+	reverse_tp3d(&light->dir);
 //	nearest = env->nearest_object;
 	env->color = env->nearest_object->color;
 
 	normal = calc_normal(&nearest->inter, nearest);
 //	normalized(&normal);
-	reverse_tp3d(&light->dir);
+
 
 	angle = mult_tp3d(normal, light->dir);
 	diffuse = (angle > 0) ? angle * COEFF : 0;
@@ -151,23 +158,11 @@ void				trace(t_env *env)
 			reset_object(env->object);
 			calc_ray(env, x, y);
 			if((env->nearest_object = calc_object(env->object, &env->ray)))
-				color = calc_light(env);
+				color = env->nearest_object->color;//calc_light(env);
 			else
 				color = WHITE;//env->font_color;
 			*(env->img_addr + x + (y * env->size_line) / 4) = color;
 		}
-	}
-}
-
-void				set_id(t_object *object)
-{
-	int	id;
-
-	id = 0;
-	while (object){
-		object->id = id;
-		object = object->next;
-		id++;
 	}
 }
 
@@ -180,9 +175,6 @@ int					main(int ac, char **av)
 	if (ac == 2)
 	{
 		parse_file(av[1], env);
-
-		set_id(env->object);
-
 		set_ray(&env->ray, env);
 		set_light(&env->light);
 		trace(env);

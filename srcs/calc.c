@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 09:31:53 by lgatibel          #+#    #+#             */
-/*   Updated: 2017/01/23 19:55:18 by lgatibel         ###   ########.fr       */
+/*   Updated: 2017/02/08 15:41:41 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,24 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 
 //	ray->pos.x = ray->pos.x * cos(cyl->pos.z) + ray->pos.y * -sin(cyl->pos.z);
 //	ray->pos.y = ray->pos.x * sin(cyl->pos.z) + ray->pos.y * cos(cyl->pos.z);
+//	cyl->pos.x = cyl->pos.x * cos(cyl->rot.z) - cyl->pos.y * sin(cyl->rot.z);
+//	cyl->pos.y = cyl->pos.x * sin(cyl->rot.z) + cyl->pos.y * cos(cyl->rot.z);
 
-	rdir.x = ray->dir.x * cos(cyl->rot.z) + ray->dir.y * -sin(cyl->rot.z);
-	rdir.y = ray->dir.x * sin(cyl->rot.z) + ray->dir.y * cos(cyl->rot.z);
-//	rdir.z = 0;
+
+//	rdir.y = ray->dir.x * sin(cyl->rot.z) + ray->dir.y * cos(cyl->rot.z);
+//	rdir.x = ray->dir.x * cos(cyl->rot.z) - ray->dir.y * sin(cyl->rot.z);
+
+//	rdir.y = ray->dir.y * cos(cyl->rot.z) + ray->dir.z * sin(cyl->rot.z);
+//	rdir.z = ray->dir.z * cos(cyl->rot.z) + ray->dir.y * sin(cyl->rot.z);
+
 	a = rdir.x * rdir.x + rdir.z * rdir.z;
 	b = 2 * (rdir.x * (ray->pos.x - cyl->pos.x) +
 	rdir.z * (ray->pos.z - cyl->pos.z));
 	c = ((ray->pos.x - cyl->pos.x) * (ray->pos.x - cyl->pos.x) +
 	(ray->pos.z - cyl->pos.z) * (ray->pos.z - cyl->pos.z)) -
 	cyl->radius * cyl->radius;
+//	rdir.z = 0;
+
 	return (calc_delta(a, b, c));
 }
 

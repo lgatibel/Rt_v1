@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2017/01/23 14:54:58 by lgatibel         ###   ########.fr       */
+/*   Updated: 2017/01/25 11:49:50 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ typedef struct		s_object
 	t_bool				set;
 	double				norminter;
 	double				normlight;
-	int					id;
 }					t_object;
 
 typedef struct		s_viewplane
