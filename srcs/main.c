@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2017/01/25 11:52:42 by lgatibel         ###   ########.fr       */
+/*   Updated: 2017/02/09 17:17:54 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,8 @@ void				trace(t_env *env)
 			reset_object(env->object);
 			calc_ray(env, x, y);
 			if((env->nearest_object = calc_object(env->object, &env->ray)))
-				color = env->nearest_object->color;//calc_light(env);
+				//color = env->nearest_object->color;
+				color = calc_light(env);
 			else
 				color = WHITE;//env->font_color;
 			*(env->img_addr + x + (y * env->size_line) / 4) = color;
