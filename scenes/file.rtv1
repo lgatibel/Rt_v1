@@ -43,4 +43,9 @@
 		radius 30
 		rot 0 0 0
 		color 0x0000FF
+	#CYLINDER
+		origin 50 0 600
+		radius 30
+		rot 0 0 0
+		color 0xFF00FF
 ###END

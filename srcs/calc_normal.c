@@ -17,8 +17,10 @@ t_p3d			calc_sphere_normal(t_p3d *intersect, t_object *object)
 	t_sphere *sphere;
 
 	sphere = (t_sphere *)object->ptr;
-	cpy_tp3d(&object->normal, div_nb_tp3d(sub_tp3d(*intersect,
-					sphere->pos), sphere->radius));
+	// cpy_tp3d(&object->normal, div_nb_tp3d(sub_tp3d(*intersect,
+					// sphere->pos), sphere->radius));
+	cpy_tp3d(&object->normal, sub_tp3d(*intersect,
+					sphere->pos));
 	return (object->normal);
 }
 

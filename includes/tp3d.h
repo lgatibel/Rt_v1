@@ -25,7 +25,7 @@ t_p3d				square_tp3d(t_p3d *src);
 t_p3d				sum_tp3d(t_p3d vector1, t_p3d vector2);
 t_p3d				mult_nb_tp3d(t_p3d vector, double nb);
 t_p3d				sub_tp3d(t_p3d vector1, t_p3d vector2);
-double				mult_tp3d(t_p3d vector1, t_p3d vector2);
+double				dot_product_tp3d(t_p3d vector1, t_p3d vector2);
 double				cross_product_tp3d(t_p3d vector1, t_p3d vector2);
 double				div_tp3d(t_p3d vector1, t_p3d vector2);
 t_p3d				div_nb_tp3d(t_p3d vector, double nb);

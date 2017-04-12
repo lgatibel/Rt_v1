@@ -25,11 +25,29 @@ void				calc_ray(t_env *env, double x, double y)
 	mult_nb_tp3d(env->viewplane.rvec, x * env->xindent),
 	mult_nb_tp3d(env->viewplane.upvec, y * env->yindent))));
 	normalized(&env->ray.dir);
+
+	t_p3d	basis;
+	t_p3d	origin;
+	t_p3d	indent;
+
+	cam->focal = 55;
+	basis.y = 1.0f;
+	basis.x = WIDTH / HEIGHT;
+	indent.y = basis.y / HEIGHT;
+	indent.x = basis.x / WIDTH;
+
+	origin.x = cam->pos.x + (cam->focal / 27.5f * cam->rot.x) - basis.x / 2.0f;
+	origin.y = cam->pos.y + (cam->focal / 27.5f * cam->rot.y) - basis.y / 2.0f;
+	origin.z = cam->pos.z + (cam->focal / 27.5f * cam->rot.z);
+	env->ray.dir.x = origin.x + ((double)x * indent.x) - cam->pos.x;
+	env->ray.dir.y = origin.y + ((double)y * indent.y) - cam->pos.y;
+	env->ray.dir.z = origin.z - cam->pos.z;
+	normalized(&env->ray.dir);
 }
 
 void				set_light(t_ray *light)
 {
-	set_tp3d(&light->pos, 0, 0, 300);
+	set_tp3d(&light->pos, 10, 0, 0);
 	set_tp3d(&light->dir, 0, 0, 0);
 	light->next = NULL;
 }

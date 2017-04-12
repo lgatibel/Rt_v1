@@ -17,14 +17,15 @@ double				calc_delta(double a, double b, double c)
 	double	t0;
 	double	t1;
 	double	t;
+	double	delta;
 
-	if ((b * b) - (4 * a * c) < 0)
+	if ((delta = (b * b) - (4 * a * c)) < 0.0f)
 		return (0);
-	t0 = (-b + sqrt((b * b) - (4 * a * c))) / (2 * a);
-	t1 = (-b - sqrt((b * b) - (4 * a * c))) / (2 * a);
-	t = (t0 > 0 && (t0 < t1 || t1 <= 0)) ? t0 : t1;
-	t = (t > 0) ? t : -8;
-//	t = (t0 < t1) ? t0 : t1;
+	t0 = (-b + sqrt(delta)) / (2.0f * a);
+	t1 = (-b - sqrt(delta)) / (2.0f * a);
+	// t = (t0 > 0 && (t0 < t1 || t1 <= 0)) ? t0 : t1;
+	// t = (t > 0) ? t : -8;
+	t = (t0 < t1) ? t0 : t1;
 	return (t);
 }
 //voir pour la saisie des argument comme length ci celui-ci est set a 0 si il ny as pas de bug ou egale 
@@ -54,6 +55,7 @@ double				calc_cone(t_object *object, t_ray *ray)
 	t_cone		*co;
 	t_p3d		rdir;
 
+
 	cpy_tp3d(&rdir, ray->dir);
 	co = (t_cone *)object->ptr;
 	a = rdir.x * rdir.x + rdir.z *
@@ -64,6 +66,21 @@ double				calc_cone(t_object *object, t_ray *ray)
 	c = ((ray->pos.x - co->pos.x) * (ray->pos.x - co->pos.x) +
 	(ray->pos.z - co->pos.z) * (ray->pos.z - co->pos.z) -
 	(ray->pos.y - co->pos.y) * (ray->pos.y - co->pos.y));
+
+	double tanj;
+	tanj = 1.0f + tan(co->radius / 2.0f * ((double)M_PI / 180.0f)) * 
+	tan(co->radius / 2.0f * ((double)M_PI / 180.0f)); 
+	a = dot_product_tp3d(ray->dir, ray->dir) - tanj *
+		dot_product_tp3d(ray->dir, object->rot) * dot_product_tp3d(ray->dir, object->rot);
+
+	b = 2.0f * (dot_product_tp3d(ray->dir, object->offset) - tanj *
+		dot_product_tp3d(ray->dir, object->rot) *
+		dot_product_tp3d(object->offset, object->rot));
+
+	c = dot_product_tp3d(object->offset, object->offset) - tanj * 
+		dot_product_tp3d(object->offset, object->rot) * 
+		dot_product_tp3d(object->offset, object->rot);
+
 	return (calc_delta(a, b, c));
 }
 
@@ -98,6 +115,19 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	cyl->radius * cyl->radius;
 //	rdir.z = 0;
 
+	// a = dot_product_tp3d(ray->dir, ray->dir) -
+	//  dot_product_tp3d(ray->dir, object->rot) *
+	//  dot_product_tp3d(ray->dir, object->rot);
+
+	// b = 2.0f * (dot_product_tp3d(ray->dir, object->offset) - 
+	// dot_product_tp3d(ray->dir,	object->rot) *
+	// dot_product_tp3d(object->offset, object->rot));
+
+	// c = dot_product_tp3d(object->offset, object->offset) -
+	//  dot_product_tp3d(object->offset,	object->rot) * 
+	//  dot_product_tp3d(object->offset, object->rot) -
+	//  cyl->radius * cyl->radius;
+
 	return (calc_delta(a, b, c));
 }
 
@@ -129,6 +159,7 @@ double				calc_sphere(t_object *object, t_ray *ray)
 
 	s = (t_sphere *)object->ptr;
 	cpy_tp3d(&rdir, ray->dir);
+
 	a = rdir.x * rdir.x + rdir.y *
 	rdir.y + rdir.z * rdir.z;
 	b = 2 * (rdir.x * (ray->pos.x - s->pos.x) +
@@ -138,5 +169,12 @@ double				calc_sphere(t_object *object, t_ray *ray)
 	(ray->pos.y - s->pos.y) * (ray->pos.y - s->pos.y) +
 	(ray->pos.z - s->pos.z) * (ray->pos.z - s->pos.z)) -
 	s->radius * s->radius;
+
+	a = dot_product_tp3d(ray->dir, ray->dir);
+	b = 2.0f * dot_product_tp3d(ray->dir, object->offset);
+	c = dot_product_tp3d(object->offset, object->offset) - s->radius *
+	 s->radius; 
+
+	//ne peut etre pas utiliser ou modifier l'algo du calcul de la cam;
 	return (calc_delta(a, b, c));
 }

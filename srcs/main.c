@@ -32,7 +32,7 @@ double				length_ray(t_ray *ray, double t, t_object *object)
 
 	if (t <= 0)
 		return (-8);
-	vec = mult_nb_tp3d(sum_tp3d(ray->pos, ray->dir), t);
+	vec = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, t));
 	res = sub_tp3d(vec, ray->pos);
 	if (object->set == false)
 		cpy_tp3d(&object->inter, vec);
@@ -100,18 +100,9 @@ int					calc_light(t_env *env)
 //	env->nearest_object->set);
 	nearest = NULL;
 	light = &env->light;
-
-	t_cylinder *cyl;
-	cyl = (t_cylinder *)env->nearest_object->ptr;
 	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
-
-//	light->dir.x = light->dir.x * cos(cyl->rot.z) + light->dir.y * -sin(cyl->rot.z);
-//	light->dir.y = light->dir.x * sin(cyl->rot.z) + light->dir.y * cos(cyl->rot.z);
-
 	normalized(&light->dir);
-	if (!(nearest = calc_object(env->object, light)))
-		return (0x000000);
-	if (env->nearest_object != nearest)
+	if (!(nearest = calc_object(env->object, light)) || env->nearest_object != nearest)
 	{
 		return (FONT);
 	}
@@ -120,15 +111,19 @@ int					calc_light(t_env *env)
 	env->color = env->nearest_object->color;
 
 	normal = calc_normal(&nearest->inter, nearest);
-//	normalized(&normal);
+	normalized(&normal);
 
 
-	angle = mult_tp3d(normal, light->dir);
+	angle = dot_product_tp3d(normal, light->dir);
+
+	// diffuse = angle * COEFF;
 	diffuse = (angle > 0) ? angle * COEFF : 0;
+	// diffuse = (angle > 0) ? angle * COEFF : -angle * COEFF;
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
 	((int)(color(env->color, GREEN) * diffuse) << 8) +
 	(int)(color(env->color, BLUE) * diffuse);
-	return ((col > 0) ? col : env->font_color);
+	return (col);
+	// return ((col > 0) ? col : env->font_color);
 }
 
 void				reset_object(t_object *object)
@@ -159,12 +154,31 @@ void				trace(t_env *env)
 			calc_ray(env, x, y);
 			if((env->nearest_object = calc_object(env->object, &env->ray)))
 				//color = env->nearest_object->color;
+				{
+					printf("2\n");
 				color = calc_light(env);
+				}
 			else
-				color = WHITE;//env->font_color;
+				color = BLACK;//env->font_color;
 			*(env->img_addr + x + (y * env->size_line) / 4) = color;
 		}
 	}
+}
+
+static void			set_offset(t_env *env)
+{
+	t_object *object;
+	t_sphere *o;
+
+	object = env->object;
+	while (object)
+	{
+		o = object->ptr;
+		object->offset = sub_tp3d(env->ray.pos, o->pos);
+		set_tp3d(&object->rot, 0.0f, 1.0f, 0.0f);
+		object = object->next;
+	}
+
 }
 
 int					main(int ac, char **av)
@@ -177,6 +191,7 @@ int					main(int ac, char **av)
 	{
 		parse_file(av[1], env);
 		set_ray(&env->ray, env);
+		set_offset(env);
 		set_light(&env->light);
 		trace(env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);

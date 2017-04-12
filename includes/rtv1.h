@@ -105,6 +105,8 @@ typedef struct		s_object
 	int					color;
 	double				dist;
 	t_p3d				normal;
+	t_p3d				offset;
+	t_p3d				rot;
 	t_p3d				inter;
 	t_bool				set;
 	double				norminter;
@@ -127,6 +129,7 @@ typedef struct		s_cam
 {
 	t_p3d		pos;
 	t_p3d		rot;
+	double		focal;
 }					t_cam;
 
 typedef struct		s_env

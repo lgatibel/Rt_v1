@@ -32,7 +32,7 @@ t_p3d			div_nb_tp3d(t_p3d vector, double nb)
 	return (result);
 }
 
-double			mult_tp3d(t_p3d vector1, t_p3d vector2)
+double			dot_product_tp3d(t_p3d vector1, t_p3d vector2)
 {
 //	if (!vector1 || !vector2)
 //		return (0);
