@@ -70,7 +70,7 @@ void				handle_error(int index, int fd, t_env *env)
 	if (close(fd) == -1)
 		err(__FILE__, __LINE__, "Close error", NO_EXIT);
 	if (!env->object)
-		err(__FILE__, __LINE__, "No object set", NO_EXIT);
+		err(__FILE__, __LINE__, "No object set", EXIT);
 }
 
 t_object			*parse_file(char *file, t_env *env)
