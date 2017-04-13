@@ -30,6 +30,7 @@ double				cross_product_tp3d(t_p3d vector1, t_p3d vector2);
 double				div_tp3d(t_p3d vector1, t_p3d vector2);
 t_p3d				div_nb_tp3d(t_p3d vector, double nb);
 void				cpy_tp3d(t_p3d *dest, t_p3d src);
+void				reverse_tp3d(t_p3d *vec);
 
 void				print_tp3d(t_p3d *vector);
 void				set_tp3d(t_p3d *vec, double x, double y,

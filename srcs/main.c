@@ -12,13 +12,6 @@
 
 #include <rtv1.h>
 
-void				reverse_tp3d(t_p3d *vec)
-{
-	vec->x *= -1;
-	vec->y *= -1;
-	vec->z *= -1;
-}
-
 double		calc_norm(t_p3d *vec)
 {
 	return (sqrt(vec->x * vec->x + vec->y * vec->y + vec->z * vec->z));

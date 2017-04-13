@@ -106,7 +106,6 @@ double				calc_sphere(t_object *object, t_ray *ray)
 	double		b;
 	double		c;
 	t_sphere	*s;
-	t_p3d		rdir;
 
 	s = (t_sphere *)object->ptr;
 	set_offset(object, ray);
