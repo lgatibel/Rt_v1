@@ -106,12 +106,3 @@ void				set_cam(t_cam *cam, int fd)
 	if (!args_required(ok, 2))
 		err(__FILE__, __LINE__, "bad argument for cam set", EXIT);
 }
-
-int					set_color(char **tab, int *color)
-{
-	if (tab[0] && !tab[1] && ft_strishexa(tab[0]))
-		*color = ft_atoi_base(tab[0], 16);
-	else
-		return (ERROR);
-	return (OK);
-}

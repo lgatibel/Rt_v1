@@ -30,9 +30,6 @@ int					calc_light(t_env *env)
 	reverse_tp3d(&light->dir);
 	nearest->normal = calc_normal(&nearest->inter, nearest);
 	normalized(&nearest->normal);
-
-	// light->dir = rotate_tp3d(&light->dir, &cylinder->rot);
-
 	angle = dot_product_tp3d(nearest->normal, light->dir);
 	diffuse = (angle > 0) ? angle * COEFF : 0;
 	// diffuse = (angle > 0) ? angle * COEFF : -angle * COEFF;

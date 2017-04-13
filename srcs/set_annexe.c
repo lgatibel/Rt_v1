@@ -20,3 +20,12 @@ int					set_radius(char **tab, double *radius)
 		return (ERROR);
 	return (OK);
 }
+
+int					set_color(char **tab, int *color)
+{
+	if (tab[0] && !tab[1] && ft_strishexa(tab[0]))
+		*color = ft_atoi_base(tab[0], 16);
+	else
+		return (ERROR);
+	return (OK);
+}

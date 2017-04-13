@@ -25,38 +25,6 @@ int					args_required(char *ok, int nb)
 	return (1);
 }
 
-void				manage_parameter(int fd, t_env *env)
-{
-	int		i;
-
-	i = -1;
-	while (++i < 3 && (get_next_line(fd, &env->line)) > 0)
-	{
-		ft_putendl(env->line);
-		if (i == 0 && !ft_strcmp(ft_strtrim(env->line), "##CAM"))
-			set_cam(&env->cam, fd);
-		else if (i == 1 && !ft_strcmp(ft_strtrim(env->line), "##SPOT"))
-			set_spot(&env->light, fd);
-		else if (i == 2 && !ft_strcmp(ft_strtrim(env->line), "##OBJECT"))
-		{
-			set_object(env, fd, &env->object);
-			ft_putendl(env->line);
-			if (ft_strcmp(ft_strtrim(env->line), "###END"))
-				err(__FILE__, __LINE__, "No [###END] defined", EXIT);
-		}
-		else
-			break ;
-	}
-	if (i == 0)
-		err(__FILE__, __LINE__, "Cam must be defined below start", EXIT);
-	if (i == 1)
-		err(__FILE__, __LINE__,
-				"##SPOT must be defined below cam arguments", EXIT);
-				if (i == 1)
-		err(__FILE__, __LINE__,
-				"##OBJECT must be defined below spot arguments", EXIT);
-}
-
 static int			good_extension(char *file)
 {
 	int		length;

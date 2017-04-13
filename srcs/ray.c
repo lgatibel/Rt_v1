@@ -28,13 +28,6 @@ void				calc_ray(t_env *env, double x, double y)
 	normalized(&env->ray.dir);
 }
 
-void				set_light(t_ray *light)
-{
-	set_tp3d(&light->pos, 0, 0, 400);
-	set_tp3d(&light->dir, 0, 0, 0);
-	light->next = NULL;
-}
-
 void				set_ray(t_ray *ray, t_env *env)
 {
 	ray->pos.x = env->cam.pos.x;
