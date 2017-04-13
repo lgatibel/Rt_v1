@@ -12,6 +12,8 @@
 
 #include <rtv1.h>
 
+#define DEBUG_1 1
+
 double				calc_delta(double a, double b, double c)
 {
 	double	t0;
@@ -19,13 +21,12 @@ double				calc_delta(double a, double b, double c)
 	double	t;
 	double	delta;
 
-	if ((delta = (b * b) - (4 * a * c)) < 0.0f)
+	if ((delta = (b * b) - (4.0f * a * c)) < 0.0f)
 		return (0);
 	t0 = (-b + sqrt(delta)) / (2.0f * a);
 	t1 = (-b - sqrt(delta)) / (2.0f * a);
-	// t = (t0 > 0 && (t0 < t1 || t1 <= 0)) ? t0 : t1;
-	// t = (t > 0) ? t : -8;
 	t = (t0 < t1) ? t0 : t1;
+	t -= t * 0.0000001f;
 	return (t);
 }
 //voir pour la saisie des argument comme length ci celui-ci est set a 0 si il ny as pas de bug ou egale 
@@ -37,6 +38,7 @@ double				calc_plane(t_object *object, t_ray *ray)
 	t_p3d		rdir;
 
 	cpy_tp3d(&rdir, ray->dir);
+	set_offset(object, ray);
 	pl = (t_plane *)object->ptr;
 
 	t = -(pl->normal.x * (ray->pos.x - pl->pos.x) + pl->normal.y *
@@ -53,25 +55,15 @@ double				calc_cone(t_object *object, t_ray *ray)
 	double		b;
 	double		c;
 	t_cone		*co;
-	t_p3d		rdir;
 
-
-	cpy_tp3d(&rdir, ray->dir);
 	co = (t_cone *)object->ptr;
-	a = rdir.x * rdir.x + rdir.z *
-	rdir.z - rdir.y * rdir.y;
-	b = 2 * (rdir.x * (ray->pos.x - co->pos.x) +
-	rdir.z * (ray->pos.z - co->pos.z) - rdir.y *
-	(ray->pos.y - co->pos.y)) - co->radius * co->radius;
-	c = ((ray->pos.x - co->pos.x) * (ray->pos.x - co->pos.x) +
-	(ray->pos.z - co->pos.z) * (ray->pos.z - co->pos.z) -
-	(ray->pos.y - co->pos.y) * (ray->pos.y - co->pos.y));
-
+	set_offset(object, ray);
 	double tanj;
 	tanj = 1.0f + tan(co->radius / 2.0f * ((double)M_PI / 180.0f)) * 
 	tan(co->radius / 2.0f * ((double)M_PI / 180.0f)); 
 	a = dot_product_tp3d(ray->dir, ray->dir) - tanj *
-		dot_product_tp3d(ray->dir, object->rot) * dot_product_tp3d(ray->dir, object->rot);
+		dot_product_tp3d(ray->dir, object->rot) * 
+		dot_product_tp3d(ray->dir, object->rot);
 
 	b = 2.0f * (dot_product_tp3d(ray->dir, object->offset) - tanj *
 		dot_product_tp3d(ray->dir, object->rot) *
@@ -90,64 +82,23 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	double		b;
 	double		c;
 	t_cylinder	*cyl;
-	t_p3d		rdir;
 
-	cpy_tp3d(&rdir, ray->dir);
 	cyl = (t_cylinder *)object->ptr;
+	set_offset(object, ray);
+	a = dot_product_tp3d(ray->dir, ray->dir) -
+	 dot_product_tp3d(ray->dir, object->rot) *
+	 dot_product_tp3d(ray->dir, object->rot);
 
-//	ray->pos.x = ray->pos.x * cos(cyl->pos.z) + ray->pos.y * -sin(cyl->pos.z);
-//	ray->pos.y = ray->pos.x * sin(cyl->pos.z) + ray->pos.y * cos(cyl->pos.z);
-//	cyl->pos.x = cyl->pos.x * cos(cyl->rot.z) - cyl->pos.y * sin(cyl->rot.z);
-//	cyl->pos.y = cyl->pos.x * sin(cyl->rot.z) + cyl->pos.y * cos(cyl->rot.z);
+	b = 2.0f * (dot_product_tp3d(ray->dir, object->offset) - 
+	dot_product_tp3d(ray->dir,	object->rot) *
+	dot_product_tp3d(object->offset, object->rot));
 
-
-//	rdir.y = ray->dir.x * sin(cyl->rot.z) + ray->dir.y * cos(cyl->rot.z);
-//	rdir.x = ray->dir.x * cos(cyl->rot.z) - ray->dir.y * sin(cyl->rot.z);
-
-//	rdir.y = ray->dir.y * cos(cyl->rot.z) + ray->dir.z * sin(cyl->rot.z);
-//	rdir.z = ray->dir.z * cos(cyl->rot.z) + ray->dir.y * sin(cyl->rot.z);
-
-	a = rdir.x * rdir.x + rdir.z * rdir.z;
-	b = 2 * (rdir.x * (ray->pos.x - cyl->pos.x) +
-	rdir.z * (ray->pos.z - cyl->pos.z));
-	c = ((ray->pos.x - cyl->pos.x) * (ray->pos.x - cyl->pos.x) +
-	(ray->pos.z - cyl->pos.z) * (ray->pos.z - cyl->pos.z)) -
-	cyl->radius * cyl->radius;
-//	rdir.z = 0;
-
-	// a = dot_product_tp3d(ray->dir, ray->dir) -
-	//  dot_product_tp3d(ray->dir, object->rot) *
-	//  dot_product_tp3d(ray->dir, object->rot);
-
-	// b = 2.0f * (dot_product_tp3d(ray->dir, object->offset) - 
-	// dot_product_tp3d(ray->dir,	object->rot) *
-	// dot_product_tp3d(object->offset, object->rot));
-
-	// c = dot_product_tp3d(object->offset, object->offset) -
-	//  dot_product_tp3d(object->offset,	object->rot) * 
-	//  dot_product_tp3d(object->offset, object->rot) -
-	//  cyl->radius * cyl->radius;
-
+	c = dot_product_tp3d(object->offset, object->offset) -
+	 dot_product_tp3d(object->offset,	object->rot) * 
+	 dot_product_tp3d(object->offset, object->rot) -
+	 cyl->radius * cyl->radius;
 	return (calc_delta(a, b, c));
 }
-
-/////////////////////////////////////////////voir pour les martice de translation
-//	set_tp3d(&pos, cyl->pos.x, cyl->pos.y, cyl->pos.z);
-	//rotation sur z
-//	ray->dir.x *= cyl->pos.x;
-//	ray->dir.y *= cyl->pos.y;
-//	rdir.x = ray->dir.x * cos(cyl->rot.z) + ray->dir.y * -sin(cyl->rot.z);
-//	rdir.y = ray->dir.x * sin(cyl->rot.z) + ray->dir.y * cos(cyl->rot.z);
-	//
-	//rotation sur ++++y
-//	rdir.x = ray->dir.x * cos(Y) + ray->dir.z * sin(Y);
-//	rdir.z = ray->dir.x * -sin(Y) + ray->dir.z * cos(Y);
-	//
-	//rotation sur x
-//	rdir.y = ray->dir.y * cos(X) + ray->dir.z * -sin(X);
-//	rdir.z = ray->dir.y * sin(X) + ray->dir.z * cos(X);
-	//
-//	ray->diri.z = ray->dirz * cos(45) + ray->dir.z * sin(45);
 
 double				calc_sphere(t_object *object, t_ray *ray)
 {
@@ -158,23 +109,21 @@ double				calc_sphere(t_object *object, t_ray *ray)
 	t_p3d		rdir;
 
 	s = (t_sphere *)object->ptr;
-	cpy_tp3d(&rdir, ray->dir);
-
-	a = rdir.x * rdir.x + rdir.y *
-	rdir.y + rdir.z * rdir.z;
-	b = 2 * (rdir.x * (ray->pos.x - s->pos.x) +
-	rdir.y * (ray->pos.y - s->pos.y) + rdir.z *
-	(ray->pos.z - s->pos.z));
-	c = ((ray->pos.x - s->pos.x) * (ray->pos.x - s->pos.x) +
-	(ray->pos.y - s->pos.y) * (ray->pos.y - s->pos.y) +
-	(ray->pos.z - s->pos.z) * (ray->pos.z - s->pos.z)) -
-	s->radius * s->radius;
-
+	set_offset(object, ray);
 	a = dot_product_tp3d(ray->dir, ray->dir);
-	b = 2.0f * dot_product_tp3d(ray->dir, object->offset);
+	b = 2 * dot_product_tp3d(ray->dir, object->offset);
 	c = dot_product_tp3d(object->offset, object->offset) - s->radius *
-	 s->radius; 
-
-	//ne peut etre pas utiliser ou modifier l'algo du calcul de la cam;
+	 s->radius;
 	return (calc_delta(a, b, c));
 }
+	// if (DEBUG_1){
+	// printf("offset.x[%f]\n",ray->pos.x - s->pos.x);
+	// printf("offset.y[%f]\n",ray->pos.y - s->pos.y);
+	// printf("offset.z[%f]\n",ray->pos.z - s->pos.z);
+	// ;printf("ray.x[%f]\n",ray->dir.x);
+	// printf("ray.y[%f]\n",ray->dir.y);
+	// printf("ray.z[%f]\n",ray->dir.z);
+	// printf("a[%f]\n",a);
+	// printf("b[%f]\n",b);
+	// printf("c[%f]\n",c);
+	// }

@@ -195,4 +195,6 @@ int					args_required(char *ok, int nb);
 int					test(t_env *env);
 void				print_line(char **str);
 void				malloc_object(t_object **obj, t_object **object, int i);
+
+void			set_offset(t_object *object, t_ray *ray);
 #endif

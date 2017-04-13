@@ -38,7 +38,6 @@ double			dot_product_tp3d(t_p3d vector1, t_p3d vector2)
 //		return (0);
 	return (vector1.x * vector2.x + vector1.y * vector2.y +
 		vector1.z * vector2.z);
-	
 }
 
 double			cross_product_tp3d(t_p3d vector1, t_p3d vector2)
@@ -47,8 +46,9 @@ double			cross_product_tp3d(t_p3d vector1, t_p3d vector2)
 //		return (0);
 
 	return (0);
-	// a definir
+	// a definir FAUX!!!!!
 	return (vector1.x * vector2.x + vector1.y * vector2.y +
 		vector1.z * vector2.z);
+	
 }
 //fonction a proteger

@@ -9,6 +9,12 @@ radius 90
 rot 0 0 0
 color 0XFF0000
 ###END
+#CYLINDER
+origin 0 0 500
+radius 90
+rot 0 0 0
+color 0XFFff00
+
 #PLANE
 origin 0 0 0
 norm 0 1 0

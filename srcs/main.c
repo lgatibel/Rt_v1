@@ -43,6 +43,12 @@ double				length_ray(t_ray *ray, double t, t_object *object)
 		object->norminter = calc_norm(&tmp);
 	}
 	object->set = true;
+	// double	m;
+	// m = dot_product_tp3d(ray->dir, object->rot) * t +
+	//  dot_product_tp3d(object->offset, object->rot);
+	// object->normal = sub_tp3d(sub_tp3d(vec, ray->pos), 
+	// mult_nb_tp3d(object->rot, m));
+	// normalized(&object->normal);
 	return (calc_norm(&res));
 }
 
@@ -106,6 +112,11 @@ int					calc_light(t_env *env)
 	{
 		return (FONT);
 	}
+
+
+
+
+
 	reverse_tp3d(&light->dir);
 //	nearest = env->nearest_object;
 	env->color = env->nearest_object->color;
@@ -115,8 +126,6 @@ int					calc_light(t_env *env)
 
 
 	angle = dot_product_tp3d(normal, light->dir);
-
-	// diffuse = angle * COEFF;
 	diffuse = (angle > 0) ? angle * COEFF : 0;
 	// diffuse = (angle > 0) ? angle * COEFF : -angle * COEFF;
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
@@ -152,33 +161,27 @@ void				trace(t_env *env)
 		{
 			reset_object(env->object);
 			calc_ray(env, x, y);
+			// if (y == HEIGHT/2 && x == WIDTH/2){
 			if((env->nearest_object = calc_object(env->object, &env->ray)))
-				//color = env->nearest_object->color;
 				{
-					printf("2\n");
-				color = calc_light(env);
+					// printf("2\n\n\n\n\n");
+					color = calc_light(env);
 				}
 			else
 				color = BLACK;//env->font_color;
 			*(env->img_addr + x + (y * env->size_line) / 4) = color;
+			// }s
 		}
 	}
 }
 
-static void			set_offset(t_env *env)
+void			set_offset(t_object *object, t_ray *ray)
 {
-	t_object *object;
 	t_sphere *o;
 
-	object = env->object;
-	while (object)
-	{
-		o = object->ptr;
-		object->offset = sub_tp3d(env->ray.pos, o->pos);
-		set_tp3d(&object->rot, 0.0f, 1.0f, 0.0f);
-		object = object->next;
-	}
-
+	o = object->ptr;
+	object->offset = sub_tp3d(ray->pos, o->pos);
+	set_tp3d(&object->rot, 0.0f, 1.0f, 0.0f);
 }
 
 int					main(int ac, char **av)
@@ -191,7 +194,6 @@ int					main(int ac, char **av)
 	{
 		parse_file(av[1], env);
 		set_ray(&env->ray, env);
-		set_offset(env);
 		set_light(&env->light);
 		trace(env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
