@@ -18,7 +18,6 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 	t_object	*nearest;
 
 	t = -1;
-
 	nearest = NULL;
 	while (object)
 	{
@@ -27,7 +26,7 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 		else if (object->type == CYLINDER)
 			t = calc_cylinder(object, ray);
 		else if (object->type == CONE)
-			t  = calc_cone(object, ray);
+			t = calc_cone(object, ray);
 		else if (object->type == PLANE)
 			t = calc_plane(object, ray);
 		object->dist = length_ray(ray, t, object);
@@ -38,21 +37,6 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 	return (nearest);
 }
 
-t_p3d				calc_normal(t_p3d *intersect, t_object *object)
-{
-	if (object->type == SPHERE)
-		return(calc_sphere_normal(intersect, object));
-	else if (object->type == CYLINDER)
-		return (calc_cylinder_normal(intersect, object));
-	else if (object->type == CONE)
-		return (calc_cone_normal(object));
-	else if (object->type == PLANE)
-		return (calc_plane_normal(object));
-	else
-		set_tp3d(&object->normal, -8, -8, -8);
-	return (object->normal);
-}
-
 int					calc_light(t_env *env)
 {
 	t_ray		*light;
@@ -60,50 +44,25 @@ int					calc_light(t_env *env)
 	double		diffuse;
 	int			col;
 	t_object	*nearest;
-	t_p3d		normal;
 
-//	printf("inter.x[%f], set[%d]\n",env->nearest_object->inter.y,
-//	env->nearest_object->set);
 	nearest = NULL;
 	light = &env->light;
 	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
 	normalized(&light->dir);
-	if (!(nearest = calc_object(env->object, light)) || env->nearest_object != nearest)
-	{
+	if (!(nearest = calc_object(env->object, light)) ||
+	env->nearest_object != nearest)
 		return (FONT);
-	}
-
-
-
-
-
 	reverse_tp3d(&light->dir);
-//	nearest = env->nearest_object;
 	env->color = env->nearest_object->color;
-
-	normal = calc_normal(&nearest->inter, nearest);
-	normalized(&normal);
-
-
-	angle = dot_product_tp3d(normal, light->dir);
+	nearest->normal = calc_normal(&nearest->inter, nearest);
+	normalized(&nearest->normal);
+	angle = dot_product_tp3d(nearest->normal, light->dir);
 	diffuse = (angle > 0) ? angle * COEFF : 0;
 	// diffuse = (angle > 0) ? angle * COEFF : -angle * COEFF;
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
 	((int)(color(env->color, GREEN) * diffuse) << 8) +
 	(int)(color(env->color, BLUE) * diffuse);
 	return (col);
-	// return ((col > 0) ? col : env->font_color);
-}
-
-void				reset_object(t_object *object)
-{
-	while (object)
-	{
-		object->set = false;
-		object->norminter = 0;
-		object->normlight = 0;
-		object = object->next;
-	}
 }
 
 void				trace(t_env *env)
@@ -121,21 +80,18 @@ void				trace(t_env *env)
 		{
 			reset_object(env->object);
 			calc_ray(env, x, y);
-			// if (y == HEIGHT/2 && x == WIDTH/2){
-			if((env->nearest_object = calc_object(env->object, &env->ray)))
-				{
-					// printf("2\n\n\n\n\n");
-					color = calc_light(env);
-				}
+			if ((env->nearest_object = calc_object(env->object, &env->ray)))
+			{
+				color = calc_light(env);
+			}
 			else
 				color = BLACK;//env->font_color;
 			*(env->img_addr + x + (y * env->size_line) / 4) = color;
-			// }s
 		}
 	}
 }
 
-void			set_offset(t_object *object, t_ray *ray)
+void				set_offset(t_object *object, t_ray *ray)
 {
 	t_sphere *o;
 

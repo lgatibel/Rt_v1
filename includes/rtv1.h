@@ -183,14 +183,16 @@ t_p3d				calc_sphere_normal(t_p3d *intersect, t_object *object);
 t_p3d				calc_cylinder_normal(t_p3d *intersect, t_object *object);
 t_p3d				calc_cone_normal(t_object *object);
 t_p3d				calc_plane_normal(t_object *object);
+t_p3d				calc_normal(t_p3d *intersect, t_object *object);
 
+void				reset_object(t_object *object);
 void				normalized(t_p3d *point);
 void				event(t_env *env);
 void				refresh(t_env *env);
 double				color(int object_color, int rgb);
 int					args_required(char *ok, int nb);
 
-int					test(t_env *env);
+int					blink(t_env *env);
 void				print_line(char **str);
 void				malloc_object(t_object **obj, t_object **object, int i);
 

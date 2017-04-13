@@ -12,15 +12,7 @@
 
 #include <rtv1.h>
 
-int				test(t_env *env)
-{
-	env->i = (env->i > 0xFFFFF0) ? 0 : env->i + 1000;
-	mlx_string_put(env->mlx, env->win, 10, 5, 0xFFFFFF - env->i,
-			"Rt_v1");
-	return (0);
-}
-
-int				args_required(char *ok, int nb)
+int					args_required(char *ok, int nb)
 {
 	int		i;
 
@@ -32,8 +24,6 @@ int				args_required(char *ok, int nb)
 	}
 	return (1);
 }
-
-////////////////////////////tester le null dans ft_strcmp/////////////////////
 
 void				manage_parameter(int fd, t_env *env)
 {

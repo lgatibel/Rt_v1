@@ -52,7 +52,6 @@ int					set_vecteur_cam(char **tab, t_p3d *point)
 {
 	int		i;
 	int		t;
-//	int		nb;
 
 	i = -1;
 	t = -1;
@@ -65,8 +64,6 @@ int					set_vecteur_cam(char **tab, t_p3d *point)
 			*(&point->x + t) = ft_atod(tab[i]);
 		else if (i == 2 && tab[i] && ft_strisnum(tab[i]))
 		{
-//			nb = ft_strichr(tab[i], ',');
-//			nb = (nb > 0) ? ft_power(nb, 10) : ft_power(ft_strlen(tab[i]), 100);
 			*(&point->x + t) = ft_atod(tab[i]);
 		}
 		else
@@ -74,7 +71,6 @@ int					set_vecteur_cam(char **tab, t_p3d *point)
 	}
 	return (i == 3) ? OK : ERROR;
 }
-
 
 void				set_cam(t_cam *cam, int fd)
 {
@@ -99,22 +95,12 @@ void				set_cam(t_cam *cam, int fd)
 	}
 	if (!args_required(ok, 2))
 		err(__FILE__, __LINE__, "bad argument for cam set", EXIT);
-
 }
 
 int					set_color(char **tab, int *color)
 {
 	if (tab[0] && !tab[1] && ft_strishexa(tab[0]))
 		*color = ft_atoi_base(tab[0], 16);
-	else
-		return (ERROR);
-	return (OK);
-}
-
-int					set_radius(char **tab, double *radius)
-{
-	if (tab[0] && !tab[1] && ft_strisnum(tab[0]))
-		*radius = ft_atod(tab[0]);
 	else
 		return (ERROR);
 	return (OK);

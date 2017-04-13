@@ -30,22 +30,11 @@ t_p3d			div_nb_tp3d(t_p3d vector, double nb)
 
 double			dot_product_tp3d(t_p3d vector1, t_p3d vector2)
 {
-//	if (!vector1 || !vector2)
-//		return (0);
 	return (vector1.x * vector2.x + vector1.y * vector2.y +
 		vector1.z * vector2.z);
 }
 
-double			cross_product_tp3d(t_p3d vector1, t_p3d vector2)
-{
-	return (0);
-	// a definir FAUX!!!!!
-	return (vector1.x * vector2.x + vector1.y * vector2.y +
-		vector1.z * vector2.z);
-	
-}
-
-void				reverse_tp3d(t_p3d *vec)
+void			reverse_tp3d(t_p3d *vec)
 {
 	vec->x *= -1;
 	vec->y *= -1;

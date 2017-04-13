@@ -28,24 +28,20 @@ double				calc_delta(double a, double b, double c)
 	t = (t0 < t1) ? t0 : t1;
 	t -= t * 0.0000001f;
 	return (t);
-}
 //voir pour la saisie des argument comme length ci celui-ci est set a 0 si il ny as pas de bug ou egale 
+}
 
 double				calc_plane(t_object *object, t_ray *ray)
 {
 	t_plane		*pl;
 	double		t;
-	t_p3d		rdir;
+	double		div;
 
-	cpy_tp3d(&rdir, ray->dir);
-	set_offset(object, ray);
 	pl = (t_plane *)object->ptr;
-
-	t = -(pl->normal.x * (ray->pos.x - pl->pos.x) + pl->normal.y *
-		(ray->pos.y - pl->pos.y) + pl->normal.z * (ray->pos.z - pl->pos.z) +
-		pl->d) / (pl->normal.x * rdir.x + pl->normal.y * rdir.y +
-			pl->normal.z * rdir.z);
-	// faire gaffe a floting point execption
+	if ((div = dot_product_tp3d(pl->normal, ray->dir)) == 0.0f)
+	return (-8); 
+	set_offset(object, ray);
+	t = -(dot_product_tp3d(pl->normal, object->offset) + pl->d) / div;
 	return ((t < 0) ? -8 : t);
 }
 
@@ -60,24 +56,21 @@ double				calc_cone(t_object *object, t_ray *ray)
 	set_offset(object, ray);
 	double tanj;
 	tanj = 1.0f + tan(co->radius / 2.0f * ((double)M_PI / 180.0f)) * 
-	tan(co->radius / 2.0f * ((double)M_PI / 180.0f)); 
+	tan(co->radius / 2.0f * ((double)M_PI / 180.0f));
 	a = dot_product_tp3d(ray->dir, ray->dir) - tanj *
-		dot_product_tp3d(ray->dir, object->rot) * 
+		dot_product_tp3d(ray->dir, object->rot) *
 		dot_product_tp3d(ray->dir, object->rot);
-
 	b = 2.0f * (dot_product_tp3d(ray->dir, object->offset) - tanj *
 		dot_product_tp3d(ray->dir, object->rot) *
 		dot_product_tp3d(object->offset, object->rot));
-
-	c = dot_product_tp3d(object->offset, object->offset) - tanj * 
-		dot_product_tp3d(object->offset, object->rot) * 
+	c = dot_product_tp3d(object->offset, object->offset) - tanj *
+		dot_product_tp3d(object->offset, object->rot) *
 		dot_product_tp3d(object->offset, object->rot);
-
 	return (calc_delta(a, b, c));
 }
 
 double				calc_cylinder(t_object *object, t_ray *ray)
- {
+{
 	double		a;
 	double		b;
 	double		c;
@@ -88,13 +81,11 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	a = dot_product_tp3d(ray->dir, ray->dir) -
 	 dot_product_tp3d(ray->dir, object->rot) *
 	 dot_product_tp3d(ray->dir, object->rot);
-
-	b = 2.0f * (dot_product_tp3d(ray->dir, object->offset) - 
+	b = 2.0f * (dot_product_tp3d(ray->dir, object->offset) -
 	dot_product_tp3d(ray->dir,	object->rot) *
 	dot_product_tp3d(object->offset, object->rot));
-
 	c = dot_product_tp3d(object->offset, object->offset) -
-	 dot_product_tp3d(object->offset,	object->rot) * 
+	 dot_product_tp3d(object->offset,	object->rot) *
 	 dot_product_tp3d(object->offset, object->rot) -
 	 cyl->radius * cyl->radius;
 	return (calc_delta(a, b, c));
@@ -115,14 +106,3 @@ double				calc_sphere(t_object *object, t_ray *ray)
 	 s->radius;
 	return (calc_delta(a, b, c));
 }
-	// if (DEBUG_1){
-	// printf("offset.x[%f]\n",ray->pos.x - s->pos.x);
-	// printf("offset.y[%f]\n",ray->pos.y - s->pos.y);
-	// printf("offset.z[%f]\n",ray->pos.z - s->pos.z);
-	// ;printf("ray.x[%f]\n",ray->dir.x);
-	// printf("ray.y[%f]\n",ray->dir.y);
-	// printf("ray.z[%f]\n",ray->dir.z);
-	// printf("a[%f]\n",a);
-	// printf("b[%f]\n",b);
-	// printf("c[%f]\n",c);
-	// }

@@ -4,7 +4,7 @@ TARGET = rtv1
 #Sources
 SRC_NAME = main.c set_object.c print_tp3d.c calc_tp3d.c calc_tp3d_annexe.c \
 ray.c color.c parse.c set_env.c calc.c event.c tools.c set_tp3d.c set.c \
-calc_normal.c vecteur.c
+calc_normal.c vecteur.c set_annexe.c blink.c reset.c
 SRC_PATH = ./srcs/
 SRCS = $(addprefix $(SRC_PATH),$(SRC_NAME))
 ###############

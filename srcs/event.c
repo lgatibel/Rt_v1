@@ -38,5 +38,5 @@ void				event(t_env *env)
 {
 	mlx_hook(env->win, 2, (1L << 0), &manage_event, env);
 	mlx_hook(env->win, 17, (1L << 17), &close_session, env);
-	mlx_loop_hook(env->mlx, &test, env);
+	mlx_loop_hook(env->mlx, &blink, env);
 }

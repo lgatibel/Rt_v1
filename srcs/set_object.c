@@ -152,6 +152,5 @@ void				set_object(t_env *env, int fd, t_object **object)
 			set_sphere(env, fd, &obj);
 		else
 			err(__FILE__, __LINE__, "bad object defined", EXIT);
-//			err(__FILE__, __LINE__, tab[0], EXIT);
 	}
 }
