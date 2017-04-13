@@ -141,7 +141,6 @@ typedef struct		s_env
 	double		yindent;
 	double		length;
 
-	int			color;
 	int			final_color;
 	int			font_color;
 
@@ -171,19 +170,22 @@ int					set_color(char **tab, int *color);
 void				set_object(t_env *env, int fd, t_object **object);
 void				set_cam(t_cam *cam, int fd);
 
+int					calc_light(t_env *env);
 double				calc_sphere(t_object *object, t_ray *ray);
 double				calc_cone(t_object *object, t_ray *ray);
 double				calc_cylinder(t_object *object, t_ray *ray);
 double				calc_plane(t_object *object, t_ray *ray);
-void				calc_ray(t_env *env, double x, double y);
 double				calc_norm(t_p3d *vec);
 double				length_ray(t_ray *ray, double t, t_object *object);
+void				calc_ray(t_env *env, double x, double y);
 
 t_p3d				calc_sphere_normal(t_p3d *intersect, t_object *object);
 t_p3d				calc_cylinder_normal(t_p3d *intersect, t_object *object);
 t_p3d				calc_cone_normal(t_object *object);
 t_p3d				calc_plane_normal(t_object *object);
 t_p3d				calc_normal(t_p3d *intersect, t_object *object);
+
+t_object			*calc_object(t_object *object, t_ray *ray);
 
 void				reset_object(t_object *object);
 void				normalized(t_p3d *point);

@@ -35,7 +35,6 @@ void				set_env(t_env *env)
 	env->nearest_object = NULL;
 	env->xindent = 0;
 	env->yindent = 0;
-	env->color = BLACK;
 	env->font_color = FONT;
 	env->bpp = 0;
 	env->size_line = 0;

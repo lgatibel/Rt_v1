@@ -37,34 +37,6 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 	return (nearest);
 }
 
-int					calc_light(t_env *env)
-{
-	t_ray		*light;
-	double		angle;
-	double		diffuse;
-	int			col;
-	t_object	*nearest;
-
-	nearest = NULL;
-	light = &env->light;
-	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
-	normalized(&light->dir);
-	if (!(nearest = calc_object(env->object, light)) ||
-	env->nearest_object != nearest)
-		return (FONT);
-	reverse_tp3d(&light->dir);
-	env->color = env->nearest_object->color;
-	nearest->normal = calc_normal(&nearest->inter, nearest);
-	normalized(&nearest->normal);
-	angle = dot_product_tp3d(nearest->normal, light->dir);
-	diffuse = (angle > 0) ? angle * COEFF : 0;
-	// diffuse = (angle > 0) ? angle * COEFF : -angle * COEFF;
-	col = ((int)(color(env->color, RED) * diffuse) << 16) +
-	((int)(color(env->color, GREEN) * diffuse) << 8) +
-	(int)(color(env->color, BLUE) * diffuse);
-	return ((col < 0) ? 0x00 : col);
-}
-
 void				trace(t_env *env)
 {
 	int		x;
@@ -85,7 +57,7 @@ void				trace(t_env *env)
 				color = calc_light(env);
 			}
 			else
-				color = BLACK;//env->font_color;
+				color = env->font_color;
 			*(env->img_addr + x + (y * env->size_line) / 4) = color;
 		}
 	}
