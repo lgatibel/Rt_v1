@@ -60,12 +60,34 @@ int					set_vecteur_cam(char **tab, t_p3d *point)
 	return (i == 3) ? OK : ERROR;
 }
 
-void				set_cam(t_cam *cam, int fd)
+void				set_spot(t_ray *ray, int fd)
 {
 	char	*line;
 	int		i;
 	char	**tab;
 	char	ok[2];
+
+	line = NULL;
+	tab = NULL;
+	i = -1;
+	ft_bzero(&ok, 2);
+	if (++i < 1 && get_next_line(fd, &line) > 0)
+	{
+		ft_putendl(line);
+		if ((tab = ft_strsplit(line, ' ')) &&
+				!ft_strcmp(ft_strtrim(tab[0]), "origin"))
+			ok[0] = set_vecteur_cam(&tab[1], &ray->pos);
+	}
+	if (!args_required(ok, 1))
+		err(__FILE__, __LINE__, "bad argument for spot set", EXIT);
+}
+
+void				set_cam(t_cam *cam, int fd)
+{
+	char	*line;
+	int		i;
+	char	**tab;
+	char	ok[3];
 
 	i = -1;
 	line = NULL;

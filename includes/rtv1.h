@@ -169,6 +169,7 @@ int					set_radius(char **tab, double *radius);
 int					set_color(char **tab, int *color);
 void				set_object(t_env *env, int fd, t_object **object);
 void				set_cam(t_cam *cam, int fd);
+void				set_spot(t_ray *ray, int fd);
 
 int					calc_light(t_env *env);
 double				calc_sphere(t_object *object, t_ray *ray);

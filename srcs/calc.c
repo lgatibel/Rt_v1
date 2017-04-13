@@ -26,7 +26,7 @@ double				calc_delta(double a, double b, double c)
 	t0 = (-b + sqrt(delta)) / (2.0f * a);
 	t1 = (-b - sqrt(delta)) / (2.0f * a);
 	t = (t0 < t1) ? t0 : t1;
-	t -= t * 0.0000001f;
+	// t -= t * 0.0000001f;
 	return (t);
 //voir pour la saisie des argument comme length ci celui-ci
 //est set a 0 si il ny as pas de bug ou egale
@@ -80,7 +80,8 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 
 	cyl = (t_cylinder *)object->ptr;
 	set_offset(object, ray);
-	rdir = rotate_tp3d(&ray->dir, &cyl->rot);
+	rdir = ray->dir;
+	// rdir = rotate_tp3d(&ray->dir, &cyl->rot);
 	a = dot_product_tp3d(rdir, rdir) -
 	dot_product_tp3d(rdir, object->rot) *
 	dot_product_tp3d(rdir, object->rot);

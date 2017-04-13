@@ -54,7 +54,7 @@ void				trace(t_env *env)
 			calc_ray(env, x, y);
 			if ((env->nearest_object = calc_object(env->object, &env->ray)))
 			{
-				color = GREEN;//calc_light(env);
+				color = calc_light(env);
 			}
 			else
 				color = env->font_color;
@@ -82,7 +82,7 @@ int					main(int ac, char **av)
 	{
 		parse_file(av[1], env);
 		set_ray(&env->ray, env);
-		set_light(&env->light);
+		// set_light(&env->light);
 		trace(env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		event(env);
