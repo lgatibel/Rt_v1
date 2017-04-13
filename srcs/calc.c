@@ -79,8 +79,8 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	t_p3d		rdir;
 
 	cyl = (t_cylinder *)object->ptr;
-	rdir = rotate_tp3d(&ray->dir, &cyl->rot);
 	set_offset(object, ray);
+	rdir = rotate_tp3d(&ray->dir, &cyl->rot);
 	a = dot_product_tp3d(rdir, rdir) -
 	dot_product_tp3d(rdir, object->rot) *
 	dot_product_tp3d(rdir, object->rot);

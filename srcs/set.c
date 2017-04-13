@@ -33,15 +33,12 @@ int					set_vecteur(char **tab, t_p3d *point)
 int					set_rotation_vecteur(char **tab, t_p3d *point)
 {
 	int		i;
-	int		t;
 
 	i = -1;
-	t = -1;
 	while (tab[++i])
 	{
-		++t;
 		if (i < 3 && tab[i] && ft_strisnum(tab[i]))
-			*(&point->x + t) = (M_PI * ft_atod(tab[i])) / 180;
+			*(&point->x + i) = (M_PI * ft_atod(tab[i])) / 180;
 		else
 			return (ERROR);
 	}
@@ -51,21 +48,12 @@ int					set_rotation_vecteur(char **tab, t_p3d *point)
 int					set_vecteur_cam(char **tab, t_p3d *point)
 {
 	int		i;
-	int		t;
 
 	i = -1;
-	t = -1;
 	while (tab[++i])
 	{
-		++t;
-		if (i == 0 && tab[i] && ft_strisnum(tab[i]))
-			*(&point->x + t) = ft_atod(tab[i]);
-		else if (i == 1 && tab[i] && ft_strisnum(tab[i]))
-			*(&point->x + t) = ft_atod(tab[i]);
-		else if (i == 2 && tab[i] && ft_strisnum(tab[i]))
-		{
-			*(&point->x + t) = ft_atod(tab[i]);
-		}
+		if (i < 3 && ft_strisnum(tab[i]))
+			*(&point->x + i) = ft_atod(tab[i]);
 		else
 			return (ERROR);
 	}
