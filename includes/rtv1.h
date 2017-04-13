@@ -19,15 +19,13 @@
 # include <error.h>
 # include <fcntl.h>
 # include <tp3d.h>
-// a virer
-# include <stdio.h>
-//# define WIDTH 1600
+# include <stdio.h>// a virer
+
 # define WIDTH 800
 # define HEIGHT 800
 # define VIEW_WIDTH .8
 # define VIEW_HEIGHT .8
 # define RAYON_SIZE 1000
-
 # define RED 0XFF0000
 # define GREEN 0X00FF00
 # define BLUE 0X0000FF
@@ -36,14 +34,12 @@
 # define YELLOW 0XF7FA04
 # define PURPLE 0X8D44D6
 # define CUSTOM 0x0ECB25
-//# define FONT 0x00FFFFFF
 # define FONT 0x0
 # define COEFF 1
 # define ERROR 0
 # define OK 1
 
 # define ANGLE 90
-//# define Z 1.5708
 # define X cyl->rot.x
 # define Y cyl->rot.y
 # define Z cyl->rot.z
@@ -180,6 +176,8 @@ double				calc_cone(t_object *object, t_ray *ray);
 double				calc_cylinder(t_object *object, t_ray *ray);
 double				calc_plane(t_object *object, t_ray *ray);
 void				calc_ray(t_env *env, double x, double y);
+double				calc_norm(t_p3d *vec);
+double				length_ray(t_ray *ray, double t, t_object *object);
 
 t_p3d				calc_sphere_normal(t_p3d *intersect, t_object *object);
 t_p3d				calc_cylinder_normal(t_p3d *intersect, t_object *object);
@@ -196,5 +194,5 @@ int					test(t_env *env);
 void				print_line(char **str);
 void				malloc_object(t_object **obj, t_object **object, int i);
 
-void			set_offset(t_object *object, t_ray *ray);
+void				set_offset(t_object *object, t_ray *ray);
 #endif
