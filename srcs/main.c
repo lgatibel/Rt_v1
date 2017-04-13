@@ -62,7 +62,7 @@ int					calc_light(t_env *env)
 	col = ((int)(color(env->color, RED) * diffuse) << 16) +
 	((int)(color(env->color, GREEN) * diffuse) << 8) +
 	(int)(color(env->color, BLUE) * diffuse);
-	return (col);
+	return ((col < 0) ? 0x00 : col);
 }
 
 void				trace(t_env *env)
