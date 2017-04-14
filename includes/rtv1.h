@@ -80,7 +80,6 @@ typedef struct		s_ray
 {
 	t_p3d			pos;
 	t_p3d			dir;
-	struct s_ray	*next;
 }					t_ray;
 
 typedef struct		s_object
@@ -136,9 +135,7 @@ typedef struct		s_env
 t_object			*parse_file(char *file, t_env *env);
 
 void				set_env(t_env *env);
-void				set_viewplane(t_env *env);
 void				set_ray(t_ray *ray, t_env *env);
-void				set_light(t_ray *ligth);
 int					set_vecteur(char **tab, t_p3d *point);
 int					set_rotation_vecteur(char **tab, t_p3d *point);
 int					set_radius(char **tab, double *radius);

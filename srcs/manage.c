@@ -17,10 +17,7 @@ static int			manage_tags(t_env *env, int fd, int i)
 	if (i == 0 && !ft_strcmp(ft_strtrim(env->line), "##CAM"))
 		set_cam(&env->cam, fd);
 	else if (i == 1 && !ft_strcmp(ft_strtrim(env->line), "##SPOT"))
-	{
 		set_spot(&env->light, fd);
-		env->light.next = NULL;
-	}
 	else if (i == 2 && !ft_strcmp(ft_strtrim(env->line), "##OBJECT"))
 	{
 		set_object(env, fd, &env->object);
