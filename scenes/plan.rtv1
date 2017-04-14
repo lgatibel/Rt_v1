@@ -2,6 +2,8 @@
 	##CAM
 		origin 0 0 0
 		rot 0 0 0
+	##SPOT
+	origin 0 0 0
 	##OBJECT
 #PLANE
 	origin 0 0 0

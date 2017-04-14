@@ -2,6 +2,8 @@
 	##CAM
 		origin 0 0 0
 		rot 0 0 45
+	##SPOT
+	origin 0 0 0
 	##OBJECT
 	#SPHERE
 		origin 100 -120 500
