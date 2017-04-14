@@ -30,11 +30,14 @@ static void			set_mlx(t_env *env)
 
 void				set_env(t_env *env)
 {
-	// env->final_color = 0;
+	env->basis.x = WIDTH / HEIGHT;
+	env->basis.y = 1.0f;
+	env->basis.z = 0.0f;
+	env->indent.x = env->basis.x / WIDTH;
+	env->indent.y = env->basis.y / HEIGHT;
+	env->indent.z = 0.0f;
 	env->object = NULL;
 	env->nearest_object = NULL;
-	// env->xindent = 0;
-	// env->yindent = 0;
 	env->font_color = FONT;
 	env->bpp = 0;
 	env->size_line = 0;

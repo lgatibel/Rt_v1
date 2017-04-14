@@ -114,12 +114,10 @@ typedef struct		s_env
 	t_object	*object;
 	t_object	*nearest_object;
 
-	// t_viewplane viewplane;
-	double		xindent;
-	double		yindent;
+	t_p3d		indent;
+	t_p3d		basis;
 	double		length;
 
-	// int			final_color;
 	int			font_color;
 
 	void		*mlx;
