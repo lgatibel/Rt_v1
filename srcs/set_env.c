@@ -44,6 +44,5 @@ void				set_env(t_env *env)
 	env->endian = 0;
 	set_mlx(env);
 	env->line = NULL;
-	env->t = -1;
 	env->i = 0;
 }

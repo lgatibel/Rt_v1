@@ -17,7 +17,7 @@ static void			move_camera(int keycode, t_env *env)
 	printf("lol\n");
 	ft_putnbr(keycode);
 	ft_putchar('\n');
-	keycode = env->t;
+	keycode = env->font_color;
 }
 
 static int			close_session(void)

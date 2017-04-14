@@ -89,7 +89,8 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	dot_product_tp3d(object->offset, object->rot) *
 	dot_product_tp3d(object->offset, object->rot) -
 	cyl->radius * cyl->radius;
-	return (calc_delta(a, b, c));
+	object->t = calc_delta(a, b, c);
+	return (object->t);
 }
 
 double				calc_sphere(t_object *object, t_ray *ray)

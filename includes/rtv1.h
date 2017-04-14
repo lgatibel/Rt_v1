@@ -96,6 +96,7 @@ typedef struct		s_object
 	t_bool				set;
 	double				norminter;
 	double				normlight;
+	double				t;
 }					t_object;
 
 typedef struct		s_cam
@@ -128,7 +129,6 @@ typedef struct		s_env
 	int			endian;
 
 	char		*line;
-	double		t;
 	int			i;
 }					t_env;
 

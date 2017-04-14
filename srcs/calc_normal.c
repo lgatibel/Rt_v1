@@ -26,6 +26,10 @@ t_p3d			calc_cylinder_normal(t_p3d *intersect, t_object *object)
 	t_cylinder *cylinder;
 
 	cylinder = (t_cylinder *)object->ptr;
+	// rotate_tp3d(&object->normal, &cylinder->rot);
+	normalized(&object->normal);
+	return (object->normal);
+
 	object->normal = div_nb_tp3d(sub_tp3d(*intersect, cylinder->pos),
 		cylinder->radius);
 	cpy_tp3d(&object->normal, sub_tp3d(*intersect, cylinder->pos));
