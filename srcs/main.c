@@ -64,13 +64,18 @@ void				trace(t_env *env)
 	}
 }
 
+void				set_axe(t_object *object)
+{
+	set_tp3d(&object->rot, 0.0f, 1.0f, 0.0f);
+}
+
 void				set_offset(t_object *object, t_ray *ray)
 {
 	t_sphere *o;
 
 	o = object->ptr;
 	object->offset = sub_tp3d(ray->pos, o->pos);
-	set_tp3d(&object->rot, 0.0f, 1.0f, 0.0f);
+	set_axe(object);
 }
 
 int					main(int ac, char **av)

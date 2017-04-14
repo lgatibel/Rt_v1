@@ -3,7 +3,7 @@
 		origin 0 0 0
 		rot 0 0 1
 	##SPOT
-		origin 00 90 400
+		origin 00 0 400
 	##OBJECT
 	#SPHERE
 		origin 100 -120 500
@@ -26,9 +26,9 @@
 		rot 0 0 0
 		color 0xFF0000
 	#CYLINDER
-		origin -100 0 500
+		origin -100 50 500
 		radius 30
-		rot 0 0 0
+		rot 0 0 90
 		color 0x0000FF
 	#CYLINDER
 		origin 100 0 500

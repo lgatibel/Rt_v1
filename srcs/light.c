@@ -27,9 +27,20 @@ int					calc_light(t_env *env)
 	if (!(nearest = calc_object(env->object, light)) ||
 	env->nearest_object != nearest)
 		return (FONT);
+
+	// 	diffuse = 1.0f;
+	// return (col = ((int)(color(nearest->color, RED) * diffuse) << 16) +
+	// ((int)(color(nearest->color, GREEN) * diffuse) << 8) +
+	// (int)(color(nearest->color, BLUE) * diffuse));
+
+
 	reverse_tp3d(&light->dir);
+	
 	nearest->normal = calc_normal(&nearest->inter, nearest);
 	normalized(&nearest->normal);
+
+	// light->dir = rotate_tp3d(&light->dir, &env->nearest_object->rot);
+	normalized(&light->dir);
 	angle = dot_product_tp3d(nearest->normal, light->dir);
 	diffuse = (angle > 0) ? angle * COEFF : 0;
 	// diffuse = (angle > 0) ? angle * COEFF : -angle * COEFF;
