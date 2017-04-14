@@ -26,10 +26,7 @@ double				calc_delta(double a, double b, double c)
 	t0 = (-b + sqrt(delta)) / (2.0f * a);
 	t1 = (-b - sqrt(delta)) / (2.0f * a);
 	t = (t0 < t1) ? t0 : t1;
-	// t -= t * 0.0000001f;
 	return (t);
-//voir pour la saisie des argument comme length ci celui-ci
-//est set a 0 si il ny as pas de bug ou egale
 }
 
 double				calc_plane(t_object *object, t_ray *ray)
@@ -105,7 +102,7 @@ double				calc_sphere(t_object *object, t_ray *ray)
 	s = (t_sphere *)object->ptr;
 	set_offset(object, ray);
 	a = dot_product_tp3d(ray->dir, ray->dir);
-	b = 2 * dot_product_tp3d(ray->dir, object->offset);
+	b = 2.0f * dot_product_tp3d(ray->dir, object->offset);
 	c = dot_product_tp3d(object->offset, object->offset) - s->radius *
 	s->radius;
 	return (calc_delta(a, b, c));

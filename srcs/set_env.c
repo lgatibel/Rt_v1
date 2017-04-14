@@ -30,11 +30,11 @@ static void			set_mlx(t_env *env)
 
 void				set_env(t_env *env)
 {
-	env->final_color = 0;
+	// env->final_color = 0;
 	env->object = NULL;
 	env->nearest_object = NULL;
-	env->xindent = 0;
-	env->yindent = 0;
+	// env->xindent = 0;
+	// env->yindent = 0;
 	env->font_color = FONT;
 	env->bpp = 0;
 	env->size_line = 0;
@@ -43,25 +43,4 @@ void				set_env(t_env *env)
 	env->line = NULL;
 	env->t = -1;
 	env->i = 0;
-}
-
-void				set_viewplane(t_env *env)
-{
-	t_viewplane		*view;
-	t_p3d			vecdir;
-
-	view = &env->viewplane;
-	view->dist = 1;
-	view->width = VIEW_WIDTH;
-	view->height = VIEW_HEIGHT;
-	set_tp3d(&vecdir, 0, 0, 1);
-	set_tp3d(&view->upvec, 0, 1, 0);
-	set_tp3d(&view->rvec, 1, 0, 0);
-	view->upleft = sub_tp3d(
-	sum_tp3d(
-	sum_tp3d(env->cam.pos, mult_nb_tp3d(vecdir,//env->cam.rot,
-	view->dist)), mult_nb_tp3d(view->upvec, view->height /
-	2.0f)), mult_nb_tp3d(view->rvec, view->width / 2.0f));
-	env->xindent = view->width / WIDTH;
-	env->yindent = view->height / HEIGHT;
 }

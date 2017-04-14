@@ -6,7 +6,7 @@ rot 0 0 1
 origin 0 0 0
 ##OBJECT
 #SPHERE
-origin 0 0 500
+origin 100 0 500
 radius 50
 rot 0 0 0
 color 0XFF0000

@@ -19,13 +19,32 @@ void				calc_ray(t_env *env, double x, double y)
 
 	ray = &env->ray;
 	cam = &env->cam;
-	cpy_tp3d(&env->ray.dir,
-	sum_tp3d(env->viewplane.upleft,
-	sub_tp3d(
-	mult_nb_tp3d(env->viewplane.rvec, x * env->xindent),
-	mult_nb_tp3d(env->viewplane.upvec, y * env->yindent))));
-	// ray-dir = rotate_tp3d(&env->ray.dir, &env->cam.rot);
-	normalized(&env->ray.dir);
+	// cpy_tp3d(&env->ray.dir,
+	// sum_tp3d(env->viewplane.upleft,
+	// sub_tp3d(
+	// mult_nb_tp3d(env->viewplane.rvec, x * env->xindent),
+	// mult_nb_tp3d(env->viewplane.upvec, y * env->yindent))));
+	// // ray-dir = rotate_tp3d(&env->ray.dir, &env->cam.rot);
+	// normalized(&env->ray.dir);
+
+	t_p3d	basis;
+	t_p3d	indent;
+	t_p3d	origin;
+
+	basis.y = 1.0f;
+	basis.x = WIDTH / HEIGHT;
+	indent.y = basis.y / HEIGHT;
+	indent.x = basis.x / WIDTH;
+	// a metre dans set_env.c
+
+	cam->focal = 55;
+	origin.x = cam->pos.x + (cam->focal / 27.5f * 0.0f) - basis.x / 2.0f;
+	origin.y = cam->pos.y + (cam->focal / 27.5f * 0.0f) - basis.y / 2.0f;
+	origin.z = cam->pos.z + (cam->focal / 27.5f * 1.0f);
+	ray->dir.x = origin.x + ((double)x * indent.x) - cam->pos.x;
+	ray->dir.y = origin.y + ((double)y * indent.y) - cam->pos.y;
+	ray->dir.z = origin.z - cam->pos.z;
+	normalized(&ray->dir);
 }
 
 void				set_ray(t_ray *ray, t_env *env)

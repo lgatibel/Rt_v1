@@ -1,13 +1,13 @@
 ###START
 	##CAM
-		origin 0 0 0
+		origin 0 0 1
 		rot 0 0 1
 	##SPOT
 		origin 0 0 0
 	##OBJECT
 	#CYLINDER
-		origin 10 0 500
+		origin 10 0 -500
 		radius 50
-		rot 0 10 0
+		rot 0 0 0
 		color 0xFF0000
 ###END
