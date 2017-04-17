@@ -77,7 +77,6 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 
 	cyl = (t_cylinder *)object->ptr;
 	// set_offset(object, ray);
-	set_axe(object);
 	object->offset = rotate_tp3d2(ray->pos, cyl->pos, &cyl->rot);
 
 	
