@@ -26,15 +26,12 @@ int					calc_light(t_env *env)
 	int			col;
 	t_object	*nearest;
 
-	nearest = NULL;
 	light = set_light(env);
-	
 	if (!(nearest = calc_object(env->object, light)) ||
 	env->nearest_object != nearest)
 		return (FONT);
 	
 	nearest->normal = calc_normal(&nearest->inter, nearest);
-	// normalized(&nearest->normal);
 
 	reverse_tp3d(&light->dir);
 

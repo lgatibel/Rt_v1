@@ -12,14 +12,6 @@
 
 #include <rtv1.h>
 
-static void			move_camera(int keycode, t_env *env)
-{
-	printf("lol\n");
-	ft_putnbr(keycode);
-	ft_putchar('\n');
-	keycode = env->font_color;
-}
-
 static int			close_session(void)
 {
 	exit(2);
@@ -27,9 +19,9 @@ static int			close_session(void)
 
 static int			manage_event(int keycode, t_env *env)
 {
-	if (keycode > 1 && keycode < 1)
-		move_camera(keycode, env);
-	else if (keycode == 53)
+	if (env->mlx)
+	{}
+	if (keycode == 53)
 		close_session();
 	return (1);
 }
