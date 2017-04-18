@@ -94,8 +94,8 @@ typedef struct		s_object
 	t_p3d				rot;
 	t_p3d				inter;
 	t_bool				set;
-	double				norminter;
-	double				normlight;
+	// double				norminter;
+	// double				normlight;
 	double				t;
 }					t_object;
 

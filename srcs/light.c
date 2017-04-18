@@ -40,7 +40,7 @@ int					calc_light(t_env *env)
 	normalized(&nearest->normal);
 
 	// light->dir = rotate_tp3d(&light->dir, &env->nearest_object->rot);
-	normalized(&light->dir);
+	// normalized(&light->dir);
 	angle = dot_product_tp3d(nearest->normal, light->dir);
 	diffuse = (angle > 0) ? angle * COEFF : 0;
 	// diffuse = (angle > 0) ? angle * COEFF : -angle * COEFF;

@@ -20,7 +20,6 @@ double				calc_norm(t_p3d *vec)
 double				length_ray(t_ray *ray, double t, t_object *object)
 {
 	t_p3d	intersect;
-	t_p3d	tmp;
 	t_p3d	res;
 
 	if (t <= 0)
@@ -29,12 +28,13 @@ double				length_ray(t_ray *ray, double t, t_object *object)
 	res = sub_tp3d(intersect, ray->pos);
 	if (object->set == false)
 		cpy_tp3d(&object->inter, intersect);
-	else
-	{
-		object->normlight = calc_norm(&res);
-		tmp = sub_tp3d(object->inter, ray->pos);
-		object->norminter = calc_norm(&tmp);
-	}
+	// t_p3d	tmp;
+	// else
+	// {
+	// 	// object->normlight = calc_norm(&res);
+	// 	tmp = sub_tp3d(object->inter, ray->pos);
+	// 	object->norminter = calc_norm(&tmp);
+	// }
 
 	
 			double		m;
