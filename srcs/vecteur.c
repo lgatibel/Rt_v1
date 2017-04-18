@@ -37,30 +37,29 @@ double				length_ray(t_ray *ray, double t, t_object *object)
 	// }
 
 	
-			double		m;
-		t_cylinder	*cyl;
-		t_p3d		rdir;
+	double		m;
+	t_cylinder	*cyl;
+	t_p3d		rdir;
 
-		cyl = (t_cylinder *)object->ptr;
-		rdir = ray->dir;
-		// rdir = rotate_tp3d(&ray->dir, &cyl->rot);
-		// cyl->rot= mult_nb_tp3d(cyl->rot, -1);
-		// object->rot = rotate_tp3d(&object->rot, &cyl->rot);
+	cyl = (t_cylinder *)object->ptr;
+	rdir = ray->dir;
+	// rdir = rotate_tp3d(&ray->dir, &cyl->rot);
+	// cyl->rot= mult_nb_tp3d(cyl->rot, -1);
+	// object->rot = rotate_tp3d(&object->rot, &cyl->rot);
 
-		if (!object->set)
-		{
+	if (object->set)
+	{
 	// m = dot_product_tp3d(ray->dir, rot) * object->t +
-	//  dot_product_tp3d(object->offset, rot);
-		// object->offset = sub_tp3d(ray->pos, cyl->pos);
-	object->offset = rotate_tp3d2(ray->pos, cyl->pos, &cyl->rot);
+	// dot_product_tp3d(object->offset, rot);
+	// object->offset = sub_tp3d(ray->pos, cyl->pos);
+		object->offset = rotate_tp3d2(ray->pos, cyl->pos, &cyl->rot);
 
-		 m = dot_product_tp3d(rdir, 
+		m = dot_product_tp3d(rdir, 
 	 	mult_nb_tp3d(object->rot, object->t)) +
 	 	dot_product_tp3d(object->offset, object->rot);
 
-		 object->normal = sub_tp3d(sub_tp3d(intersect, cyl->pos), mult_nb_tp3d(object->rot, m));
-		}
+		object->normal = sub_tp3d(sub_tp3d(intersect, cyl->pos), mult_nb_tp3d(object->rot, m));
+	}
 	object->set = true;
-
 	return (calc_norm(&res));
 }

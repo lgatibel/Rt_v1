@@ -18,6 +18,7 @@ t_p3d			calc_sphere_normal(t_p3d *intersect, t_object *object)
 
 	sphere = (t_sphere *)object->ptr;
 	cpy_tp3d(&object->normal, sub_tp3d(*intersect, sphere->pos));
+	normalized(&object->normal);
 	return (object->normal);
 }
 
@@ -27,6 +28,7 @@ t_p3d			calc_cylinder_normal(t_p3d *intersect, t_object *object)
 
 	cylinder = (t_cylinder *)object->ptr;
 
+	normalized(&object->normal);
 	return (rotate_tp3d(&object->normal, &cylinder->rot));
 	return (object->normal);
 
@@ -41,6 +43,7 @@ t_p3d			calc_cylinder_normal(t_p3d *intersect, t_object *object)
 t_p3d			calc_cone_normal(t_object *object)
 {
 	set_tp3d(&object->normal, 0, 0, -1);
+	normalized(&object->normal);
 	return (object->normal);
 }
 
@@ -49,6 +52,7 @@ t_p3d			calc_plane_normal(t_object *object)
 	t_plane *plane;
 
 	plane = (t_plane *)object->ptr;
+	normalized(&plane->normal);
 	return (plane->normal);
 }
 

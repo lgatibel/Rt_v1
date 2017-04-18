@@ -11,6 +11,12 @@
 /* ************************************************************************** */
 
 #include <rtv1.h>
+static t_ray		*set_light(t_env *env)
+{
+	env->light.dir = sub_tp3d(env->nearest_object->inter, env->light.pos);
+	normalized(&env->light.dir);
+	return (&env->light);
+}
 
 int					calc_light(t_env *env)
 {
@@ -21,26 +27,18 @@ int					calc_light(t_env *env)
 	t_object	*nearest;
 
 	nearest = NULL;
-	light = &env->light;
-	light->dir = sub_tp3d(env->nearest_object->inter, light->pos);
-	normalized(&light->dir);
+	light = set_light(env);
+	
 	if (!(nearest = calc_object(env->object, light)) ||
 	env->nearest_object != nearest)
 		return (FONT);
-
-	// 	diffuse = 1.0f;
-	// return (col = ((int)(color(nearest->color, RED) * diffuse) << 16) +
-	// ((int)(color(nearest->color, GREEN) * diffuse) << 8) +
-	// (int)(color(nearest->color, BLUE) * diffuse));
-
-
-	reverse_tp3d(&light->dir);
 	
 	nearest->normal = calc_normal(&nearest->inter, nearest);
-	normalized(&nearest->normal);
+	// normalized(&nearest->normal);
+
+	reverse_tp3d(&light->dir);
 
 	// light->dir = rotate_tp3d(&light->dir, &env->nearest_object->rot);
-	// normalized(&light->dir);
 	angle = dot_product_tp3d(nearest->normal, light->dir);
 	diffuse = (angle > 0) ? angle * COEFF : 0;
 	// diffuse = (angle > 0) ? angle * COEFF : -angle * COEFF;
