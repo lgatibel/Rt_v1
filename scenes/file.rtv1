@@ -28,7 +28,7 @@
 	#CYLINDER
 		origin -100 50 500
 		radius 30
-		rot 0 0 90
+		rot 0 0 45
 		color 0x0000FF
 	#CYLINDER
 		origin 100 0 500

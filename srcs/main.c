@@ -52,6 +52,8 @@ void				trace(t_env *env)
 		{
 			reset_object(env->object);
 			calc_ray(env, x, y);
+			// if (x == WIDTH / 4 && y == HEIGHT / 2)
+			// {
 			if ((env->nearest_object = calc_object(env->object, &env->ray)))
 			{
 				color = calc_light(env);
@@ -59,6 +61,7 @@ void				trace(t_env *env)
 			}
 			else
 				color = env->font_color;
+			// }
 			*(env->img_addr + x + (y * env->size_line) / 4) = color;
 		}
 	}

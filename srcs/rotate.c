@@ -12,6 +12,18 @@
 
 #include <rtv1.h>
 
+
+t_p3d			rotate_tp(t_p3d *ray, t_p3d rot, t_p3d pos)
+{
+	t_p3d	res;
+	//debug 
+	pos.x = pos.y;
+	res.x = ray->x * cos(rot.z) + ray->y * sin(rot.z);
+	res.y = ray->x * -sin(rot.z) + ray->y * cos(rot.z);
+	res.z = ray->z;
+	return (res);
+}
+
 t_p3d			rotate_tp3d(t_p3d *ray, t_p3d *rot)
 {
 	t_p3d	matx;

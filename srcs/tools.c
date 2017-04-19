@@ -47,7 +47,7 @@ void				normalized(t_p3d *point)
 
 	norm = sqrt(point->x * point->x + point->y * point->y +
 			point->z * point->z);
-	point->x = point->x / norm;
-	point->y = point->y / norm;
-	point->z = point->z / norm;
+	point->x /= norm;
+	point->y /= norm;
+	point->z /= norm;
 }

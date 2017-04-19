@@ -20,7 +20,8 @@ static int			close_session(void)
 static int			manage_event(int keycode, t_env *env)
 {
 	if (env->mlx)
-	{}
+	{
+	}
 	if (keycode == 53)
 		close_session();
 	return (1);

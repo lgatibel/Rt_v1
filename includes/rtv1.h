@@ -175,4 +175,7 @@ void				malloc_object(t_object **obj, t_object **object, int i);
 
 void				set_offset(t_object *object, t_ray *ray);
 
+
+t_p3d			rotate_tp(t_p3d *ray, t_p3d rot, t_p3d pos);
+
 #endif
