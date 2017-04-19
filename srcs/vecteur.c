@@ -56,13 +56,15 @@ double				length_ray(t_ray *ray, double t, t_object *object)
 	 	// dot_product_tp3d(object->offset, object->rot);
 
 		t_p3d		test;
+		test = ray->dir;
 		test = rotate_tp3d(&ray->dir, &cyl->rot);
 		m = dot_product_tp3d(test, object->rot) * object->t +
 	 	dot_product_tp3d(object->offset, object->rot);
 
 		// t_p3d		test;
 		// t_p3d		test22;
-		// test = rotate_tp3d(&object->rot, &cyl->rot);
+		// test = rotate_tp3d(&obje ct->rot, &cyl->rot);
+		// object->offset = rotate_tp3d2(ray->pos, cyl->pos, &cyl->rot);
 		// object->offset = sub_tp3d(ray->pos,  cyl->pos);
 		// test22 = rotate_tp3d(&object->offset, &cyl->rot);
 		// m = dot_product_tp3d(ray->dir, object->rot) * object->t +

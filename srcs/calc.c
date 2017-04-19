@@ -80,8 +80,9 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 
 	
 	rdir = ray->dir;
-	object->offset = sub_tp3d(ray->pos, cyl->pos);
-	rdir = rotate_tp(&ray->dir, cyl->rot, cyl->pos);
+	// object->offset = sub_tp3d(ray->pos, cyl->pos);
+	object->offset = rotate_tp3d2(ray->pos, cyl->pos, &cyl->rot);
+	rdir = rotate_tp3d(&ray->dir, &cyl->rot);//, cyl->pos);
 	// rdir = rotate_tp3d(&ray->dir, &cyl->rot);
 	// object->offset = rotate_tp3d2(ray->pos, cyl->pos, &cyl->rot);
 

@@ -28,7 +28,6 @@ t_p3d			calc_cylinder_normal(t_p3d *intersect, t_object *object)
 
 	cylinder = (t_cylinder *)object->ptr;
 
-	// normalized(&object->normal);
 	// return (rotate_tp3d(&object->normal, &cylinder->rot));
 	// printf("normal\n");
 	// printf("x[%f], y[%f], z[%f]\n", object->normal.x, object->normal.y, object->normal.z);
