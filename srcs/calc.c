@@ -74,15 +74,29 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	double		c;
 	t_cylinder	*cyl;
 	t_p3d		rdir;
+	// t_p3d		zero;
 
 	cyl = (t_cylinder *)object->ptr;
 	// set_offset(object, ray);
 
 	
-	rdir = ray->dir;
 	// object->offset = sub_tp3d(ray->pos, cyl->pos);
-	object->offset = rotate_tp3d2(ray->pos, cyl->pos, &cyl->rot);
-	rdir = rotate_tp3d(&ray->dir, &cyl->rot);//, cyl->pos);
+	rdir = ray->dir;
+	if (!ray->is_light)
+	{
+		object->offset = rotate_tp3d2(ray->pos, 
+		cyl->pos, &cyl->rot);
+		object->rot = rotate_tp3d(&object->rot, &cyl->rot);
+	}
+	else
+	{
+		
+		object->offset = rotate_tp3d2(ray->pos, sub_tp3d(ray->pos,
+		cyl->pos), &cyl->rot);
+		// object->offset = rotate_tp3d2(ray->pos, 
+		// cyl->pos, &cyl->rot);
+		object->offset = sub_tp3d(ray->pos, cyl->pos);
+	}
 	// rdir = rotate_tp3d(&ray->dir, &cyl->rot);
 	// object->offset = rotate_tp3d2(ray->pos, cyl->pos, &cyl->rot);
 

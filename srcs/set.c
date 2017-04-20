@@ -80,6 +80,7 @@ void				set_spot(t_ray *ray, int fd)
 	}
 	if (!args_required(ok, 1))
 		err(__FILE__, __LINE__, "bad argument for spot set", EXIT);
+	ray->is_light = 1;
 }
 
 void				set_cam(t_cam *cam, int fd)

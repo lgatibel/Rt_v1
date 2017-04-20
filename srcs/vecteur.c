@@ -26,24 +26,14 @@ double				length_ray(t_ray *ray, double t, t_object *object)
 		return (-8);
 	intersect = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, t));
 	res = sub_tp3d(intersect, ray->pos);
+
 	if (object->set == false)
 		cpy_tp3d(&object->inter, intersect);
-	// t_p3d	tmp;
-	// else
-	// {
-	// 	// object->normlight = calc_norm(&res);
-	// 	tmp = sub_tp3d(object->inter, ray->pos);
-	// 	object->norminter = calc_norm(&tmp);
-	// }
-
 	
 	double		m;
 	t_cylinder	*cyl;
 
 	cyl = (t_cylinder *)object->ptr;
-	// rdir = ray->dir;
-	// cyl->rot= mult_nb_tp3d(cyl->rot, -1);
-	// object->rot = rotate_tp3d(&object->rot, &cyl->rot);
 
 	if (!object->set)
 	{
@@ -52,14 +42,14 @@ double				length_ray(t_ray *ray, double t, t_object *object)
 	// object->offset = sub_tp3d(ray->pos, cyl->pos);
 		// object->offset = rotate_tp3d2(ray->pos, cyl->pos, &cyl->rot);
 
-		//  m = dot_product_tp3d(ray->dir, object->rot) * object->t +
-	 	// dot_product_tp3d(object->offset, object->rot);
-
-		t_p3d		test;
-		test = ray->dir;
-		test = rotate_tp3d(&ray->dir, &cyl->rot);
-		m = dot_product_tp3d(test, object->rot) * object->t +
+		 m = dot_product_tp3d(ray->dir, object->rot) * object->t +
 	 	dot_product_tp3d(object->offset, object->rot);
+
+		// t_p3d		test;
+		// test = ray->dir;
+		// test = rotate_tp3d(&ray->dir, &cyl->rot);
+		// m = dot_product_tp3d(test, object->rot) * object->t +
+	 	// dot_product_tp3d(object->offset, object->rot);
 
 		// t_p3d		test;
 		// t_p3d		test22;

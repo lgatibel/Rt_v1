@@ -80,6 +80,7 @@ typedef struct		s_ray
 {
 	t_p3d			pos;
 	t_p3d			dir;
+	int				is_light;
 }					t_ray;
 
 typedef struct		s_object
@@ -119,7 +120,6 @@ typedef struct		s_env
 	double		length;
 
 	int			font_color;
-
 	void		*mlx;
 	void		*win;
 	void		*img;

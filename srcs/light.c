@@ -36,11 +36,12 @@ int					calc_light(t_env *env)
 	reverse_tp3d(&light->dir);
 
 	// light->dir = rotate_tp3d(&light->dir, &env->nearest_object->rot);
+	// nearest->normal = rotate_tp3d(&nearest->normal, &env->nearest_object->rot);
 
 	angle = dot_product_tp3d(nearest->normal, light->dir);
-	diffuse = (angle > 0) ? angle * COEFF : 0;
+	diffuse = (angle > 0.0f) ? angle * COEFF : 0;
 
-	// diffuse = (angle > 0) ? angle * COEFF : -angle * COEFF;
+	// diffuse = (angle > 0.0f) ? angle * COEFF : -angle * COEFF;
 	col = ((int)(color(nearest->color, RED) * diffuse) << 16) +
 	((int)(color(nearest->color, GREEN) * diffuse) << 8) +
 	(int)(color(nearest->color, BLUE) * diffuse);

@@ -31,4 +31,5 @@ void				set_ray(t_ray *ray, t_env *env)
 	ray->pos.x = env->cam.pos.x;
 	ray->pos.y = env->cam.pos.y;
 	ray->pos.z = env->cam.pos.z;
+	ray->is_light = 0;
 }
