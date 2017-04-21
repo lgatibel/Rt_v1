@@ -16,6 +16,7 @@ void				reset_object(t_object *object)
 {
 	while (object)
 	{
+
 		object->set = false;
 		set_tp3d(&object->rot, 0.0f, 1.0f, 0.0f);
 		object = object->next;

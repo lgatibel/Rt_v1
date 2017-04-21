@@ -74,41 +74,41 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	double		c;
 	t_cylinder	*cyl;
 	t_p3d		rdir;
+	t_p3d		rot;
 	// t_p3d		zero;
 
 	cyl = (t_cylinder *)object->ptr;
 	// set_offset(object, ray);
 
-	
 	// object->offset = sub_tp3d(ray->pos, cyl->pos);
 	rdir = ray->dir;
-	if (!ray->is_light)
-	{
-		object->offset = rotate_tp3d2(ray->pos, 
-		cyl->pos, &cyl->rot);
-		object->rot = rotate_tp3d(&object->rot, &cyl->rot);
-	}
-	else
-	{
+	// if (!ray->is_light && ray->is_light)
+	// {
+		object->offset = rotate_tp3d2(ray->pos,	cyl->pos, &cyl->rot);
+		// if (!object->set)
+		rot = rotate_tp3d(&object->rot, &cyl->rot);
+	// }
+	// else
+	// {
 		
-		object->offset = rotate_tp3d2(ray->pos, sub_tp3d(ray->pos,
-		cyl->pos), &cyl->rot);
-		// object->offset = rotate_tp3d2(ray->pos, 
-		// cyl->pos, &cyl->rot);
-		object->offset = sub_tp3d(ray->pos, cyl->pos);
-	}
+	// 	object->offset = rotate_tp3d2(ray->pos, sub_tp3d(ray->pos,
+	// 	cyl->pos), &cyl->rot);
+	// 	// object->offset = rotate_tp3d2(ray->pos, 
+	// 	// cyl->pos, &cyl->rot);
+	// 	// object->offset = sub_tp3d(ray->pos, cyl->pos);
+	// }
 	// rdir = rotate_tp3d(&ray->dir, &cyl->rot);
 	// object->offset = rotate_tp3d2(ray->pos, cyl->pos, &cyl->rot);
 
 	a = dot_product_tp3d(rdir, rdir) -
-	dot_product_tp3d(rdir, object->rot) *
-	dot_product_tp3d(rdir, object->rot);
+	dot_product_tp3d(rdir, rot) *
+	dot_product_tp3d(rdir, rot);
 	b = 2.0f * (dot_product_tp3d(rdir, object->offset) -
-	dot_product_tp3d(rdir, object->rot) *
-	dot_product_tp3d(object->offset, object->rot));
+	dot_product_tp3d(rdir, rot) *
+	dot_product_tp3d(object->offset, rot));
 	c = dot_product_tp3d(object->offset, object->offset) -
-	dot_product_tp3d(object->offset, object->rot) *
-	dot_product_tp3d(object->offset, object->rot) -
+	dot_product_tp3d(object->offset, rot) *
+	dot_product_tp3d(object->offset, rot) -
 	cyl->radius * cyl->radius;
 	
 	object->t = calc_delta(a, b, c);

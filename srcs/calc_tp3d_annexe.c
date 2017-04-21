@@ -34,6 +34,12 @@ double			dot_product_tp3d(t_p3d vector1, t_p3d vector2)
 		vector1.z * vector2.z);
 }
 
+double			cross_product_tp3d(t_p3d vector1, t_p3d vector2)
+{
+	return (vector1.x * vector2.x - vector1.y * vector2.y -
+		vector1.z * vector2.z);
+}
+
 void			reverse_tp3d(t_p3d *vec)
 {
 	vec->x *= -1;
