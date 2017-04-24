@@ -11,9 +11,3 @@ radius 50
 rot 0 0 0
 color 0XFF0000
 ###END
-
-#PLANE
-origin 0 0 0
-norm 0 1 0
-length -10
-color 0xFFFFFF

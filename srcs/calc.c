@@ -42,15 +42,16 @@ double				calc_plane(t_object *object, t_ray *ray)
 		return (-8);
 	set_offset(object, ray);
 	t = -(dot_product_tp3d(rot, object->offset) + pl->d) / div;
+	object->t  = t;
 	if (!object->set)
 	{
-		if (div < 0.0f)
-			cpy_tp3d(&object->normal, object->rot);
+		if (div > 0.0f)
+			cpy_tp3d(&object->normal, rot);
 		else
-			cpy_tp3d(&object->normal, mult_nb_tp3d(object->rot, -1));
-		normalized(&object->rot);
+			cpy_tp3d(&object->normal, mult_nb_tp3d(rot, -1));
+		normalized(&object->normal);
 	}
-	return ((t < 0) ? -8 : t);
+	return ((t < 0.0f) ? -8 : t);
 }
 
 static	void		cone_normal(t_ray *ray, t_object *object, t_p3d rot)
@@ -93,9 +94,10 @@ double				calc_cone(t_object *object, t_ray *ray)
 	c = dot_product_tp3d(object->offset, object->offset) - tanj *
 	dot_product_tp3d(object->offset, object->rot) *
 	dot_product_tp3d(object->offset, object->rot);
+	object->t = calc_delta(a, b, c);
 	if (!object->set)
 		cone_normal(ray, object, object->rot);
-	return (calc_delta(a, b, c));
+	return (object->t);
 }
 
 static	void		cylinder_normal(t_ray *ray, t_object *object, t_p3d rot)
@@ -143,18 +145,36 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	return (object->t);
 }
 
+static	void		sphere_normal(t_ray *ray, t_object *object, t_p3d rot)
+{
+	t_sphere	*sphere;
+
+	set_tp3d(&rot, 0, 0, 0);// a supprimer
+
+
+	sphere = (t_sphere *)object->ptr;
+	object->inter = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, object->t));
+	object->normal = sub_tp3d(object->inter, sphere->pos);
+	normalized(&object->normal);
+}
+
 double				calc_sphere(t_object *object, t_ray *ray)
 {
 	double		a;
 	double		b;
 	double		c;
 	t_sphere	*s;
+	t_p3d		rot;
 
+	rot = object->rot;// avoir
 	s = (t_sphere *)object->ptr;
 	set_offset(object, ray);
 	a = dot_product_tp3d(ray->dir, ray->dir);
 	b = 2.0f * dot_product_tp3d(ray->dir, object->offset);
 	c = dot_product_tp3d(object->offset, object->offset) - s->radius *
 	s->radius;
-	return (calc_delta(a, b, c));
+	object->t = calc_delta(a, b, c);
+	if (!object->set)
+		sphere_normal(ray, object, rot);
+	return (object->t);
 }
