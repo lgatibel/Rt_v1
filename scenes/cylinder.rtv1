@@ -6,8 +6,13 @@
 		origin 0 0 500
 	##OBJECT
 	#CYLINDER
-		origin -0 0 500
+		origin -150 50 500
 		radius 20
-		rot 0 0 45
+		rot 0 0 90
 		color 0xFF0000
+	#CYLINDER
+		origin 150 0 500
+		radius 20
+		rot 0 0 0
+		color 0x00FF00
 ###END

@@ -34,13 +34,41 @@ double				calc_plane(t_object *object, t_ray *ray)
 	t_plane		*pl;
 	double		t;
 	double		div;
+	t_p3d		rot;
 
 	pl = (t_plane *)object->ptr;
-	if ((div = dot_product_tp3d(pl->normal, ray->dir)) == 0.0f)
+	rot = rotate_tp3d(&object->rot, &pl->normal);
+	if ((div = dot_product_tp3d(rot, ray->dir)) == 0.0f)
 		return (-8);
 	set_offset(object, ray);
-	t = -(dot_product_tp3d(pl->normal, object->offset) + pl->d) / div;
+	t = -(dot_product_tp3d(rot, object->offset) + pl->d) / div;
+	if (!object->set)
+	{
+		if (div < 0.0f)
+			cpy_tp3d(&object->normal, object->rot);
+		else
+			cpy_tp3d(&object->normal, mult_nb_tp3d(object->rot, -1));
+		normalized(&object->rot);
+	}
 	return ((t < 0) ? -8 : t);
+}
+
+static	void		cone_normal(t_ray *ray, t_object *object, t_p3d rot)
+{
+	t_cone	*cone;
+	// t_p3d		rot;
+	double		m;
+
+	cone = (t_cone *)object->ptr;
+
+	object->inter = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, object->t));
+	rot = rotate_tp3d(&object->rot, &cone->rot);
+	m = dot_product_tp3d(ray->dir, mult_nb_tp3d(rot, object->t)) +
+	dot_product_tp3d(object->offset, rot);
+
+	object->normal = sub_tp3d(sub_tp3d(object->inter, cone->pos),
+	mult_nb_tp3d(rot, m));
+	normalized(&object->normal);
 }
 
 double				calc_cone(t_object *object, t_ray *ray)
@@ -52,6 +80,7 @@ double				calc_cone(t_object *object, t_ray *ray)
 	t_cone		*co;
 
 	co = (t_cone *)object->ptr;
+	object->rot = rotate_tp3d(&object->rot, &co->rot);
 	tanj = 1.0f + tan(co->radius / 2.0f * ((double)M_PI / 180.0f)) *
 	tan(co->radius / 2.0f * ((double)M_PI / 180.0f));
 	set_offset(object, ray);
@@ -64,7 +93,26 @@ double				calc_cone(t_object *object, t_ray *ray)
 	c = dot_product_tp3d(object->offset, object->offset) - tanj *
 	dot_product_tp3d(object->offset, object->rot) *
 	dot_product_tp3d(object->offset, object->rot);
+	if (!object->set)
+		cone_normal(ray, object, object->rot);
 	return (calc_delta(a, b, c));
+}
+
+static	void		cylinder_normal(t_ray *ray, t_object *object, t_p3d rot)
+{
+	t_cylinder	*cyl;
+	double		m;
+
+	cyl = (t_cylinder *)object->ptr;
+
+	object->inter = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, object->t));
+	// rot = rotate_tp3d(&object->rot, &cyl->rot);
+	m = dot_product_tp3d(ray->dir, mult_nb_tp3d(rot, object->t)) +
+	dot_product_tp3d(object->offset, rot);
+
+	object->normal = sub_tp3d(sub_tp3d(object->inter, cyl->pos),
+	mult_nb_tp3d(rot, m));
+	normalized(&object->normal);
 }
 
 double				calc_cylinder(t_object *object, t_ray *ray)
@@ -73,45 +121,25 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	double		b;
 	double		c;
 	t_cylinder	*cyl;
-	t_p3d		rdir;
 	t_p3d		rot;
-	// t_p3d		zero;
 
 	cyl = (t_cylinder *)object->ptr;
-	// set_offset(object, ray);
+	object->offset = sub_tp3d(ray->pos, cyl->pos);
+	rot = rotate_tp3d(&object->rot, &cyl->rot);
 
-	// object->offset = sub_tp3d(ray->pos, cyl->pos);
-	rdir = ray->dir;
-	// if (!ray->is_light && ray->is_light)
-	// {
-		object->offset = rotate_tp3d2(ray->pos,	cyl->pos, &cyl->rot);
-		// if (!object->set)
-		rot = rotate_tp3d(&object->rot, &cyl->rot);
-	// }
-	// else
-	// {
-		
-	// 	object->offset = rotate_tp3d2(ray->pos, sub_tp3d(ray->pos,
-	// 	cyl->pos), &cyl->rot);
-	// 	// object->offset = rotate_tp3d2(ray->pos, 
-	// 	// cyl->pos, &cyl->rot);
-	// 	// object->offset = sub_tp3d(ray->pos, cyl->pos);
-	// }
-	// rdir = rotate_tp3d(&ray->dir, &cyl->rot);
-	// object->offset = rotate_tp3d2(ray->pos, cyl->pos, &cyl->rot);
-
-	a = dot_product_tp3d(rdir, rdir) -
-	dot_product_tp3d(rdir, rot) *
-	dot_product_tp3d(rdir, rot);
-	b = 2.0f * (dot_product_tp3d(rdir, object->offset) -
-	dot_product_tp3d(rdir, rot) *
+	a = dot_product_tp3d(ray->dir, ray->dir) -
+	dot_product_tp3d(ray->dir, rot) *
+	dot_product_tp3d(ray->dir, rot);
+	b = 2.0f * (dot_product_tp3d(ray->dir, object->offset) -
+	dot_product_tp3d(ray->dir, rot) *
 	dot_product_tp3d(object->offset, rot));
 	c = dot_product_tp3d(object->offset, object->offset) -
 	dot_product_tp3d(object->offset, rot) *
 	dot_product_tp3d(object->offset, rot) -
 	cyl->radius * cyl->radius;
-	
 	object->t = calc_delta(a, b, c);
+	if (!object->set)
+		cylinder_normal(ray, object, rot);
 	return (object->t);
 }
 

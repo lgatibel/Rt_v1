@@ -68,9 +68,15 @@ t_p3d			rotate_tp3d2(t_p3d ray, t_p3d pos, t_p3d *rot)
 	sin(rot->z), cos(rot->x) * (-sin(rot->y)) * (-sin(rot->z)) + sin(rot->x) *
 	cos(rot->z), cos(rot->x) * cos(rot->y));
 
-	sub_tp3d(ray, pos);
-	res.x = pos.x - cross_product_tp3d(matx, pos);
-	res.y = pos.y - cross_product_tp3d(maty, pos);
-	res.z = pgit os.z - cross_product_tp3d(matz, pos);
+
+	res = sub_tp3d(ray, pos);
+
+	res.x = dot_product_tp3d(matx, res);
+	res.y = dot_product_tp3d(maty, res);
+	res.z = dot_product_tp3d(matz, res);
+	// 	sub_tp3d(ray, pos);
+	// res.x = pos.x - cross_product_tp3d(matx, pos);
+	// res.y = pos.y - cross_product_tp3d(maty, pos);
+	// res.z = pos.z - cross_product_tp3d(matz, pos);
 	return (res);
 }

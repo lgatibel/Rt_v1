@@ -32,7 +32,7 @@ int					calc_light(t_env *env)
 		return (FONT);
 	reverse_tp3d(&light->dir);
 	
-	nearest->normal = calc_normal(&nearest->inter, nearest);
+	// nearest->normal = calc_normal(&nearest->inter, nearest);
 
 
 	// light->dir = rotate_tp3d(&light->dir, &env->nearest_object->rot);
