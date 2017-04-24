@@ -56,8 +56,8 @@ void				trace(t_env *env)
 			// {
 			if ((env->nearest_object = calc_object(env->object, &env->ray)))
 			{
+				color = env->nearest_object->color;
 				color = calc_light(env);
-				// color = env->nearest_object->color;
 			}
 			else
 				color = env->font_color;

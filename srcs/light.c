@@ -30,10 +30,10 @@ int					calc_light(t_env *env)
 	if (!(nearest = calc_object(env->object, light)) ||
 	env->nearest_object != nearest)
 		return (FONT);
+	reverse_tp3d(&light->dir);
 	
 	nearest->normal = calc_normal(&nearest->inter, nearest);
 
-	reverse_tp3d(&light->dir);
 
 	// light->dir = rotate_tp3d(&light->dir, &env->nearest_object->rot);
 	// nearest->normal = rotate_tp3d(&nearest->normal, &env->nearest_object->rot);

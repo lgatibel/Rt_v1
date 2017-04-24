@@ -14,7 +14,7 @@
 
 void				malloc_object(t_object **obj, t_object **object, int i)
 {
-	if (i <= 0)
+	if (!i)
 	{
 		if (!(*obj = (t_object *)malloc(sizeof(t_object))))
 			err(__FILE__, __LINE__, "malloc error !!", EXIT);

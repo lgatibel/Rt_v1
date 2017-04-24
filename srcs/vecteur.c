@@ -41,26 +41,18 @@ double				length_ray(t_ray *ray, double t, t_object *object)
 	// dot_product_tp3d(object->offset, rot);
 	// object->offset = sub_tp3d(ray->pos, cyl->pos);
 		// object->offset = rotate_tp3d2(ray->pos, cyl->pos, &cyl->rot);
+		t_p3d	rot;
+		t_p3d	test;
+		set_tp3d(&test, 0, 00, 0);
 
-		 m = dot_product_tp3d(ray->dir, object->rot) * object->t +
-	 	dot_product_tp3d(object->offset, object->rot);
+		// object->offset = rotate_tp3d2(test,	cyl->pos, &cyl->rot);
+		rot = rotate_tp3d(&object->rot, &cyl->rot);
 
-		// t_p3d		test;
-		// test = ray->dir;
-		// test = rotate_tp3d(&ray->dir, &cyl->rot);
-		// m = dot_product_tp3d(test, object->rot) * object->t +
-	 	// dot_product_tp3d(object->offset, object->rot);
 
-		// t_p3d		test;
-		// t_p3d		test22;
-		// test = rotate_tp3d(&obje ct->rot, &cyl->rot);
-		// object->offset = rotate_tp3d2(ray->pos, cyl->pos, &cyl->rot);
-		// object->offset = sub_tp3d(ray->pos,  cyl->pos);
-		// test22 = rotate_tp3d(&object->offset, &cyl->rot);
-		// m = dot_product_tp3d(ray->dir, object->rot) * object->t +
-	 	// dot_product_tp3d(test22, object->rot);
+		 m = dot_product_tp3d(ray->dir, mult_nb_tp3d(rot, object->t)) +
+	 	dot_product_tp3d(object->offset, rot);
 
-		object->normal = sub_tp3d(sub_tp3d(intersect, cyl->pos), mult_nb_tp3d(object->rot, m));
+		object->normal = sub_tp3d(sub_tp3d(intersect, cyl->pos), mult_nb_tp3d(rot, m));
 		// printf("vecteur\n");
 		// printf("x[%f], y[%f], z[%f]\n", object->normal.x, object->normal.y, object->normal.z);
 		
