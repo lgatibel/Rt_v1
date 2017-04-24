@@ -27,7 +27,7 @@ double				length_ray(t_ray *ray, double t, t_object *object)
 	intersect = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, t));
 	res = sub_tp3d(intersect, ray->pos);
 
-	if (object->set == false)
+	if (!object->set)
 		cpy_tp3d(&object->inter, intersect);
 	
 	double		m;
