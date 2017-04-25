@@ -73,6 +73,7 @@ double				calc_cone(t_object *object, t_ray *ray)
 	object->t = calc_delta(a, b, c);
 	if (!object->set)
 		calc_cone_normal(ray, object, object->rot, tanj);
+	set_tp3d(&object->rot, 0.0f, 1.0f, 0.0f);
 	return (object->t);
 }
 
