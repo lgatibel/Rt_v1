@@ -3,7 +3,7 @@
 		origin 0 0 0
 		rot 0 0 1
 	##SPOT
-		origin 00 0 400
+		origin 0 0 500
 	##OBJECT
 	#SPHERE
 		origin 100 -120 500
@@ -41,19 +41,16 @@
 		rot 0 0 0
 		color 0xFF00FF
 	#PLANE
-		origin 0 -10 0
+		origin 0 -100 0
 		norm 0 0 0
-		length 100
 		color 0x00834700
 	#PLANE
-		origin 0 10 0
+		origin 0 100 0
 		norm 0 0 0
-		length -100
 		color 0x00FF00
 	#PLANE
 		origin 0 0 900
 		norm 90 0 0
-		length 100
 		color 0x33ccff
 ###END
 	

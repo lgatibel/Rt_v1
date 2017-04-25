@@ -25,9 +25,5 @@
             origin 50 0 100
             norm 0 0 90
             color 0xffffff
-        #PLANE
-            origin 0 0 0
-            norm 0 0 0
-            color 0x00FF00
     ###END
 

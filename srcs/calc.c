@@ -32,7 +32,6 @@ double				calc_delta(double a, double b, double c)
 double				calc_plane(t_object *object, t_ray *ray)
 {
 	t_plane		*pl;
-	double		t;
 	double		div;
 	t_p3d		rot;
 
@@ -44,8 +43,7 @@ double				calc_plane(t_object *object, t_ray *ray)
 	if ((div = dot_product_tp3d(rot, ray->dir)) == 0.0f)
 		return (-8);
 	set_offset(object, ray);
-	t = -(dot_product_tp3d(rot, object->offset) + 0.00001f) / div;
-	object->t  = t;
+	object->t = -(dot_product_tp3d(rot, object->offset) + 0.00001f) / div;
 	if (!object->set)
 	{
 		object->inter = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, object->t));
