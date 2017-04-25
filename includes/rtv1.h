@@ -154,11 +154,13 @@ double				calc_norm(t_p3d *vec);
 double				length_ray(t_ray *ray, double t, t_object *object);
 void				calc_ray(t_env *env, double x, double y);
 
-t_p3d				calc_sphere_normal(t_p3d *intersect, t_object *object);
-t_p3d				calc_cylinder_normal(t_p3d *intersect, t_object *object);
-t_p3d				calc_cone_normal(t_object *object);
-t_p3d				calc_plane_normal(t_object *object);
-t_p3d				calc_normal(t_p3d *intersect, t_object *object);
+void				calc_plane_normal(t_ray *ray, t_object *object, t_p3d rot,
+ double div);
+void				calc_cone_normal(t_ray *ray, t_object *object, t_p3d rot,
+ double tanj);
+void				calc_cylinder_normal(t_ray *ray, t_object *object,
+ t_p3d rot);
+void				calc_sphere_normal(t_ray *ray, t_object *object);
 
 t_object			*calc_object(t_object *object, t_ray *ray);
 
@@ -174,8 +176,4 @@ void				print_line(char **str);
 void				malloc_object(t_object **obj, t_object **object, int i);
 
 void				set_offset(t_object *object, t_ray *ray);
-
-
-t_p3d			rotate_tp(t_p3d *ray, t_p3d rot, t_p3d pos);
-
 #endif

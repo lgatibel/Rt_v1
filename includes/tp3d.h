@@ -33,13 +33,7 @@ void				cpy_tp3d(t_p3d *dest, t_p3d src);
 void				reverse_tp3d(t_p3d *vec);
 t_p3d	    		rotate_tp3d(t_p3d *ray, t_p3d *rot);
 
-
 void				print_tp3d(t_p3d *vector);
 void				set_tp3d(t_p3d *vec, double x, double y,
 double z);
-
-
-
-t_p3d			rotate_tp3d2(t_p3d ray, t_p3d pos, t_p3d *rot);
-
 #endif

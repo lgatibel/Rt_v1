@@ -35,10 +35,7 @@ double				calc_plane(t_object *object, t_ray *ray)
 	double		div;
 	t_p3d		rot;
 
-
 	pl = (t_plane *)object->ptr;
-	// printf("x[%f], y[%f], z[%f]\n", pl->normal.x, pl->normal.y, pl->normal.z);
-
 	rot = rotate_tp3d(&object->rot, &pl->normal);
 	if ((div = dot_product_tp3d(rot, ray->dir)) == 0.0f)
 		return (-8);
@@ -46,32 +43,9 @@ double				calc_plane(t_object *object, t_ray *ray)
 	object->t = -(dot_product_tp3d(rot, object->offset) + 0.00001f) / div;
 	if (!object->set)
 	{
-		object->inter = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, object->t));
-		if (div < 0.0f)
-			cpy_tp3d(&object->normal, rot);
-		else
-			cpy_tp3d(&object->normal, mult_nb_tp3d(rot, -1));
-		normalized(&object->normal);
+		calc_plane_normal(ray, object, rot, div);
 	}
 	return (object->t);
-}
-
-static	void		cone_normal(t_ray *ray, t_object *object, t_p3d rot)
-{
-	t_cone	*cone;
-	// t_p3d		rot;
-	double		m;
-
-	cone = (t_cone *)object->ptr;
-
-	object->inter = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, object->t));
-	rot = rotate_tp3d(&object->rot, &cone->rot);
-	m = dot_product_tp3d(ray->dir, mult_nb_tp3d(rot, object->t)) +
-	dot_product_tp3d(object->offset, rot);
-
-	object->normal = sub_tp3d(sub_tp3d(object->inter, cone->pos),
-	mult_nb_tp3d(rot, m));
-	normalized(&object->normal);
 }
 
 double				calc_cone(t_object *object, t_ray *ray)
@@ -98,25 +72,8 @@ double				calc_cone(t_object *object, t_ray *ray)
 	dot_product_tp3d(object->offset, object->rot);
 	object->t = calc_delta(a, b, c);
 	if (!object->set)
-		cone_normal(ray, object, object->rot);
+		calc_cone_normal(ray, object, object->rot, tanj);
 	return (object->t);
-}
-
-static	void		cylinder_normal(t_ray *ray, t_object *object, t_p3d rot)
-{
-	t_cylinder	*cyl;
-	double		m;
-
-	cyl = (t_cylinder *)object->ptr;
-
-	object->inter = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, object->t));
-	// rot = rotate_tp3d(&object->rot, &cyl->rot);
-	m = dot_product_tp3d(ray->dir, mult_nb_tp3d(rot, object->t)) +
-	dot_product_tp3d(object->offset, rot);
-
-	object->normal = sub_tp3d(sub_tp3d(object->inter, cyl->pos),
-	mult_nb_tp3d(rot, m));
-	normalized(&object->normal);
 }
 
 double				calc_cylinder(t_object *object, t_ray *ray)
@@ -130,7 +87,6 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	cyl = (t_cylinder *)object->ptr;
 	object->offset = sub_tp3d(ray->pos, cyl->pos);
 	rot = rotate_tp3d(&object->rot, &cyl->rot);
-
 	a = dot_product_tp3d(ray->dir, ray->dir) -
 	dot_product_tp3d(ray->dir, rot) *
 	dot_product_tp3d(ray->dir, rot);
@@ -143,21 +99,8 @@ double				calc_cylinder(t_object *object, t_ray *ray)
 	cyl->radius * cyl->radius;
 	object->t = calc_delta(a, b, c);
 	if (!object->set)
-		cylinder_normal(ray, object, rot);
+		calc_cylinder_normal(ray, object, rot);
 	return (object->t);
-}
-
-static	void		sphere_normal(t_ray *ray, t_object *object, t_p3d rot)
-{
-	t_sphere	*sphere;
-
-	set_tp3d(&rot, 0, 0, 0);// a supprimer
-
-
-	sphere = (t_sphere *)object->ptr;
-	object->inter = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, object->t));
-	object->normal = sub_tp3d(object->inter, sphere->pos);
-	normalized(&object->normal);
 }
 
 double				calc_sphere(t_object *object, t_ray *ray)
@@ -166,9 +109,7 @@ double				calc_sphere(t_object *object, t_ray *ray)
 	double		b;
 	double		c;
 	t_sphere	*s;
-	t_p3d		rot;
 
-	rot = object->rot;// avoir
 	s = (t_sphere *)object->ptr;
 	set_offset(object, ray);
 	a = dot_product_tp3d(ray->dir, ray->dir);
@@ -177,6 +118,6 @@ double				calc_sphere(t_object *object, t_ray *ray)
 	s->radius;
 	object->t = calc_delta(a, b, c);
 	if (!object->set)
-		sphere_normal(ray, object, rot);
+		calc_sphere_normal(ray, object);
 	return (object->t);
 }

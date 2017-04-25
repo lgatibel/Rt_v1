@@ -12,7 +12,6 @@
 
 #include <rtv1.h>
 
-// voir posur les radius negatif
 static void			set_plane(t_env *env, int fd, t_object **obj)
 {
 	int			i;
@@ -33,8 +32,6 @@ static void			set_plane(t_env *env, int fd, t_object **obj)
 			ok[0] = set_vecteur(&tab[1], &plane->pos);
 		else if (!ft_strcmp(ft_strtrim(tab[0]), "norm"))
 			ok[1] = set_rotation_vecteur(&tab[1], &plane->normal);
-		// else if (!ft_strcmp(ft_strtrim(tab[0]), "length"))
-		// 	ok[2] = set_radius(&tab[1], &plane->d);
 		else if (!ft_strcmp(ft_strtrim(tab[0]), "color"))
 			ok[2] = set_color(&tab[1], &(*obj)->color);
 	}

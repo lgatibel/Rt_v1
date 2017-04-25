@@ -64,6 +64,5 @@ t_object			*parse_file(char *file, t_env *env)
 			manage_parameter(fd, env);
 	}
 	handle_error(index, fd, env);
-	// set_viewplane(env);
 	return (env->object);
 }
