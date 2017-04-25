@@ -19,13 +19,13 @@ double				calc_norm(t_p3d *vec)
 
 double				length_ray(t_ray *ray, double t, t_object *object)
 {
-	t_p3d		intersect;
+	// t_p3d		intersect;
 	t_p3d		res;
 
 	if (t <= 0.0f)
 		return (-8);
-	intersect = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, t));
-	res = sub_tp3d(intersect, ray->pos);
+	// intersect = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, t));
+	res = sub_tp3d(object->inter, ray->pos);
 	object->set = true;
 	return (calc_norm(&res));
 }

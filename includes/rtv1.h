@@ -79,7 +79,6 @@ typedef struct		s_ray
 {
 	t_p3d			pos;
 	t_p3d			dir;
-	int				is_light;
 }					t_ray;
 
 typedef struct		s_object
@@ -111,11 +110,9 @@ typedef struct		s_env
 	t_ray		light;
 	t_object	*object;
 	t_object	*nearest_object;
-
 	t_p3d		indent;
 	t_p3d		basis;
 	double		length;
-
 	int			font_color;
 	void		*mlx;
 	void		*win;
@@ -124,7 +121,6 @@ typedef struct		s_env
 	int			bpp;
 	int			size_line;
 	int			endian;
-
 	char		*line;
 	int			i;
 }					t_env;

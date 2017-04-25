@@ -1,7 +1,7 @@
 ###START
 	##CAM
-		origin 0 0 0
-		rot 0 0 1
+		origin 0 0 -200
+		rot 0 0 55
 	##SPOT
 		origin 0 0 400
 	##OBJECT

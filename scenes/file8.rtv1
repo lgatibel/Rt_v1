@@ -1,63 +1,58 @@
 ###START
 	##CAM
 		origin 0 0 0
-		rot 0 0 45
+		rot 0 0 30
 	##SPOT
 	origin 0 0 0
 	##OBJECT
 	#SPHERE
-		origin 100 -120 500
+		origin 100 -100 500
 		radius 50
 		rot 0 0 0
 		color 0xFFFFFF
 	#SPHERE
-		origin -100 -120 500
+		origin -100 -100 500
 		radius 50
 		rot 0 0 0
 		color 0xFFFFFF
 	#SPHERE
-		origin 100 120 500
+		origin 100 100 500
 		radius 50
 		rot 0 0 0
 		color 0xFF0000
 	#SPHERE
-		origin -100 120 500
+		origin -100 100 500
 		radius 50
 		rot 0 0 0
 		color 0xFF0000
 	#CYLINDER
-		origin -100 0 500
+		origin 0 -100 500
 		radius 30
 		rot 0 0 90
 		color 0x0000FF
 	#CYLINDER
-		origin 100 0 500
+		origin 0 100 500
 		radius 30
 		rot 0 0 90
 		color 0x0000FF
-	#PLANE
-		origin 0 0 0
-		norm 0 1 0
-		length 150
-		color 0x00834700
 	#PLANE
 		origin 0 150 0
-		norm 0 -1 0
-		length 1
+		norm 0 0 0
+		color 0x00834700
+	#PLANE
+		origin 0 -150 0
+		norm 0 0 0
 		color 0x00FF00
 	#PLANE
-		origin 0 0 0
-		norm -1 0 0
-		length 100
+		origin -100 0 0
+		norm 0 0 90
 		color 0x33FFFC
 	#PLANE
-		origin 0 0 0
-		norm 1 0 0
-		length 100
+		origin 100 0 0
+		norm 0 0 90
 		color 0x33FFFC
 ###END
 	#PLANE
-		origin 0 0 0
-		norm 0 0 -1
-		length 600
+		origin 0 0 600
+		norm 90 0 0
 		color 0xB60AE1

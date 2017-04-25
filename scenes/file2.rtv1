@@ -1,9 +1,9 @@
 ###START
 	##CAM
 		origin 0 0 0
-		rot 0 0 1
+		rot 0 0 55
 	##SPOT
-		origin 0 0 0
+		origin 0 0 200
 	##OBJECT
 	#SPHERE
 		origin 100 -120 500
@@ -34,20 +34,23 @@
 		origin 100 0 500
 		radius 30
 		rot 0 0 0
-		color 0x0000FF
+		color 0x00FFFF
+	#CONE
+		origin 0 0 700
+		radius 30
+		rot 0 0 0
+		color 0x00FF08
+	#CONE
+		origin 0 0 700
+		radius 30
+		rot 0 0 90
+		color 0xff0000
 	#PLANE
-		origin 0 -1 0
-		norm 0 1 0
-		length 100
+		origin 0 -100 0
+		norm 0 0 0
 		color 0x00834700
 	#PLANE
-		origin 0 1 0
-		norm 0 1 0
-		length -100
+		origin 0 100 0
+		norm 0 0 0
 		color 0x9999FF
 ###END
-	#SPHERE
-		origin 1 0 1
-		radius 1
-		rot 0 0 0
-		color 0xFF0000
