@@ -1,33 +1,34 @@
 ###START
-##CAM
-origin 0 0 0
-rot 0 0 0
-##SPOT
-origin 0 0 0
-##OBJECT
-#PLANE
-origin 0 10 0
-norm 0 -1 0
-length 1
-color 0x0000ff
-#PLANE
-origin 0 -10 0
-norm 0 1 0
-length 1
-color 0x00ff00
-#PLANE
-origin -10 0 0
-norm 1 0 0
-length 1
-color 0xffffff
-#PLANE
-origin 10 0 0
-norm -1 0 0
-length 1
-color 0xffffff
-#PLANE
-origin 0 0 110
-norm 0 0 -1
-length 1
-color 0xff0000
-###END
+    ##CAM
+        origin 0 0 0
+        rot 0 0 0
+    ##SPOT
+        origin 0 0 0
+    ##OBJECT
+        #PLANE
+            origin 0 50 100
+            norm 0 0 0
+            length 1
+            color 0x0000ff
+        #PLANE
+            origin 0 -50 100
+            norm 0 0 0
+            length 1
+            color 0x00ff00
+        #PLANE
+            origin 0 0 600
+            norm 90 0 0
+            length 1
+            color 0xff0000
+        #PLANE
+            origin -50 0 100
+            norm 0 0 90
+            length 1
+            color 0xffffff
+        #PLANE
+            origin 50 0 100
+            norm 0 0 90
+            length 1
+            color 0xffffff
+    ###END
+

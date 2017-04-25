@@ -36,7 +36,10 @@ double				calc_plane(t_object *object, t_ray *ray)
 	double		div;
 	t_p3d		rot;
 
+
 	pl = (t_plane *)object->ptr;
+	// printf("x[%f], y[%f], z[%f]\n", pl->normal.x, pl->normal.y, pl->normal.z);
+
 	rot = rotate_tp3d(&object->rot, &pl->normal);
 	if ((div = dot_product_tp3d(rot, ray->dir)) == 0.0f)
 		return (-8);
@@ -45,13 +48,14 @@ double				calc_plane(t_object *object, t_ray *ray)
 	object->t  = t;
 	if (!object->set)
 	{
-		if (div > 0.0f)
+		object->inter = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, object->t));
+		if (div < 0.0f)
 			cpy_tp3d(&object->normal, rot);
 		else
 			cpy_tp3d(&object->normal, mult_nb_tp3d(rot, -1));
 		normalized(&object->normal);
 	}
-	return ((t < 0.0f) ? -8 : t);
+	return (object->t);
 }
 
 static	void		cone_normal(t_ray *ray, t_object *object, t_p3d rot)

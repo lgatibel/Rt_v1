@@ -8,7 +8,7 @@ origin 0 0 0
 #CONE
 origin 0 0 500
 radius 90
-rot 0 0 0
+rot 0 0 45
 color 0XFF0000
 ###END
 #CYLINDER

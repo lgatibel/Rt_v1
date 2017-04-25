@@ -30,7 +30,11 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 		else if (object->type == PLANE)
 			t = calc_plane(object, ray);
 		object->dist = length_ray(ray, t, object);
-		if (object->dist >= 0 && ((!nearest) || (object->dist < nearest->dist)))
+
+		// if (object->dist > 0.0f && object->set)
+		// printf("dist[%f]\n", object->dist);
+
+		if (object->dist >= 0.0f && ((!nearest) || (object->dist < nearest->dist)))
 			nearest = object;
 		object = object->next;
 	}
