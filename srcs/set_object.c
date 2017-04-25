@@ -17,15 +17,15 @@ static void			set_plane(t_env *env, int fd, t_object **obj)
 {
 	int			i;
 	char		**tab;
-	char		ok[5];
+	char		ok[4];
 	t_plane		*plane;
 
 	i = -1;
 	plane = (t_plane *)malloc(sizeof(t_plane));
 	(*obj)->ptr = plane;
 	(*obj)->type = PLANE;
-	ft_bzero(&ok, 5);
-	while (++i < 4 && (get_next_line(fd, &env->line)) > 0 &&
+	ft_bzero(&ok, 4);
+	while (++i < 3 && (get_next_line(fd, &env->line)) > 0 &&
 			(tab = ft_strsplit(env->line, ' ')))
 	{
 		print_line(&env->line);
@@ -33,12 +33,12 @@ static void			set_plane(t_env *env, int fd, t_object **obj)
 			ok[0] = set_vecteur(&tab[1], &plane->pos);
 		else if (!ft_strcmp(ft_strtrim(tab[0]), "norm"))
 			ok[1] = set_rotation_vecteur(&tab[1], &plane->normal);
-		else if (!ft_strcmp(ft_strtrim(tab[0]), "length"))
-			ok[2] = set_radius(&tab[1], &plane->d);
+		// else if (!ft_strcmp(ft_strtrim(tab[0]), "length"))
+		// 	ok[2] = set_radius(&tab[1], &plane->d);
 		else if (!ft_strcmp(ft_strtrim(tab[0]), "color"))
-			ok[3] = set_color(&tab[1], &(*obj)->color);
+			ok[2] = set_color(&tab[1], &(*obj)->color);
 	}
-	if (!args_required(ok, 4))
+	if (!args_required(ok, 3))
 		err(__FILE__, __LINE__, "bad parameter", EXIT);
 }
 

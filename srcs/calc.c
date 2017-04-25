@@ -44,7 +44,7 @@ double				calc_plane(t_object *object, t_ray *ray)
 	if ((div = dot_product_tp3d(rot, ray->dir)) == 0.0f)
 		return (-8);
 	set_offset(object, ray);
-	t = -(dot_product_tp3d(rot, object->offset) + pl->d) / div;
+	t = -(dot_product_tp3d(rot, object->offset) + 0.00001f) / div;
 	object->t  = t;
 	if (!object->set)
 	{

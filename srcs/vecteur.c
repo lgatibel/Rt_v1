@@ -22,7 +22,7 @@ double				length_ray(t_ray *ray, double t, t_object *object)
 	t_p3d		intersect;
 	t_p3d		res;
 
-	if (t <= 0.0f)
+	if (t < 0.0f)
 		return (-8);
 	intersect = sum_tp3d(ray->pos, mult_nb_tp3d(ray->dir, t));
 	res = sub_tp3d(intersect, ray->pos);
