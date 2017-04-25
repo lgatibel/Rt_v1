@@ -19,7 +19,6 @@
 # include <error.h>
 # include <fcntl.h>
 # include <tp3d.h>
-# include <stdio.h>// a virer
 
 # define WIDTH 1244.0f
 # define HEIGHT 588.0f
@@ -95,8 +94,6 @@ typedef struct		s_object
 	t_p3d				rot;
 	t_p3d				inter;
 	t_bool				set;
-	// double				norminter;
-	// double				normlight;
 	double				t;
 }					t_object;
 
@@ -155,11 +152,11 @@ double				length_ray(t_ray *ray, double t, t_object *object);
 void				calc_ray(t_env *env, double x, double y);
 
 void				calc_plane_normal(t_ray *ray, t_object *object, t_p3d rot,
- double div);
+double div);
 void				calc_cone_normal(t_ray *ray, t_object *object, t_p3d rot,
- double tanj);
+double tanj);
 void				calc_cylinder_normal(t_ray *ray, t_object *object,
- t_p3d rot);
+t_p3d rot);
 void				calc_sphere_normal(t_ray *ray, t_object *object);
 
 t_object			*calc_object(t_object *object, t_ray *ray);
