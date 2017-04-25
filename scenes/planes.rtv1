@@ -1,0 +1,28 @@
+###START
+    ##CAM
+        origin 0 0 0
+        rot 0 0 55
+    ##SPOT
+        origin 0 10 0
+    ##OBJECT
+        #PLANE
+            origin 0 50 100
+            norm 0 0 0
+            color 0x0000ff
+        #PLANE
+            origin 0 -50 100
+            norm 0 0 0
+            color 0x00ff00
+        #PLANE
+            origin 0 0 600
+            norm 90 0 0
+            color 0xff0000
+        #PLANE
+            origin -50 0 100
+            norm 0 0 90
+            color 0xffffff
+        #PLANE
+            origin 50 0 100
+            norm 0 0 90
+            color 0xffffff
+    ###END
