@@ -6,11 +6,12 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2017/02/09 17:17:54 by lgatibel         ###   ########.fr       */
+/*   Updated: 2017/05/02 09:57:21 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
+#define PREC 0.00001f
 
 t_object			*calc_object(t_object *object, t_ray *ray)
 {
@@ -30,8 +31,8 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 		else if (object->type == PLANE)
 			t = calc_plane(object, ray);
 		object->dist = length_ray(ray, t, object);
-		if (object->dist > 0.0f && ((!nearest) ||
-		(object->dist < nearest->dist)))
+		if (object->dist  > 0.0f && ((!nearest) ||
+		(object->dist < nearest->dist + PREC)))
 			nearest = object;
 		object = object->next;
 	}
