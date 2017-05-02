@@ -6,12 +6,11 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 13:19:35 by lgatibel          #+#    #+#             */
-/*   Updated: 2017/05/02 09:57:21 by lgatibel         ###   ########.fr       */
+/*   Updated: 2017/05/02 10:07:22 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rtv1.h>
-#define PREC 0.00001f
 
 t_object			*calc_object(t_object *object, t_ray *ray)
 {
@@ -31,7 +30,7 @@ t_object			*calc_object(t_object *object, t_ray *ray)
 		else if (object->type == PLANE)
 			t = calc_plane(object, ray);
 		object->dist = length_ray(ray, t, object);
-		if (object->dist  > 0.0f && ((!nearest) ||
+		if (object->dist > 0.0f && ((!nearest) ||
 		(object->dist < nearest->dist + PREC)))
 			nearest = object;
 		object = object->next;
@@ -57,7 +56,7 @@ void				trace(t_env *env)
 			if ((env->nearest_object = calc_object(env->object, &env->ray)))
 				color = calc_light(env);
 			else
-				color = env->font_color;
+				color = FONT;
 			*(env->img_addr + x + (y * env->size_line) / 4) = color;
 		}
 	}

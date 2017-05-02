@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 12:25:38 by lgatibel          #+#    #+#             */
-/*   Updated: 2016/12/27 13:14:21 by lgatibel         ###   ########.fr       */
+/*   Updated: 2017/05/02 10:05:36 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void				set_env(t_env *env)
 	env->indent.z = 0.0f;
 	env->object = NULL;
 	env->nearest_object = NULL;
-	env->font_color = FONT;
 	env->bpp = 0;
 	env->size_line = 0;
 	env->endian = 0;

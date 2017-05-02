@@ -6,7 +6,7 @@
 /*   By: lgatibel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 14:10:19 by lgatibel          #+#    #+#             */
-/*   Updated: 2017/04/13 14:10:20 by lgatibel         ###   ########.fr       */
+/*   Updated: 2017/05/02 10:03:56 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ int					calc_light(t_env *env)
 	light = set_light(env);
 	if (!(nearest = calc_object(env->object, light)) ||
 	env->nearest_object != nearest)
-	{
 		return (FONT);
-	}
 	reverse_tp3d(&light->dir);
 	angle = dot_product_tp3d(nearest->normal, light->dir);
 	diffuse = (angle > 0.0f) ? angle * COEFF : 0;

@@ -6,7 +6,7 @@
 /*   By: lgatibel <lgatibel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 14:52:41 by lgatibel          #+#    #+#             */
-/*   Updated: 2017/01/25 11:49:50 by lgatibel         ###   ########.fr       */
+/*   Updated: 2017/05/02 10:05:50 by lgatibel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # define WIDTH 1244.0f
 # define HEIGHT 588.0f
+# define PREC 0.00001f
 # define RED 0XFF0000
 # define GREEN 0X00FF00
 # define BLUE 0X0000FF
@@ -113,7 +114,6 @@ typedef struct		s_env
 	t_p3d		indent;
 	t_p3d		basis;
 	double		length;
-	int			font_color;
 	void		*mlx;
 	void		*win;
 	void		*img;
